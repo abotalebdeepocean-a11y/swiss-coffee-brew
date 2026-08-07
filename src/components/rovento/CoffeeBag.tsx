@@ -13,6 +13,17 @@ const BLEND_META: Record<
 
 export const BAG_VIEWBOX = "0 0 480 700";
 
+const BLEND_BY_SLUG: Record<string, BlendVariant> = {
+  "mish-premium": "premium",
+  "mish-intenso": "intenso",
+  "mish-classic": "classic",
+};
+
+/** Maps a product slug to the matching bag artwork variant. */
+export function blendVariantFor(slug: string): BlendVariant {
+  return BLEND_BY_SLUG[slug] ?? "premium";
+}
+
 /**
  * ROVENTO MISH stand-up pouch — brand asset recreated as crisp SVG.
  * Left half matte black, right half rust-terracotta, split down the middle.

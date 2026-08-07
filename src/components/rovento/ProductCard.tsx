@@ -4,7 +4,8 @@ import { Eye, Plus } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { CATEGORY_MAP, formatPrice, discountPercent } from "@/lib/products";
 import { useCart } from "@/lib/store";
-import { CoffeeBag } from "./CoffeeBag";
+import { BagVisual, } from "./BagVisual";
+import { blendVariantFor } from "./CoffeeBag";
 import { Stars } from "./art";
 
 export function ProductCard({
@@ -38,7 +39,13 @@ export function ProductCard({
           }}
         />
         <div className="flex h-full w-full items-center justify-center p-6 transition-transform duration-500 group-hover:scale-[1.05]">
-          <CoffeeBag variant="premium" label={product.nameEn.slice(0, 10).toUpperCase()} className="h-full max-h-72 w-auto" />
+          <BagVisual
+            image={product.image}
+            variant={blendVariantFor(product.slug)}
+            label={product.nameEn.slice(0, 10).toUpperCase()}
+            alt={product.name}
+            className="h-full max-h-72 w-auto"
+          />
         </div>
 
         {/* badges */}

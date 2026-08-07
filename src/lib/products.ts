@@ -1,3 +1,5 @@
+import { IMAGES } from "./images";
+
 export type CategoryId =
   | "beans"
   | "ground"
@@ -28,6 +30,8 @@ export interface Product {
   badge?: string;
   /** accent color for the blend seal / UI chip */
   accent: string;
+  /** real bag photo (base path in /public/images) — falls back to SVG art */
+  image?: string;
   roast?: string;
   arabica?: number;
   robusta?: number;
@@ -61,6 +65,7 @@ export const PRODUCTS: Product[] = [
     reviews: 214,
     badge: "الأكثر مبيعًا",
     accent: "#c9a227",
+    image: IMAGES.bags.premium,
     roast: "تحميص متوسط",
     arabica: 70,
     robusta: 30,
@@ -82,6 +87,7 @@ export const PRODUCTS: Product[] = [
     reviews: 168,
     badge: "إسبريسو قوي",
     accent: "#d03b1e",
+    image: IMAGES.bags.intenso,
     roast: "تحميص غامق",
     arabica: 60,
     robusta: 40,
@@ -102,6 +108,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviews: 142,
     accent: "#002fa7",
+    image: IMAGES.bags.classic,
     roast: "تحميص فاتح",
     arabica: 75,
     robusta: 25,
@@ -124,6 +131,7 @@ export const PRODUCTS: Product[] = [
     reviews: 96,
     badge: "أفضل قيمة",
     accent: "#c9a227",
+    image: IMAGES.bags.premium1kg,
     roast: "تحميص متوسط",
     arabica: 70,
     robusta: 30,
@@ -143,6 +151,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 87,
     accent: "#c9a227",
+    image: IMAGES.bags.groundPremium,
     roast: "تحميص متوسط",
     arabica: 70,
     robusta: 30,
@@ -162,6 +171,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviews: 61,
     accent: "#002fa7",
+    image: IMAGES.bags.groundClassic,
     roast: "تحميص فاتح",
     arabica: 75,
     robusta: 25,
@@ -182,6 +192,7 @@ export const PRODUCTS: Product[] = [
     reviews: 73,
     badge: "للعمل",
     accent: "#d03b1e",
+    image: IMAGES.bags.intenso1kg,
     roast: "تحميص غامق",
     arabica: 60,
     robusta: 40,

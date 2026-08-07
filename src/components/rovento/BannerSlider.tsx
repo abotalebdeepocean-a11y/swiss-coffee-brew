@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SLIDES } from "./Banners";
+import { SlideVisual } from "./BagVisual";
 import { cn } from "@/lib/utils";
 
 const DURATION = 6500;
@@ -46,7 +47,7 @@ export function BannerSlider() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
           >
-            <Scene />
+            <SlideVisual image={slide.image} fallback={Scene} />
           </motion.div>
         </AnimatePresence>
 

@@ -9,7 +9,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCart, orderViaWhatsApp } from "@/lib/store";
 import { getProduct, formatPrice } from "@/lib/products";
-import { CoffeeBag } from "./CoffeeBag";
+import { IMAGES } from "@/lib/images";
+import { BagVisual } from "./BagVisual";
+import { blendVariantFor } from "./CoffeeBag";
 import { WhatsAppIcon } from "./art";
 
 export function CartDrawer() {
@@ -36,7 +38,12 @@ export function CartDrawer() {
 
         {items.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-8 text-center">
-            <CoffeeBag variant="premium" className="h-44 w-auto opacity-60" />
+            <BagVisual
+              image={IMAGES.heroBag}
+              variant="premium"
+              alt="ROVENTO MISH Premium Blend"
+              className="h-44 w-auto opacity-60"
+            />
             <p className="text-lg font-semibold">سلتك فارغة</p>
             <p className="text-sm text-muted-foreground">
               ابدأ رحلتك مع قهوة مختصة تُحمَّص طازجة في مصر.
@@ -60,7 +67,13 @@ export function CartDrawer() {
                         className="shrink-0"
                       >
                         <div className="grid h-24 w-20 place-items-center border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent">
-                          <CoffeeBag variant="premium" label={p.nameEn.slice(0, 8).toUpperCase()} className="h-20 w-auto" />
+                          <BagVisual
+                            image={p.image}
+                            variant={blendVariantFor(p.slug)}
+                            label={p.nameEn.slice(0, 8).toUpperCase()}
+                            alt={p.name}
+                            className="h-20 w-auto"
+                          />
                         </div>
                       </Link>
                       <div className="flex flex-1 flex-col justify-between py-0.5">

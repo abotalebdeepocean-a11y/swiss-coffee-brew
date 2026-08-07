@@ -13,7 +13,8 @@ import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ProductCard } from "@/components/rovento/ProductCard";
-import { CoffeeBag, type BlendVariant } from "@/components/rovento/CoffeeBag";
+import { BagVisual } from "@/components/rovento/BagVisual";
+import { blendVariantFor } from "@/components/rovento/CoffeeBag";
 import { IntensityMeter, Stars, WhatsAppIcon, Steam, Bean } from "@/components/rovento/art";
 import {
   getProduct,
@@ -23,12 +24,6 @@ import {
   discountPercent,
 } from "@/lib/products";
 import { useCart, whatsappLink } from "@/lib/store";
-
-const BLEND_VARIANT: Record<string, BlendVariant> = {
-  "mish-premium": "premium",
-  "mish-intenso": "intenso",
-  "mish-classic": "classic",
-};
 
 export default function Product() {
   const { slug = "" } = useParams();
@@ -77,7 +72,7 @@ export default function Product() {
 
   const cat = CATEGORY_MAP[product.category];
   const discount = discountPercent(product);
-  const variant = BLEND_VARIANT[product.slug] ?? "premium";
+  const variant = blendVariantFor(product.slug);
   const waMessage = `مرحبًا ROVENTO 👋 أرغب في طلب:\n• ${product.name} (${product.weight ?? ""}) × ${qty} — ${formatPrice(product.price * qty)}`;
 
   return (
@@ -127,9 +122,12 @@ export default function Product() {
               />
               <Steam className="absolute end-[18%] top-4 h-44 w-16 opacity-70" delay={0.6} />
               <div className="relative flex min-h-[420px] items-center justify-center p-10 md:min-h-[560px]">
-                <CoffeeBag
+                <BagVisual
+                  image={product.image}
                   variant={variant}
-                  className="h-full max-h-[520px] w-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+                  eager
+                  alt={product.name}
+                  className="h-full max-h-[520px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
                 />
               </div>
               {discount !== null && (

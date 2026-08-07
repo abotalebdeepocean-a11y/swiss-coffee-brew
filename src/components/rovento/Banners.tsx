@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { IMAGES } from "@/lib/images";
 import { CoffeeBag } from "./CoffeeBag";
 import { Bean, Steam, CremaCup, BEAN_COLORS } from "./art";
 
@@ -395,6 +396,8 @@ export interface Slide {
   sub: string;
   ctaLabel: string;
   href: string;
+  /** real banner photo (base path in /public/images) — falls back to the scene */
+  image?: string;
   Scene: () => ReactNode;
 }
 
@@ -412,6 +415,7 @@ export const SLIDES: Slide[] = [
     sub: "محمصة صغيرة في قلب القاهرة · تحميص طازج يصل إلى باب بيتك",
     ctaLabel: "اكتشف المجموعة",
     href: "/shop",
+    image: IMAGES.banners.workshop,
     Scene: WorkshopScene,
   },
   {
@@ -427,6 +431,7 @@ export const SLIDES: Slide[] = [
     sub: "أرابيكا وروبوستا بنِسَب مضبوطة لكل أسلوب تحضير",
     ctaLabel: "تسوق الحبوب",
     href: "/shop?category=beans",
+    image: IMAGES.banners.beans,
     Scene: FloatingBeansScene,
   },
   {
@@ -442,6 +447,7 @@ export const SLIDES: Slide[] = [
     sub: "إسبريسو كامل الكريما… في مطبخك أنت",
     ctaLabel: "اشترِ حبوب الإسبريسو",
     href: "/shop?category=espresso",
+    image: IMAGES.banners.espresso,
     Scene: EspressoScene,
   },
   {
@@ -457,6 +463,7 @@ export const SLIDES: Slide[] = [
     sub: "من الحبة إلى الكوب — معدات، أدوات، ومجتمع محبي القهوة",
     ctaLabel: "تصفح المتجر",
     href: "/shop",
+    image: IMAGES.banners.experience,
     Scene: SetupScene,
   },
 ];

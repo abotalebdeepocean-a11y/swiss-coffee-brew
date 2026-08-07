@@ -2,7 +2,8 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { ArrowDown, ChevronLeft } from "lucide-react";
-import { CoffeeBag } from "./CoffeeBag";
+import { IMAGES } from "@/lib/images";
+import { BagVisual } from "./BagVisual";
 import { Bean, Steam, Stars } from "./art";
 
 const STATS = [
@@ -151,8 +152,11 @@ export function Hero() {
 
           {/* the bag */}
           <div className="relative drop-shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
-            <CoffeeBag
+            <BagVisual
+              image={IMAGES.heroBag}
               variant="premium"
+              eager
+              alt="ROVENTO MISH Premium Blend"
               className="h-[420px] w-auto animate-float-slow svg-center md:h-[520px]"
               style={{ "--rot": "-1.5deg" } as CSSProperties}
             />

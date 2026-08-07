@@ -3,7 +3,8 @@ import { Crown, Flame, Sparkles, ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { SIGNATURE_BLENDS, getProduct, formatPrice, type Product } from "@/lib/products";
 import { useCart } from "@/lib/store";
-import { CoffeeBag, type BlendVariant } from "./CoffeeBag";
+import { BagVisual } from "./BagVisual";
+import type { BlendVariant } from "./CoffeeBag";
 import { IntensityMeter } from "./art";
 import { SectionHeading } from "./Section";
 
@@ -61,8 +62,10 @@ function BlendCard({
             background: `radial-gradient(280px 260px at 50% 50%, ${product.accent}1f, transparent 70%)`,
           }}
         />
-        <CoffeeBag
+        <BagVisual
+          image={product.image}
           variant={variant}
+          alt={`ROVENTO MISH ${variant} bag`}
           className="h-64 w-auto transition-transform duration-500 group-hover:scale-[1.06] md:h-72"
         />
       </div>
