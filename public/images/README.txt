@@ -16,6 +16,14 @@ The site automatically tries png → jpg → webp, so only the base name matters
   bag-classic        →  كيس MISH كلاسيك                       Classic bag
   bag-premium-1kg    →  بريميم 1 كجم                          Premium 1kg pouch
   bag-ground-premium →  بن بريميم مطحون                       Ground premium
+
+ملاحظة: حتى ترفع صورًا مخصصة لـ 1 كجم والبن المطحون، بطاقاتهم تعرض صورة
+كيس البريميم نفسها تلقائيًا (نفس البلند). فور رفع صورة مخصصة بالاسم أعلاه،
+قل لي وأنا أوصّلها بدلًا منها.
+
+NOTE: until you upload dedicated 1kg / ground shots, their cards reuse the
+premium bag photo automatically (same blend). Once you add a dedicated file,
+tell me and I'll point them at it.
   bag-ground-classic →  بن كلاسيك مطحون                       Ground classic
   bag-intenso-1kg    →  إسبريسو إنتنسو 1 كجم                   Espresso intenso 1kg
 

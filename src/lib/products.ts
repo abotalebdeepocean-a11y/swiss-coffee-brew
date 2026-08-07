@@ -131,7 +131,8 @@ export const PRODUCTS: Product[] = [
     reviews: 96,
     badge: "أفضل قيمة",
     accent: "#c9a227",
-    image: IMAGES.bags.premium1kg,
+    // حتى تُرفع صورة 1 كجم المخصصة، نعرض صورة كيس البريميم نفسها
+    image: IMAGES.bags.premium,
     roast: "تحميص متوسط",
     arabica: 70,
     robusta: 30,
@@ -151,7 +152,8 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 87,
     accent: "#c9a227",
-    image: IMAGES.bags.groundPremium,
+    // حتى تُرفع صورة البن المطحون المخصصة، نعرض صورة كيس البريميم نفسها
+    image: IMAGES.bags.premium,
     roast: "تحميص متوسط",
     arabica: 70,
     robusta: 30,
