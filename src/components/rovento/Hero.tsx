@@ -13,6 +13,13 @@ const STATS = [
   { value: "طازج", label: "تحميص أسبوعي", en: "FRESH ROAST" },
 ];
 
+const VALUES = [
+  { ar: "تركيز", en: "FOCUS" },
+  { ar: "طاقة", en: "ENERGY" },
+  { ar: "وضوح", en: "CLARITY" },
+  { ar: "شغف", en: "PASSION" },
+];
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-white/10">
@@ -43,15 +50,27 @@ export function Hero() {
           </div>
 
           <h1 className="text-4xl font-bold leading-[1.3] text-balance md:text-6xl md:leading-[1.25]">
-            مش مجرد قهوة…
+            ليست مجرد قهوة…
             <br />
-            <span className="text-rv-red">إدمان بكل معنى الكلمة</span>
+            <span className="text-rv-red">إنها وقود العظماء!</span>
           </h1>
 
           <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-            صُمّمت لكل من يصنع الفرق. حبوب مختارة من قلب مصر، تحميص احترافي
-            طازج، ونكهة لا تُنسى — تصل إلى باب بيتك.
+            مصنوعة من أجود حبوب الأرابيكا والروبوستا، بخبرة تحميص دقيقة تمنحك
+            تركيزًا صافيًا، طاقة إيجابية، وطعمًا لا يُنسى — تصل إلى باب بيتك.
           </p>
+
+          {/* القيم الأربع — نفس شعار العلامة الحقيقي */}
+          <div className="mt-7 grid max-w-md grid-cols-4 gap-px border border-white/10 bg-white/10">
+            {VALUES.map((v) => (
+              <div key={v.en} className="bg-background px-2 py-3 text-center">
+                <div className="text-sm font-bold">{v.ar}</div>
+                <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.18em] text-rv-red/80">
+                  {v.en}
+                </div>
+              </div>
+            ))}
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link

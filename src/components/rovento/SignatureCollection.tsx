@@ -13,8 +13,8 @@ const PERSONAS: Record<
   { ar: string; en: string; icon: typeof Cat }
 > = {
   "rovento-premium": { ar: "القطّة الفضولية", en: "CURIOUS CAT", icon: Cat },
-  "rovento-intenso": { ar: "الغوريلا القوية", en: "POWERFUL GORILLA", icon: Flame },
-  "rovento-classic": { ar: "الماندريل المبدع", en: "CREATIVE MANDRILL", icon: Sparkles },
+  "rovento-intenso": { ar: "القطّة الجريئة", en: "BOLD CAT", icon: Flame },
+  "rovento-classic": { ar: "القطّة الهادئة", en: "CALM CAT", icon: Sparkles },
 };
 
 function BlendCard({
@@ -159,7 +159,7 @@ export function SignatureCollection() {
               مجموعة <span className="text-rv-red">ROVENTO</span> المميزة
             </>
           }
-          desc="ثلاثة بلندات، ثلاث شخصيات، نكهة واحدة لا تُنسى. كل كيس يحمل قصة مصرية ويصل إليك محمصًا طازجًا."
+          desc="ثلاثة بلندات… والقطّة الشهيرة على كل كيس. كل بلند له طابعه: ذهبي متوازن، أحمر جريء، أزرق ناعم — ويصلك محمصًا طازجًا."
         />
 
         <div className="grid gap-6 md:grid-cols-3">

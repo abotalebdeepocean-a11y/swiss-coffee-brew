@@ -9,30 +9,41 @@ Drop your real photos into this folder (public/images) as .png, .jpg or .webp.
 The site automatically tries png → jpg → webp, so only the base name matters.
 
 ──────────────────────────────────────────────
-الحقائب — BAGS
+الحقائب — BAGS (من صورك)
 ──────────────────────────────────────────────
-  bag-premium        →  كيس ROVENTO بريميم (الهيرو + البطاقات)  Premium bag (hero + cards)
-  bag-intenso        →  كيس ROVENTO إنتنسو                       Intenso bag
-  bag-classic        →  كيس ROVENTO كلاسيك                       Classic bag
-  bag-premium-1kg    →  بريميم 1 كجم                          Premium 1kg pouch
-  bag-ground-premium →  بن بريميم مطحون                       Ground premium
+  bag-premium      →  الصورة 4 (يسار): كيس PREMIUM BLEND أسود بجوانب صفراء
+                       Photo 4 (left): Premium Blend, black + yellow sides
+  bag-intenso      →  الصورة 4 (وسط): كيس INTENSO BLEND أسود بجوانب حمراء
+                       Photo 4 (center): Intenso Blend, black + red sides
+  bag-classic      →  الصورة 4 (يمين): كيس CLASSIC BLEND أسود بجوانب زرقاء
+                       Photo 4 (right): Classic Blend, black + blue sides
+  bag-innovation   →  الصورة 2: كيس INNOVATION BLEND (أصل إثيوبي، فيروزي)
+                       Photo 2: Innovation Blend (Ethiopia, teal accents)
+
+  bag-premium-1kg    →  بريميم 1 كجم                         Premium 1kg pouch
+  bag-ground-premium →  بن بريميم مطحون                      Ground premium
+  bag-ground-classic →  بن كلاسيك مطحون                      Ground classic
+  bag-intenso-1kg    →  إسبريسو إنتنسو 1 كجم                  Espresso intenso 1kg
 
 ملاحظة: حتى ترفع صورًا مخصصة لـ 1 كجم والبن المطحون، بطاقاتهم تعرض صورة
-كيس البريميم نفسها تلقائيًا (نفس البلند). فور رفع صورة مخصصة بالاسم أعلاه،
-قل لي وأنا أوصّلها بدلًا منها.
+كيس بلندهم تلقائيًا (نفس البلند). فور رفع صورة مخصصة بالاسم أعلاه، قل لي
+وأنا أوصّلها بدلًا منها.
 
 NOTE: until you upload dedicated 1kg / ground shots, their cards reuse the
-premium bag photo automatically (same blend). Once you add a dedicated file,
-tell me and I'll point them at it.
-  bag-ground-classic →  بن كلاسيك مطحون                       Ground classic
-  bag-intenso-1kg    →  إسبريسو إنتنسو 1 كجم                   Espresso intenso 1kg
+blend's bag photo automatically. Once you add a dedicated file, tell me and
+I'll point them at it.
 
+──────────────────────────────────────────────
 البنرات (سلايدر الصفحة الرئيسية) — BANNERS
 ──────────────────────────────────────────────
-  banner-workshop    →  سلايد 1: ورشة مصرية بأشعة الشمس        Egyptian workshop, sun rays
-  banner-beans       →  سلايد 2: حبوب طافية                    Floating beans
-  banner-espresso    →  سلايد 3: استخلاص الإسبريسو             Espresso extraction
-  banner-experience  →  سلايد 4: تجربة كاملة / فلات-لاي        Full experience flat-lay
+  banner-hero         →  الصورة 5: حملة «ليست مجرد قهوة… إنها وقود العظماء»
+                          Photo 5: sunset campaign (bag + cup + headlines)
+  banner-workshop     →  الصورة 3: الورشة المصرية (طاولة + موقد + شباك)
+                          Photo 3: Egyptian workshop (table + stove + window)
+  banner-signature    →  الصورة 4: الأكياس الثلاثة على طاولة العمل
+                          Photo 4: the three signature bags on the bench
+  banner-collections  →  الصورة 1: الأكياس الثلاثة بخلفية داكنة وذهبية
+                          Photo 1: three bags on dark gold-lit surface
 
 ──────────────────────────────────────────────
 مثال — EXAMPLE

@@ -2,44 +2,71 @@ import { useId, type CSSProperties } from "react";
 
 export type BlendVariant = "premium" | "intenso" | "classic";
 
+type BadgeSpec = {
+  top: string;
+  bottom: string;
+  x: number;
+  icon: "drop" | "scale" | "wave" | "flame";
+};
+
 const BLEND_META: Record<
   BlendVariant,
   {
     label: string;
+    /** لون الجوانب واللمسات — أصفر لبريميم، أحمر لإنتنسو، أزرق لكلاسيك */
     accent: string;
     accentDark: string;
     blendText: string;
-    flavor: string;
+    ratio: string;
+    blendAr: string;
     roast: string;
-    character: "cat" | "gorilla" | "mandrill";
+    badge: BadgeSpec[];
   }
 > = {
   premium: {
     label: "PREMIUM",
     accent: "#c9a227",
     accentDark: "#141210",
-    blendText: "ESPRESSO BLEND",
-    flavor: "Rich & Bold Flavor",
-    roast: "FRESH DARK ROAST",
-    character: "cat",
+    blendText: "PREMIUM BLEND",
+    ratio: "70% ARABICA · 30% ROBUSTA",
+    blendAr: "خلاطة بريميوم",
+    roast: "FRESH MEDIUM ROAST",
+    badge: [
+      { top: "RICH", bottom: "CREMA", x: 106, icon: "drop" },
+      { top: "BALANCED", bottom: "TASTE", x: 177, icon: "scale" },
+      { top: "SMOOTH", bottom: "FINISH", x: 248, icon: "wave" },
+      { top: "MEDIUM", bottom: "ROAST", x: 319, icon: "flame" },
+    ],
   },
   intenso: {
     label: "INTENSO",
     accent: "#d03b1e",
     accentDark: "#ffffff",
     blendText: "INTENSO BLEND",
-    flavor: "Bold & Intense",
+    ratio: "30% ARABICA · 70% ROBUSTA",
+    blendAr: "خلاطة إنتينسو",
     roast: "FRESH DARK ROAST",
-    character: "gorilla",
+    badge: [
+      { top: "EXTRA", bottom: "CREMA", x: 106, icon: "drop" },
+      { top: "STRONG", bottom: "BODY", x: 177, icon: "scale" },
+      { top: "BOLD", bottom: "TASTE", x: 248, icon: "wave" },
+      { top: "DARK", bottom: "ROAST", x: 319, icon: "flame" },
+    ],
   },
   classic: {
     label: "CLASSIC",
     accent: "#002fa7",
     accentDark: "#ffffff",
     blendText: "CLASSIC BLEND",
-    flavor: "Smooth & Fruity",
-    roast: "FRESH MEDIUM ROAST",
-    character: "mandrill",
+    ratio: "50% ARABICA · 50% ROBUSTA",
+    blendAr: "خلاطة كلاسيك",
+    roast: "FRESH MEDIUM DARK ROAST",
+    badge: [
+      { top: "RICH", bottom: "CREMA", x: 106, icon: "drop" },
+      { top: "WELL", bottom: "BALANCED", x: 177, icon: "scale" },
+      { top: "SMOOTH", bottom: "TASTE", x: 248, icon: "wave" },
+      { top: "MEDIUM", bottom: "DARK", x: 319, icon: "flame" },
+    ],
   },
 };
 
@@ -57,14 +84,13 @@ export function blendVariantFor(slug: string): BlendVariant {
 }
 
 /* ================================================================== */
-/* Characters — the illustrated brand animals                          */
+/* The mosaic cat — ROVENTO's signature mascot (all three blends)      */
 /* ================================================================== */
 
-/** Premium — the curious cat: sitting cross-legged, holding a coffee cup. */
-function CatCharacter() {
+function CatCharacter({ accent }: { accent: string }) {
   return (
     <g>
-      {/* abstract shapes — magenta / blue / gold */}
+      {/* abstract shapes — multicolor mosaic vibe */}
       <ellipse
         cx="168"
         cy="372"
@@ -83,7 +109,7 @@ function CatCharacter() {
         opacity="0.42"
         transform="rotate(16 314 398)"
       />
-      <circle cx="238" cy="348" r="30" fill="#c9a227" opacity="0.35" />
+      <circle cx="238" cy="348" r="30" fill={accent} opacity="0.35" />
       <circle cx="336" cy="318" r="14" fill="#d4267e" opacity="0.4" />
       <circle cx="146" cy="442" r="12" fill="#2f6bff" opacity="0.4" />
 
@@ -125,7 +151,7 @@ function CatCharacter() {
       />
       {/* head */}
       <circle cx="240" cy="336" r="40" fill="#e8dcc8" stroke="#1c160f" strokeWidth="3" />
-      {/* ears */}
+      {/* ears — tinted with the blend accent */}
       <path
         d="M 206 306 L 196 268 L 228 296 Z"
         fill="#e8dcc8"
@@ -140,15 +166,15 @@ function CatCharacter() {
         strokeWidth="3"
         strokeLinejoin="round"
       />
-      <path d="M 206 302 L 202 278 L 222 296 Z" fill="#d4267e" />
-      <path d="M 274 302 L 278 278 L 258 296 Z" fill="#d4267e" />
+      <path d="M 206 302 L 202 278 L 222 296 Z" fill={accent} />
+      <path d="M 274 302 L 278 278 L 258 296 Z" fill={accent} />
       {/* glowing white eyes */}
       <ellipse cx="221" cy="334" rx="8" ry="10" fill="#ffffff" stroke="#1c160f" strokeWidth="2" />
       <ellipse cx="259" cy="334" rx="8" ry="10" fill="#ffffff" stroke="#1c160f" strokeWidth="2" />
       <circle cx="223" cy="335" r="3" fill="#1c160f" />
       <circle cx="257" cy="335" r="3" fill="#1c160f" />
       {/* nose + mouth */}
-      <path d="M 235 348 L 245 348 L 240 355 Z" fill="#d4267e" />
+      <path d="M 235 348 L 245 348 L 240 355 Z" fill={accent} />
       <path
         d="M 240 355 C 236 360 233 358 231 355 M 240 355 C 244 360 247 358 249 355"
         stroke="#1c160f"
@@ -166,17 +192,28 @@ function CatCharacter() {
       {/* paws holding the cup */}
       <ellipse cx="212" cy="426" rx="11" ry="8" fill="#e8dcc8" stroke="#1c160f" strokeWidth="2.5" />
       <ellipse cx="268" cy="426" rx="11" ry="8" fill="#e8dcc8" stroke="#1c160f" strokeWidth="2.5" />
-      {/* espresso cup + steam */}
+      {/* espresso cup (dark ceramic with accent R) + steam */}
       <g transform="translate(222 414)">
-        <path d="M 0 0 L 36 0 L 32 24 L 4 24 Z" fill="#ffffff" stroke="#1c160f" strokeWidth="2.5" />
+        <path d="M 0 0 L 36 0 L 32 24 L 4 24 Z" fill="#1c1a18" stroke="#1c160f" strokeWidth="2.5" />
         <path
           d="M 36 4 C 48 4 48 20 32 20"
           fill="none"
-          stroke="#ffffff"
+          stroke="#1c1a18"
           strokeWidth="6"
           strokeLinecap="round"
         />
         <ellipse cx="18" cy="0" rx="18" ry="4" fill="#3a2414" />
+        <text
+          x="18"
+          y="16"
+          textAnchor="middle"
+          fontFamily="'Archivo', sans-serif"
+          fontWeight="900"
+          fontSize="10"
+          fill={accent}
+        >
+          R
+        </text>
         <path
           d="M 10 -8 C 8 -14 12 -16 10 -22"
           stroke="#f2efe8"
@@ -198,175 +235,46 @@ function CatCharacter() {
   );
 }
 
-/** Intenso — the powerful gorilla. */
-function GorillaCharacter() {
-  return (
-    <g>
-      <ellipse
-        cx="170"
-        cy="380"
-        rx="50"
-        ry="34"
-        fill="#d03b1e"
-        opacity="0.4"
-        transform="rotate(-16 170 380)"
-      />
-      <ellipse
-        cx="312"
-        cy="400"
-        rx="52"
-        ry="34"
-        fill="#8a2a12"
-        opacity="0.4"
-        transform="rotate(14 312 400)"
-      />
-      <circle cx="240" cy="346" r="28" fill="#d03b1e" opacity="0.3" />
-      {/* shoulders */}
-      <path
-        d="M 176 470 C 176 410 200 392 240 392 C 280 392 304 410 304 470 Z"
-        fill="#241c14"
-        stroke="#0f0a06"
-        strokeWidth="3"
-      />
-      {/* head */}
-      <ellipse cx="240" cy="352" rx="56" ry="50" fill="#2e241a" stroke="#0f0a06" strokeWidth="3" />
-      {/* ears */}
-      <circle cx="180" cy="352" r="13" fill="#2e241a" stroke="#0f0a06" strokeWidth="2.5" />
-      <circle cx="300" cy="352" r="13" fill="#2e241a" stroke="#0f0a06" strokeWidth="2.5" />
-      {/* heavy brow */}
-      <path
-        d="M 196 322 C 216 308 264 308 284 322"
-        stroke="#0f0a06"
-        strokeWidth="9"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {/* eyes */}
-      <ellipse cx="220" cy="338" rx="7" ry="5" fill="#ffffff" />
-      <ellipse cx="260" cy="338" rx="7" ry="5" fill="#ffffff" />
-      <circle cx="222" cy="339" r="2.5" fill="#0f0a06" />
-      <circle cx="258" cy="339" r="2.5" fill="#0f0a06" />
-      {/* wide nose */}
-      <ellipse cx="230" cy="366" rx="9" ry="7" fill="#0f0a06" />
-      <ellipse cx="250" cy="366" rx="9" ry="7" fill="#0f0a06" />
-      {/* mouth */}
-      <path
-        d="M 222 388 C 232 394 248 394 258 388"
-        stroke="#0f0a06"
-        strokeWidth="4"
-        fill="none"
-        strokeLinecap="round"
-      />
-    </g>
-  );
-}
+/* ================================================================== */
+/* Bottom icon row — per-blend benefits (matches the real bags)        */
+/* ================================================================== */
 
-/** Classic — the creative mandrill with its colorful face. */
-function MandrillCharacter() {
+function BadgeIcon({ kind }: { kind: "drop" | "scale" | "wave" | "flame" }) {
+  if (kind === "drop") {
+    return (
+      <path
+        d="M 0 -6 C 3 -2 5 1 5 3.5 A 5 5 0 0 1 -5 3.5 C -5 1 -3 -2 0 -6 Z"
+        fill="none"
+        stroke="#c9a227"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    );
+  }
+  if (kind === "scale") {
+    return (
+      <g stroke="#c9a227" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M -5 0 L 5 0 M 0 -5 L 0 5" />
+        <path d="M -5 0 L -3 4 M 5 0 L 3 4 M -3 4 L 3 4" />
+      </g>
+    );
+  }
+  if (kind === "wave") {
+    return (
+      <g fill="none" stroke="#c9a227" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M -4 4 C -2 0 0 4 2 0" />
+        <path d="M 1 2 C 3 -2 5 2 6 -1" opacity="0.7" />
+      </g>
+    );
+  }
   return (
     <g>
-      <ellipse
-        cx="170"
-        cy="380"
-        rx="50"
-        ry="34"
-        fill="#002fa7"
-        opacity="0.4"
-        transform="rotate(-16 170 380)"
-      />
-      <ellipse
-        cx="312"
-        cy="400"
-        rx="52"
-        ry="34"
+      <path
+        d="M 0 4 C -4 1 -2 -2 0 -4 C 1 -1 1 0 2 0 C 4 0 5 2 4 4 C 2 5 1 5 0 4 Z"
         fill="#c9a227"
-        opacity="0.4"
-        transform="rotate(14 312 400)"
       />
-      {/* shoulders */}
-      <path
-        d="M 180 470 C 180 410 205 394 240 394 C 275 394 300 410 300 470 Z"
-        fill="#1c1c22"
-        stroke="#0c0c10"
-        strokeWidth="3"
-      />
-      {/* head */}
-      <ellipse cx="240" cy="354" rx="54" ry="48" fill="#2b2b33" stroke="#0c0c10" strokeWidth="3" />
-      {/* ears */}
-      <circle cx="182" cy="354" r="12" fill="#2b2b33" stroke="#0c0c10" strokeWidth="2.5" />
-      <circle cx="298" cy="354" r="12" fill="#2b2b33" stroke="#0c0c10" strokeWidth="2.5" />
-      {/* blue face */}
-      <ellipse cx="240" cy="362" rx="36" ry="30" fill="#2f6bff" />
-      {/* eyes */}
-      <ellipse cx="226" cy="344" rx="6" ry="7" fill="#ffffff" />
-      <ellipse cx="254" cy="344" rx="6" ry="7" fill="#ffffff" />
-      <circle cx="227" cy="345" r="2.2" fill="#0c0c10" />
-      <circle cx="253" cy="345" r="2.2" fill="#0c0c10" />
-      {/* red nose ridge */}
-      <path d="M 232 356 L 248 356 L 244 376 L 236 376 Z" fill="#d03b1e" />
-      {/* cheek grooves */}
-      <path
-        d="M 210 358 L 222 366 M 270 358 L 258 366"
-        stroke="#0c0c10"
-        strokeWidth="2"
-        strokeLinecap="round"
-        opacity="0.5"
-      />
-      {/* mouth */}
-      <path
-        d="M 224 382 C 232 388 248 388 256 382"
-        stroke="#0c0c10"
-        strokeWidth="3"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {/* golden crest */}
-      <path d="M 214 310 C 230 296 250 296 266 310 C 258 300 222 300 214 310 Z" fill="#c9a227" />
+      <circle cy="-4" r="1.6" fill="#c9a227" />
     </g>
-  );
-}
-
-/* ================================================================== */
-/* Bottom badges — 100% ARABICA · RICH AROMA · FULL BODY · DARK ROAST  */
-/* ================================================================== */
-
-const BADGES: { top: string; bottom: string; x: number; icon: "bean" | "aroma" | "body" | "roast" }[] = [
-  { top: "100%", bottom: "ARABICA", x: 128, icon: "bean" },
-  { top: "RICH", bottom: "AROMA", x: 195, icon: "aroma" },
-  { top: "FULL", bottom: "BODY", x: 262, icon: "body" },
-  { top: "DARK", bottom: "ROAST", x: 329, icon: "roast" },
-];
-
-function BadgeIcon({ kind }: { kind: "bean" | "aroma" | "body" | "roast" }) {
-  if (kind === "bean") {
-    return (
-      <g transform="translate(0 1) rotate(32)">
-        <ellipse rx="5" ry="8" fill="#c9a227" />
-        <path d="M 0 -6 C 2 -2 -2 2 0 6" stroke="#141210" strokeWidth="1.4" fill="none" />
-      </g>
-    );
-  }
-  if (kind === "aroma") {
-    return (
-      <g fill="none" stroke="#c9a227" strokeWidth="2" strokeLinecap="round">
-        <path d="M -3 4 C -5 1 -1 -1 -3 -4" />
-        <path d="M 3 4 C 1 1 5 -1 3 -4" />
-      </g>
-    );
-  }
-  if (kind === "body") {
-    return (
-      <g>
-        <circle r="5" fill="none" stroke="#c9a227" strokeWidth="2" />
-        <circle cy="2" r="2.2" fill="#c9a227" />
-      </g>
-    );
-  }
-  return (
-    <path
-      d="M 0 5 C -4 2 -2 -2 0 -5 C 1 -2 1 -1 2 0 C 4 0 5 2 4 5 C 2 6 1 6 0 5 Z"
-      fill="#c9a227"
-    />
   );
 }
 
@@ -375,9 +283,9 @@ function BadgeIcon({ kind }: { kind: "bean" | "aroma" | "body" | "roast" }) {
 /* ================================================================== */
 
 /**
- * ROVENTO stand-up pouch — brand asset recreated as crisp SVG.
- * Charcoal body, gold accents, the illustrated animal character,
- * ESPRESSO BLEND, Rich & Bold Flavor, and the Focus. Brew. Achieve. motto.
+ * ROVENTO stand-up pouch — recreated to match the real bags:
+ * black body, colored side gussets (gold / red / blue), the mosaic cat,
+ * blend name + Arabic name + composition ratio, quality badge, benefits row.
  */
 export function CoffeeBag({
   variant = "premium",
@@ -429,6 +337,10 @@ export function CoffeeBag({
           <stop offset="42%" stopColor="#ffffff" stopOpacity="0" />
           <stop offset="100%" stopColor="#000000" stopOpacity="0.14" />
         </linearGradient>
+        <linearGradient id={`${uid}-gusset`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={meta.accent} stopOpacity="0.9" />
+          <stop offset="100%" stopColor={meta.accent} stopOpacity="0.45" />
+        </linearGradient>
         <clipPath id={`${uid}-body`}>
           <path d="M 84 118 C 58 128 54 150 54 192 L 54 480 C 54 566 108 656 172 660 L 308 660 C 372 656 426 566 426 480 L 426 192 C 426 150 422 128 396 118 Z" />
         </clipPath>
@@ -445,8 +357,8 @@ export function CoffeeBag({
       />
       <line x1="92" y1="70" x2="388" y2="70" stroke="#3a3a3a" strokeWidth="2" />
       <line x1="92" y1="77" x2="388" y2="77" stroke="#3a3a3a" strokeWidth="2" />
-      <rect x="224" y="50" width="32" height="46" fill="#c9a227" rx="3" />
-      <rect x="230" y="56" width="20" height="34" fill="#a88a1f" />
+      <rect x="224" y="50" width="32" height="46" fill={meta.accent} rx="3" />
+      <rect x="230" y="56" width="20" height="34" fill={meta.accent} opacity="0.65" />
 
       <rect x="84" y="90" width="312" height="28" fill="#101010" />
       <text
@@ -468,12 +380,18 @@ export function CoffeeBag({
         <circle cx="240" cy="400" r="260" fill={`url(#${uid}-glow)`} />
         <rect x="54" y="118" width="372" height="545" fill={`url(#${uid}-shine)`} />
 
+        {/* colored side gussets — gold / red / blue */}
+        <rect x="54" y="118" width="26" height="545" fill={`url(#${uid}-gusset)`} />
+        <rect x="400" y="118" width="26" height="545" fill={`url(#${uid}-gusset)`} />
+        <rect x="54" y="118" width="26" height="545" fill="#000000" opacity="0.22" />
+        <rect x="400" y="118" width="26" height="545" fill="#000000" opacity="0.22" />
+
         {/* ===== crown-R monogram ===== */}
-        <g transform="translate(240 150)">
+        <g transform="translate(240 148)">
           <path
             d="M -20 16 L -20 -8 L -10 -20 L 0 -12 L 10 -20 L 20 -8 L 20 16 Z"
             fill="#141210"
-            stroke="#c9a227"
+            stroke={meta.accent}
             strokeWidth="2.5"
             strokeLinejoin="round"
           />
@@ -484,7 +402,7 @@ export function CoffeeBag({
             fontFamily="'Archivo', sans-serif"
             fontWeight="900"
             fontSize="21"
-            fill="#c9a227"
+            fill={meta.accent}
           >
             R
           </text>
@@ -493,7 +411,7 @@ export function CoffeeBag({
         {/* ===== ROVENTO wordmark ===== */}
         <text
           x="240"
-          y="202"
+          y="200"
           textAnchor="middle"
           fontFamily="'Archivo', sans-serif"
           fontWeight="900"
@@ -505,7 +423,7 @@ export function CoffeeBag({
         </text>
         <text
           x="240"
-          y="226"
+          y="224"
           textAnchor="middle"
           fontFamily="'IBM Plex Mono', monospace"
           fontSize="10.5"
@@ -516,7 +434,7 @@ export function CoffeeBag({
         </text>
         <text
           x="240"
-          y="244"
+          y="242"
           textAnchor="middle"
           fontFamily="'IBM Plex Mono', monospace"
           fontSize="8.5"
@@ -527,17 +445,76 @@ export function CoffeeBag({
           {meta.roast}
         </text>
 
-        {/* ===== character ===== */}
+        {/* ===== the mosaic cat ===== */}
         <g transform="translate(0 22)">
-          {meta.character === "cat" && <CatCharacter />}
-          {meta.character === "gorilla" && <GorillaCharacter />}
-          {meta.character === "mandrill" && <MandrillCharacter />}
+          <CatCharacter accent={meta.accent} />
         </g>
 
-        {/* ===== blend name ===== */}
+        {/* ===== PREMIUM QUALITY badge ===== */}
+        <g transform="translate(330 386)">
+          <circle r="47" fill={meta.accent} opacity="0.16" />
+          <circle r="42" fill="#141210" stroke={meta.accent} strokeWidth="2" />
+          <circle r="37" fill="none" stroke={meta.accent} strokeWidth="0.75" opacity="0.55" />
+          <text
+            y="-18"
+            textAnchor="middle"
+            fontFamily="'Archivo', sans-serif"
+            fontWeight="800"
+            fontSize="7"
+            letterSpacing="1.6"
+            fill={meta.accent}
+          >
+            PREMIUM
+          </text>
+          <text
+            y="-8"
+            textAnchor="middle"
+            fontFamily="'Archivo', sans-serif"
+            fontWeight="800"
+            fontSize="7"
+            letterSpacing="1.6"
+            fill={meta.accent}
+          >
+            QUALITY
+          </text>
+          <text
+            y="8"
+            textAnchor="middle"
+            fontFamily="'Archivo', sans-serif"
+            fontWeight="900"
+            fontSize="12"
+            fill="#f2efe8"
+          >
+            100%
+          </text>
+          <text
+            y="20"
+            textAnchor="middle"
+            fontFamily="'IBM Plex Mono', monospace"
+            fontSize="5.6"
+            letterSpacing="0.6"
+            fill="#f2efe8"
+            opacity="0.8"
+          >
+            ARABICA &
+          </text>
+          <text
+            y="29"
+            textAnchor="middle"
+            fontFamily="'IBM Plex Mono', monospace"
+            fontSize="5.6"
+            letterSpacing="0.6"
+            fill="#f2efe8"
+            opacity="0.8"
+          >
+            ROBUSTA
+          </text>
+        </g>
+
+        {/* ===== blend name + ratio + Arabic ===== */}
         <text
           x="240"
-          y="522"
+          y="512"
           textAnchor="middle"
           fontFamily="'Archivo', sans-serif"
           fontWeight="800"
@@ -549,32 +526,43 @@ export function CoffeeBag({
         </text>
         <text
           x="240"
-          y="540"
+          y="530"
           textAnchor="middle"
           fontFamily="'IBM Plex Mono', monospace"
-          fontSize="9"
-          letterSpacing="2"
+          fontSize="8.5"
+          letterSpacing="1.4"
           fill="#f2efe8"
-          opacity="0.85"
+          opacity="0.9"
         >
-          {meta.flavor}
+          {meta.ratio}
+        </text>
+        <text
+          x="240"
+          y="546"
+          textAnchor="middle"
+          fontFamily="'IBM Plex Sans Arabic', sans-serif"
+          fontWeight="700"
+          fontSize="12"
+          fill="#f2efe8"
+        >
+          {meta.blendAr}
         </text>
 
-        {/* ===== bottom badges ===== */}
-        <line x1="96" y1="556" x2="384" y2="556" stroke="#c9a227" strokeWidth="1.5" opacity="0.5" />
-        {BADGES.map((b) => (
-          <g key={b.bottom} transform={`translate(${b.x} 592)`}>
-            <rect x="-27" y="-16" width="54" height="46" fill="#141210" stroke="rgba(201,162,39,0.45)" strokeWidth="1.5" />
-            <g transform="translate(0 -6)">
+        {/* ===== benefits row ===== */}
+        <line x1="96" y1="560" x2="384" y2="560" stroke={meta.accent} strokeWidth="1.5" opacity="0.5" />
+        {meta.badge.map((b) => (
+          <g key={b.top + b.bottom} transform={`translate(${b.x} 596)`}>
+            <rect x="-33" y="-17" width="66" height="48" fill="#141210" stroke={meta.accent} strokeWidth="1.3" opacity="0.9" />
+            <g transform="translate(0 -7)">
               <BadgeIcon kind={b.icon} />
             </g>
             <text
-              y="22"
+              y="23"
               textAnchor="middle"
               fontFamily="'Archivo', sans-serif"
               fontWeight="800"
-              fontSize="8.5"
-              letterSpacing="1.2"
+              fontSize="7.4"
+              letterSpacing="0.9"
               fill="#e8dcc8"
             >
               {b.top}
@@ -584,8 +572,8 @@ export function CoffeeBag({
               textAnchor="middle"
               fontFamily="'Archivo', sans-serif"
               fontWeight="700"
-              fontSize="7.5"
-              letterSpacing="1"
+              fontSize="7"
+              letterSpacing="0.7"
               fill={meta.accent}
             >
               {b.bottom}
@@ -598,14 +586,14 @@ export function CoffeeBag({
       <path
         d="M 84 118 C 58 128 54 150 54 192 L 54 480 C 54 566 108 656 172 660 L 308 660 C 372 656 426 566 426 480 L 426 192 C 426 150 422 128 396 118 Z"
         fill="none"
-        stroke="rgba(201,162,39,0.25)"
+        stroke="rgba(242,239,232,0.14)"
         strokeWidth="1.5"
       />
 
       {/* ================= BLEND SEAL ================= */}
-      <rect x="90" y="126" width="108" height="26" fill={meta.accent} />
+      <rect x="90" y="126" width="112" height="26" fill={meta.accent} />
       <text
-        x="144"
+        x="146"
         y="144"
         textAnchor="middle"
         fontFamily="'IBM Plex Mono', monospace"
@@ -618,7 +606,7 @@ export function CoffeeBag({
       </text>
 
       {/* ================= FOOTER ================= */}
-      <line x1="150" y1="622" x2="330" y2="622" stroke="#c9a227" strokeWidth="1.5" opacity="0.55" />
+      <line x1="150" y1="622" x2="330" y2="622" stroke={meta.accent} strokeWidth="1.5" opacity="0.55" />
       <text
         x="240"
         y="642"
@@ -626,7 +614,7 @@ export function CoffeeBag({
         fontFamily="'IBM Plex Mono', monospace"
         fontSize="10"
         letterSpacing="3.5"
-        fill="#c9a227"
+        fill={meta.accent}
       >
         FOCUS · BREW · ACHIEVE
       </text>
@@ -639,7 +627,7 @@ export function CoffeeBag({
         fontSize="12.5"
         fill="#f2efe8"
       >
-        حبوب قهوة محمصة · 250 G
+        حبوب قهوة محمصة طازجة
       </text>
     </svg>
   );
