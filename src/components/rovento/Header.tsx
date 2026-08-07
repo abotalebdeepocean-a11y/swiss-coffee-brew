@@ -14,7 +14,7 @@ import {
 const NAV = [
   { label: "الرئيسية", to: "/" },
   { label: "المتجر", to: "/shop" },
-  { label: "مجموعة MISH", to: "/#signature" },
+  { label: "مجموعة ROVENTO", to: "/#signature" },
   { label: "لماذا روفينتو", to: "/#why" },
   { label: "آراء العملاء", to: "/#reviews" },
 ];

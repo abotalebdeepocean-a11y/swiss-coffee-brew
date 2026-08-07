@@ -348,14 +348,14 @@ function SetupScene() {
         <g>
           <rect x="1090" y="600" width="320" height="180" fill="#f2efe8" />
           <rect x="1090" y="600" width="46" height="180" fill="#d03b1e" />
-          <text x="1180" y="668" fontFamily="'Archivo', sans-serif" fontWeight="900" fontSize="40" fill="#141414">
-            MISH
+          <text x="1180" y="668" fontFamily="'Archivo', sans-serif" fontWeight="900" fontSize="38" fill="#141414">
+            ROVENTO
           </text>
-          <text x="1180" y="706" fontFamily="'IBM Plex Mono', monospace" fontSize="13" letterSpacing="3" fill="#141414">
-            NOT ORDINARY
+          <text x="1180" y="706" fontFamily="'IBM Plex Mono', monospace" fontSize="12" letterSpacing="2" fill="#141414">
+            FOCUS. BREW. ACHIEVE.
           </text>
-          <text x="1180" y="738" fontFamily="'IBM Plex Sans Arabic', sans-serif" fontWeight="700" fontSize="20" fill="#d03b1e">
-            مش قهوة عادية
+          <text x="1180" y="738" fontFamily="'IBM Plex Sans Arabic', sans-serif" fontWeight="700" fontSize="19" fill="#d03b1e">
+            قهوة مختصة مصرية
           </text>
         </g>
 

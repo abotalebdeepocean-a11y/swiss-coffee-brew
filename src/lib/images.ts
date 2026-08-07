@@ -12,7 +12,7 @@
 export const IMAGES = {
   /** كيس الهيرو — نفس صورة بريميم ما لم ترد صورة مختلفة */
   heroBag: "/images/bag-premium",
-  /** حقائب MISH الثلاثة + باقي أصناف الأكياس */
+  /** حقائب ROVENTO الثلاثة + باقي أصناف الأكياس */
   bags: {
     premium: "/images/bag-premium",
     intenso: "/images/bag-intenso",

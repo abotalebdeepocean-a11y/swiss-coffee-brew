@@ -156,7 +156,7 @@ export function Hero() {
               image={IMAGES.heroBag}
               variant="premium"
               eager
-              alt="ROVENTO MISH Premium Blend"
+              alt="ROVENTO Premium Blend"
               className="h-[420px] w-auto animate-float-slow svg-center md:h-[520px]"
               style={{ "--rot": "-1.5deg" } as CSSProperties}
             />

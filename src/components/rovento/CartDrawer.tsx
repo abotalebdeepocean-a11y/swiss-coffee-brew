@@ -41,7 +41,7 @@ export function CartDrawer() {
             <BagVisual
               image={IMAGES.heroBag}
               variant="premium"
-              alt="ROVENTO MISH Premium Blend"
+              alt="ROVENTO Premium Blend"
               className="h-44 w-auto opacity-60"
             />
             <p className="text-lg font-semibold">سلتك فارغة</p>

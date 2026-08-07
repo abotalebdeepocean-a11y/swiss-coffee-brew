@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Crown, Flame, Sparkles, ChevronLeft } from "lucide-react";
+import { Cat, Flame, Sparkles, ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { SIGNATURE_BLENDS, getProduct, formatPrice, type Product } from "@/lib/products";
 import { useCart } from "@/lib/store";
@@ -10,11 +10,11 @@ import { SectionHeading } from "./Section";
 
 const PERSONAS: Record<
   string,
-  { ar: string; en: string; icon: typeof Crown }
+  { ar: string; en: string; icon: typeof Cat }
 > = {
-  "mish-premium": { ar: "الأسد الحكيم", en: "WISE LION", icon: Crown },
-  "mish-intenso": { ar: "الغوريلا القوية", en: "POWERFUL GORILLA", icon: Flame },
-  "mish-classic": { ar: "الماندريل المبدع", en: "CREATIVE MANDRILL", icon: Sparkles },
+  "rovento-premium": { ar: "القطّة الفضولية", en: "CURIOUS CAT", icon: Cat },
+  "rovento-intenso": { ar: "الغوريلا القوية", en: "POWERFUL GORILLA", icon: Flame },
+  "rovento-classic": { ar: "الماندريل المبدع", en: "CREATIVE MANDRILL", icon: Sparkles },
 };
 
 function BlendCard({
@@ -27,7 +27,7 @@ function BlendCard({
   num: number;
 }) {
   const { add } = useCart();
-  const persona = PERSONAS[product.slug] ?? PERSONAS["mish-premium"];
+  const persona = PERSONAS[product.slug] ?? PERSONAS["rovento-premium"];
   const PersonaIcon = persona.icon;
 
   return (
@@ -65,7 +65,7 @@ function BlendCard({
         <BagVisual
           image={product.image}
           variant={variant}
-          alt={`ROVENTO MISH ${variant} bag`}
+          alt={`ROVENTO ${variant} bag`}
           className="h-64 w-auto transition-transform duration-500 group-hover:scale-[1.06] md:h-72"
         />
       </div>
@@ -156,7 +156,7 @@ export function SignatureCollection() {
           kicker="Signature Collection"
           title={
             <>
-              مجموعة <span className="text-rv-red">MISH</span> المميزة
+              مجموعة <span className="text-rv-red">ROVENTO</span> المميزة
             </>
           }
           desc="ثلاثة بلندات، ثلاث شخصيات، نكهة واحدة لا تُنسى. كل كيس يحمل قصة مصرية ويصل إليك محمصًا طازجًا."

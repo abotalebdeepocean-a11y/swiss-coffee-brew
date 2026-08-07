@@ -66,7 +66,7 @@ export function BagVisual({
     return (
       <img
         src={src}
-        alt={alt ?? "ROVENTO MISH coffee bag"}
+        alt={alt ?? "ROVENTO coffee bag"}
         loading={eager ? "eager" : "lazy"}
         onError={onError}
         className={className}

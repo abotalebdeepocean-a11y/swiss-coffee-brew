@@ -11,9 +11,9 @@ The site automatically tries png → jpg → webp, so only the base name matters
 ──────────────────────────────────────────────
 الحقائب — BAGS
 ──────────────────────────────────────────────
-  bag-premium        →  كيس MISH بريميم (الهيرو + البطاقات)  Premium bag (hero + cards)
-  bag-intenso        →  كيس MISH إنتنسو                       Intenso bag
-  bag-classic        →  كيس MISH كلاسيك                       Classic bag
+  bag-premium        →  كيس ROVENTO بريميم (الهيرو + البطاقات)  Premium bag (hero + cards)
+  bag-intenso        →  كيس ROVENTO إنتنسو                       Intenso bag
+  bag-classic        →  كيس ROVENTO كلاسيك                       Classic bag
   bag-premium-1kg    →  بريميم 1 كجم                          Premium 1kg pouch
   bag-ground-premium →  بن بريميم مطحون                       Ground premium
 

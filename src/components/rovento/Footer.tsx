@@ -16,7 +16,7 @@ const PAYMENTS = [
 const LINKS = [
   { label: "الرئيسية", to: "/" },
   { label: "المتجر", to: "/shop" },
-  { label: "مجموعة MISH", to: "/#signature" },
+  { label: "مجموعة ROVENTO", to: "/#signature" },
   { label: "لماذا روفينتو", to: "/#why" },
   { label: "آراء العملاء", to: "/#reviews" },
 ];
@@ -141,7 +141,7 @@ export function Footer() {
             © 2026 ROVENTO · صُنع بحب في مصر 🇪🇬
           </p>
           <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-            Not Ordinary Coffee · مش قهوة عادية
+            Focus. Brew. Achieve. · ركّز. حضّر. حقّق.
           </p>
         </div>
       </div>

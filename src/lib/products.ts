@@ -54,9 +54,9 @@ export const CATEGORIES: Category[] = [
 
 export const PRODUCTS: Product[] = [
   {
-    slug: "mish-premium",
-    name: "MISH بريميم بليند — حبوب إسبريسو",
-    nameEn: "MISH Premium Blend",
+    slug: "rovento-premium",
+    name: "ROVENTO بريميم بليند — حبوب إسبريسو",
+    nameEn: "ROVENTO Premium Blend", 
     category: "beans",
     price: 340,
     oldPrice: 420,
@@ -77,9 +77,9 @@ export const PRODUCTS: Product[] = [
     bestseller: true,
   },
   {
-    slug: "mish-intenso",
-    name: "MISH إنتنسو بليند — حبوب إسبريسو",
-    nameEn: "MISH Intenso Blend",
+    slug: "rovento-intenso",
+    name: "ROVENTO إنتنسو بليند — حبوب إسبريسو",
+    nameEn: "ROVENTO Intenso Blend", 
     category: "espresso",
     price: 310,
     weight: "250 جم",
@@ -99,9 +99,9 @@ export const PRODUCTS: Product[] = [
     bestseller: true,
   },
   {
-    slug: "mish-classic",
-    name: "MISH كلاسيك بليند — قهوة التقطير",
-    nameEn: "MISH Classic Blend",
+    slug: "rovento-classic",
+    name: "ROVENTO كلاسيك بليند — قهوة التقطير",
+    nameEn: "ROVENTO Classic Blend", 
     category: "beans",
     price: 285,
     weight: "250 جم",
@@ -120,9 +120,9 @@ export const PRODUCTS: Product[] = [
     isNew: true,
   },
   {
-    slug: "mish-premium-1kg",
-    name: "MISH بريميم بليند — 1 كجم",
-    nameEn: "MISH Premium Blend 1kg",
+    slug: "rovento-premium-1kg",
+    name: "ROVENTO بريميم بليند — 1 كجم",
+    nameEn: "ROVENTO Premium Blend 1kg", 
     category: "beans",
     price: 1150,
     oldPrice: 1350,
@@ -143,9 +143,9 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "لاتيه", "مقطرة"],
   },
   {
-    slug: "mish-ground-premium",
+    slug: "rovento-ground-premium",
     name: "بن بريميم مطحون — طحن إسبريسو",
-    nameEn: "MISH Ground — Premium",
+    nameEn: "ROVENTO Ground — Premium", 
     category: "ground",
     price: 340,
     weight: "250 جم",
@@ -164,9 +164,9 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "موكا بوت"],
   },
   {
-    slug: "mish-ground-classic-500",
+    slug: "rovento-ground-classic-500",
     name: "بن كلاسيك مطحون — 500 جم",
-    nameEn: "MISH Ground — Classic 500g",
+    nameEn: "ROVENTO Ground — Classic 500g", 
     category: "ground",
     price: 520,
     weight: "500 جم",
@@ -184,9 +184,9 @@ export const PRODUCTS: Product[] = [
     brewing: ["فرنش بريس", "كولد برو"],
   },
   {
-    slug: "mish-espresso-intenso-1kg",
+    slug: "rovento-espresso-intenso-1kg",
     name: "حبوب إسبريسو إنتنسو — 1 كجم",
-    nameEn: "MISH Espresso Intenso 1kg",
+    nameEn: "ROVENTO Espresso Intenso 1kg", 
     category: "espresso",
     price: 1180,
     weight: "1 كجم",
@@ -205,9 +205,9 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "أمريكانو"],
   },
   {
-    slug: "mish-capsules",
-    name: "كبسولات MISH — علبة 10",
-    nameEn: "MISH Capsules x10",
+    slug: "rovento-capsules",
+    name: "كبسولات ROVENTO — علبة 10",
+    nameEn: "ROVENTO Capsules x10", 
     category: "capsules",
     price: 260,
     oldPrice: 300,
@@ -222,7 +222,7 @@ export const PRODUCTS: Product[] = [
     intensity: 4,
     notes: ["شوكولاتة", "بندق", "كراميل"],
     description:
-      "نكهة MISH كاملة في كبسولة متوافقة مع أشهر ماكينات الكبسولات. جاهزة في ثوانٍ بنفس جودة الكوب المختص.",
+      "نكهة ROVENTO كاملة في كبسولة متوافقة مع أشهر ماكينات الكبسولات. جاهزة في ثوانٍ بنفس جودة الكوب المختص.", 
     brewing: ["ماكينات كبسولات"],
     isNew: true,
   },
@@ -358,7 +358,7 @@ export const CATEGORY_MAP: Record<CategoryId, Category> = Object.fromEntries(
   CATEGORIES.map((c) => [c.id, c]),
 ) as Record<CategoryId, Category>;
 
-export const SIGNATURE_BLENDS = ["mish-premium", "mish-intenso", "mish-classic"];
+export const SIGNATURE_BLENDS = ["rovento-premium", "rovento-intenso", "rovento-classic"];
 
 export function getProduct(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
