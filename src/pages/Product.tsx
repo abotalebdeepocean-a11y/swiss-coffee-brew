@@ -30,10 +30,14 @@ export default function Product() {
   const product = getProduct(slug);
   const { add } = useCart();
   const [qty, setQty] = useState(1);
+  const [prevSlug, setPrevSlug] = useState(slug);
 
-  useEffect(() => {
+  // Reset the quantity when navigating between products (render-time state
+  // adjustment instead of setState-in-effect).
+  if (slug !== prevSlug) {
+    setPrevSlug(slug);
     setQty(1);
-  }, [slug]);
+  }
 
   useEffect(() => {
     if (product) {

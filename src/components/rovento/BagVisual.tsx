@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useEffect,
   useMemo,
   useState,
   type CSSProperties,
@@ -29,11 +28,14 @@ export function useImageCandidates(base?: string): {
     [base],
   );
   const [attempt, setAttempt] = useState(0);
+  const [prevBase, setPrevBase] = useState(base);
 
-  const firstCandidate = candidates[0] ?? "";
-  useEffect(() => {
+  // Reset the retry chain when the base path changes (render-time state
+  // adjustment — the React-sanctioned replacement for setState-in-effect).
+  if (base !== prevBase) {
+    setPrevBase(base);
     setAttempt(0);
-  }, [firstCandidate]);
+  }
 
   const src = attempt < candidates.length ? candidates[attempt] : null;
   const onError = useCallback(() => setAttempt((a) => a + 1), []);
