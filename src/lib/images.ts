@@ -36,6 +36,8 @@ export const IMAGES = {
     classic1kg: "/images/bag-classic-1kg",
     /** حبوب مصرية أصل واحد (جانب أصفر) */
     egyptian: "/images/bag-egyptian",
+    /** علبة كبسولات ROVENTO (10) */
+    capsules: "/images/bag-capsules",
   },
   /** بنرات السلايدر الأربعة (من صورك الحقيقية) */
   banners: {

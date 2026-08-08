@@ -239,6 +239,7 @@ export const PRODUCTS: Product[] = [
     reviews: 54,
     badge: "خصم ١٣٪",
     accent: "#d03b1e",
+    image: IMAGES.bags.capsules,
     roast: "تحميص متوسط",
     arabica: 70,
     robusta: 30,
