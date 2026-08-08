@@ -1,38 +1,37 @@
 📷 ROVENTO — دليل الصور / Image Guide
 ======================================
 
-ضع صورك هنا (داخل هذا المجلد `public/images/`) وسيستخدمها الموقع فورًا.
-الامتداد اختياري: png أو jpg أو webp — الموقع يجرب الثلاثة بالترتيب.
-لو الصورة غير موجودة، يظهر رسم SVG احتياطي مطابق — فلا شيء ينكسر أبدًا.
+كل الفتحات مملوءة الآن بصور حقيقية ✅ (تم سحبها من فولدر Google Drive).
+All slots are now filled with real photos ✅ (pulled from the Google Drive folder).
 
-Drop your photos here and the site uses them instantly. Any of
-png / jpg / webp works — the app tries each in order and falls
-back to matching SVG art when a file is missing.
+الامتداد اختياري: png أو jpg أو webp — الموقع يجرب الثلاثة بالترتيب.
+Any of png / jpg / webp works — the app tries each in order.
 
 ────────────────────────────────────────────
 1) أكياس القهوة / Coffee Bags
 ────────────────────────────────────────────
-bag-premium            → بريميم بليند 250 جم + الهيرو + المطحون
-bag-intenso            → إنتنسو بليند 250 جم
-bag-classic            → كلاسيك بليند 250 جم
-bag-innovation         → إنوفيشن بليند (إثيوبيا) 500 جم
-bag-premium-1kg        → بريميم 1 كجم
-bag-intenso-1kg        → إنتنسو 1 كجم
-bag-classic-1kg        → كلاسيك 1 كجم
-bag-ground-premium     → بن بريميم مطحون
-bag-ground-classic     → بن كلاسيك مطحون 500 جم
-bag-origin             → أوريجن كوليكشن — إثيوبيا أصل واحد (أسود/فيل)
-bag-mastery            → ماستري كوليكشن — إتقان الإسبريسو (بني)
-bag-signature-cream    → سيجنتشر كوليكشن — تحميص داكن (كريمي)
-bag-egyptian           → حبوب مصرية أصل واحد (جانب أصفر)
+bag-premium            → بريميم بليند 250 جم + الهيرو + المطحون  ✅ jpg
+bag-intenso            → إنتنسو بليند 250 جم                        ✅ webp
+bag-classic            → كلاسيك بليند 250 جم                        ✅ png
+bag-innovation         → إنوفيشن بليند (إثيوبيا) 500 جم             ✅ png
+bag-premium-1kg        → بريميم 1 كجم (نسخة من البريميم)            ✅ jpg
+bag-intenso-1kg        → إنتنسو 1 كجم (نسخة من الإنتنسو)             ✅ webp
+bag-classic-1kg        → كلاسيك 1 كجم (نسخة من الكلاسيك)            ✅ png
+bag-ground-premium     → بن بريميم مطحون (نسخة من البريميم)         ✅ jpg
+bag-ground-classic     → بن كلاسيك مطحون 500 جم (نسخة من الكلاسيك)  ✅ png
+bag-origin             → أوريجن كوليكشن — إثيوبيا أصل واحد           ✅ png
+bag-mastery            → ماستري كوليكشن — إتقان الإسبريسو            ✅ png
+bag-signature-cream    → سيجنتشر كوليكشن — تحميص داكن                 ✅ png
+bag-egyptian           → حبوب مصرية أصل واحد                         ✅ png
+bag-capsules           → علبة كبسولات ROVENTO (10)                   ✅ jpg
 
 ────────────────────────────────────────────
 2) بنرات السلايدر / Banner Slides
 ────────────────────────────────────────────
-banner-hero        → السلايد 1 — حملة «وقود العظماء» (غروب)
-banner-workshop    → السلايد 2 — الورشة المصرية (موقد + شباك)
-banner-signature   → السلايد 3 — البلندات الثلاثة على طاولة العمل
-banner-collections → السلايد 4 — الأكياس الثلاثة بخلفية داكنة ذهبية
+banner-hero        → السلايد 1 — حملة «وقود العظماء» (valve + vapor)  ✅ png
+banner-workshop    → السلايد 2 — التغليف الفاخر المصري               ✅ jpg
+banner-signature   → السلايد 3 — البلندات الثلاثة على طاولة العمل    ✅ png
+banner-collections → السلايد 4 — كيس القطة الأسود الفاخر             ✅ jpg
 
 ────────────────────────────────────────────
 3) ماكينات القهوة / Coffee Machines (موجودة بالفعل ✅)
@@ -56,8 +55,10 @@ acc-scale            → ميزان باريستا رقمي
 acc-cups             → طقم أكواب إسبريسو
 
 ────────────────────────────────────────────
-ملاحظة: صور الماكينات والأدوات الحالية مأخوذة من Wikimedia Commons
-بترخيص حر — استبدلها بصور منتجك الحقيقية متى شئت بنفس الأسماء.
-Machine/accessory photos currently come from Wikimedia Commons
-(free license) — replace them with your own product photos anytime
-using the same filenames.
+الاستبدال: لأي صورة تريد تغييرها، ضع ملفك بنفس الاسم (بدون امتداد محدد)
+وسيحل محل الحالية فورًا.
+To replace any photo: drop your file with the same base name here and it
+instantly replaces the current one.
+
+ملاحظة: صور الماكينات والأدوات مأخوذة من Wikimedia Commons بترخيص حر.
+Machine/accessory photos come from Wikimedia Commons (free license).
