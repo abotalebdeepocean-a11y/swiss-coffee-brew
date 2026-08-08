@@ -14,28 +14,57 @@ export const IMAGES = {
   heroBag: "/images/bag-premium",
   /** حقائب ROVENTO الحقيقية (من صورك) + باقي أصناف الأكياس */
   bags: {
-    /** الصورة 4 (يسار) — كيس PREMIUM BLEND بجوانب صفراء */
+    /** كيس PREMIUM BLEND بجوانب صفراء */
     premium: "/images/bag-premium",
-    /** الصورة 4 (وسط) — كيس INTENSO BLEND بجوانب حمراء */
+    /** كيس INTENSO BLEND بجوانب حمراء */
     intenso: "/images/bag-intenso",
-    /** الصورة 4 (يمين) — كيس CLASSIC BLEND بجوانب زرقاء */
+    /** كيس CLASSIC BLEND بجوانب زرقاء */
     classic: "/images/bag-classic",
-    /** الصورة 2 — كيس INNOVATION BLEND (أصل إثيوبي) */
+    /** كيس INNOVATION BLEND (أصل إثيوبي) */
     innovation: "/images/bag-innovation",
     premium1kg: "/images/bag-premium-1kg",
     groundPremium: "/images/bag-ground-premium",
     groundClassic: "/images/bag-ground-classic",
     intenso1kg: "/images/bag-intenso-1kg",
+    /** ORIGIN COLLECTION — إثيوبيا أصل واحد (كيس أسود بفيل ذهبي) */
+    origin: "/images/bag-origin",
+    /** MASTERY COLLECTION — إتقان الإسبريسو (كيس بني ببورتافلتر) */
+    mastery: "/images/bag-mastery",
+    /** SIGNATURE COLLECTION — تحميص داكن (كيس كريمي) */
+    signatureCream: "/images/bag-signature-cream",
+    /** كلاسيك 1 كجم (جوانب زرقاء) */
+    classic1kg: "/images/bag-classic-1kg",
+    /** حبوب مصرية أصل واحد (جانب أصفر) */
+    egyptian: "/images/bag-egyptian",
   },
   /** بنرات السلايدر الأربعة (من صورك الحقيقية) */
   banners: {
-    /** الصورة 5 — حملة «ليست مجرد قهوة… إنها وقود العظماء» (غروب + كيس + كوب) */
+    /** حملة «ليست مجرد قهوة… إنها وقود العظماء» (غروب + كيس + كوب) */
     hero: "/images/banner-hero",
-    /** الصورة 3 — مشهد الورشة المصرية (طاولة خشبية + موقد + شباك) */
+    /** مشهد الورشة المصرية (طاولة خشبية + موقد + شباك) */
     workshop: "/images/banner-workshop",
-    /** الصورة 4 — أكياس البلندات الثلاثة على طاولة العمل */
+    /** أكياس البلندات الثلاثة على طاولة العمل */
     signature: "/images/banner-signature",
-    /** الصورة 1 — الأكياس الثلاثة على خلفية داكنة بلمسات ذهبية */
+    /** الأكياس الثلاثة على خلفية داكنة بلمسات ذهبية */
     collections: "/images/banner-collections",
+  },
+  /** ماكينات القهوة — صور حقيقية (Wikimedia Commons) */
+  machines: {
+    espressoHome: "/images/machine-espresso-home",
+    espressoPro: "/images/machine-espresso-pro",
+    automatic: "/images/machine-automatic",
+    capsule: "/images/machine-capsule",
+    moka: "/images/machine-moka",
+    cezve: "/images/machine-cezve",
+  },
+  /** إكسسوارات وأدوات — صور حقيقية (Wikimedia Commons) */
+  accessories: {
+    grinderHand: "/images/acc-grinder-hand",
+    grinderElectric: "/images/acc-grinder-electric",
+    v60: "/images/acc-v60",
+    frenchPress: "/images/acc-french-press",
+    kettle: "/images/acc-kettle",
+    scale: "/images/acc-scale",
+    cups: "/images/acc-cups",
   },
 } as const;
