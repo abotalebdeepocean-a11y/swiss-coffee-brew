@@ -10,8 +10,8 @@ Any of png / jpg / webp works — the app tries each in order.
 ────────────────────────────────────────────
 1) أكياس القهوة / Coffee Bags
 ────────────────────────────────────────────
-bag-premium            → بريميم بليند 250 جم + المطحون              ✅ jpg
-bag-hero               → كيس الهيرو (سيجنتشر كريمي بفتحة جاهزة)      ✅ png
+bag-premium            → بريميم بليند 250 جم (الكيس الكحلي بالببغاء من إعلان BIALETTI) ✅ png
+bag-hero               → كيس الهيرو (الكيس الكحلي بالببغاء)          ✅ png
 bag-intenso            → إنتنسو بليند 250 جم                        ✅ webp
 bag-classic            → كلاسيك بليند 250 جم                        ✅ png
 bag-innovation         → إنوفيشن بليند (إثيوبيا) 500 جم             ✅ png
