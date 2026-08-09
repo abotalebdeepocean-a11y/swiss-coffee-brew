@@ -84,16 +84,23 @@ export function BagVisual({
 /**
  * Full-bleed banner photo for the homepage slider; keeps the animated SVG
  * scene as the fallback so the slider is never empty.
+ *
+ * `src`/`onError` come from the parent's `useImageCandidates` so the parent
+ * can react to whether the real photo loaded (e.g. hide its text overlay
+ * when the banner carries baked-in copy). `scrim` picks a heavier gradient
+ * for overlay text or a light one for ready-made ad banners.
  */
 export function SlideVisual({
-  image,
+  src,
+  onError,
   fallback,
+  scrim = "auto",
 }: {
-  image?: string;
+  src: string | null;
+  onError: () => void;
   fallback: () => ReactNode;
+  scrim?: "auto" | "soft";
 }) {
-  const { src, onError } = useImageCandidates(image);
-
   if (src) {
     return (
       <>
@@ -103,8 +110,13 @@ export function SlideVisual({
           onError={onError}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        {/* scrim so the overlay copy stays readable on any photo */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/45" />
+        {scrim === "soft" ? (
+          /* light scrim — the banner already carries its own copy */
+          <div className="absolute inset-0 bg-black/15" />
+        ) : (
+          /* scrim so the overlay copy stays readable on any photo */
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/45" />
+        )}
       </>
     );
   }

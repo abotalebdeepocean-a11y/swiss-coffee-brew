@@ -415,12 +415,19 @@ interface Slide {
   href: string;
   image: string;
   Scene: () => ReactNode;
+  /**
+   * The photo carries its own baked-in copy/CTA (a ready-made ad banner),
+   * so the slider hides its own text overlay while the real photo shows.
+   */
+  baked?: boolean;
 }
 
 export const SLIDES: Slide[] = [
   {
     id: "hero",
     kicker: "01 — IT'S NOT JUST COFFEE",
+    /* إعلان جاهز بنصه وزرّه — نخفي نص الموقع فوقه */
+    baked: true,
     title: (
       <>
         ليست مجرد قهوة…

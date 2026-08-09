@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SLIDES } from "./Banners";
-import { SlideVisual } from "./BagVisual";
+import { SlideVisual, useImageCandidates } from "./BagVisual";
 import { cn } from "@/lib/utils";
 
 const DURATION = 6500;
@@ -30,6 +30,12 @@ export function BannerSlider() {
   const slide = SLIDES[index];
   const Scene = slide.Scene;
 
+  // Whether the real banner photo is showing (vs. the SVG fallback scene).
+  const { src, onError } = useImageCandidates(slide.image);
+  const photoActive = src !== null;
+  // Ready-made ads carry their own headline + CTA — keep the screen clean.
+  const baked = slide.baked === true && photoActive;
+
   return (
     <section
       id="story"
@@ -47,40 +53,58 @@ export function BannerSlider() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
           >
-            <SlideVisual image={slide.image} fallback={Scene} />
+            <SlideVisual
+              src={src}
+              onError={onError}
+              fallback={Scene}
+              scrim={baked ? "soft" : "auto"}
+            />
           </motion.div>
         </AnimatePresence>
 
-        {/* overlay copy */}
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-end">
-          <div className="mx-auto w-full max-w-[1200px] px-5 pb-12 md:pb-16 md:px-6">
-            <motion.div
-              key={`text-${slide.id}`}
-              initial={{ opacity: 0, y: 26 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              className="max-w-2xl"
-            >
-              <div className="mb-4 flex items-center gap-3">
-                <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rv-red">
-                  {slide.kicker}
-                </span>
-                <span className="h-px w-10 bg-rv-red/60" />
-              </div>
-              <h3 className="text-3xl font-bold leading-[1.35] text-balance md:text-[44px] md:leading-[1.3]">
-                {slide.title}
-              </h3>
-              <p className="mt-3 text-sm text-white/60 md:text-base">{slide.sub}</p>
-              <Link
-                to={slide.href}
-                className="pointer-events-auto mt-7 inline-flex h-11 items-center gap-2 bg-rv-red px-6 text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
+        {/* overlay copy — hidden while a baked ad banner is showing */}
+        {!baked && (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-end">
+            <div className="mx-auto w-full max-w-[1200px] px-5 pb-12 md:pb-16 md:px-6">
+              <motion.div
+                key={`text-${slide.id}`}
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.15 }}
+                className="max-w-2xl"
               >
-                {slide.ctaLabel}
-                <ChevronLeft className="size-4" />
-              </Link>
-            </motion.div>
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rv-red">
+                    {slide.kicker}
+                  </span>
+                  <span className="h-px w-10 bg-rv-red/60" />
+                </div>
+                <h3 className="text-3xl font-bold leading-[1.35] text-balance md:text-[44px] md:leading-[1.3]">
+                  {slide.title}
+                </h3>
+                <p className="mt-3 text-sm text-white/60 md:text-base">{slide.sub}</p>
+                <Link
+                  to={slide.href}
+                  className="pointer-events-auto mt-7 inline-flex h-11 items-center gap-2 bg-rv-red px-6 text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
+                >
+                  {slide.ctaLabel}
+                  <ChevronLeft className="size-4" />
+                </Link>
+              </motion.div>
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* floating CTA — the baked ad's button is a picture, this one works */}
+        {baked && (
+          <Link
+            to={slide.href}
+            className="absolute bottom-6 start-6 z-10 inline-flex h-11 items-center gap-2 border border-white/25 bg-black/45 px-6 text-sm font-bold text-white backdrop-blur transition-colors hover:border-rv-red hover:bg-rv-red"
+          >
+            {slide.ctaLabel}
+            <ChevronLeft className="size-4" />
+          </Link>
+        )}
 
         {/* progress bar */}
         <div className="absolute inset-x-0 top-0 z-10 h-[3px] bg-white/10">
@@ -93,8 +117,9 @@ export function BannerSlider() {
           />
         </div>
 
-        {/* controls */}
-        <div className="absolute bottom-8 end-5 z-10 hidden items-center gap-2 md:flex">
+        {/* controls — at the vertical center of the edges, away from the
+            baked ad's bottom-left CTA and feature icons */}
+        <div className="absolute inset-y-0 start-5 z-10 hidden items-center md:flex">
           <button
             onClick={prev}
             className="grid size-11 place-items-center border border-white/20 bg-black/40 text-white backdrop-blur transition-colors hover:border-rv-red hover:bg-rv-red"
@@ -102,6 +127,8 @@ export function BannerSlider() {
           >
             <ChevronRight className="size-5" />
           </button>
+        </div>
+        <div className="absolute inset-y-0 end-5 z-10 hidden items-center md:flex">
           <button
             onClick={next}
             className="grid size-11 place-items-center border border-white/20 bg-black/40 text-white backdrop-blur transition-colors hover:border-rv-red hover:bg-rv-red"
