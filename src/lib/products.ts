@@ -82,6 +82,7 @@ export const PRODUCTS: Product[] = [
     nameEn: "ROVENTO Intenso Blend", 
     category: "espresso",
     price: 310,
+    oldPrice: 375,
     weight: "250 جم",
     rating: 4.8,
     reviews: 168,
