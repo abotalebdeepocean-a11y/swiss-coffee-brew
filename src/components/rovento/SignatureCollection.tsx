@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Cat, Flame, Sparkles, ChevronLeft } from "lucide-react";
+import { Cat, Flame, Sparkles, ChevronLeft, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
 import { SIGNATURE_BLENDS, getProduct, formatPrice, type Product } from "@/lib/products";
 import { useCart } from "@/lib/store";
@@ -12,10 +12,17 @@ const PERSONAS: Record<
   string,
   { ar: string; en: string; icon: typeof Cat }
 > = {
-  "rovento-premium": { ar: "القطّة الفضولية", en: "CURIOUS CAT", icon: Cat },
-  "rovento-intenso": { ar: "القطّة الجريئة", en: "BOLD CAT", icon: Flame },
-  "rovento-classic": { ar: "القطّة الهادئة", en: "CALM CAT", icon: Sparkles },
+  "rovento-premium": { ar: "القطّة الفضولية — نكهات أعمق", en: "RICHER FLAVOR", icon: Cat },
+  "rovento-intenso": { ar: "القطّة الجريئة — كريما كثيفة", en: "BOLD CREMA", icon: Flame },
+  "rovento-classic": { ar: "القطّة الهادئة — متوازن يوميًا", en: "DAILY BALANCE", icon: Sparkles },
 };
+
+/** مقارنة سريعة يحبها العميل المصري قبل الشراء */
+const COMPARE = [
+  { slug: "rovento-classic", name: "كلاسيك", strength: 7, tag: "متوازن · يومي · اقتصادي", color: "#002fa7" },
+  { slug: "rovento-premium", name: "بريميم", strength: 9, tag: "نكهات أعمق · كريما أغنى", color: "#c9a227" },
+  { slug: "rovento-intenso", name: "إنتنسو", strength: 10, tag: "جريء · قوي · لإسبريسو خالص", color: "#d03b1e" },
+];
 
 function BlendCard({
   product,
@@ -36,7 +43,7 @@ function BlendCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: num * 0.1 }}
-      className="group relative flex flex-col overflow-hidden border border-white/10 bg-card"
+      className="group relative flex flex-col overflow-hidden border border-white/10 bg-card transition-colors hover:border-rv-gold/40"
     >
       <span
         className="absolute inset-x-0 top-0 z-10 h-1.5"
@@ -66,7 +73,7 @@ function BlendCard({
           image={product.image}
           variant={variant}
           alt={`ROVENTO ${variant} bag`}
-          className="h-64 w-auto transition-transform duration-500 group-hover:scale-[1.06] md:h-72"
+          className="h-60 w-auto transition-transform duration-500 group-hover:scale-[1.06] md:h-64"
         />
       </div>
 
@@ -153,13 +160,13 @@ export function SignatureCollection() {
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
         <SectionHeading
           index="02"
-          kicker="Signature Collection"
+          kicker="Find Your Blend"
           title={
             <>
-              مجموعة <span className="text-rv-red">ROVENTO</span> المميزة
+              اختار <span className="text-rv-red">شخصيتك في فنجانك</span>
             </>
           }
-          desc="ثلاثة بلندات… والقطّة الشهيرة على كل كيس. كل بلند له طابعه: ذهبي متوازن، أحمر جريء، أزرق ناعم — ويصلك محمصًا طازجًا."
+          desc="كل بلند له طابعه: ذهبي متوازن، أحمر جريء، أزرق ناعم — قارن واختار اللي يناسب يومك. الكل محمص طازج ويصلك خلال 48 ساعة."
         />
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -172,6 +179,58 @@ export function SignatureCollection() {
             />
           ))}
         </div>
+
+        {/* مقارنة سريعة */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55 }}
+          className="mt-10 border border-white/10 bg-card"
+        >
+          <div className="flex items-center gap-2 border-b border-white/10 px-6 py-4">
+            <Gauge className="size-4 text-rv-red" />
+            <h3 className="text-base font-bold">مقارنة سريعة — القوة</h3>
+            <span className="ms-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Strength · من 10
+            </span>
+          </div>
+          <div className="grid gap-px bg-white/10 sm:grid-cols-3">
+            {COMPARE.map((c, i) => {
+              const p = getProduct(c.slug)!;
+              return (
+                <div key={c.slug} className="bg-background p-6">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold" style={{ color: c.color }}>
+                      {c.name}
+                    </span>
+                    <span className="font-display text-2xl font-black font-wide">
+                      {c.strength}
+                      <span className="text-sm font-bold text-muted-foreground">/10</span>
+                    </span>
+                  </div>
+                  <div className="mt-3 h-2 w-full bg-white/10">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${c.strength * 10}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.15 + i * 0.1 }}
+                      className="h-full"
+                      style={{ backgroundColor: c.color }}
+                    />
+                  </div>
+                  <p className="mt-3 text-xs text-muted-foreground">{c.tag}</p>
+                  <Link
+                    to={`/product/${p.slug}`}
+                    className="mt-3 inline-block text-xs font-semibold text-rv-red underline-offset-4 hover:underline"
+                  >
+                    عرض البلند ←
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

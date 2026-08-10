@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { Flame, Coffee, ShieldCheck, Truck, ChevronLeft } from "lucide-react";
+import { Flame, Coffee, ShieldCheck, Truck, ChevronLeft, Check, Wallet, CookingPot } from "lucide-react";
 import { getProduct, formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 import { IMAGES } from "@/lib/images";
@@ -11,6 +11,25 @@ const PERKS = [
   { icon: Flame, label: "قوام غني وكريما كثيفة" },
   { icon: ShieldCheck, label: "منتجات أصلية 100%" },
   { icon: Truck, label: "شحن لكل مصر" },
+];
+
+/** لماذا بريكا؟ — نقاط البيع الثلاث */
+const WHY_BRIKKA = [
+  {
+    icon: Coffee,
+    title: "كريما أقرب للإسبريسو",
+    desc: "ضغط البخار في البريكة ينتج طبقة كريما ذهبية كثيفة مش هتلاقيها في أي طريقة تحضير عادية.",
+  },
+  {
+    icon: Wallet,
+    title: "بدون ماكينة بـ 20 ألف جنيه",
+    desc: "جودة إسبريسو حقيقية بتكلفة أقل من 1% من سعر ماكينة الإسبريسو المنزلية.",
+  },
+  {
+    icon: CookingPot,
+    title: "تعمل على البوتاجاز العادي",
+    desc: "مفيش كهرباء ولا معدات — حطها على أي موقد وليك كوب جاهز في دقائق.",
+  },
 ];
 
 export function MokaSpotlight() {
@@ -31,7 +50,7 @@ export function MokaSpotlight() {
 
       <div className="relative mx-auto w-full max-w-[1200px] px-4 md:px-6">
         <SectionHeading
-          index="02"
+          index="04"
           kicker="Bialetti × ROVENTO"
           title={
             <>
@@ -111,6 +130,29 @@ export function MokaSpotlight() {
                 وطعم إسبريسو إيطالي أصيل بلا كهرباء. ومعه كيس بريميم 1 كجم
                 محمص طازج ليكمل التجربة.
               </p>
+
+              {/* لماذا بريكا؟ */}
+              <div className="mt-6 border border-rv-gold/30 bg-rv-gold/5 p-5">
+                <p className="flex items-center gap-2 text-sm font-bold text-rv-gold">
+                  <Check className="size-4" />
+                  لماذا بريكا؟
+                </p>
+                <ul className="mt-4 space-y-3.5">
+                  {WHY_BRIKKA.map((w) => (
+                    <li key={w.title} className="flex items-start gap-3">
+                      <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-rv-gold/40 text-rv-gold">
+                        <w.icon className="size-3.5" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-bold">{w.title}</p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                          {w.desc}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <div className="mt-6 flex items-end gap-3">
                 <span className="font-display text-4xl font-black text-rv-gold font-wide">

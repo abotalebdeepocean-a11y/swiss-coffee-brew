@@ -41,6 +41,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-background/85 backdrop-blur-md">
+      {/* شريط العرض العلوي */}
+      <div className="bg-rv-red text-white">
+        <p className="mx-auto flex h-9 w-full max-w-[1200px] items-center justify-center gap-2 px-4 text-center text-[12px] font-semibold md:text-[13px]">
+          <span>🔥 خصم 15% على أول طلب — استخدم كود</span>
+          <span
+            dir="ltr"
+            className="rounded-sm bg-black/25 px-2 py-0.5 font-mono text-[11px] font-bold tracking-wider"
+          >
+            ROVENTO15
+          </span>
+          <span className="hidden sm:inline">عند إتمام الطلب</span>
+        </p>
+      </div>
       <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4 md:h-20 md:px-6">
         <Link to="/" aria-label="روڤينتو — الرئيسية">
           <Logo />

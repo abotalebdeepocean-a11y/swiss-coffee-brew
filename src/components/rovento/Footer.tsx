@@ -24,10 +24,12 @@ const LINKS = [
 const CATS = [
   { label: "حبوب القهوة", to: "/shop?category=beans" },
   { label: "حبوب الإسبريسو", to: "/shop?category=espresso" },
-  { label: "القهوة المطحونة", to: "/shop?category=ground" },
+  { label: "كبسولات القهوة", to: "/shop?category=capsules" },
   { label: "ماكينات القهوة", to: "/shop?category=machines" },
   { label: "الإكسسوارات", to: "/shop?category=accessories" },
 ];
+
+const SHIPPING = ["Aramex", "Bosta", "Mylerz"];
 
 export function Footer() {
   return (
@@ -128,8 +130,22 @@ export function Footer() {
               </span>
             ))}
           </div>
+          <h4 className="mt-7 font-mono text-[11px] uppercase tracking-[0.28em] text-rv-red">
+            وسائل الشحن
+          </h4>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {SHIPPING.map((s) => (
+              <span
+                key={s}
+                dir="ltr"
+                className="border border-white/12 bg-white/5 px-3 py-2 font-mono text-[11px] font-semibold tracking-wider text-foreground/80"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
           <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-            شحن لكل محافظات مصر خلال ٤٨ ساعة · توصيل مجاني للطلبات فوق ١٠٠٠ ج.م
+            شحن لكل محافظات مصر خلال ٢٤–٧٢ ساعة · توصيل مجاني للطلبات فوق ١٠٠٠ ج.م
           </p>
         </div>
       </div>

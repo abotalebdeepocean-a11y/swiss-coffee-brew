@@ -1,8 +1,15 @@
 import { Link } from "react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Flame, Star, Trophy } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 import { ProductCard } from "./ProductCard";
 import { SectionHeading } from "./Section";
+
+/** علامات التحويل فوق السطر */
+const BADGES = [
+  { icon: Flame, label: "الأكثر مبيعًا", color: "text-rv-red border-rv-red/50" },
+  { icon: Star, label: "تقييم العملاء 4.9+", color: "text-rv-gold border-rv-gold/50" },
+  { icon: Trophy, label: "اختيار الباريستا", color: "text-rv-blue border-rv-blue/50" },
+];
 
 export function BestSellers() {
   const bestsellers = PRODUCTS.filter((p) => p.bestseller).slice(0, 5);
@@ -10,9 +17,22 @@ export function BestSellers() {
   return (
     <section id="featured" className="border-b border-white/10 py-20 md:py-28">
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        {/* شارات التحويل */}
+        <div className="mb-10 flex flex-wrap gap-2">
+          {BADGES.map((b) => (
+            <span
+              key={b.label}
+              className={`inline-flex items-center gap-2 border bg-background px-3.5 py-2 text-xs font-bold ${b.color}`}
+            >
+              <b.icon className="size-4" />
+              {b.label}
+            </span>
+          ))}
+        </div>
+
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading
-            index="03"
+            index="05"
             kicker="Best Sellers"
             title={
               <>

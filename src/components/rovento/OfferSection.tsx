@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { ChevronLeft, Timer } from "lucide-react";
@@ -20,22 +21,95 @@ const OFFERS = [
   },
 ];
 
+/** عدد تنازلي حي حتى نهاية الأسبوع الحالي */
+function useCountdown() {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const target = useMemo(() => {
+    const d = new Date();
+    const day = d.getDay(); // 0 = الأحد
+    const daysToSunday = (7 - day) % 7 || 7;
+    const t = new Date(d);
+    t.setDate(t.getDate() + daysToSunday);
+    t.setHours(23, 59, 59, 0);
+    return t.getTime();
+  }, []);
+
+  const diff = Math.max(0, target - now);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return {
+    days: pad(Math.floor(diff / 86_400_000)),
+    hours: pad(Math.floor((diff % 86_400_000) / 3_600_000)),
+    minutes: pad(Math.floor((diff % 3_600_000) / 60_000)),
+    seconds: pad(Math.floor((diff % 60_000) / 1000)),
+  };
+}
+
+function CountdownBox({ value, unit }: { value: string; unit: string }) {
+  return (
+    <div className="grid size-14 place-items-center border border-rv-gold/40 bg-background/80 md:size-16">
+      <span className="font-display text-xl font-black text-rv-gold font-wide md:text-2xl">
+        {value}
+      </span>
+      <span className="text-[9px] text-muted-foreground">{unit}</span>
+    </div>
+  );
+}
+
 export function OfferSection() {
   const { add } = useCart();
+  const { days, hours, minutes, seconds } = useCountdown();
 
   return (
-    <section id="offers" className="border-b border-white/10 py-20 md:py-28">
-      <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        <SectionHeading
-          index="01"
-          kicker="Weekly Offer"
-          title={
-            <>
-              عرض الأسبوع: <span className="text-rv-red">كيسان بخصم حقيقي</span>
-            </>
-          }
-          desc="ركّزنا على الأفضل عندنا. اختار البلند اللي يناسب طقوسك — تحميص طازج يصلك خلال ٤٨ ساعة في كل مصر."
-        />
+    <section
+      id="offers"
+      className="relative overflow-hidden border-b border-white/10 py-20 md:py-28"
+    >
+      {/* خلفية ذهبية خفيفة */}
+      <div className="absolute inset-0 bg-gradient-to-b from-rv-gold/[0.07] via-transparent to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(900px 420px at 50% 0%, rgba(201,162,39,0.12), transparent 65%)",
+        }}
+      />
+
+      <div className="relative mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
+          <SectionHeading
+            index="03"
+            kicker="Weekly Offer"
+            title={
+              <>
+                🔥 اشترِ 2 واحصل على{" "}
+                <span className="text-rv-red">خصم فوري</span>
+              </>
+            }
+            desc="ركّزنا على الأفضل عندنا. اختار البلند اللي يناسب طقوسك — تحميص طازج يصلك خلال ٤٨ ساعة في كل مصر."
+            className="mb-0 md:mb-0"
+          />
+          {/* عداد تنازلي */}
+          <div className="mb-2">
+            <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-rv-gold">
+              <Timer className="size-3.5" />
+              ينتهي العرض خلال
+            </p>
+            <div className="flex gap-2">
+              <CountdownBox value={days} unit="يوم" />
+              <span className="self-center text-xl font-black text-rv-gold">:</span>
+              <CountdownBox value={hours} unit="ساعة" />
+              <span className="self-center text-xl font-black text-rv-gold">:</span>
+              <CountdownBox value={minutes} unit="دقيقة" />
+              <span className="self-center text-xl font-black text-rv-gold">:</span>
+              <CountdownBox value={seconds} unit="ثانية" />
+            </div>
+          </div>
+        </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
           {OFFERS.map((o, i) => {
@@ -49,7 +123,7 @@ export function OfferSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.55, delay: i * 0.12 }}
-                className="group relative flex flex-col overflow-hidden border border-white/10 bg-card md:flex-row"
+                className="group relative flex flex-col overflow-hidden border border-rv-gold/25 bg-card transition-colors hover:border-rv-gold/50 md:flex-row"
               >
                 <span
                   className="absolute inset-x-0 top-0 z-10 h-1.5"

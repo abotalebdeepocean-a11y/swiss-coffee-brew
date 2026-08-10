@@ -1,10 +1,11 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { ArrowDown, ChevronLeft } from "lucide-react";
+import { ArrowDown, ChevronLeft, Flame, Truck } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 import { Bean, Steam, Stars } from "./art";
+import { formatPrice } from "@/lib/products";
 
 const STATS = [
   { value: "4.9", label: "تقييم العملاء", en: "RATING" },
@@ -23,17 +24,17 @@ const VALUES = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-white/10">
-      {/* backdrop */}
+      {/* backdrop — دافئ ذهبي + لمسة حمراء لهوية ROVENTO */}
       <div className="absolute inset-0 swiss-grid-bg" />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(900px 500px at 78% 42%, rgba(208,59,30,0.16), transparent 65%), radial-gradient(700px 420px at 12% 80%, rgba(0,47,167,0.12), transparent 60%)",
+            "radial-gradient(1000px 560px at 75% 28%, rgba(201,162,39,0.15), transparent 62%), radial-gradient(820px 480px at 8% 88%, rgba(208,59,30,0.14), transparent 60%)",
         }}
       />
-      <div className="absolute -top-32 end-[-180px] size-[480px] rounded-full border border-white/5" />
-      <div className="absolute -top-20 end-[-120px] size-[380px] rounded-full border border-white/5" />
+      <div className="absolute -top-32 end-[-180px] size-[480px] rounded-full border border-rv-gold/10" />
+      <div className="absolute -top-20 end-[-120px] size-[380px] rounded-full border border-rv-gold/10" />
 
       <div className="relative mx-auto grid w-full max-w-[1200px] gap-10 px-4 pb-16 pt-12 md:grid-cols-2 md:gap-6 md:px-6 md:pb-24 md:pt-20 lg:min-h-[86vh] lg:items-center">
         {/* copy */}
@@ -50,14 +51,24 @@ export function Hero() {
           </div>
 
           <h1 className="text-4xl font-bold leading-[1.3] text-balance md:text-6xl md:leading-[1.25]">
-            ليست مجرد قهوة…
+            مش مجرد قهوة…
             <br />
-            <span className="text-rv-red">إنها وقود العظماء!</span>
+            <span className="text-rv-red">دي عصارة قهوة خالصة.</span>
           </h1>
 
-          <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-            مصنوعة من أجود حبوب الأرابيكا والروبوستا، بخبرة تحميص دقيقة تمنحك
-            تركيزًا صافيًا، طاقة إيجابية، وطعمًا لا يُنسى — تصل إلى باب بيتك.
+          {/* دليل اجتماعي تحت العنوان مباشرة */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <Stars value={5} />
+            <span className="text-sm font-bold text-foreground">
+              +500 عميل في مصر
+            </span>
+            <span className="h-4 w-px bg-white/15" />
+            <span className="text-sm text-muted-foreground">تقييم 4.9/5</span>
+          </div>
+
+          <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
+            حبوب إسبريسو محمصة بعناية لعشاق الكريما الغنية والطعم المتوازن —
+            توصلك طازجة حتى باب بيتك في كل محافظات مصر.
           </p>
 
           {/* القيم الأربع — نفس شعار العلامة الحقيقي */}
@@ -72,7 +83,19 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          {/* لماذا تشتري منا — في أول شاشة */}
+          <div className="mt-5 flex max-w-md flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Flame className="size-3.5 text-rv-red" />
+              تحميص طازج أسبوعيًا
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Truck className="size-3.5 text-rv-red" />
+              شحن 48 ساعة لكل مصر
+            </span>
+          </div>
+
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
               to="/shop"
               className="group inline-flex h-12 items-center gap-2 bg-rv-red px-7 text-sm font-bold text-white transition-all hover:bg-[#b53219]"
@@ -90,9 +113,9 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="inline-flex h-12 items-center gap-2 border border-white/25 px-7 text-sm font-bold text-foreground transition-colors hover:border-rv-red hover:text-rv-red"
+              className="inline-flex h-12 items-center gap-2 border border-white/25 bg-black/30 px-7 text-sm font-bold text-foreground transition-colors hover:border-rv-red hover:text-rv-red"
             >
-              استكشف المنتجات
+              شاهد المنتجات
             </Link>
             <button
               onClick={() =>
@@ -107,7 +130,16 @@ export function Hero() {
             </button>
           </div>
 
-          <div className="mt-10 grid max-w-md grid-cols-2 gap-px border border-white/10 bg-white/10 sm:grid-cols-4">
+          {/* السعر — نقطة البيع الأولى */}
+          <p className="mt-5 max-w-md border border-rv-gold/25 bg-rv-gold/5 px-4 py-3 text-sm text-muted-foreground">
+            ابتداءً من{" "}
+            <span className="font-display text-lg font-black text-rv-gold font-wide">
+              {formatPrice(285)}
+            </span>{" "}
+            — كوب إسبريسو غني بالكريما من أول تجربة
+          </p>
+
+          <div className="mt-8 grid max-w-md grid-cols-2 gap-px border border-white/10 bg-white/10 sm:grid-cols-4">
             {STATS.map((s) => (
               <div key={s.en} className="bg-background px-4 py-3.5">
                 <div className="font-display text-lg font-black text-foreground font-wide">
@@ -124,7 +156,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* bag visual */}
+        {/* كيس المنتج — عرض فخم بإطار ذهبي */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -136,11 +168,11 @@ export function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(420px 420px at 50% 48%, rgba(201,162,39,0.16), transparent 70%)",
+                "radial-gradient(460px 460px at 50% 48%, rgba(201,162,39,0.2), transparent 70%)",
             }}
           />
-          <div className="absolute start-4 top-8 size-24 rounded-full border-2 border-dashed border-white/10 animate-spin-slow" />
-          <div className="absolute end-8 top-24 size-14 rounded-full border border-rv-blue/40" />
+          <div className="absolute start-4 top-8 size-24 rounded-full border-2 border-dashed border-rv-gold/20 animate-spin-slow" />
+          <div className="absolute end-8 top-24 size-14 rounded-full border border-rv-gold/30" />
 
           {/* floating beans */}
           <Bean
@@ -169,16 +201,31 @@ export function Hero() {
           <Steam className="absolute right-[22%] top-0 h-48 w-16 opacity-70" delay={1.6} />
           <Steam className="absolute left-[30%] top-2 h-36 w-12 opacity-60" delay={3.1} />
 
-          {/* the bag */}
-          <div className="relative drop-shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
-            <BagVisual
-              image={IMAGES.heroBag}
-              variant="premium"
-              eager
-              alt="ROVENTO Specialty Coffee Bag"
-              className="h-[420px] w-auto animate-float-slow svg-center md:h-[520px]"
-              style={{ "--rot": "-1.5deg" } as CSSProperties}
-            />
+          {/* إطار المنتج */}
+          <div className="relative border border-rv-gold/25 bg-gradient-to-b from-rv-gold/10 via-transparent to-transparent p-8 backdrop-blur-sm">
+            <div className="absolute inset-2 border border-white/5" />
+            <div className="relative drop-shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
+              <BagVisual
+                image={IMAGES.heroBag}
+                variant="premium"
+                eager
+                alt="ROVENTO Premium Blend — كيس قهوة إسبريسو"
+                className="h-[380px] w-auto animate-float-slow svg-center md:h-[470px]"
+                style={{ "--rot": "-1.5deg" } as CSSProperties}
+              />
+            </div>
+
+            {/* شارة الخصم */}
+            <div className="absolute end-4 top-4 grid size-16 place-items-center rounded-full border border-rv-gold bg-background/95 text-center shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+              <span>
+                <span className="block font-display text-base font-black text-rv-gold font-wide">
+                  19%
+                </span>
+                <span className="block font-mono text-[8px] tracking-widest text-foreground">
+                  خصم
+                </span>
+              </span>
+            </div>
           </div>
 
           {/* floating rating chip */}

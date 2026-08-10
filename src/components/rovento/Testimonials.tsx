@@ -1,26 +1,31 @@
 import { motion } from "framer-motion";
 import { BadgeCheck, Quote } from "lucide-react";
+import { IMAGES } from "@/lib/images";
 import { Stars } from "./art";
+import { BagVisual } from "./BagVisual";
 import { SectionHeading } from "./Section";
 
 const REVIEWS = [
   {
     name: "أحمد سامي",
     city: "القاهرة — مدينة نصر",
-    text: "أول مرة أحس إن القهوة اللي بشربها في البيت زي اللي في الكافيهات المحترمة. بريميم بليند بقى طقس الصبح بتاعي، والتغليف نفسه تحفة.",
-    product: "ROVENTO بريميم بليند",
+    text: "الكريما أحسن من معظم القهوة المستوردة اللي جربتها. بريميم بليند بقى طقس الصبح بتاعي، والتغليف نفسه تحفة.",
+    product: "بريميم بليند",
+    img: IMAGES.bags.premium,
   },
   {
     name: "سارة محمود",
     city: "الإسكندرية",
-    text: "طلبت الإنتنسو لصديق بدأ يتعلم الإسبريسو، الكريما اللي طلعت جابتله جو. التوصيل جه في يومين والتغليف كان محترم جدًا.",
-    product: "ROVENTO إنتنسو بليند",
+    text: "البريكا مع روفينتو غيرت روتين الصبح عندي — كوب إسبريسو أصيل في البيت من غير ماكينة غالية.",
+    product: "موكا بوت بريكا + بريميم",
+    img: IMAGES.bags.premium,
   },
   {
     name: "عمر خالد",
     city: "الجيزة — الشيخ زايد",
     text: "جربت كذا محمصة في مصر، روفينتو مختلف: ثبات في الجودة من أول كيس للخامس. والاشتراك الشهري وفّر عليّ كتير.",
     product: "اشتراك شهري",
+    img: IMAGES.bags.classic,
   },
 ];
 
@@ -29,13 +34,14 @@ export function Testimonials() {
     <section id="reviews" className="border-b border-white/10 py-20 md:py-28">
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
         <SectionHeading
-          index="05"
+          index="08"
           kicker="Social Proof"
           title={
             <>
               قالوا عن <span className="text-rv-red">روفينتو</span>
             </>
           }
+          desc="المصري يثق في الناس أكتر من الإعلان — دي تجارب حقيقية لعملاء طلبوا فعلاً."
         />
 
         <div className="grid gap-6 lg:grid-cols-4">
@@ -54,6 +60,9 @@ export function Testimonials() {
               <Stars value={5} className="mt-4" />
               <p className="mt-3 text-sm leading-relaxed text-white/85">
                 متوسط تقييم +1,200 عميل في مصر
+              </p>
+              <p className="mt-2 text-xs text-white/70">
+                ☕ أكثر من 5,000 كجم تم بيعها
               </p>
             </div>
             <div className="mt-8 font-mono text-[10px] uppercase tracking-[0.28em] text-white/70">
@@ -93,9 +102,20 @@ export function Testimonials() {
                       مشتري موثّق
                     </span>
                   </div>
-                  <p className="mt-3 font-mono text-[10px] tracking-widest text-rv-gold">
-                    اشترى: {r.product}
-                  </p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <div className="grid h-12 w-10 shrink-0 place-items-center border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent">
+                      <BagVisual
+                        image={r.img}
+                        variant="premium"
+                        label="ROVENTO"
+                        alt={r.product}
+                        className="h-10 w-auto"
+                      />
+                    </div>
+                    <p className="font-mono text-[10px] tracking-widest text-rv-gold">
+                      اشترى: {r.product}
+                    </p>
+                  </div>
                 </figcaption>
               </motion.figure>
             ))}
