@@ -1,204 +1,142 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { Flame, Coffee, ShieldCheck, Truck, ChevronLeft, Check, Wallet, CookingPot } from "lucide-react";
-import { getProduct, formatPrice } from "@/lib/products";
+import { ChevronLeft, Coffee, CookingPot, Wallet } from "lucide-react";
+import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 import { IMAGES } from "@/lib/images";
-import { SectionHeading } from "./Section";
 
-const PERKS = [
-  { icon: Coffee, label: "إسبريسو أصيل على الموقد" },
-  { icon: Flame, label: "قوام غني وكريما كثيفة" },
-  { icon: ShieldCheck, label: "منتجات أصلية 100%" },
-  { icon: Truck, label: "شحن لكل مصر" },
-];
-
-/** لماذا بريكا؟ — نقاط البيع الثلاث */
 const WHY_BRIKKA = [
   {
     icon: Coffee,
-    title: "كريما أقرب للإسبريسو",
-    desc: "ضغط البخار في البريكة ينتج طبقة كريما ذهبية كثيفة مش هتلاقيها في أي طريقة تحضير عادية.",
+    title: "كريما أقرب للإسبريسو الحقيقي",
+    desc: "طبقة كريما ذهبية كثيفة ومخملية بفضل توازن الأرابيكا مع الروبوستا المحمصة بدقة.",
   },
   {
     icon: Wallet,
     title: "بدون ماكينة بـ 20 ألف جنيه",
-    desc: "جودة إسبريسو حقيقية بتكلفة أقل من 1% من سعر ماكينة الإسبريسو المنزلية.",
+    desc: "وفر آلاف الجنيهات واستمتع بنفس جودة المقاهي المختصة وأنت في منزلك.",
   },
   {
     icon: CookingPot,
-    title: "تعمل على البوتاجاز العادي",
-    desc: "مفيش كهرباء ولا معدات — حطها على أي موقد وليك كوب جاهز في دقائق.",
+    title: "تعمل على البوتاجاز العادي بسهولة",
+    desc: "تحضير سريع وسهل على أي موقد غاز أو كهرباء في أقل من 3 دقائق.",
   },
 ];
 
 export function MokaSpotlight() {
   const { add } = useCart();
-  const moka = getProduct("machine-moka");
 
   return (
-    <section id="moka" className="relative overflow-hidden border-b border-white/10 py-20 md:py-28">
-      {/* backdrop */}
-      <div className="absolute inset-0 swiss-grid-bg" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(800px 480px at 75% 40%, rgba(201,162,39,0.14), transparent 65%)",
-        }}
-      />
+    <section
+      id="moka"
+      className="border-b border-stone-800 bg-coffee-950 py-20"
+    >
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 md:px-6 lg:grid-cols-12">
+        {/* النص */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6 lg:col-span-7"
+        >
+          <span className="inline-block rounded-full bg-rv-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-rv-gold">
+            سر الكريما الإيطالية في بيتك
+          </span>
+          <h2 className="text-3xl font-black leading-tight text-white sm:text-4xl">
+            لماذا بريكا؟
+            <br />
+            <span className="text-rv-gold">
+              إسبريسو فاخر بدون ماكينة بـ 20 ألف جنيه!
+            </span>
+          </h2>
+          <p className="text-lg leading-relaxed text-stone-300">
+            الكثير من عشاق القهوة يظنون أن الكريما الغنية تتطلب ماكينات إسبريسو
+            باهظة الثمن. مع خلطة روفينتو المصممة خصيصًا لاستخلاص ممتاز مع وعاء
+            "الموكا بوت بريكا" (Brikka)، ستحصل على فنجان إسبريسو احترافي في
+            مطبخك خلال 3 دقائق فقط.
+          </p>
 
-      <div className="relative mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        <SectionHeading
-          index="04"
-          kicker="Bialetti × ROVENTO"
-          title={
-            <>
-              موكا بوت <span className="text-rv-gold">BIALETTI</span> بريكا — عرض لفترة محدودة
-            </>
-          }
-          desc="عندما يلتقي الإتقان بالإبداع: الموكا بوت الأصلية من Bialetti مع حبوب روفينتو بريميم — تجربة إسبريسو لا تُنسى في بيتك."
-        />
-
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-6">
-          {/* product shot */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative"
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(420px 420px at 50% 50%, rgba(201,162,39,0.18), transparent 70%)",
-              }}
-            />
-            <img
-              src={`${IMAGES.machines.moka}.jpg`}
-              alt="موكا بوت Bialetti بريكا الأصلية"
-              loading="lazy"
-              className="relative mx-auto h-72 w-auto object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.55)] md:h-96"
-            />
-            {/* floating discount badge */}
-            <motion.div
-              initial={{ opacity: 0, rotate: -8 }}
-              whileInView={{ opacity: 1, rotate: -8 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.35, duration: 0.5 }}
-              className="absolute end-4 top-6 grid size-24 place-items-center rounded-full border-2 border-rv-gold bg-background text-center"
-            >
-              <span>
-                <span className="block font-display text-xl font-black text-rv-gold font-wide">
-                  25%
+          {/* 3 نقاط بيع */}
+          <div className="space-y-4 pt-2">
+            {WHY_BRIKKA.map((w) => (
+              <div
+                key={w.title}
+                className="flex items-start gap-4 rounded-xl border border-stone-800 bg-coffee-900/80 p-4"
+              >
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-rv-gold/20 text-lg font-black text-rv-gold">
+                  ✔
                 </span>
-                <span className="block font-mono text-[9px] tracking-widest text-foreground">
-                  خصم
-                </span>
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* offer copy */}
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className="border border-rv-gold/30 bg-background/90 p-7 backdrop-blur md:p-9">
-              <div className="flex items-center justify-between">
-                <span className="border border-rv-red/50 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-rv-red">
-                  عرض لفترة محدودة
-                </span>
-                <span className="font-mono text-[10px] tracking-[0.28em] text-muted-foreground">
-                  BIALETTI BRIKKA
-                </span>
+                <div>
+                  <h4 className="text-base font-bold text-white">{w.title}</h4>
+                  <p className="mt-1 text-sm text-stone-400">{w.desc}</p>
+                </div>
               </div>
+            ))}
+          </div>
 
-              <h3 className="mt-5 text-2xl font-bold leading-snug md:text-3xl">
-                موكا بوت بريكا الأصلية
-                <span className="mt-1 block text-base font-semibold text-muted-foreground">
-                  + حبوب روفينتو بريميم 1 كجم
-                </span>
-              </h3>
-
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                الموقد يفصل الحبة عن الكوب بدقائق — كريما ذهبية، عطر عميق،
-                وطعم إسبريسو إيطالي أصيل بلا كهرباء. ومعه كيس بريميم 1 كجم
-                محمص طازج ليكمل التجربة.
+          {/* شريط عرض الباندل */}
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border-2 border-rv-gold/40 bg-rv-gold/10 p-5">
+            <div>
+              <p className="text-sm font-bold text-rv-gold">
+                عرض Bialetti × ROVENTO
               </p>
-
-              {/* لماذا بريكا؟ */}
-              <div className="mt-6 border border-rv-gold/30 bg-rv-gold/5 p-5">
-                <p className="flex items-center gap-2 text-sm font-bold text-rv-gold">
-                  <Check className="size-4" />
-                  لماذا بريكا؟
-                </p>
-                <ul className="mt-4 space-y-3.5">
-                  {WHY_BRIKKA.map((w) => (
-                    <li key={w.title} className="flex items-start gap-3">
-                      <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-rv-gold/40 text-rv-gold">
-                        <w.icon className="size-3.5" />
-                      </span>
-                      <div>
-                        <p className="text-sm font-bold">{w.title}</p>
-                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                          {w.desc}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-6 flex items-end gap-3">
-                <span className="font-display text-4xl font-black text-rv-gold font-wide">
+              <p className="mt-1 text-sm text-stone-300">
+                موكا بوت بريكا الأصلية + كيس بريميم 1 كجم
+              </p>
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className="text-2xl font-black text-rv-gold">
                   {formatPrice(2999)}
                 </span>
-                <span className="pb-1.5 text-lg text-muted-foreground line-through">
+                <span className="text-sm text-stone-400 line-through">
                   {formatPrice(3999)}
                 </span>
+                <span className="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-black text-white">
+                  خصم 25%
+                </span>
               </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => add("machine-moka")}
+                className="btn-gold inline-flex h-12 items-center gap-2 rounded-xl px-6 text-sm font-black"
+              >
+                اطلب الآن
+                <ChevronLeft className="size-4" />
+              </button>
+              <Link
+                to="/shop?category=machines"
+                className="inline-flex h-12 items-center rounded-xl border border-stone-700 px-5 text-sm font-bold text-stone-300 transition-colors hover:border-rv-gold hover:text-rv-gold"
+              >
+                كل الماكينات
+              </Link>
+            </div>
+          </div>
+        </motion.div>
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                {PERKS.map((f) => (
-                  <div
-                    key={f.label}
-                    className="flex items-center gap-2 border border-white/10 px-3 py-2.5 text-[11px] text-muted-foreground"
-                  >
-                    <f.icon className="size-4 shrink-0 text-rv-gold" />
-                    {f.label}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <button
-                  onClick={() => {
-                    if (moka) add(moka.slug);
-                  }}
-                  className="inline-flex h-12 items-center gap-2 bg-rv-red px-8 text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
-                >
-                  اطلب الآن قبل نفاذ الكمية
-                  <ChevronLeft className="size-4" />
-                </button>
-                <Link
-                  to="/shop?category=machines"
-                  className="inline-flex h-12 items-center border border-white/25 px-6 text-sm font-semibold transition-colors hover:border-rv-gold hover:text-rv-gold"
-                >
-                  كل الماكينات
-                </Link>
-              </div>
-
-              <p className="mt-4 font-mono text-[10px] tracking-widest text-rv-gold/70">
-                خصم 25% لفترة محدودة · الكمية محدودة
+        {/* الصورة */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="flex justify-center lg:col-span-5"
+        >
+          <div className="relative w-full max-w-md">
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-rv-gold to-amber-900 opacity-40 blur-lg" />
+            <div className="relative rounded-3xl border border-stone-800 bg-coffee-900 p-6 text-center shadow-2xl">
+              <img
+                src={`${IMAGES.machines.moka}.jpg`}
+                alt="موكا بوت Bialetti بريكا الأصلية"
+                loading="lazy"
+                className="mx-auto h-72 w-auto rounded-2xl object-contain shadow-xl md:h-[400px]"
+              />
+              <p className="mt-4 text-xs font-bold text-rv-gold">
+                ☕ استخلاص حقيقي لقهوة روفينتو مع طبقة كريما كثيفة
               </p>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

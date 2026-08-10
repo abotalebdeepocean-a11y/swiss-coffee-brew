@@ -5,95 +5,84 @@ import {
   Truck,
   Headset,
   RotateCcw,
-  Coffee,
+  Sprout,
 } from "lucide-react";
-import { SectionHeading } from "./Section";
 
 const FEATURES = [
   {
     icon: Flame,
+    emoji: "🔥",
     title: "تحميص طازج",
-    en: "FRESH ROAST",
-    desc: "نحمص على دفعات صغيرة أسبوعيًا للحفاظ على النكهة — الكيس اللي يصلك محمص حديثًا.",
+    desc: "نحمص القهوة في القاهرة على دفعات صغيرة ومدروسة للحفاظ على النكهة العطرية والطزاجة القصوى قبل وصولها إليك مباشرة.",
   },
   {
-    icon: Coffee,
-    title: "حبوب مختارة",
-    en: "SELECTED BEANS",
-    desc: "مزج مدروس من أجود حبوب الأرابيكا والروبوستا من مزارع موثوقة.",
+    icon: Sprout,
+    emoji: "🌱",
+    title: "حبوب مختارة بعناية",
+    desc: "مزج مدروس بعناية من أجود حبوب الأرابيكا والروبوستا العالمية لضمان القوام الغني والكريما الذهبية بدون مرارة مزعجة.",
   },
   {
     icon: Package,
+    emoji: "🛡️",
     title: "تغليف احترافي",
-    en: "PRO PACKAGING",
-    desc: "صمام أحادي الاتجاه يحافظ على الطزاجة ويمنع دخول الهواء والأكسدة.",
+    desc: "عبوات فاخرة مزودة بصمام أحادي الاتجاه (One-way Valve) لتفريغ الغازات وحفظ الزيوت العطرية من الأكسدة والرطوبة.",
   },
   {
     icon: Headset,
-    title: "دعم حقيقي",
-    en: "REAL SUPPORT",
-    desc: "واتساب مباشر لأي استفسار — فريقنا يرد من ٩ صباحًا حتى ١١ مساءً يوميًا.",
+    emoji: "💬",
+    title: "دعم حقيقي واستشارة",
+    desc: "فريقنا متاح عبر واتساب المباشر لمساعدتك في ترشيح نوع القهوة والطحنة المناسبة لأدواتك — موكا بوت أو إسبريسو أو فلتر.",
   },
   {
     icon: Truck,
-    title: "شحن سريع",
-    en: "FAST SHIPPING",
-    desc: "خلال ٢٤–٧٢ ساعة لكل محافظات مصر، وتوصيل مجاني للطلبات فوق ١٠٠٠ ج.م.",
+    emoji: "🚚",
+    title: "شحن سريع داخل مصر",
+    desc: "توصيل سريع ومضمون خلال 24 إلى 72 ساعة للقاهرة والجيزة والإسكندرية وكافة المحافظات بالتعاون مع أفضل شركات الشحن.",
   },
   {
     icon: RotateCcw,
-    title: "استرجاع سهل",
-    en: "EASY RETURNS",
-    desc: "في حالة وجود أي مشكلة بالمنتج — نستبدله لك أو نرد فلوسك بلا تعقيد.",
+    emoji: "↩️",
+    title: "استرجاع سهل وضمان",
+    desc: "ضمان ذهبي حقيقي: في حالة وجود أي مشكلة بالمنتج أو عدم رضاك، نضمن لك استبدال أو استرجاع فوري بدون تعقيد.",
   },
 ];
 
 export function WhyRovento() {
   return (
-    <section id="why" className="border-b border-white/10 py-20 md:py-28">
+    <section
+      id="why"
+      className="border-b border-stone-800 bg-coffee-900/40 py-20"
+    >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        <SectionHeading
-          index="07"
-          kicker="Why ROVENTO"
-          title={
-            <>
-              لماذا <span className="text-rv-red">روفينتو</span>؟
-            </>
-          }
-          desc="بن شاهين وعبد المعبود وLavazza عندهم قهوة… لكن اللي عندنا: تحميص طازج، دعم حقيقي، وتجربة كاملة لحد باب بيتك."
-        />
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-wider text-rv-gold">
+            جودة نثق بها وتليق بك
+          </span>
+          <h2 className="mt-2 text-3xl font-black sm:text-4xl">
+            لماذا يختار عشاق القهوة في مصر{" "}
+            <span className="text-rv-red">روفينتو؟</span>
+          </h2>
+          <p className="mt-3 text-lg text-stone-300">
+            صممنا تجربتنا بالكامل لنحل أكبر المشاكل التي تواجه محبي القهوة مع
+            العلامات التجارية المستوردة والمحمصات المحلية.
+          </p>
+        </div>
 
-        <div className="grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
             <motion.div
-              key={f.en}
+              key={f.title}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
-              className="group relative bg-background p-7 transition-colors hover:bg-rv-ink"
+              className="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50"
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className={`grid size-12 place-items-center border transition-colors ${
-                    i % 3 === 0
-                      ? "border-rv-red/40 text-rv-red group-hover:bg-rv-red group-hover:text-white"
-                      : i % 3 === 1
-                        ? "border-rv-blue/40 text-rv-blue group-hover:bg-rv-blue group-hover:text-white"
-                        : "border-rv-gold/40 text-rv-gold group-hover:bg-rv-gold group-hover:text-black"
-                  }`}
-                >
-                  <f.icon className="size-5" />
-                </span>
-                <span className="font-mono text-xs tracking-[0.3em] text-white/20">
-                  0{i + 1}
-                </span>
+              <div className="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl">
+                <f.icon className="size-5 text-rv-gold" />
               </div>
-              <h3 className="mt-6 text-xl font-bold">{f.title}</h3>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.26em] text-muted-foreground">
-                {f.en}
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              <h3 className="text-xl font-bold text-white">{f.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-stone-400">
                 {f.desc}
               </p>
             </motion.div>

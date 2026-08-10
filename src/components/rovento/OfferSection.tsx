@@ -1,27 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { ChevronLeft, Timer } from "lucide-react";
-import { getProduct, formatPrice, discountPercent } from "@/lib/products";
+import { ShoppingBag, Flame } from "lucide-react";
+import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
-import { BagVisual } from "./BagVisual";
-import { blendVariantFor } from "./CoffeeBag";
-import { SectionHeading } from "./Section";
 
-const OFFERS = [
-  {
-    slug: "rovento-premium",
-    tag: "الأكثر مبيعًا",
-    note: "كوب متوازن غني بالكريما — مثالي للإسبريسو واللاتيه",
-  },
-  {
-    slug: "rovento-intenso",
-    tag: "إسبريسو قوي",
-    note: "كريما كثيفة وطعم جريء — لعشاق الكورتوادو والماكياتو",
-  },
-];
+const DEAL_PRICE = 680; // 2 × بريميم 340
+const DEAL_OLD = 840; // 2 × 420
+const SAVE = DEAL_OLD - DEAL_PRICE;
 
-/** عدد تنازلي حي حتى نهاية الأسبوع الحالي */
+/** عداد تنازلي حي حتى نهاية الأسبوع */
 function useCountdown() {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
@@ -31,8 +18,7 @@ function useCountdown() {
 
   const target = useMemo(() => {
     const d = new Date();
-    const day = d.getDay(); // 0 = الأحد
-    const daysToSunday = (7 - day) % 7 || 7;
+    const daysToSunday = (7 - d.getDay()) % 7 || 7;
     const t = new Date(d);
     t.setDate(t.getDate() + daysToSunday);
     t.setHours(23, 59, 59, 0);
@@ -49,13 +35,15 @@ function useCountdown() {
   };
 }
 
-function CountdownBox({ value, unit }: { value: string; unit: string }) {
+function TimeBox({ value, unit }: { value: string; unit: string }) {
   return (
-    <div className="grid size-14 place-items-center border border-rv-gold/40 bg-background/80 md:size-16">
-      <span className="font-display text-xl font-black text-rv-gold font-wide md:text-2xl">
+    <div className="min-w-[70px] rounded-2xl border border-rv-gold/50 bg-black/80 px-4 py-3 text-center shadow-lg sm:min-w-[90px] sm:px-6 sm:py-4">
+      <span className="block text-2xl font-black text-rv-gold sm:text-4xl">
         {value}
       </span>
-      <span className="text-[9px] text-muted-foreground">{unit}</span>
+      <span className="block text-[11px] font-bold uppercase text-stone-400 sm:text-xs">
+        {unit}
+      </span>
     </div>
   );
 }
@@ -67,165 +55,67 @@ export function OfferSection() {
   return (
     <section
       id="offers"
-      className="relative overflow-hidden border-b border-white/10 py-20 md:py-28"
+      className="relative overflow-hidden border-y-2 border-rv-gold bg-gradient-to-br from-[#1a160e] via-[#241e11] to-[#1a160e] py-16"
     >
-      {/* خلفية ذهبية خفيفة */}
-      <div className="absolute inset-0 bg-gradient-to-b from-rv-gold/[0.07] via-transparent to-transparent" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(900px 420px at 50% 0%, rgba(201,162,39,0.12), transparent 65%)",
-        }}
-      />
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 text-center md:px-6">
+        {/* شارة */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-6 inline-flex items-center gap-2 rounded-full bg-rv-gold px-5 py-1.5 text-sm font-black uppercase tracking-wider text-black shadow-lg"
+        >
+          <Flame className="size-4 text-red-600" />
+          عرض الأسبوع الخاص لعشاق القهوة في مصر
+        </motion.div>
 
-      <div className="relative mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
-          <SectionHeading
-            index="03"
-            kicker="Weekly Offer"
-            title={
-              <>
-                🔥 اشترِ 2 واحصل على{" "}
-                <span className="text-rv-red">خصم فوري</span>
-              </>
-            }
-            desc="ركّزنا على الأفضل عندنا. اختار البلند اللي يناسب طقوسك — تحميص طازج يصلك خلال ٤٨ ساعة في كل مصر."
-            className="mb-0 md:mb-0"
-          />
-          {/* عداد تنازلي */}
-          <div className="mb-2">
-            <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-rv-gold">
-              <Timer className="size-3.5" />
-              ينتهي العرض خلال
-            </p>
-            <div className="flex gap-2">
-              <CountdownBox value={days} unit="يوم" />
-              <span className="self-center text-xl font-black text-rv-gold">:</span>
-              <CountdownBox value={hours} unit="ساعة" />
-              <span className="self-center text-xl font-black text-rv-gold">:</span>
-              <CountdownBox value={minutes} unit="دقيقة" />
-              <span className="self-center text-xl font-black text-rv-gold">:</span>
-              <CountdownBox value={seconds} unit="ثانية" />
-            </div>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.05 }}
+          className="mb-4 text-3xl font-black text-white sm:text-5xl"
+        >
+          🔥 اشترِ 2 واحصل على{" "}
+          <span className="gold-gradient-text">خصم فوري {SAVE} ج.م</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.1 }}
+          className="mx-auto mb-8 max-w-2xl text-base text-stone-300 sm:text-lg"
+        >
+          احصل على كيسين من اختيارك (بريميم أو إنتنسو) بسعر استثنائي مع شحن
+          مجاني لأي محافظة في مصر لفترة محدودة.
+        </motion.p>
+
+        {/* العداد التنازلي */}
+        <div className="mb-10">
+          <p className="mb-3 text-sm font-bold text-rv-gold">
+            ⏳ ينتهي العرض خلال:
+          </p>
+          <div className="flex items-center justify-center gap-2 font-mono sm:gap-3">
+            <TimeBox value={days} unit="يوم" />
+            <span className="text-2xl font-bold text-rv-gold">:</span>
+            <TimeBox value={hours} unit="ساعة" />
+            <span className="text-2xl font-bold text-rv-gold">:</span>
+            <TimeBox value={minutes} unit="دقيقة" />
+            <span className="text-2xl font-bold text-rv-gold">:</span>
+            <TimeBox value={seconds} unit="ثانية" />
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          {OFFERS.map((o, i) => {
-            const p = getProduct(o.slug)!;
-            const off = discountPercent(p);
-
-            return (
-              <motion.div
-                key={o.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.55, delay: i * 0.12 }}
-                className="group relative flex flex-col overflow-hidden border border-rv-gold/25 bg-card transition-colors hover:border-rv-gold/50 md:flex-row"
-              >
-                <span
-                  className="absolute inset-x-0 top-0 z-10 h-1.5"
-                  style={{ backgroundColor: p.accent }}
-                />
-
-                {/* art */}
-                <div className="relative grid place-items-center overflow-hidden px-6 py-10 md:w-1/2">
-                  <div
-                    className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{
-                      background: `radial-gradient(300px 300px at 50% 50%, ${p.accent}1f, transparent 70%)`,
-                    }}
-                  />
-                  <BagVisual
-                    image={p.image}
-                    variant={blendVariantFor(p.slug)}
-                    alt={p.name}
-                    className="h-72 w-auto transition-transform duration-500 group-hover:scale-[1.05] md:h-80"
-                  />
-                  {off && (
-                    <span className="absolute start-4 top-6 z-10 grid size-16 place-items-center rounded-full bg-rv-red text-center text-white shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
-                      <span>
-                        <span className="block text-lg font-black leading-none">
-                          {off}%
-                        </span>
-                        <span className="block font-mono text-[8px] tracking-widest">
-                          خصم
-                        </span>
-                      </span>
-                    </span>
-                  )}
-                </div>
-
-                {/* copy */}
-                <div className="flex flex-1 flex-col p-6 md:p-8">
-                  <div className="flex items-center gap-3">
-                    <span className="border border-rv-red/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-rv-red">
-                      {o.tag}
-                    </span>
-                    <span
-                      className="font-mono text-[10px] uppercase tracking-[0.24em]"
-                      style={{ color: p.accent }}
-                    >
-                      {p.roast}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 text-2xl font-bold leading-snug">{p.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {o.note}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {p.notes.map((n) => (
-                      <span
-                        key={n}
-                        className="border border-white/10 px-2 py-1 text-[11px] text-muted-foreground"
-                      >
-                        {n}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-6">
-                    <div>
-                      <div className="flex items-end gap-2">
-                        <span className="font-display text-3xl font-black font-wide">
-                          {formatPrice(p.price)}
-                        </span>
-                        {p.oldPrice && (
-                          <span className="pb-1 text-sm text-muted-foreground line-through">
-                            {formatPrice(p.oldPrice)}
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-1 flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-rv-gold">
-                        <Timer className="size-3.5" />
-                        عرض لفترة محدودة
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Link
-                        to={`/product/${p.slug}`}
-                        className="flex h-11 items-center gap-1.5 border border-white/20 px-4 text-xs font-semibold transition-colors hover:border-rv-blue hover:text-rv-blue"
-                      >
-                        التفاصيل
-                        <ChevronLeft className="size-4" />
-                      </Link>
-                      <button
-                        onClick={() => add(p.slug)}
-                        className="h-11 bg-rv-red px-6 text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
-                      >
-                        اطلب الآن
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+        {/* CTA */}
+        <button
+          onClick={() => add("rovento-premium", 2)}
+          className="btn-gold inline-flex items-center gap-3 rounded-2xl px-10 py-5 text-lg font-black shadow-2xl transition hover:scale-105"
+        >
+          <ShoppingBag className="size-6" />
+          اطلب عرض الأسبوع الآن — كيسان بريميم بـ {formatPrice(DEAL_PRICE)}{" "}
+          بدل {formatPrice(DEAL_OLD)}
+        </button>
       </div>
     </section>
   );

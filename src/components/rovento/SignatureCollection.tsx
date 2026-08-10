@@ -1,27 +1,68 @@
-import { Link } from "react-router";
-import { Cat, Flame, Sparkles, ChevronLeft, Gauge } from "lucide-react";
+import { ShoppingCart, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { SIGNATURE_BLENDS, getProduct, formatPrice, type Product } from "@/lib/products";
 import { useCart } from "@/lib/store";
 import { BagVisual } from "./BagVisual";
 import type { BlendVariant } from "./CoffeeBag";
-import { IntensityMeter } from "./art";
-import { SectionHeading } from "./Section";
 
+/** إعدادات الشخصيات — ألوان وشارات حسب المرجع */
 const PERSONAS: Record<
   string,
-  { ar: string; en: string; icon: typeof Cat }
+  {
+    badge: string;
+    badgeCls: string;
+    tag: string;
+    strength: number;
+    strengthCls: string;
+    ctaCls: string;
+    cardCls: string;
+    featured?: boolean;
+  }
 > = {
-  "rovento-premium": { ar: "القطّة الفضولية — نكهات أعمق", en: "RICHER FLAVOR", icon: Cat },
-  "rovento-intenso": { ar: "القطّة الجريئة — كريما كثيفة", en: "BOLD CREMA", icon: Flame },
-  "rovento-classic": { ar: "القطّة الهادئة — متوازن يوميًا", en: "DAILY BALANCE", icon: Sparkles },
+  "rovento-classic": {
+    badge: "🟦 الخلطة الكلاسيكية (Classic)",
+    badgeCls: "bg-blue-500/20 text-blue-400",
+    tag: "متوازن • يومي • اقتصادي",
+    strength: 7,
+    strengthCls: "text-blue-400",
+    ctaCls: "bg-blue-600 hover:bg-blue-500 text-white",
+    cardCls: "border-blue-500/30 hover:border-blue-500/80",
+  },
+  "rovento-premium": {
+    badge: "🟩 الخلطة الفاخرة (Premium / Espresso)",
+    badgeCls: "bg-emerald-500/20 text-emerald-400",
+    tag: "نكهات أعمق • كريما أغنى",
+    strength: 9,
+    strengthCls: "text-emerald-400",
+    ctaCls: "btn-gold",
+    cardCls: "border-2 border-rv-gold shadow-2xl",
+    featured: true,
+  },
+  "rovento-intenso": {
+    badge: "🟪 الخلطة المكثفة (Intenso)",
+    badgeCls: "bg-purple-500/20 text-purple-400",
+    tag: "قوة التركيز • قوام ثقيل",
+    strength: 10,
+    strengthCls: "text-purple-400",
+    ctaCls: "bg-purple-600 hover:bg-purple-500 text-white",
+    cardCls: "border-purple-500/30 hover:border-purple-500/80",
+  },
 };
 
-/** مقارنة سريعة يحبها العميل المصري قبل الشراء */
-const COMPARE = [
-  { slug: "rovento-classic", name: "كلاسيك", strength: 7, tag: "متوازن · يومي · اقتصادي", color: "#002fa7" },
-  { slug: "rovento-premium", name: "بريميم", strength: 9, tag: "نكهات أعمق · كريما أغنى", color: "#c9a227" },
-  { slug: "rovento-intenso", name: "إنتنسو", strength: 10, tag: "جريء · قوي · لإسبريسو خالص", color: "#d03b1e" },
+const SHORT_DESC: Record<string, string> = {
+  "rovento-classic":
+    "مزيج مثالي للقهوة اليومية — طعم متوازن وحمضية لطيفة مع حمولة كافيين تناسب بداية اليوم، بسعر اقتصادي في متناول الجميع.",
+  "rovento-premium":
+    "خلطة الإسبريسو المميزة بتركيبة متوازنة من الأرابيكا والروبوستا تمنحك طبقة كريما ذهبية كثيفة وطعم الشوكولاتة الداكنة والمكسرات المحمصة.",
+  "rovento-intenso":
+    "لمن يبحث عن جرعة طاقة مضاعفة وتحميص داكن قوي — مثالي لمشروبات الحليب (لاتيه، كابتشينو) حيث يبرز طعم القهوة بقوة دون أن يختفي.",
+};
+
+/** جدول المقارنة — نفس روح المرجع */
+const COMPARE_ROWS = [
+  { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 285, cls: "" },
+  { name: "Espresso Blend (Premium)", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 340, cls: "bg-rv-gold/10 text-rv-gold" },
+  { name: "Intenso Blend", strength: "10/10", crema: "داكنة وثقيلة", use: "مشروبات الحليب الساخنة", price: 310, cls: "" },
 ];
 
 function BlendCard({
@@ -34,8 +75,7 @@ function BlendCard({
   num: number;
 }) {
   const { add } = useCart();
-  const persona = PERSONAS[product.slug] ?? PERSONAS["rovento-premium"];
-  const PersonaIcon = persona.icon;
+  const p = PERSONAS[product.slug]!;
 
   return (
     <motion.div
@@ -43,109 +83,62 @@ function BlendCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: num * 0.1 }}
-      className="group relative flex flex-col overflow-hidden border border-white/10 bg-card transition-colors hover:border-rv-gold/40"
+      className={`relative flex flex-col justify-between rounded-2xl border bg-coffee-900/90 p-6 text-center shadow-xl transition ${
+        p.cardCls
+      } ${p.featured ? "md:-translate-y-2" : ""}`}
     >
-      <span
-        className="absolute inset-x-0 top-0 z-10 h-1.5"
-        style={{ backgroundColor: product.accent }}
-      />
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-        <span className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground">
-          BLEND 0{num + 1}
+      {p.featured && (
+        <span className="absolute -top-3.5 right-6 flex items-center gap-1 rounded-full bg-rv-gold px-3 py-1 text-xs font-black text-black shadow">
+          <Star className="size-3.5" />
+          اختيار العشاق
         </span>
+      )}
+
+      <div>
         <span
-          className="font-mono text-[11px] uppercase tracking-[0.24em]"
-          style={{ color: product.accent }}
+          className={`mb-4 inline-block rounded-full px-4 py-1 text-xs font-bold ${p.badgeCls}`}
         >
-          {variant}
+          {p.badge}
         </span>
-      </div>
+        <h3 className="text-2xl font-black text-white">{product.nameEn}</h3>
+        <p className="mb-4 mt-1 text-base font-bold text-rv-gold">{p.tag}</p>
 
-      {/* art */}
-      <div className="relative grid place-items-center overflow-hidden px-6 py-8">
-        <div
-          className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(280px 260px at 50% 50%, ${product.accent}1f, transparent 70%)`,
-          }}
-        />
-        <BagVisual
-          image={product.image}
-          variant={variant}
-          alt={`ROVENTO ${variant} bag`}
-          className="h-60 w-auto transition-transform duration-500 group-hover:scale-[1.06] md:h-64"
-        />
-      </div>
-
-      {/* persona */}
-      <div className="flex items-center gap-3 px-5">
-        <span
-          className="grid size-9 place-items-center border"
-          style={{ color: product.accent, borderColor: product.accent + "66" }}
-        >
-          <PersonaIcon className="size-4" />
-        </span>
-        <div>
-          <p className="text-sm font-bold">{persona.ar}</p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">
-            {persona.en}
-          </p>
+        {/* صورة الكيس الحقيقية */}
+        <div className="relative mx-auto mb-5 grid h-44 w-32 place-items-center rounded-xl border border-stone-800 bg-stone-950">
+          <BagVisual
+            image={product.image}
+            variant={variant}
+            alt={product.name}
+            className="h-40 w-auto"
+          />
         </div>
+
+        <p className="mb-6 text-sm leading-relaxed text-stone-400">
+          {SHORT_DESC[product.slug]}
+        </p>
       </div>
 
-      {/* specs */}
-      <div className="mt-5 space-y-2.5 border-t border-white/10 px-5 py-5 text-sm">
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">التحميص</span>
-          <span className="font-semibold">{product.roast}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">التكوين</span>
-          <span className="font-mono text-xs">
-            {product.arabica}٪ أرابيكا · {product.robusta}٪ روبوستا
+      <div className="border-t border-stone-800 pt-4">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="text-sm text-stone-400">القوة:</span>
+          <span className={`font-bold ${p.strengthCls}`}>
+            {p.strength} / 10
           </span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">الشدة</span>
-          <IntensityMeter value={product.intensity ?? 3} color={product.accent} />
+        <div className="mb-4 flex items-center justify-between">
+          <span className="text-sm text-stone-400">السعر:</span>
+          <span className="text-xl font-black text-white">
+            {formatPrice(product.price)}
+            <span className="text-xs text-stone-400"> / 250 جم</span>
+          </span>
         </div>
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {product.notes.map((n) => (
-            <span
-              key={n}
-              className="border border-white/10 px-2 py-1 text-[11px] text-muted-foreground"
-            >
-              {n}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* footer */}
-      <div className="mt-auto flex items-center justify-between border-t border-white/10 px-5 py-4">
-        <div>
-          <p className="text-lg font-bold">{formatPrice(product.price)}</p>
-          {product.oldPrice && (
-            <p className="text-xs text-muted-foreground line-through">
-              {formatPrice(product.oldPrice)}
-            </p>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/product/${product.slug}`}
-            className="flex h-10 items-center gap-1.5 border border-white/20 px-4 text-xs font-semibold transition-colors hover:border-rv-blue hover:text-rv-blue"
-          >
-            التفاصيل
-            <ChevronLeft className="size-3.5" />
-          </Link>
-          <button
-            onClick={() => add(product.slug)}
-            className="h-10 bg-rv-red px-4 text-xs font-bold text-white transition-colors hover:bg-[#b53219]"
-          >
-            أضف للسلة
-          </button>
-        </div>
+        <button
+          onClick={() => add(product.slug)}
+          className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 font-black transition ${p.ctaCls}`}
+        >
+          <ShoppingCart className="size-4" />
+          أضف إلى السلة
+        </button>
       </div>
     </motion.div>
   );
@@ -156,20 +149,27 @@ export function SignatureCollection() {
   const variants: BlendVariant[] = ["premium", "intenso", "classic"];
 
   return (
-    <section id="signature" className="border-b border-white/10 py-20 md:py-28">
+    <section
+      id="signature"
+      className="border-b border-stone-800 bg-coffee-900/50 py-20"
+    >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        <SectionHeading
-          index="02"
-          kicker="Find Your Blend"
-          title={
-            <>
-              اختار <span className="text-rv-red">شخصيتك في فنجانك</span>
-            </>
-          }
-          desc="كل بلند له طابعه: ذهبي متوازن، أحمر جريء، أزرق ناعم — قارن واختار اللي يناسب يومك. الكل محمص طازج ويصلك خلال 48 ساعة."
-        />
+        {/* رأس القسم */}
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-wider text-rv-gold">
+            اختر ما يناسب مزاجك
+          </span>
+          <h2 className="mt-2 text-3xl font-black sm:text-4xl">
+            اختار <span className="text-rv-red">شخصيتك</span> في فنجانك
+          </h2>
+          <p className="mt-3 text-lg text-stone-300">
+            صممنا خلطات روفينتو بعناية فائقة لتلائم أوقاتك المختلفة — توازن يومي
+            اقتصادي، كريما إسبريسو غنية، أو قوة تركيز مضاعفة.
+          </p>
+        </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* الكروت */}
+        <div className="grid gap-8 md:grid-cols-3">
           {blends.map((product, i) => (
             <BlendCard
               key={product.slug}
@@ -180,56 +180,60 @@ export function SignatureCollection() {
           ))}
         </div>
 
-        {/* مقارنة سريعة */}
+        {/* جدول المقارنة */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55 }}
-          className="mt-10 border border-white/10 bg-card"
+          className="mx-auto mt-14 max-w-4xl rounded-3xl border border-stone-800 bg-coffee-900/80 p-6 shadow-2xl sm:p-8"
         >
-          <div className="flex items-center gap-2 border-b border-white/10 px-6 py-4">
-            <Gauge className="size-4 text-rv-red" />
-            <h3 className="text-base font-bold">مقارنة سريعة — القوة</h3>
-            <span className="ms-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              Strength · من 10
-            </span>
+          <div className="mb-6 text-center">
+            <h3 className="text-xl font-black text-white sm:text-2xl">
+              مقارنة سريعة بين خلطات روفينتو
+            </h3>
+            <p className="mt-1 text-xs text-stone-400 sm:text-sm">
+              اختار الخلطة الأنسب لطريقة تحضيرك المفضلة
+            </p>
           </div>
-          <div className="grid gap-px bg-white/10 sm:grid-cols-3">
-            {COMPARE.map((c, i) => {
-              const p = getProduct(c.slug)!;
-              return (
-                <div key={c.slug} className="bg-background p-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold" style={{ color: c.color }}>
-                      {c.name}
-                    </span>
-                    <span className="font-display text-2xl font-black font-wide">
-                      {c.strength}
-                      <span className="text-sm font-bold text-muted-foreground">/10</span>
-                    </span>
-                  </div>
-                  <div className="mt-3 h-2 w-full bg-white/10">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${c.strength * 10}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: 0.15 + i * 0.1 }}
-                      className="h-full"
-                      style={{ backgroundColor: c.color }}
-                    />
-                  </div>
-                  <p className="mt-3 text-xs text-muted-foreground">{c.tag}</p>
-                  <Link
-                    to={`/product/${p.slug}`}
-                    className="mt-3 inline-block text-xs font-semibold text-rv-red underline-offset-4 hover:underline"
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-right text-sm">
+              <thead>
+                <tr className="border-b border-stone-800 text-rv-gold">
+                  <th className="px-4 py-3 font-black">النوع</th>
+                  <th className="px-4 py-3 text-center font-black">القوة</th>
+                  <th className="hidden px-4 py-3 font-black sm:table-cell">
+                    طبيعة الكريما
+                  </th>
+                  <th className="hidden px-4 py-3 font-black md:table-cell">
+                    أفضل استخدام
+                  </th>
+                  <th className="px-4 py-3 text-center font-black">السعر</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-stone-800/60">
+                {COMPARE_ROWS.map((r) => (
+                  <tr
+                    key={r.name}
+                    className={`transition hover:bg-stone-800/40 ${r.cls}`}
                   >
-                    عرض البلند ←
-                  </Link>
-                </div>
-              );
-            })}
+                    <td className={`px-4 py-4 font-bold ${r.cls}`}>{r.name}</td>
+                    <td className="px-4 py-4 text-center font-mono font-bold">
+                      {r.strength}
+                    </td>
+                    <td className="hidden px-4 py-4 sm:table-cell">{r.crema}</td>
+                    <td className="hidden px-4 py-4 md:table-cell">{r.use}</td>
+                    <td className="px-4 py-4 text-center font-bold">
+                      {formatPrice(r.price)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+          <p className="mt-4 text-center text-xs text-stone-500">
+            * الأسعار لكيس 250 جم — يتوفر 1 كجم والمطحون داخل كل بلند.
+          </p>
         </motion.div>
       </div>
     </section>

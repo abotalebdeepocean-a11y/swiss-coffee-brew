@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Copy, Gift, X } from "lucide-react";
+import { Check, Copy, X } from "lucide-react";
 
 const COUPON = "ROVENTO10";
 const SEEN_KEY = "rovento-exit-popup-seen";
@@ -17,8 +17,15 @@ export function ExitIntentPopup() {
         setOpen(true);
       }
     }
+    function onGift() {
+      setOpen(true);
+    }
     document.addEventListener("mouseleave", onMouseLeave);
-    return () => document.removeEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("rovento:open-promo", onGift);
+    return () => {
+      document.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("rovento:open-promo", onGift);
+    };
   }, []);
 
   async function copyCode() {
@@ -38,7 +45,7 @@ export function ExitIntentPopup() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[70] grid place-items-center bg-black/70 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[70] grid place-items-center bg-black/80 p-4 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         >
           <motion.div
@@ -47,64 +54,68 @@ export function ExitIntentPopup() {
             exit={{ opacity: 0, scale: 0.96, y: 10 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md border border-rv-gold/40 bg-[#111110] p-8 text-center shadow-[0_40px_120px_rgba(0,0,0,0.6)]"
+            className="relative w-full max-w-md rounded-3xl border-2 border-rv-gold bg-coffee-900 p-6 text-center shadow-2xl sm:p-8"
           >
             <button
               onClick={() => setOpen(false)}
-              className="absolute end-3 top-3 grid size-9 place-items-center border border-white/15 transition-colors hover:border-rv-red hover:text-rv-red"
+              className="absolute left-4 top-4 text-stone-400 transition-colors hover:text-white"
               aria-label="إغلاق"
             >
-              <X className="size-4" />
+              <X className="size-6" />
             </button>
 
-            <span className="mx-auto grid size-14 place-items-center rounded-full border border-rv-gold/40 bg-rv-gold/10 text-rv-gold">
-              <Gift className="size-6" />
-            </span>
-            <h3 className="mt-5 text-2xl font-bold">
-              استنى… 🎁 <span className="text-rv-gold">كوبون خصم 10%</span>
+            <div className="mx-auto mb-4 grid size-16 place-items-center rounded-full bg-rv-gold/20 text-3xl">
+              🎁
+            </div>
+            <h3 className="text-2xl font-black text-white">
+              هدية خاصة لعملاء <span className="text-rv-gold">روفينتو</span>!
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              قبل ما تسيب الموقع — خصم 10% على أول طلب ليك. انسخ الكود واستخدمه
-              عند إتمام الطلب عبر واتساب أو في المتجر.
+            <p className="mb-6 mt-2 text-sm text-stone-300">
+              استخدم كوبون الخصم التالي واحصل على{" "}
+              <span className="font-bold text-rv-gold">خصم 10% فوري</span> على
+              أي طلب اليوم:
             </p>
 
-            <button
-              onClick={copyCode}
-              className="mt-6 flex w-full items-center justify-center gap-3 border-2 border-dashed border-rv-gold/50 bg-rv-gold/5 py-4 transition-colors hover:border-rv-gold hover:bg-rv-gold/10"
-            >
-              <span dir="ltr" className="font-mono text-2xl font-black tracking-[0.2em] text-rv-gold">
+            <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-rv-gold/40 bg-black p-4">
+              <span
+                dir="ltr"
+                className="font-mono text-xl font-black tracking-wider text-rv-gold"
+              >
                 {COUPON}
               </span>
-              <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+              <button
+                onClick={copyCode}
+                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
+                  copied ? "bg-emerald-500 text-white" : "btn-gold"
+                }`}
+              >
                 {copied ? (
                   <>
-                    <Check className="size-4 text-emerald-400" />
+                    <Check className="size-3.5" />
                     تم النسخ!
                   </>
                 ) : (
                   <>
-                    <Copy className="size-4" />
-                    انسخ
+                    <Copy className="size-3.5" />
+                    نسخ الكود
                   </>
                 )}
-              </span>
-            </button>
-
-            <div className="mt-5 flex items-center gap-2">
-              <Link
-                to="/shop"
-                onClick={() => setOpen(false)}
-                className="h-11 flex-1 bg-rv-red text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
-              >
-                تسوق الآن
-              </Link>
-              <button
-                onClick={() => setOpen(false)}
-                className="h-11 flex-1 border border-white/20 text-sm font-semibold text-muted-foreground transition-colors hover:border-white/40 hover:text-foreground"
-              >
-                لسه بفكر
               </button>
             </div>
+
+            <Link
+              to="/shop"
+              onClick={() => setOpen(false)}
+              className="btn-gold flex h-12 w-full items-center justify-center rounded-xl text-base font-black"
+            >
+              استخدم الكود واطلب الآن
+            </Link>
+            <button
+              onClick={() => setOpen(false)}
+              className="mt-3 w-full py-2 text-xs font-bold text-stone-400 transition-colors hover:text-white"
+            >
+              لسه بفكر — مش دلوقتي
+            </button>
           </motion.div>
         </motion.div>
       )}

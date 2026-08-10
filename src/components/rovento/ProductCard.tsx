@@ -31,12 +31,12 @@ export function ProductCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: (index % 4) * 0.07 }}
-      className="group relative flex flex-col border border-white/10 bg-card transition-colors hover:border-white/25"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-800 bg-card transition-colors hover:border-rv-gold/60 hover:shadow-[0_10px_40px_rgba(212,175,55,0.08)]"
     >
       {/* art tile */}
       <Link
         to={`/product/${product.slug}`}
-        className="relative grid aspect-[4/5] place-items-center overflow-hidden border-b border-white/10 bg-gradient-to-b from-white/[0.05] via-transparent to-transparent"
+        className="relative grid aspect-[4/5] place-items-center overflow-hidden border-b border-stone-800 bg-gradient-to-b from-white/[0.04] via-transparent to-transparent"
       >
         <div
           className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -74,17 +74,17 @@ export function ProductCard({
         </div>
 
         {/* hover actions */}
-        <div className="absolute inset-x-0 bottom-0 flex translate-y-full flex-col gap-2 bg-background/95 p-3 transition-transform duration-300 group-hover:translate-y-0">
+        <div className="absolute inset-x-0 bottom-0 flex translate-y-full flex-col gap-2 bg-coffee-900/95 p-3 transition-transform duration-300 group-hover:translate-y-0">
           <button
             onClick={() => add(product.slug, 1, activeVariant?.id)}
-            className="flex h-10 w-full items-center justify-center gap-2 bg-rv-red text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
+            className="btn-gold flex h-10 w-full items-center justify-center gap-2 rounded-lg text-sm font-black"
           >
             <Plus className="size-4" />
             أضف إلى السلة
           </button>
           <Link
             to={`/product/${product.slug}`}
-            className="flex h-9 w-full items-center justify-center gap-2 border border-white/20 text-xs font-semibold text-muted-foreground transition-colors hover:border-rv-blue hover:text-foreground"
+            className="flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-stone-700 text-xs font-semibold text-stone-400 transition-colors hover:border-rv-gold hover:text-rv-gold"
           >
             <Eye className="size-3.5" />
             عرض سريع
@@ -128,8 +128,8 @@ export function ProductCard({
                 className={cn(
                   "h-7 border px-2 font-mono text-[10px] transition-colors",
                   v.id === activeVariant?.id
-                    ? "border-rv-red bg-rv-red/10 text-rv-red"
-                    : "border-white/15 text-muted-foreground hover:border-white/40 hover:text-foreground",
+                    ? "border-rv-gold bg-rv-gold/10 text-rv-gold"
+                    : "border-stone-700 text-stone-400 hover:border-stone-500 hover:text-stone-200",
                 )}
               >
                 {v.label}

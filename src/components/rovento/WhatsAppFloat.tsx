@@ -3,23 +3,24 @@ import { WhatsAppIcon } from "./art";
 
 export function WhatsAppFloat() {
   return (
-    <a
-      href={whatsappLink(
-        "مرحبًا ROVENTO 👋 محتاج ترشيح نوع القهوة المناسب ليا. تقدر تساعدني؟",
-      )}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group fixed bottom-5 start-5 z-40 flex items-center gap-3"
-      aria-label="اطلب عبر واتساب"
-    >
+    <div className="fixed bottom-6 left-6 z-40 flex items-center gap-3">
       {/* فقاعة الترحيب */}
-      <span className="hidden max-w-[240px] rounded-sm border border-white/10 bg-background/95 px-4 py-3 text-xs font-semibold leading-relaxed backdrop-blur transition-all group-hover:bg-rv-red group-hover:text-white md:block">
-        محتاج ترشيح نوع القهوة المناسب ليك؟ 💬
-      </span>
-      {/* دائرة أكبر */}
-      <span className="grid size-16 place-items-center rounded-full bg-[#25d366] text-white shadow-[0_12px_35px_rgba(37,211,102,0.4)] animate-pulse-wa transition-transform group-hover:scale-110 md:size-[4.5rem]">
-        <WhatsAppIcon className="size-8" />
-      </span>
-    </a>
+      <div className="hidden rounded-2xl border border-emerald-500/50 bg-stone-900 px-4 py-2 text-xs font-bold text-stone-200 shadow-xl sm:block">
+        محتاج ترشيح نوع القهوة المناسب ليك؟
+        <br />
+        <span className="text-emerald-400">تواصل معنا الآن على واتساب!</span>
+      </div>
+      <a
+        href={whatsappLink(
+          "مرحبًا ROVENTO 👋 محتاج ترشيح نوع القهوة المناسب ليا. تقدر تساعدني؟",
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="اطلب عبر واتساب"
+        className="grid size-14 place-items-center rounded-full bg-emerald-500 text-white shadow-2xl transition duration-300 hover:scale-110 hover:bg-emerald-600"
+      >
+        <WhatsAppIcon className="size-7" />
+      </a>
+    </div>
   );
 }

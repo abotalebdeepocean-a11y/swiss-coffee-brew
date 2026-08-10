@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import { ArrowLeft } from "lucide-react";
 import { PRODUCTS, CATEGORIES, type CategoryId } from "@/lib/products";
 import { ProductCard } from "./ProductCard";
-import { SectionHeading } from "./Section";
 import { cn } from "@/lib/utils";
 
 type Filter = CategoryId | "all";
@@ -22,36 +19,24 @@ export function OtherVarieties() {
   return (
     <section id="varieties" className="border-b border-white/10 py-20 md:py-28">
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading
-            index="06"
-            kicker="More Varieties"
-            title={
-              <>
-                أصناف <span className="text-rv-red">أخرى</span> من روفينتو
-              </>
-            }
-            desc="من أصول إثيوبيا إلى الكبسولات والأدوات — كل الأصناف محمصة طازجة أسبوعيًا، والمقاسات (1 كجم / مطحون) متاحة داخل كل بلند."
-            className="mb-0 md:mb-0"
-          />
-          <Link
-            to="/shop"
-            className="group mb-2 inline-flex h-11 items-center gap-2 border border-white/20 px-5 text-sm font-semibold transition-colors hover:border-rv-red hover:text-rv-red"
-          >
-            كل المنتجات
-            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-          </Link>
+        <div className="mx-auto mb-10 max-w-3xl text-center">
+          <h2 className="text-2xl font-black sm:text-3xl">
+            تصفح منتجات روفينتو <span className="text-rv-red">حسب التصنيف</span>
+          </h2>
+          <p className="mt-2 text-sm text-stone-400">
+            اختار القسم لفرز القهوة والأدوات بسرعة دون عناء
+          </p>
         </div>
 
-        {/* فلاتر سريعة */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        {/* فلاتر سريعة — أقراص دائرية */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
           <button
             onClick={() => setFilter("all")}
             className={cn(
-              "h-9 border px-4 text-sm font-semibold transition-colors",
+              "rounded-full px-5 py-2.5 text-sm font-bold shadow transition",
               filter === "all"
-                ? "border-rv-red bg-rv-red text-white"
-                : "border-white/15 text-muted-foreground hover:border-white/40 hover:text-foreground",
+                ? "btn-gold"
+                : "bg-stone-800 text-stone-200 hover:bg-stone-700",
             )}
           >
             الكل
@@ -61,10 +46,10 @@ export function OtherVarieties() {
               key={c.id}
               onClick={() => setFilter(c.id)}
               className={cn(
-                "h-9 border px-4 text-sm font-semibold transition-colors",
+                "rounded-full px-5 py-2.5 text-sm font-bold shadow transition",
                 filter === c.id
-                  ? "border-rv-red bg-rv-red text-white"
-                  : "border-white/15 text-muted-foreground hover:border-white/40 hover:text-foreground",
+                  ? "btn-gold"
+                  : "bg-stone-800 text-stone-200 hover:bg-stone-700",
               )}
             >
               {c.name}
@@ -73,6 +58,12 @@ export function OtherVarieties() {
         </div>
 
         <div className="mt-10 grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
+          {filter !== "all" && (
+            <p className="col-span-full mb-2 font-mono text-[11px] tracking-widest text-stone-500">
+              {CATEGORIES.find((c) => c.id === filter)?.name} — {others.length}{" "}
+              منتج
+            </p>
+          )}
           {others.map((p, i) => (
             <ProductCard key={p.slug} product={p} index={i} />
           ))}

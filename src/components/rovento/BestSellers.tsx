@@ -2,27 +2,41 @@ import { Link } from "react-router";
 import { ArrowLeft, Flame, Star, Trophy } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 import { ProductCard } from "./ProductCard";
-import { SectionHeading } from "./Section";
 
-/** علامات التحويل فوق السطر */
 const BADGES = [
-  { icon: Flame, label: "الأكثر مبيعًا", color: "text-rv-red border-rv-red/50" },
-  { icon: Star, label: "تقييم العملاء 4.9+", color: "text-rv-gold border-rv-gold/50" },
-  { icon: Trophy, label: "اختيار الباريستا", color: "text-rv-blue border-rv-blue/50" },
+  { icon: Flame, label: "الأكثر مبيعًا", cls: "bg-red-600 text-white" },
+  { icon: Star, label: "تقييم 4.9+", cls: "bg-rv-gold text-black" },
+  { icon: Trophy, label: "اختيار الباريستا", cls: "bg-stone-800 text-rv-gold border border-rv-gold/40" },
 ];
 
 export function BestSellers() {
   const bestsellers = PRODUCTS.filter((p) => p.bestseller).slice(0, 5);
 
   return (
-    <section id="featured" className="border-b border-white/10 py-20 md:py-28">
+    <section
+      id="featured"
+      className="border-b border-stone-800 bg-coffee-900/60 py-20"
+    >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-wider text-rv-gold">
+            اختيارات عشاق القهوة
+          </span>
+          <h2 className="mt-2 text-3xl font-black sm:text-4xl">
+            الأكثر طلبًا ومبيعًا <span className="text-rv-red">في مصر</span>
+          </h2>
+          <p className="mt-3 text-lg text-stone-300">
+            منتجاتنا الحاصلة على أعلى تقييمات من عملائنا في القاهرة والجيزة
+            والإسكندرية وجميع المحافظات.
+          </p>
+        </div>
+
         {/* شارات التحويل */}
-        <div className="mb-10 flex flex-wrap gap-2">
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
           {BADGES.map((b) => (
             <span
               key={b.label}
-              className={`inline-flex items-center gap-2 border bg-background px-3.5 py-2 text-xs font-bold ${b.color}`}
+              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black shadow ${b.cls}`}
             >
               <b.icon className="size-4" />
               {b.label}
@@ -30,29 +44,8 @@ export function BestSellers() {
           ))}
         </div>
 
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading
-            index="05"
-            kicker="Best Sellers"
-            title={
-              <>
-                الأكثر <span className="text-rv-red">طلبًا</span> — سطر واحد
-              </>
-            }
-            desc="اخترنا لك الأفضل مبيعًا فقط. لا تشتت — ركّز على اللي يختاره الجميع."
-            className="mb-0 md:mb-0"
-          />
-          <Link
-            to="/shop"
-            className="group mb-2 inline-flex h-11 items-center gap-2 border border-white/20 px-5 text-sm font-semibold transition-colors hover:border-rv-red hover:text-rv-red"
-          >
-            عرض كل المنتجات
-            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-          </Link>
-        </div>
-
-        {/* ONE ROW — horizontal scroll, never wraps */}
-        <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-4 md:gap-5 [scrollbar-width:thin]">
+        {/* سطر واحد فقط — سكرول أفقي */}
+        <div className="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:gap-5 [scrollbar-width:thin]">
           {bestsellers.map((p, i) => (
             <div
               key={p.slug}
@@ -61,6 +54,16 @@ export function BestSellers() {
               <ProductCard product={p} index={i} />
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link
+            to="/shop"
+            className="inline-flex h-12 items-center gap-2 rounded-xl border border-rv-gold/40 px-6 text-sm font-bold text-rv-gold transition-colors hover:bg-rv-gold hover:text-black"
+          >
+            عرض كل المنتجات
+            <ArrowLeft className="size-4" />
+          </Link>
         </div>
       </div>
     </section>

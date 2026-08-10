@@ -4,92 +4,60 @@ import { Logo, WhatsAppIcon } from "./art";
 import { whatsappLink } from "@/lib/store";
 
 const PAYMENTS = [
-  "فيزا",
-  "ماستركارد",
-  "ميزة",
-  "فوري",
-  "فودافون كاش",
-  "إنستاباي",
-  "الدفع عند الاستلام",
+  { label: "Visa", cls: "text-stone-200" },
+  { label: "Mastercard", cls: "text-stone-200" },
+  { label: "ميزة (Meeza)", cls: "text-rv-gold" },
+  { label: "فودافون كاش", cls: "text-red-400" },
+  { label: "Instapay", cls: "text-purple-400" },
+  { label: "الدفع عند الاستلام (COD)", cls: "text-emerald-400" },
+];
+
+const SHIPPING = [
+  { label: "Aramex", cls: "text-red-500" },
+  { label: "Bosta (بوسطة)", cls: "text-blue-400" },
+  { label: "Mylerz (مايلرز)", cls: "text-amber-500" },
 ];
 
 const LINKS = [
   { label: "الرئيسية", to: "/" },
-  { label: "المتجر", to: "/shop" },
-  { label: "مجموعة ROVENTO", to: "/#signature" },
-  { label: "لماذا روفينتو", to: "/#why" },
-  { label: "آراء العملاء", to: "/#reviews" },
+  { label: "خلطات روفينتو", to: "/#signature" },
+  { label: "عرض الأسبوع", to: "/#offers" },
+  { label: "لماذا بريكا؟", to: "/#moka" },
+  { label: "تجارب العملاء", to: "/#reviews" },
 ];
-
-const CATS = [
-  { label: "حبوب القهوة", to: "/shop?category=beans" },
-  { label: "حبوب الإسبريسو", to: "/shop?category=espresso" },
-  { label: "كبسولات القهوة", to: "/shop?category=capsules" },
-  { label: "ماكينات القهوة", to: "/shop?category=machines" },
-  { label: "الإكسسوارات", to: "/shop?category=accessories" },
-];
-
-const SHIPPING = ["Aramex", "Bosta", "Mylerz"];
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#0b0b0b]">
-      {/* top strip */}
-      <div className="border-b border-white/10">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-8 md:px-6">
-          <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center bg-rv-red text-white">
-              <WhatsAppIcon className="size-5" />
-            </span>
-            <div>
-              <p className="font-bold">اطلب مباشرة عبر واتساب</p>
-              <p className="text-xs text-muted-foreground">
-                رد سريع من ٩ صباحًا حتى ١١ مساءً
-              </p>
-            </div>
-          </div>
-          <a
-            href={whatsappLink("مرحبًا ROVENTO 👋 أريد الطلب الآن.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-11 items-center gap-2 bg-[#25d366] px-6 text-sm font-bold text-white transition-colors hover:bg-[#1fbd5b]"
-          >
-            <MessageCircle className="size-4" />
-            راسلنا الآن
-          </a>
-        </div>
-      </div>
-
-      {/* main grid */}
-      <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-14 sm:grid-cols-2 md:px-6 lg:grid-cols-4">
-        <div>
+    <footer className="border-t border-stone-800 bg-coffee-950 pb-12 pt-16 text-sm text-stone-400">
+      <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-4">
+        {/* العلامة */}
+        <div className="space-y-4">
           <Logo />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            قهوة مختصة مصرية من قلب القاهرة إلى العالم. تحميص طازج أسبوعيًا،
-            حبوب مختارة، ومجتمع من عشاق القهوة.
+          <p className="text-xs leading-relaxed text-stone-400">
+            روفينتو كوفي — علامة مصرية رائدة في تحميص وإنتاج قهوة الإسبريسو
+            الفاخرة بأعلى معايير الجودة العالمية في قلب القاهرة.
           </p>
-          <div className="mt-5 space-y-2 text-sm text-muted-foreground">
+          <div className="space-y-2 text-xs">
             <p className="flex items-center gap-2">
-              <MapPin className="size-4 text-rv-red" />
+              <MapPin className="size-3.5 text-rv-gold" />
               القاهرة، مصر
             </p>
             <p className="flex items-center gap-2">
-              <Phone className="size-4 text-rv-red" />
+              <Phone className="size-3.5 text-rv-gold" />
               <span dir="ltr">+20 100 000 0000</span>
             </p>
           </div>
         </div>
 
+        {/* روابط سريعة */}
         <div>
-          <h4 className="font-mono text-[11px] uppercase tracking-[0.28em] text-rv-red">
-            روابط سريعة
-          </h4>
-          <ul className="mt-5 space-y-3">
+          <h4 className="mb-4 font-bold text-white">روابط سريعة</h4>
+          <ul className="space-y-2 text-xs">
             {LINKS.map((l) => (
               <li key={l.to + l.label}>
                 <Link
                   to={l.to}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="transition-colors hover:text-rv-gold"
                 >
                   {l.label}
                 </Link>
@@ -98,68 +66,71 @@ export function Footer() {
           </ul>
         </div>
 
+        {/* وسائل الدفع */}
         <div>
-          <h4 className="font-mono text-[11px] uppercase tracking-[0.28em] text-rv-red">
-            التصنيفات
+          <h4 className="mb-4 font-bold text-white">
+            وسائل الدفع المتاحة في مصر
           </h4>
-          <ul className="mt-5 space-y-3">
-            {CATS.map((l) => (
-              <li key={l.to + l.label}>
-                <Link
-                  to={l.to}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-mono text-[11px] uppercase tracking-[0.28em] text-rv-red">
-            وسائل الدفع
-          </h4>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {PAYMENTS.map((p) => (
               <span
-                key={p}
-                className="border border-white/12 px-2.5 py-1.5 text-[11px] text-muted-foreground"
+                key={p.label}
+                className={`rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold ${p.cls}`}
               >
-                {p}
+                {p.label}
               </span>
             ))}
           </div>
-          <h4 className="mt-7 font-mono text-[11px] uppercase tracking-[0.28em] text-rv-red">
-            وسائل الشحن
-          </h4>
-          <div className="mt-5 flex flex-wrap gap-2">
+        </div>
+
+        {/* شركاء الشحن */}
+        <div>
+          <h4 className="mb-4 font-bold text-white">شركاء الشحن في مصر</h4>
+          <div className="flex flex-wrap gap-2">
             {SHIPPING.map((s) => (
               <span
-                key={s}
+                key={s.label}
                 dir="ltr"
-                className="border border-white/12 bg-white/5 px-3 py-2 font-mono text-[11px] font-semibold tracking-wider text-foreground/80"
+                className={`rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold ${s.cls}`}
               >
-                {s}
+                {s.label}
               </span>
             ))}
           </div>
-          <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-            شحن لكل محافظات مصر خلال ٢٤–٧٢ ساعة · توصيل مجاني للطلبات فوق ١٠٠٠ ج.م
+          <p className="mt-4 text-xs text-stone-500">
+            شحن مؤمن ومغلف بعناية لجميع أنحاء مصر خلال 24-72 ساعة.
           </p>
         </div>
       </div>
 
-      {/* bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-5 md:px-6">
-          <p className="text-xs text-muted-foreground">
-            © 2026 ROVENTO · صُنع بحب في مصر 🇪🇬
-          </p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-            Focus. Brew. Achieve. · ركّز. حضّر. حقّق.
-          </p>
+      {/* شريط واتساب */}
+      <div className="mx-auto mt-10 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-stone-800 px-4 pt-8 md:px-6">
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-full bg-emerald-500 text-white">
+            <WhatsAppIcon className="size-5" />
+          </span>
+          <div>
+            <p className="font-bold text-white">اطلب مباشرة عبر واتساب</p>
+            <p className="text-xs text-stone-400">
+              رد سريع من ٩ صباحًا حتى ١١ مساءً
+            </p>
+          </div>
         </div>
+        <a
+          href={whatsappLink("مرحبًا ROVENTO 👋 أريد الطلب الآن.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-11 items-center gap-2 rounded-xl bg-emerald-500 px-6 text-sm font-black text-white transition hover:bg-emerald-600"
+        >
+          <MessageCircle className="size-4" />
+          راسلنا الآن
+        </a>
+      </div>
+
+      <div className="mx-auto mt-8 w-full max-w-[1200px] border-t border-stone-900 px-4 pt-8 text-center text-xs text-stone-500 md:px-6">
+        <p>
+          © 2026 ROVENTO COFFEE. جميع الحقوق محفوظة • صنع بكل فخر في مصر 🇪🇬
+        </p>
       </div>
     </footer>
   );
