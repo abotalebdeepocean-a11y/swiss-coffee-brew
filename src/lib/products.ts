@@ -2,7 +2,6 @@ import { IMAGES } from "./images";
 
 export type CategoryId =
   | "beans"
-  | "ground"
   | "espresso"
   | "capsules"
   | "machines"
@@ -17,6 +16,16 @@ export interface Category {
   count: number;
 }
 
+export interface ProductVariant {
+  /** معرّف الخيار (مقاس/طحن) — يُحفظ في السلة */
+  id: string;
+  /** الاسم الظاهر للعميل: "250 جم" / "1 كجم" / "مطحون إسبريسو" */
+  label: string;
+  price: number;
+  oldPrice?: number;
+  weight: string;
+}
+
 export interface Product {
   slug: string;
   name: string;
@@ -25,6 +34,11 @@ export interface Product {
   price: number;
   oldPrice?: number;
   weight?: string;
+  /**
+   * خيارات المقاس/الطحن لنفس البلند (بدل منتجات مكررة بنفس الصورة).
+   * أول خيار هو الافتراضي — وسعره يساوي price/oldPrice الأساسيين.
+   */
+  variants?: ProductVariant[];
   rating: number;
   reviews: number;
   badge?: string;
@@ -44,9 +58,8 @@ export interface Product {
 }
 
 export const CATEGORIES: Category[] = [
-  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب مختارة من أجود المزارع، محمصة طازجة أسبوعيًا.", accent: "#c9a227", count: 7 },
-  { id: "espresso", name: "حبوب الإسبريسو", nameEn: "Espresso Beans", blurb: "بلندات مصممة خصيصًا لاستخلاص إسبريسو متكامل بالكريما.", accent: "#d03b1e", count: 4 },
-  { id: "ground", name: "القهوة المطحونة", nameEn: "Ground Coffee", blurb: "طحن مضبوط حسب طريقة التحضير — V60، إسبريسو، فرنش بريس.", accent: "#002fa7", count: 2 },
+  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب مختارة من أجود المزارع، محمصة طازجة أسبوعيًا.", accent: "#c9a227", count: 5 },
+  { id: "espresso", name: "حبوب الإسبريسو", nameEn: "Espresso Beans", blurb: "بلندات مصممة خصيصًا لاستخلاص إسبريسو متكامل بالكريما.", accent: "#d03b1e", count: 3 },
   { id: "capsules", name: "كبسولات", nameEn: "Capsules", blurb: "نفس الجودة في كبسولة جاهزة لكل لحظة.", accent: "#d03b1e", count: 1 },
   { id: "machines", name: "ماكينات القهوة", nameEn: "Coffee Machines", blurb: "ماكينات إسبريسو واحترافية — من الموكا بوت إلى الأوتوماتيك بالكامل.", accent: "#c9a227", count: 6 },
   { id: "accessories", name: "إكسسوارات وأدوات", nameEn: "Accessories", blurb: "مطاحن، موازين، أكواب وكل ما يحتاجه الباريستا المنزلي.", accent: "#002fa7", count: 7 },
@@ -61,6 +74,11 @@ export const PRODUCTS: Product[] = [
     price: 340,
     oldPrice: 420,
     weight: "250 جم",
+    variants: [
+      { id: "250g", label: "250 جم", weight: "250 جم", price: 340, oldPrice: 420 },
+      { id: "1kg", label: "1 كجم", weight: "1 كجم", price: 1150, oldPrice: 1350 },
+      { id: "ground", label: "مطحون إسبريسو — 250 جم", weight: "250 جم مطحون", price: 340 },
+    ],
     rating: 4.9,
     reviews: 214,
     badge: "الأكثر مبيعًا",
@@ -84,6 +102,10 @@ export const PRODUCTS: Product[] = [
     price: 310,
     oldPrice: 375,
     weight: "250 جم",
+    variants: [
+      { id: "250g", label: "250 جم", weight: "250 جم", price: 310, oldPrice: 375 },
+      { id: "1kg", label: "1 كجم", weight: "1 كجم", price: 1180 },
+    ],
     rating: 4.8,
     reviews: 168,
     badge: "إسبريسو قوي",
@@ -106,6 +128,11 @@ export const PRODUCTS: Product[] = [
     category: "beans",
     price: 285,
     weight: "250 جم",
+    variants: [
+      { id: "250g", label: "250 جم", weight: "250 جم", price: 285 },
+      { id: "1kg", label: "1 كجم", weight: "1 كجم", price: 1050, oldPrice: 1200 },
+      { id: "ground500", label: "مطحون 500 جم — فرنش بريس", weight: "500 جم مطحون", price: 520 },
+    ],
     rating: 4.7,
     reviews: 142,
     accent: "#002fa7",
@@ -119,91 +146,6 @@ export const PRODUCTS: Product[] = [
       "بلند متوازن تمامًا: 50٪ أرابيكا و50٪ روبوستا بتحميص متوسط-غامق يعطي كوبًا ناعمًا غنيًا بالكريما. مثالي للقطرة V60 والفرنش بريس ولجميع أفراد البيت.",
     brewing: ["V60", "كميكس", "دريپ"],
     isNew: true,
-  },
-  {
-    slug: "rovento-premium-1kg",
-    name: "ROVENTO بريميم بليند — 1 كجم",
-    nameEn: "ROVENTO Premium Blend 1kg", 
-    category: "beans",
-    price: 1150,
-    oldPrice: 1350,
-    weight: "1 كجم",
-    rating: 4.9,
-    reviews: 96,
-    badge: "أفضل قيمة",
-    accent: "#c9a227",
-    // حتى تُرفع صورة 1 كجم المخصصة، نعرض صورة كيس البريميم نفسها
-    image: IMAGES.bags.premium,
-    roast: "تحميص متوسط",
-    arabica: 70,
-    robusta: 30,
-    intensity: 4,
-    notes: ["شوكولاتة", "كراميل", "فواكه مجففة"],
-    description:
-      "نفس بريميم بليند بكمية اقتصادية لعشاق القهوة اليومية. الكيس محكم الإغلاق ليحافظ على النكهة والطراوة لأسبوعين كاملين.",
-    brewing: ["إسبريسو", "لاتيه", "مقطرة"],
-  },
-  {
-    slug: "rovento-ground-premium",
-    name: "بن بريميم مطحون — طحن إسبريسو",
-    nameEn: "ROVENTO Ground — Premium", 
-    category: "ground",
-    price: 340,
-    weight: "250 جم",
-    rating: 4.8,
-    reviews: 87,
-    accent: "#c9a227",
-    // حتى تُرفع صورة البن المطحون المخصصة، نعرض صورة كيس البريميم نفسها
-    image: IMAGES.bags.premium,
-    roast: "تحميص متوسط",
-    arabica: 70,
-    robusta: 30,
-    intensity: 4,
-    notes: ["شوكولاتة", "كراميل", "فواكه مجففة"],
-    description:
-      "مطحون طحنًا ناعمًا مضبوطًا لماكينات الإسبريسو المنزلية. نفس حبوب البريميم مع راحة عدم الحاجة لمطحنة.",
-    brewing: ["إسبريسو", "موكا بوت"],
-  },
-  {
-    slug: "rovento-ground-classic-500",
-    name: "بن كلاسيك مطحون — 500 جم",
-    nameEn: "ROVENTO Ground — Classic 500g", 
-    category: "ground",
-    price: 520,
-    weight: "500 جم",
-    rating: 4.7,
-    reviews: 61,
-    accent: "#002fa7",
-    image: IMAGES.bags.groundClassic,
-    roast: "تحميص متوسط-غامق",
-    arabica: 50,
-    robusta: 50,
-    intensity: 3,
-    notes: ["كراميل", "أزهار", "حمضيات"],
-    description:
-      "طحن خشن مناسب للفرنش بريس والتنقيط البارد — نفس بلند كلاسيك المتوازن بكمية كبيرة مثالية للبيوت والمكاتب.",
-    brewing: ["فرنش بريس", "كولد برو"],
-  },
-  {
-    slug: "rovento-espresso-intenso-1kg",
-    name: "حبوب إسبريسو إنتنسو — 1 كجم",
-    nameEn: "ROVENTO Espresso Intenso 1kg", 
-    category: "espresso",
-    price: 1180,
-    weight: "1 كجم",
-    rating: 4.9,
-    reviews: 73,
-    badge: "للعمل",
-    accent: "#d03b1e",
-    image: IMAGES.bags.intenso1kg,
-    roast: "تحميص غامق",
-    arabica: 30,
-    robusta: 70,
-    intensity: 5,
-    notes: ["كاكاو داكن", "بندق", "بهارات دافئة"],
-    description:
-      "الخيار الأول للكافيهات والمكاتب. ثبات في الجودة والاستخلاص مع كل دفعة، وسعر اقتصادي للحجم الكبير.",
-    brewing: ["إسبريسو", "أمريكانو"],
   },
   {
     slug: "rovento-innovation",
@@ -453,28 +395,6 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "لاتيه", "فلتر"],
   },
   {
-    slug: "rovento-classic-1kg",
-    name: "ROVENTO كلاسيك بليند — 1 كجم",
-    nameEn: "ROVENTO Classic Blend 1kg",
-    category: "beans",
-    price: 1050,
-    oldPrice: 1200,
-    weight: "1 كجم",
-    rating: 4.8,
-    reviews: 78,
-    badge: "أفضل قيمة",
-    accent: "#002fa7",
-    image: IMAGES.bags.classic1kg,
-    roast: "تحميص متوسط-غامق",
-    arabica: 50,
-    robusta: 50,
-    intensity: 3,
-    notes: ["كراميل", "أزهار", "حمضيات"],
-    description:
-      "نفس بلند كلاسيك المتوازن 50/50 بكمية 1 كجم اقتصادية للبيوت والمكاتب — كوب ناعم غني بالكريما يناسب كل أفراد البيت.",
-    brewing: ["V60", "فرنش بريس", "دريپ"],
-  },
-  {
     slug: "rovento-egyptian-1kg",
     name: "ROVENTO حبوب مصرية — أصل واحد 1 كجم",
     nameEn: "ROVENTO Egyptian Single Origin",
@@ -597,6 +517,15 @@ export const SIGNATURE_BLENDS = ["rovento-premium", "rovento-intenso", "rovento-
 
 export function getProduct(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
+}
+
+/** يرجع الخيار المختار من variants — أو الأول افتراضيًا، أو undefined لو مفيش خيارات */
+export function variantOf(
+  product: Product,
+  variantId?: string,
+): ProductVariant | undefined {
+  if (!product.variants || product.variants.length === 0) return undefined;
+  return product.variants.find((v) => v.id === variantId) ?? product.variants[0];
 }
 
 export function productsByCategory(id: CategoryId): Product[] {

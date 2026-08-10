@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import {
   Coffee,
-  CupSoda,
   Zap,
   Disc,
   Factory,
@@ -14,7 +13,6 @@ import { SectionHeading } from "./Section";
 
 const ICONS: Record<CategoryId, typeof Coffee> = {
   beans: Coffee,
-  ground: CupSoda,
   espresso: Zap,
   capsules: Disc,
   machines: Factory,

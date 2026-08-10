@@ -10,21 +10,21 @@ Any of png / jpg / webp works — the app tries each in order.
 ────────────────────────────────────────────
 1) أكياس القهوة / Coffee Bags
 ────────────────────────────────────────────
-bag-premium            → بريميم بليند 250 جم (الكيس الكحلي بالببغاء من إعلان BIALETTI) ✅ png
+bag-premium            → بريميم بليند (الكيس الكحلي بالببغاء من إعلان BIALETTI) ✅ png
 bag-hero               → كيس الهيرو (الكيس الكحلي بالببغاء)          ✅ png
-bag-intenso            → إنتنسو بليند 250 جم                        ✅ webp
-bag-classic            → كلاسيك بليند 250 جم                        ✅ png
+bag-intenso            → إنتنسو بليند                                ✅ webp
+bag-classic            → كلاسيك بليند                                ✅ png
 bag-innovation         → إنوفيشن بليند (إثيوبيا) 500 جم             ✅ png
-bag-premium-1kg        → بريميم 1 كجم (نسخة من البريميم)            ✅ jpg
-bag-intenso-1kg        → إنتنسو 1 كجم (نسخة من الإنتنسو)             ✅ webp
-bag-classic-1kg        → كلاسيك 1 كجم (نسخة من الكلاسيك)            ✅ png
-bag-ground-premium     → بن بريميم مطحون (نسخة من البريميم)         ✅ jpg
-bag-ground-classic     → بن كلاسيك مطحون 500 جم (نسخة من الكلاسيك)  ✅ png
 bag-origin             → أوريجن كوليكشن — إثيوبيا أصل واحد           ✅ png
 bag-mastery            → ماستري كوليكشن — إتقان الإسبريسو            ✅ png
 bag-signature-cream    → سيجنتشر كوليكشن — تحميص داكن                 ✅ png
 bag-egyptian           → حبوب مصرية أصل واحد                         ✅ png
 bag-capsules           → علبة كبسولات ROVENTO (10)                   ✅ jpg
+
+ملاحظة: خيارات 1 كجم / المطحون لم تعد منتجات منفصلة — أصبحت خيارات
+(مقاسات) داخل كارت كل بلند (بريميم / كلاسيك / إنتنسو) بنفس صورة الكيس.
+Note: 1kg / ground are now size variants inside each blend product,
+so their duplicate image files were removed.
 
 ────────────────────────────────────────────
 2) بنرات السلايدر / Banner Slides

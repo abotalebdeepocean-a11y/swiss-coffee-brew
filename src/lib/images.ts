@@ -24,18 +24,12 @@ export const IMAGES = {
     classic: "/images/bag-classic",
     /** كيس INNOVATION BLEND (أصل إثيوبي) */
     innovation: "/images/bag-innovation",
-    premium1kg: "/images/bag-premium-1kg",
-    groundPremium: "/images/bag-ground-premium",
-    groundClassic: "/images/bag-ground-classic",
-    intenso1kg: "/images/bag-intenso-1kg",
     /** ORIGIN COLLECTION — إثيوبيا أصل واحد (كيس أسود بفيل ذهبي) */
     origin: "/images/bag-origin",
     /** MASTERY COLLECTION — إتقان الإسبريسو (كيس بني ببورتافلتر) */
     mastery: "/images/bag-mastery",
     /** SIGNATURE COLLECTION — تحميص داكن (كيس كريمي) */
     signatureCream: "/images/bag-signature-cream",
-    /** كلاسيك 1 كجم (جوانب زرقاء) */
-    classic1kg: "/images/bag-classic-1kg",
     /** حبوب مصرية أصل واحد (جانب أصفر) */
     egyptian: "/images/bag-egyptian",
     /** علبة كبسولات ROVENTO (10) */

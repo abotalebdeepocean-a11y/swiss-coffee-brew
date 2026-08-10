@@ -22,14 +22,17 @@ import {
   CATEGORY_MAP,
   formatPrice,
   discountPercent,
+  variantOf,
 } from "@/lib/products";
 import { useCart, whatsappLink } from "@/lib/store";
+import { cn } from "@/lib/utils";
 
 export default function Product() {
   const { slug = "" } = useParams();
   const product = getProduct(slug);
   const { add } = useCart();
   const [qty, setQty] = useState(1);
+  const [variantId, setVariantId] = useState(product?.variants?.[0]?.id);
   const [prevSlug, setPrevSlug] = useState(slug);
 
   // Reset the quantity when navigating between products (render-time state
@@ -37,6 +40,7 @@ export default function Product() {
   if (slug !== prevSlug) {
     setPrevSlug(slug);
     setQty(1);
+    setVariantId(product?.variants?.[0]?.id);
   }
 
   useEffect(() => {
@@ -77,7 +81,10 @@ export default function Product() {
   const cat = CATEGORY_MAP[product.category];
   const discount = discountPercent(product);
   const variant = blendVariantFor(product.slug);
-  const waMessage = `مرحبًا ROVENTO 👋 أرغب في طلب:\n• ${product.name} (${product.weight ?? ""}) × ${qty} — ${formatPrice(product.price * qty)}`;
+  const activeVariant = variantOf(product, variantId);
+  const price = activeVariant?.price ?? product.price;
+  const oldPrice = activeVariant?.oldPrice ?? product.oldPrice;
+  const waMessage = `مرحبًا ROVENTO 👋 أرغب في طلب:\n• ${product.name} (${activeVariant?.label ?? product.weight ?? ""}) × ${qty} — ${formatPrice(price * qty)}`;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -173,14 +180,42 @@ export default function Product() {
 
               <div className="mt-6 flex items-baseline gap-3">
                 <span className="text-3xl font-black">
-                  {formatPrice(product.price)}
+                  {formatPrice(price)}
                 </span>
-                {product.oldPrice && (
+                {oldPrice && (
                   <span className="text-lg text-muted-foreground line-through">
-                    {formatPrice(product.oldPrice)}
+                    {formatPrice(oldPrice)}
                   </span>
                 )}
               </div>
+
+              {/* اختيار المقاس/الطحن */}
+              {product.variants && product.variants.length > 1 && (
+                <div className="mt-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    Size · المقاس / الطحن
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {product.variants.map((v) => (
+                      <button
+                        key={v.id}
+                        onClick={() => setVariantId(v.id)}
+                        className={cn(
+                          "h-10 border px-4 text-sm font-semibold transition-colors",
+                          v.id === activeVariant?.id
+                            ? "border-rv-red bg-rv-red/10 text-rv-red"
+                            : "border-white/20 text-muted-foreground hover:border-white/40 hover:text-foreground",
+                        )}
+                      >
+                        {v.label}
+                        <span className="ms-2 font-mono text-[10px]">
+                          {formatPrice(v.price)}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
                 {product.description}
@@ -292,7 +327,7 @@ export default function Product() {
                   </button>
                 </div>
                 <button
-                  onClick={() => add(product.slug, qty)}
+                  onClick={() => add(product.slug, qty, activeVariant?.id)}
                   className="flex h-12 flex-1 items-center justify-center gap-2 bg-rv-red text-sm font-bold text-white transition-colors hover:bg-[#b53219] sm:flex-none sm:px-8"
                 >
                   <ShoppingBag className="size-4" />

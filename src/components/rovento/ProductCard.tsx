@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { Eye, Plus } from "lucide-react";
 import type { Product } from "@/lib/products";
-import { CATEGORY_MAP, formatPrice, discountPercent } from "@/lib/products";
+import { CATEGORY_MAP, formatPrice, discountPercent, variantOf } from "@/lib/products";
 import { useCart } from "@/lib/store";
-import { BagVisual, } from "./BagVisual";
+import { BagVisual } from "./BagVisual";
 import { blendVariantFor } from "./CoffeeBag";
 import { Stars } from "./art";
+import { cn } from "@/lib/utils";
 
 export function ProductCard({
   product,
@@ -18,6 +20,10 @@ export function ProductCard({
   const { add } = useCart();
   const cat = CATEGORY_MAP[product.category];
   const discount = discountPercent(product);
+  const [variantId, setVariantId] = useState(product.variants?.[0]?.id);
+  const activeVariant = variantOf(product, variantId);
+  const price = activeVariant?.price ?? product.price;
+  const oldPrice = activeVariant?.oldPrice ?? product.oldPrice;
 
   return (
     <motion.article
@@ -70,7 +76,7 @@ export function ProductCard({
         {/* hover actions */}
         <div className="absolute inset-x-0 bottom-0 flex translate-y-full flex-col gap-2 bg-background/95 p-3 transition-transform duration-300 group-hover:translate-y-0">
           <button
-            onClick={() => add(product.slug)}
+            onClick={() => add(product.slug, 1, activeVariant?.id)}
             className="flex h-10 w-full items-center justify-center gap-2 bg-rv-red text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
           >
             <Plus className="size-4" />
@@ -96,7 +102,7 @@ export function ProductCard({
             {cat.name}
           </span>
           <span className="font-mono text-[9px] text-muted-foreground">
-            {product.weight}
+            {activeVariant?.label ?? product.weight}
           </span>
         </div>
         <Link
@@ -111,11 +117,32 @@ export function ProductCard({
             {product.rating} ({product.reviews})
           </span>
         </div>
+
+        {/* مقاس/طحن — لو البلند فيه أكتر من خيار */}
+        {product.variants && product.variants.length > 1 && (
+          <div className="mt-3 flex flex-wrap gap-1">
+            {product.variants.map((v) => (
+              <button
+                key={v.id}
+                onClick={() => setVariantId(v.id)}
+                className={cn(
+                  "h-7 border px-2 font-mono text-[10px] transition-colors",
+                  v.id === activeVariant?.id
+                    ? "border-rv-red bg-rv-red/10 text-rv-red"
+                    : "border-white/15 text-muted-foreground hover:border-white/40 hover:text-foreground",
+                )}
+              >
+                {v.label}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-lg font-bold">{formatPrice(product.price)}</span>
-          {product.oldPrice && (
+          <span className="text-lg font-bold">{formatPrice(price)}</span>
+          {oldPrice && (
             <span className="text-xs text-muted-foreground line-through">
-              {formatPrice(product.oldPrice)}
+              {formatPrice(oldPrice)}
             </span>
           )}
         </div>

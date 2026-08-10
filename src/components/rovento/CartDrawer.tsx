@@ -7,8 +7,8 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { useCart, orderViaWhatsApp } from "@/lib/store";
-import { getProduct, formatPrice } from "@/lib/products";
+import { useCart, orderViaWhatsApp, cartLine, cartLineKey } from "@/lib/store";
+import { formatPrice } from "@/lib/products";
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 import { blendVariantFor } from "./CoffeeBag";
@@ -57,10 +57,11 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-5">
               <ul className="divide-y divide-white/5">
                 {items.map((item) => {
-                  const p = getProduct(item.slug);
-                  if (!p) return null;
+                  const line = cartLine(item);
+                  if (!line) return null;
+                  const { product: p, variant } = line;
                   return (
-                    <li key={item.slug} className="flex gap-4 py-4">
+                    <li key={cartLineKey(item)} className="flex gap-4 py-4">
                       <Link
                         to={`/product/${p.slug}`}
                         onClick={closeCart}
@@ -86,13 +87,13 @@ export function CartDrawer() {
                             {p.name}
                           </Link>
                           <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                            {p.weight ?? p.category}
+                            {variant ? variant.label : p.weight ?? p.category}
                           </p>
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center border border-white/15">
                             <button
-                              onClick={() => setQty(item.slug, item.qty + 1)}
+                              onClick={() => setQty(item.slug, item.qty + 1, item.variantId)}
                               className="grid size-7 place-items-center transition-colors hover:bg-white/10"
                               aria-label="زيادة الكمية"
                             >
@@ -102,7 +103,7 @@ export function CartDrawer() {
                               {item.qty}
                             </span>
                             <button
-                              onClick={() => setQty(item.slug, item.qty - 1)}
+                              onClick={() => setQty(item.slug, item.qty - 1, item.variantId)}
                               className="grid size-7 place-items-center transition-colors hover:bg-white/10"
                               aria-label="تقليل الكمية"
                             >
@@ -111,10 +112,10 @@ export function CartDrawer() {
                           </div>
                           <div className="flex items-center gap-3">
                             <span className="text-sm font-bold">
-                              {formatPrice(p.price * item.qty)}
+                              {formatPrice(line.price * item.qty)}
                             </span>
                             <button
-                              onClick={() => remove(item.slug)}
+                              onClick={() => remove(item.slug, item.variantId)}
                               className="text-muted-foreground transition-colors hover:text-rv-red"
                               aria-label="حذف المنتج"
                             >
