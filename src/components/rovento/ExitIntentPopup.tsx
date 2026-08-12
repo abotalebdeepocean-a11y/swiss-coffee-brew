@@ -5,6 +5,7 @@ import { Check, Copy, X } from "lucide-react";
 
 const COUPON = "ROVENTO10";
 const SEEN_KEY = "rovento-exit-popup-seen";
+const TIMED_KEY = "rovento-timed-promo-shown";
 
 export function ExitIntentPopup() {
   const [open, setOpen] = useState(false);
@@ -22,9 +23,19 @@ export function ExitIntentPopup() {
     }
     document.addEventListener("mouseleave", onMouseLeave);
     window.addEventListener("rovento:open-promo", onGift);
+
+    // عرض تلقائي بعد 15 ثانية — مرة واحدة لكل جلسة (مثل المرجع)
+    const timer = setTimeout(() => {
+      if (!sessionStorage.getItem(SEEN_KEY) && !sessionStorage.getItem(TIMED_KEY)) {
+        sessionStorage.setItem(TIMED_KEY, "1");
+        setOpen(true);
+      }
+    }, 15000);
+
     return () => {
       document.removeEventListener("mouseleave", onMouseLeave);
       window.removeEventListener("rovento:open-promo", onGift);
+      clearTimeout(timer);
     };
   }, []);
 

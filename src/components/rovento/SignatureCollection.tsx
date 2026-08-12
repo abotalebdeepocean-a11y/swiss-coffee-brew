@@ -60,9 +60,10 @@ const SHORT_DESC: Record<string, string> = {
 
 /** جدول المقارنة — نفس روح المرجع */
 const COMPARE_ROWS = [
-  { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 285, cls: "" },
-  { name: "Espresso Blend (Premium)", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 340, cls: "bg-rv-gold/10 text-rv-gold" },
-  { name: "Intenso Blend", strength: "10/10", crema: "داكنة وثقيلة", use: "مشروبات الحليب الساخنة", price: 310, cls: "" },
+  { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 285, note: "/ 250 جم", cls: "" },
+  { name: "Espresso Blend (Premium)", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 340, note: "/ 250 جم", cls: "bg-rv-gold/10 text-rv-gold" },
+  { name: "Intenso Blend", strength: "10/10", crema: "داكنة وثقيلة", use: "مشروبات الحليب الساخنة", price: 310, note: "/ 250 جم", cls: "" },
+  { name: "ROVENTO Origin — إثيوبيا", strength: "8.5/10", crema: "مخملية وناعمة بطعم التوت والزهور", use: "إسبريسو سينجل أوريجن فاخر", price: 1450, note: "/ 1 كجم", cls: "" },
 ];
 
 function BlendCard({
@@ -225,6 +226,9 @@ export function SignatureCollection() {
                     <td className="hidden px-4 py-4 md:table-cell">{r.use}</td>
                     <td className="px-4 py-4 text-center font-bold">
                       {formatPrice(r.price)}
+                      <span className="block text-[10px] font-normal text-stone-500">
+                        {r.note}
+                      </span>
                     </td>
                   </tr>
                 ))}
@@ -232,7 +236,8 @@ export function SignatureCollection() {
             </table>
           </div>
           <p className="mt-4 text-center text-xs text-stone-500">
-            * الأسعار لكيس 250 جم — يتوفر 1 كجم والمطحون داخل كل بلند.
+            * أسعار الكيس 250 جم — 1 كجم والمطحون متاحان داخل كل بلند، والأصول
+            تُباع كيلو كامل.
           </p>
         </motion.div>
       </div>

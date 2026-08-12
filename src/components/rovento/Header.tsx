@@ -87,8 +87,8 @@ export function Header() {
               >
                 {item.label}
                 {item.hot && (
-                  <span className="grid size-4.5 place-items-center rounded-full bg-red-600 text-[9px] font-black text-white">
-                    !
+                  <span className="rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-black text-white">
+                    خصم
                   </span>
                 )}
               </button>

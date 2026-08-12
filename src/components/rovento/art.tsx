@@ -236,18 +236,18 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 export function Logo({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      <div className="grid size-11 shrink-0 place-items-center bg-rv-red text-white">
-        <span className="font-display font-black leading-none text-[22px] font-wide">
+      <div className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f6d365] to-[#997a15] shadow-lg">
+        <span className="font-display text-2xl font-black leading-none text-black font-wide">
           R
         </span>
       </div>
       <div className="leading-none">
-        <div className="font-display font-black text-lg tracking-[0.2em] text-foreground font-wide">
+        <span className="gold-gradient-text block font-display text-xl font-black tracking-[0.2em] font-wide">
           ROVENTO
-        </div>
-        <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">
-          Specialty Coffee · مصر
-        </div>
+        </span>
+        <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.24em] text-rv-gold">
+          Coffee • Cairo • Egypt
+        </span>
       </div>
     </div>
   );

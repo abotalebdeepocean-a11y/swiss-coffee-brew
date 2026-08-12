@@ -74,10 +74,10 @@ export function BannerSlider() {
                 className="max-w-2xl"
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rv-red">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rv-gold">
                     {slide.kicker}
                   </span>
-                  <span className="h-px w-10 bg-rv-red/60" />
+                  <span className="h-px w-10 bg-rv-gold/60" />
                 </div>
                 <h3 className="text-3xl font-bold leading-[1.35] text-balance md:text-[44px] md:leading-[1.3]">
                   {slide.title}
@@ -85,7 +85,7 @@ export function BannerSlider() {
                 <p className="mt-3 text-sm text-white/60 md:text-base">{slide.sub}</p>
                 <Link
                   to={slide.href}
-                  className="pointer-events-auto mt-7 inline-flex h-11 items-center gap-2 bg-rv-red px-6 text-sm font-bold text-white transition-colors hover:bg-[#b53219]"
+                  className="pointer-events-auto mt-7 inline-flex h-11 items-center gap-2 bg-rv-gold px-6 text-sm font-black text-black transition hover:brightness-110"
                 >
                   {slide.ctaLabel}
                   <ChevronLeft className="size-4" />
@@ -99,7 +99,7 @@ export function BannerSlider() {
         {baked && (
           <Link
             to={slide.href}
-            className="absolute bottom-6 start-6 z-10 inline-flex h-11 items-center gap-2 border border-white/25 bg-black/45 px-6 text-sm font-bold text-white backdrop-blur transition-colors hover:border-rv-red hover:bg-rv-red"
+            className="absolute bottom-6 start-6 z-10 inline-flex h-11 items-center gap-2 border border-white/25 bg-black/45 px-6 text-sm font-bold text-white backdrop-blur transition-colors hover:border-rv-gold hover:bg-rv-gold hover:text-black"
           >
             {slide.ctaLabel}
             <ChevronLeft className="size-4" />
@@ -113,7 +113,7 @@ export function BannerSlider() {
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: DURATION / 1000, ease: "linear" }}
-            className="h-full bg-rv-red"
+            className="h-full bg-rv-gold"
           />
         </div>
 
@@ -122,7 +122,7 @@ export function BannerSlider() {
         <div className="absolute inset-y-0 start-5 z-10 hidden items-center md:flex">
           <button
             onClick={prev}
-            className="grid size-11 place-items-center border border-white/20 bg-black/40 text-white backdrop-blur transition-colors hover:border-rv-red hover:bg-rv-red"
+            className="grid size-11 place-items-center border border-white/20 bg-black/40 text-white backdrop-blur transition-colors hover:border-rv-gold hover:bg-rv-gold hover:text-black"
             aria-label="السابق"
           >
             <ChevronRight className="size-5" />
@@ -131,7 +131,7 @@ export function BannerSlider() {
         <div className="absolute inset-y-0 end-5 z-10 hidden items-center md:flex">
           <button
             onClick={next}
-            className="grid size-11 place-items-center border border-white/20 bg-black/40 text-white backdrop-blur transition-colors hover:border-rv-red hover:bg-rv-red"
+            className="grid size-11 place-items-center border border-white/20 bg-black/40 text-white backdrop-blur transition-colors hover:border-rv-gold hover:bg-rv-gold hover:text-black"
             aria-label="التالي"
           >
             <ChevronLeft className="size-5" />
@@ -139,10 +139,9 @@ export function BannerSlider() {
         </div>
 
         {/* counter + dots (top row, away from the floating WhatsApp button) */}
-        <div className="absolute start-5 top-6 z-10 flex items-center gap-5">
-          <span className="hidden font-mono text-xs tracking-[0.3em] text-white/70 sm:block">
-            <span className="text-rv-red">0{index + 1}</span> / 0{SLIDES.length}
-          </span>
+        <div className="absolute start-5 top-6 z-10 flex items-center gap-5">            <span className="hidden font-mono text-xs tracking-[0.3em] text-white/70 sm:block">
+              <span className="text-rv-gold">0{index + 1}</span> / 0{SLIDES.length}
+            </span>
           <div className="flex items-center gap-2">
             {SLIDES.map((s, i) => (
               <button
@@ -150,7 +149,7 @@ export function BannerSlider() {
                 onClick={() => setIndex(i)}
                 className={cn(
                   "h-1.5 transition-all duration-300",
-                  i === index ? "w-9 bg-rv-red" : "w-4 bg-white/25 hover:bg-white/50",
+                  i === index ? "w-9 bg-rv-gold" : "w-4 bg-white/25 hover:bg-white/50",
                 )}
                 aria-label={`الانتقال إلى الشريحة ${i + 1}`}
               />

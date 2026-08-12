@@ -27,10 +27,10 @@ export function CartDrawer() {
         <SheetHeader className="border-b border-white/10 px-5 py-4">
           <SheetTitle className="flex items-center justify-between text-start">
             <span className="flex items-center gap-2 text-lg font-bold">
-              <ShoppingBag className="size-4.5 text-rv-red" />
+              <ShoppingBag className="size-4.5 text-rv-gold" />
               سلة التسوق
             </span>
-            <span className="font-mono text-xs tracking-widest text-muted-foreground">
+            <span className="rounded-full bg-rv-gold/15 px-2.5 py-1 font-mono text-xs font-bold tracking-widest text-rv-gold">
               {count} منتج
             </span>
           </SheetTitle>
@@ -82,7 +82,7 @@ export function CartDrawer() {
                           <Link
                             to={`/product/${p.slug}`}
                             onClick={closeCart}
-                            className="text-sm font-semibold leading-snug hover:text-rv-red"
+                            className="text-sm font-semibold leading-snug hover:text-rv-gold"
                           >
                             {p.name}
                           </Link>
@@ -139,7 +139,9 @@ export function CartDrawer() {
             <div className="border-t border-white/10 px-5 py-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">الإجمالي</span>
-                <span className="text-xl font-bold">{formatPrice(subtotal)}</span>
+                <span className="text-xl font-black text-rv-gold">
+                  {formatPrice(subtotal)}
+                </span>
               </div>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
                 الدفع عند الاستلام أو فودافون كاش / إنستاباي · الشحن لكل مصر

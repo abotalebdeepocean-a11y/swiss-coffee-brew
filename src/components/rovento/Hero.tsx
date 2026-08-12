@@ -121,7 +121,7 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="btn-gold inline-flex items-center gap-3 rounded-xl px-8 py-4 text-lg font-black shadow-xl transition hover:-translate-y-0.5"
+              className="inline-flex items-center gap-3 rounded-xl bg-amber-500 px-8 py-4 text-lg font-black text-stone-950 shadow-xl transition hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-amber-500/20"
             >
               اطلب الآن
               <ArrowLeft className="size-5" />
