@@ -50,7 +50,7 @@ const FEATURES = [
 export function WhyRovento() {
   return (
     <section
-      id="why"
+      id="why-rovento"
       className="border-b border-stone-800 bg-coffee-900/40 py-20"
     >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">

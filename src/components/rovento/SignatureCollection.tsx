@@ -151,7 +151,7 @@ export function SignatureCollection() {
 
   return (
     <section
-      id="signature"
+      id="featured"
       className="border-b border-stone-800 bg-coffee-900/50 py-20"
     >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">

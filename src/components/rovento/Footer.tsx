@@ -20,9 +20,9 @@ const SHIPPING = [
 
 const LINKS = [
   { label: "الرئيسية", to: "/" },
-  { label: "خلطات روفينتو", to: "/#signature" },
-  { label: "عرض الأسبوع", to: "/#offers" },
-  { label: "لماذا بريكا؟", to: "/#moka" },
+  { label: "خلطات روفينتو", to: "/#featured" },
+  { label: "عرض الأسبوع", to: "/#deal" },
+  { label: "لماذا بريكا؟", to: "/#brikka" },
   { label: "تجارب العملاء", to: "/#reviews" },
 ];
 

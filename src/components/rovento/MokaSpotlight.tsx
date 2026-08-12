@@ -28,7 +28,7 @@ export function MokaSpotlight() {
 
   return (
     <section
-      id="moka"
+      id="brikka"
       className="border-b border-stone-800 bg-coffee-950 py-20"
     >
       <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 md:px-6 lg:grid-cols-12">

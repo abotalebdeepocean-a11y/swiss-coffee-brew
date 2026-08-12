@@ -112,12 +112,12 @@ export function Hero() {
           {/* الأزرار */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4 lg:justify-start">
             <Link
-              to="/#featured"
+              to="/#bestsellers"
               onClick={(e) => {
                 if (window.location.pathname === "/") {
                   e.preventDefault();
                   document
-                    .getElementById("featured")
+                    .getElementById("bestsellers")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
@@ -127,7 +127,15 @@ export function Hero() {
               <ArrowLeft className="size-5" />
             </Link>
             <Link
-              to="/shop"
+              to="/#featured"
+              onClick={(e) => {
+                if (window.location.pathname === "/") {
+                  e.preventDefault();
+                  document
+                    .getElementById("featured")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className="inline-flex items-center gap-3 rounded-xl border border-stone-700 bg-stone-900 px-8 py-4 text-lg font-bold text-stone-200 transition hover:bg-stone-800"
             >
               <Eye className="size-5 text-rv-gold" />

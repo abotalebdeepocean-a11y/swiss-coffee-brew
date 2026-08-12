@@ -6,11 +6,11 @@ import { useCart, whatsappLink } from "@/lib/store";
 
 const NAV = [
   { label: "الرئيسية", to: "/#hero" },
-  { label: "اختار شخصيتك", to: "/#signature" },
-  { label: "عرض الأسبوع", to: "/#offers", hot: true },
-  { label: "لماذا بريكا؟", to: "/#moka" },
-  { label: "الأكثر مبيعًا", to: "/#featured" },
-  { label: "لماذا روفينتو؟", to: "/#why" },
+  { label: "اختار شخصيتك", to: "/#featured" },
+  { label: "عرض الأسبوع", to: "/#deal", hot: true },
+  { label: "لماذا بريكا؟", to: "/#brikka" },
+  { label: "الأكثر مبيعًا", to: "/#bestsellers" },
+  { label: "لماذا روفينتو؟", to: "/#why-rovento" },
   { label: "آراء العملاء", to: "/#reviews" },
 ];
 

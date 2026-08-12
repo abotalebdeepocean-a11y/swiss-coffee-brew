@@ -14,7 +14,7 @@ export function BestSellers() {
 
   return (
     <section
-      id="featured"
+      id="bestsellers"
       className="border-b border-stone-800 bg-coffee-900/60 py-20"
     >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">

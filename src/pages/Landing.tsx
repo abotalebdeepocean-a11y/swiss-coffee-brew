@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
-import { BannerSlider } from "@/components/rovento/BannerSlider";
 import { Hero } from "@/components/rovento/Hero";
 import { SignatureCollection } from "@/components/rovento/SignatureCollection";
 import { OfferSection } from "@/components/rovento/OfferSection";
@@ -16,10 +15,10 @@ import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 
 /**
- * Sales-funnel landing — ترتيب الأقسام ثابت:
- * البنر الرئيسي → الهيرو (يبيع بسرعة) → اختار شخصيتك → عرض الأسبوع (عداد)
- * → موكا بوت بريكا → الأكثر طلبًا (سطر واحد) → أصناف أخرى (فلاتر)
- * → لماذا روفينتو → آراء العملاء → الثقة → الفوتر.
+ * Sales-funnel landing — ترتيب الأقسام مطابق للمرجع:
+ * الهيرو (يبيع بسرعة) → اختار شخصيتك (#featured) → عرض الأسبوع (#deal)
+ * → بريكا (#brikka) → الأكثر طلبًا (#bestsellers) → أصناف أخرى (فلاتر)
+ * → لماذا روفينتو (#why-rovento) → آراء العملاء (#reviews) → الثقة → الفوتر.
  */
 export default function Landing() {
   useEffect(() => {
@@ -31,7 +30,6 @@ export default function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <main>
-        <BannerSlider />
         <Hero />
         <SignatureCollection />
         <OfferSection />

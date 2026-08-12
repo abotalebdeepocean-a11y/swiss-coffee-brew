@@ -54,7 +54,7 @@ export function OfferSection() {
 
   return (
     <section
-      id="offers"
+      id="deal"
       className="relative overflow-hidden border-y-2 border-rv-gold bg-gradient-to-br from-[#1a160e] via-[#241e11] to-[#1a160e] py-16"
     >
       <div className="relative z-10 mx-auto w-full max-w-5xl px-4 text-center md:px-6">
