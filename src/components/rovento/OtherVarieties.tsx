@@ -21,10 +21,11 @@ export function OtherVarieties() {
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
         <div className="mx-auto mb-10 max-w-3xl text-center">
           <h2 className="text-2xl font-black sm:text-3xl">
-            تصفح منتجات روفينتو <span className="text-rv-red">حسب التصنيف</span>
+            اكتشف <span className="text-rv-red">المزيد</span>
           </h2>
           <p className="mt-2 text-sm text-stone-400">
-            اختار القسم لفرز القهوة والأدوات بسرعة دون عناء
+            القهوة المطحونة، أدوات التحضير، الماكينات والإكسسوارات — كل ما
+            يكمّل تجربتك مع روفينتو
           </p>
         </div>
 

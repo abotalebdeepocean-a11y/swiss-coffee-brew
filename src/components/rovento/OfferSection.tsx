@@ -79,16 +79,15 @@ export function OfferSection() {
         >
           🔥 اشترِ 2 واحصل على{" "}
           <span className="gold-gradient-text">خصم فوري {SAVE} ج.م</span>
-        </motion.h2>
-        <motion.p
+        </motion.h2>          <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
           className="mx-auto mb-8 max-w-2xl text-base text-stone-300 sm:text-lg"
         >
-          احصل على كيسين من اختيارك (بريميم أو إنتنسو) بسعر استثنائي مع شحن
-          مجاني لأي محافظة في مصر لفترة محدودة.
+          على كلاسيك أو بريميوم — لفترة محدودة، مع شحن مجاني لأي محافظة في
+          مصر.
         </motion.p>
 
         {/* العداد التنازلي */}
@@ -113,9 +112,12 @@ export function OfferSection() {
           className="btn-gold inline-flex items-center gap-3 rounded-2xl px-10 py-5 text-lg font-black shadow-2xl transition hover:scale-105"
         >
           <ShoppingBag className="size-6" />
-          اطلب عرض الأسبوع الآن — كيسان بريميم بـ {formatPrice(DEAL_PRICE)}{" "}
+          اطلب العرض الآن — كيسان بـ {formatPrice(DEAL_PRICE)}{" "}
           بدل {formatPrice(DEAL_OLD)}
         </button>
+        <p className="mt-5 text-xs font-bold tracking-wide text-stone-400">
+          ⏳ العرض ساري حتى نفاد الكمية — اطلب اليوم وادفع عند الاستلام
+        </p>
       </div>
     </section>
   );

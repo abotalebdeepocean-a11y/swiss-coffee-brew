@@ -1,18 +1,20 @@
-import { ShoppingCart, Star } from "lucide-react";
+import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { SIGNATURE_BLENDS, getProduct, formatPrice, type Product } from "@/lib/products";
-import { useCart } from "@/lib/store";
 import { BagVisual } from "./BagVisual";
+import { Stars } from "./art";
 import type { BlendVariant } from "./CoffeeBag";
 
 /** إعدادات الشخصيات — ألوان وشارات حسب المرجع */
 const PERSONAS: Record<
   string,
   {
-    badge: string;
-    badgeCls: string;
+    bannerCls: string;
+    nameEn: string;
     tag: string;
     strength: number;
+    crema: number;
+    roast: string;
     strengthCls: string;
     ctaCls: string;
     cardCls: string;
@@ -20,42 +22,39 @@ const PERSONAS: Record<
   }
 > = {
   "rovento-classic": {
-    badge: "🟦 الخلطة الكلاسيكية (Classic)",
-    badgeCls: "bg-blue-500/20 text-blue-400",
-    tag: "متوازن • يومي • اقتصادي",
+    bannerCls: "bg-blue-800/90",
+    nameEn: "CLASSIC",
+    tag: "متوازن لأي وقت في اليوم",
     strength: 7,
+    crema: 7,
+    roast: "متوسط",
     strengthCls: "text-blue-400",
-    ctaCls: "bg-blue-600 hover:bg-blue-500 text-white",
+    ctaCls: "border border-stone-600 hover:border-blue-400 hover:text-blue-300",
     cardCls: "border-blue-500/30 hover:border-blue-500/80",
   },
   "rovento-premium": {
-    badge: "🟩 الخلطة الفاخرة (Premium / Espresso)",
-    badgeCls: "bg-emerald-500/20 text-emerald-400",
-    tag: "نكهات أعمق • كريما أغنى",
+    bannerCls: "bg-teal-800/90",
+    nameEn: "PREMIUM",
+    tag: "نكهات أعمق... تجربة فاخرة",
     strength: 9,
-    strengthCls: "text-emerald-400",
-    ctaCls: "btn-gold",
+    crema: 9,
+    roast: "داكن",
+    strengthCls: "text-teal-400",
+    ctaCls: "border border-stone-600 hover:border-teal-400 hover:text-teal-300",
     cardCls: "border-2 border-rv-gold shadow-2xl",
     featured: true,
   },
   "rovento-intenso": {
-    badge: "🟪 الخلطة المكثفة (Intenso)",
-    badgeCls: "bg-purple-500/20 text-purple-400",
-    tag: "قوة التركيز • قوام ثقيل",
+    bannerCls: "bg-purple-800/90",
+    nameEn: "INTENSO",
+    tag: "قوة تركيز... قوام ثقيل",
     strength: 10,
+    crema: 8,
+    roast: "غامق",
     strengthCls: "text-purple-400",
-    ctaCls: "bg-purple-600 hover:bg-purple-500 text-white",
+    ctaCls: "border border-stone-600 hover:border-purple-400 hover:text-purple-300",
     cardCls: "border-purple-500/30 hover:border-purple-500/80",
   },
-};
-
-const SHORT_DESC: Record<string, string> = {
-  "rovento-classic":
-    "مزيج مثالي للقهوة اليومية — طعم متوازن وحمضية لطيفة مع حمولة كافيين تناسب بداية اليوم، بسعر اقتصادي في متناول الجميع.",
-  "rovento-premium":
-    "خلطة الإسبريسو المميزة بتركيبة متوازنة من الأرابيكا والروبوستا تمنحك طبقة كريما ذهبية كثيفة وطعم الشوكولاتة الداكنة والمكسرات المحمصة.",
-  "rovento-intenso":
-    "لمن يبحث عن جرعة طاقة مضاعفة وتحميص داكن قوي — مثالي لمشروبات الحليب (لاتيه، كابتشينو) حيث يبرز طعم القهوة بقوة دون أن يختفي.",
 };
 
 /** جدول المقارنة — نفس روح المرجع */
@@ -75,7 +74,6 @@ function BlendCard({
   variant: BlendVariant;
   num: number;
 }) {
-  const { add } = useCart();
   const p = PERSONAS[product.slug]!;
 
   return (
@@ -84,62 +82,77 @@ function BlendCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: num * 0.1 }}
-      className={`relative flex flex-col justify-between rounded-2xl border bg-coffee-900/90 p-6 text-center shadow-xl transition ${
+      className={`relative flex flex-col overflow-hidden rounded-2xl border bg-coffee-900/90 text-center shadow-xl transition ${
         p.cardCls
       } ${p.featured ? "md:-translate-y-2" : ""}`}
     >
+      {/* شريط الرأس الملون — مثل المرجع */}
+      <div className={`px-6 py-4 ${p.bannerCls}`}>
+        <h3 className="text-xl font-black tracking-widest text-white">
+          {p.nameEn}
+        </h3>
+        <p className="mt-1 text-xs font-bold text-white/85">{p.tag}</p>
+      </div>
+
       {p.featured && (
-        <span className="absolute -top-3.5 right-6 flex items-center gap-1 rounded-full bg-rv-gold px-3 py-1 text-xs font-black text-black shadow">
-          <Star className="size-3.5" />
-          اختيار العشاق
+        <span className="absolute -top-0 right-4 z-10 flex items-center gap-1 rounded-b-lg bg-rv-gold px-3 py-1 text-xs font-black text-black shadow">
+          ⭐ اختيار العشاق
         </span>
       )}
 
-      <div>
-        <span
-          className={`mb-4 inline-block rounded-full px-4 py-1 text-xs font-bold ${p.badgeCls}`}
-        >
-          {p.badge}
-        </span>
-        <h3 className="text-2xl font-black text-white">{product.nameEn}</h3>
-        <p className="mb-4 mt-1 text-base font-bold text-rv-gold">{p.tag}</p>
-
+      <div className="flex flex-1 flex-col p-6">
         {/* صورة الكيس الحقيقية */}
-        <div className="relative mx-auto mb-5 grid h-44 w-32 place-items-center rounded-xl border border-stone-800 bg-stone-950">
+        <div className="relative mx-auto mb-5 grid h-36 w-28 place-items-center rounded-xl border border-stone-800 bg-stone-950">
           <BagVisual
             image={product.image}
             variant={variant}
             alt={product.name}
-            className="h-40 w-auto"
+            className="h-32 w-auto"
           />
         </div>
 
-        <p className="mb-6 text-sm leading-relaxed text-stone-400">
-          {SHORT_DESC[product.slug]}
-        </p>
-      </div>
-
-      <div className="border-t border-stone-800 pt-4">
-        <div className="mb-4 flex items-center justify-between">
-          <span className="text-sm text-stone-400">القوة:</span>
-          <span className={`font-bold ${p.strengthCls}`}>
-            {p.strength} / 10
-          </span>
+        {/* تقييم تفصيلي — مثل المرجع */}
+        <div className="mb-5 space-y-2.5 text-sm">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-stone-400">قوة الطعم</span>
+            <span className="flex items-center gap-1.5">
+              <Stars value={Math.round(p.strength / 2)} />
+              <span className={`font-mono font-bold ${p.strengthCls}`}>
+                {p.strength}/10
+              </span>
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-stone-400">الكريما</span>
+            <span className="flex items-center gap-1.5">
+              <Stars value={Math.round(p.crema / 2)} />
+              <span className={`font-mono font-bold ${p.strengthCls}`}>
+                {p.crema}/10
+              </span>
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-stone-400">التحميص</span>
+            <span className="font-mono font-bold text-stone-200">
+              {p.roast}
+            </span>
+          </div>
         </div>
-        <div className="mb-4 flex items-center justify-between">
-          <span className="text-sm text-stone-400">السعر:</span>
-          <span className="text-xl font-black text-white">
+
+        <div className="mb-5 flex items-center justify-between border-t border-stone-800 pt-4">
+          <span className="text-sm text-stone-400">السعر</span>
+          <span className="text-lg font-black text-white">
             {formatPrice(product.price)}
             <span className="text-xs text-stone-400"> / 250 جم</span>
           </span>
         </div>
-        <button
-          onClick={() => add(product.slug)}
-          className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 font-black transition ${p.ctaCls}`}
+
+        <Link
+          to={`/product/${product.slug}`}
+          className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-transparent text-sm font-black text-stone-200 transition ${p.ctaCls}`}
         >
-          <ShoppingCart className="size-4" />
-          أضف إلى السلة
-        </button>
+          تسوق {p.nameEn === "CLASSIC" ? "كلاسيك" : p.nameEn === "PREMIUM" ? "بريميوم" : "إنتنسو"}
+        </Link>
       </div>
     </motion.div>
   );
@@ -161,7 +174,7 @@ export function SignatureCollection() {
             اختر ما يناسب مزاجك
           </span>
           <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-            اختار <span className="text-rv-red">شخصيتك</span> في فنجانك
+            اختر <span className="text-rv-red">شخصيتك</span> في فنجانك
           </h2>
           <p className="mt-3 text-lg text-stone-300">
             صممنا خلطات روفينتو بعناية فائقة لتلائم أوقاتك المختلفة — توازن يومي

@@ -6,30 +6,30 @@ import { BagVisual } from "./BagVisual";
 
 const REVIEWS = [
   {
-    name: "أحمد مجدي",
-    initial: "أ",
-    city: "القاهرة • مصر الجديدة",
-    avatarCls: "bg-rv-gold/20 text-rv-gold",
+    name: "مريم",
+    initial: "م",
+    city: "من الجيزة",
+    avatarCls: "bg-pink-500/20 text-pink-400",
     when: "منذ 3 أيام",
-    text: "الكريما أحسن من معظم القهوة المستوردة اللي جربتها قبل كدة، بجد أخيرًا لقيت بن مصري فخم جدًا ومظبوط بالشعرة، وطعمه في الإسبريسو خرافي!",
+    text: "طعم ناعم ومتوازن، ومفيش مرارة نهائي. الكريما أحسن من معظم القهوة المستوردة اللي جربتها قبل كدة!",
     img: IMAGES.bags.premium,
   },
   {
-    name: "سارة كمال",
-    initial: "س",
-    city: "الإسكندرية • سموحة",
+    name: "أحمد",
+    initial: "أ",
+    city: "من الإسكندرية",
     avatarCls: "bg-blue-500/20 text-blue-400",
     when: "منذ أسبوع",
-    text: "البريكا مع خلطة روفينتو غيرت روتين الصبح عندي تمامًا! الكريما بتطلع تقيلة والريحة بتقلب البيت كله، وبقيت استغني عن قهوة الكافيهات.",
+    text: "البريكا مع حبوب بريميوم طعمها عبقري! زي ما تكون قهوة مختصة من كافيهات القاهرة، وأنا في بيتي في سموحة.",
     img: IMAGES.bags.premium,
   },
   {
-    name: "محمود عبد السلام",
+    name: "محمد",
     initial: "م",
-    city: "الجيزة • الدقي",
+    city: "من القاهرة",
     avatarCls: "bg-purple-500/20 text-purple-400",
     when: "منذ أسبوعين",
-    text: "طلبت خلطة الإسبريسو ووصلتني تاني يوم في الجيزة، التحميص طازج جدًا والعبوة شيك ومحكمة. السعر ممتاز بالنسبة للجودة العالية دي.",
+    text: "أفضل كريما جربتها في البيت. عمرى ما هغيّر القهوة عندي — التحميص طازج والتوصيل وصلني تاني يوم.",
     img: IMAGES.bags.classic,
   },
 ];
@@ -46,7 +46,7 @@ export function Testimonials() {
             تجارب حقيقية من السوق المصري
           </span>
           <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-            رأي عشاق القهوة <span className="text-rv-red">في مصر</span>
+            ماذا يقول <span className="text-rv-red">عملاؤنا؟</span>
           </h2>
           <p className="mt-3 text-lg text-stone-300">
             العميل المصري يثق في تجارب الناس الحقيقية أكثر من الإعلانات.. إليك
@@ -57,7 +57,7 @@ export function Testimonials() {
         <div className="grid gap-8 md:grid-cols-3">
           {REVIEWS.map((r, i) => (
             <motion.div
-              key={r.name}
+              key={r.name + r.city}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -78,8 +78,10 @@ export function Testimonials() {
                   {r.initial}
                 </span>
                 <div>
-                  <h4 className="text-sm font-bold text-white">{r.name}</h4>
-                  <p className="text-xs text-stone-400">{r.city}</p>
+                  <h4 className="text-sm font-bold text-white">
+                    {r.name} {r.city}
+                  </h4>
+                  <p className="text-xs text-stone-400">عميل موثوق</p>
                 </div>
                 <span className="ms-auto flex items-center gap-1 rounded bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
                   <BadgeCheck className="size-3" />

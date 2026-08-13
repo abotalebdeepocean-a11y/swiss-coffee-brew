@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { Link } from "react-router";
-import { ArrowLeft, Flame, Star, Trophy } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Flame, Star, Trophy } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 import { ProductCard } from "./ProductCard";
 
@@ -11,6 +12,13 @@ const BADGES = [
 
 export function BestSellers() {
   const bestsellers = PRODUCTS.filter((p) => p.bestseller).slice(0, 5);
+  const rowRef = useRef<HTMLDivElement>(null);
+
+  function scrollRow(dir: 1 | -1) {
+    const el = rowRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * 300, behavior: "smooth" });
+  }
 
   return (
     <section
@@ -44,16 +52,37 @@ export function BestSellers() {
           ))}
         </div>
 
-        {/* سطر واحد فقط — سكرول أفقي */}
-        <div className="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:gap-5 [scrollbar-width:thin]">
-          {bestsellers.map((p, i) => (
-            <div
-              key={p.slug}
-              className="w-[260px] shrink-0 snap-start sm:w-[280px]"
-            >
-              <ProductCard product={p} index={i} />
-            </div>
-          ))}
+        {/* سطر واحد فقط — سكرول أفقي + أسهم مثل المرجع */}
+        <div className="relative">
+          <div
+            ref={rowRef}
+            className="flex snap-x gap-4 overflow-x-auto pb-4 md:gap-5 [scrollbar-width:thin]"
+          >
+            {bestsellers.map((p, i) => (
+              <div
+                key={p.slug}
+                className="w-[260px] shrink-0 snap-start sm:w-[280px]"
+              >
+                <ProductCard product={p} index={i} />
+              </div>
+            ))}
+          </div>
+
+          {/* أسهم التنقل */}
+          <button
+            onClick={() => scrollRow(-1)}
+            aria-label="السابق"
+            className="absolute start-0 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-rv-gold/40 bg-coffee-950/90 text-rv-gold shadow-lg backdrop-blur transition hover:bg-rv-gold hover:text-black"
+          >
+            <ChevronRight className="size-5" />
+          </button>
+          <button
+            onClick={() => scrollRow(1)}
+            aria-label="التالي"
+            className="absolute end-0 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-rv-gold/40 bg-coffee-950/90 text-rv-gold shadow-lg backdrop-blur transition hover:bg-rv-gold hover:text-black"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
         </div>
 
         <div className="mt-8 text-center">

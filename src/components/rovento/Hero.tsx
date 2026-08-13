@@ -1,25 +1,23 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft,
-  Coffee,
   Crown,
   Eye,
   Flame,
   ShieldCheck,
-  Tag,
   Truck,
+  Users,
 } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 import { Stars } from "./art";
 
-const BENEFITS = [
-  { icon: Tag, label: "أفضل سعر مقابل الجودة" },
-  { icon: Coffee, label: "كريما إسبريسو كثيفة" },
-  { icon: Flame, label: "تحميص طازج يوميًا" },
-  { icon: Truck, label: "توصيل سريع لكل مصر" },
-  { icon: ShieldCheck, label: "ضمان ذهبي للاسترجاع الفوري", wide: true },
+/** شريط الثقة السفلي — نفس عناصر المرجع (شحن/تحميص/عملاء/ضمان) */
+const TRUST_STRIP = [
+  { icon: Truck, label: "شحن سريع داخل مصر" },
+  { icon: Flame, label: "تحميص طازج أسبوعياً" },
+  { icon: Users, label: "+5000 عميل سعيد" },
+  { icon: ShieldCheck, label: "ضمان استرجاع ذهبي" },
 ];
 
 /** نقاط تفاعلية على كارت المنتج — نفس روح المرجع */
@@ -60,7 +58,7 @@ export function Hero() {
       <div className="pointer-events-none absolute left-1/2 top-1/4 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 right-0 size-[400px] rounded-full bg-red-900/10 blur-3xl" />
 
-      <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 pb-16 pt-12 md:px-6 md:pb-24 md:pt-16 lg:grid-cols-12">
+      <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 pb-14 pt-12 md:px-6 md:pt-16 lg:grid-cols-12">
         {/* النص */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -89,28 +87,12 @@ export function Hero() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-stone-300 lg:mx-0">
-            حبوب إسبريسو محمصة بعناية لعشاق الكريما الغنية والطعم المتوازن.
-            نختار أجود حبوب الأرابيكا والروبوستا ونحمصها في مصر لنقدم لك فنجان
-            قهوة فاخر يعدل مزاجك كل يوم.
+            طعم إسبريسو أصيل... في كل فنجان. حبوب محمصة طازجة في مصر بعناية
+            لعشاق الكريما الغنية والطعم المتوازن.
           </p>
 
-          {/* مزايا السوق المصري */}
-          <div className="mx-auto grid max-w-xl grid-cols-2 gap-3 pt-2 text-xs font-bold sm:grid-cols-3 lg:mx-0 sm:text-sm">
-            {BENEFITS.map((b) => (
-              <div
-                key={b.label}
-                className={`flex items-center gap-2 rounded-lg border border-stone-800 bg-coffee-900/80 p-2.5 text-rv-gold ${
-                  b.wide ? "col-span-2 sm:col-span-2" : ""
-                }`}
-              >
-                <b.icon className="size-4 shrink-0" />
-                <span className="text-stone-200">{b.label}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* الأزرار */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4 lg:justify-start">
+          {/* الأزرار — مثل المرجع */}
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
             <Link
               to="/#bestsellers"
               onClick={(e) => {
@@ -123,8 +105,8 @@ export function Hero() {
               }}
               className="inline-flex items-center gap-3 rounded-xl bg-amber-500 px-8 py-4 text-lg font-black text-stone-950 shadow-xl transition hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-amber-500/20"
             >
-              اطلب الآن
-              <ArrowLeft className="size-5" />
+              تسوق الآن
+              <Crown className="size-5" />
             </Link>
             <Link
               to="/#featured"
@@ -139,7 +121,7 @@ export function Hero() {
               className="inline-flex items-center gap-3 rounded-xl border border-stone-700 bg-stone-900 px-8 py-4 text-lg font-bold text-stone-200 transition hover:bg-stone-800"
             >
               <Eye className="size-5 text-rv-gold" />
-              شاهد المنتجات
+              استكشف المنتجات
             </Link>
           </div>
         </motion.div>
@@ -195,6 +177,21 @@ export function Hero() {
             </div>
           </div>
         </motion.div>
+      </div>
+
+      {/* شريط الثقة السفلي — مثل المرجع */}
+      <div className="border-t border-white/10 bg-coffee-900/60">
+        <div className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-5 px-4 py-5 md:grid-cols-4 md:px-6">
+          {TRUST_STRIP.map((t) => (
+            <div
+              key={t.label}
+              className="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-200"
+            >
+              <t.icon className="size-5 shrink-0 text-rv-gold" />
+              {t.label}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
