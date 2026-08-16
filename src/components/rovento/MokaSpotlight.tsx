@@ -4,6 +4,7 @@ import { ChevronLeft, CookingPot, Droplets, Flame, Gauge, ShieldCheck } from "lu
 import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 import { IMAGES } from "@/lib/images";
+import { useImageCandidates } from "./BagVisual";
 
 /** نقاط البيع الثلاث — مثل المرجع */
 const WHY_BRIKKA = [
@@ -34,6 +35,9 @@ const BRIKKA_POINTS = [
 
 export function MokaSpotlight() {
   const { add } = useCart();
+  const { src: brikaSrc, onError: brikaError } = useImageCandidates(
+    IMAGES.banners.brika,
+  );
 
   return (
     <section
@@ -132,7 +136,8 @@ export function MokaSpotlight() {
             <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-rv-gold to-amber-900 opacity-40 blur-lg" />
             <div className="relative rounded-3xl border border-stone-800 bg-coffee-900 p-6 text-center shadow-2xl">
               <img
-                src={`${IMAGES.machines.moka}.jpg`}
+                src={brikaSrc ?? `${IMAGES.machines.moka}.jpg`}
+                onError={brikaError}
                 alt="موكا بوت Bialetti بريكا الأصلية"
                 loading="lazy"
                 className="mx-auto h-72 w-auto rounded-2xl object-contain shadow-xl md:h-[400px]"

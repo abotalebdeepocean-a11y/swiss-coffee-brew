@@ -4,8 +4,8 @@ import { ShoppingBag, Flame } from "lucide-react";
 import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 
-const DEAL_PRICE = 680; // 2 × بريميم 340
-const DEAL_OLD = 840; // 2 × 420
+const DEAL_PRICE = 2400; // 2 × بريميم 1200 (1 كجم)
+const DEAL_OLD = 2800; // 2 × 1400 سعر الباقة قبل الخصم
 const SAVE = DEAL_OLD - DEAL_PRICE;
 
 /** عداد تنازلي حي حتى نهاية الأسبوع */
@@ -86,8 +86,8 @@ export function OfferSection() {
           transition={{ duration: 0.55, delay: 0.1 }}
           className="mx-auto mb-8 max-w-2xl text-base text-stone-300 sm:text-lg"
         >
-          على كلاسيك أو بريميوم — لفترة محدودة، مع شحن مجاني لأي محافظة في
-          مصر.
+          على كيسين من بريميم 70٪ أرابيكا (1 كجم) — لفترة محدودة، مع شحن مجاني
+          لأي محافظة في مصر.
         </motion.p>
 
         {/* العداد التنازلي */}

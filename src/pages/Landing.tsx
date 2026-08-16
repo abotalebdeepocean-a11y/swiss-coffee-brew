@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
+import { BannerSlider } from "@/components/rovento/BannerSlider";
 import { Hero } from "@/components/rovento/Hero";
 import { SignatureCollection } from "@/components/rovento/SignatureCollection";
 import { OfferSection } from "@/components/rovento/OfferSection";
@@ -29,6 +30,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
+      <BannerSlider />
       <main>
         <Hero />
         <SignatureCollection />

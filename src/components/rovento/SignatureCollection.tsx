@@ -59,8 +59,8 @@ const PERSONAS: Record<
 
 /** جدول المقارنة — نفس روح المرجع */
 const COMPARE_ROWS = [
-  { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 285, note: "/ 250 جم", cls: "" },
-  { name: "Espresso Blend (Premium)", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 340, note: "/ 250 جم", cls: "bg-rv-gold/10 text-rv-gold" },
+  { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 690, note: "/ 1 كجم", cls: "" },
+  { name: "Espresso Blend (Premium)", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 1200, note: "/ 1 كجم", cls: "bg-rv-gold/10 text-rv-gold" },
   { name: "Intenso Blend", strength: "10/10", crema: "داكنة وثقيلة", use: "مشروبات الحليب الساخنة", price: 310, note: "/ 250 جم", cls: "" },
   { name: "ROVENTO Origin — إثيوبيا", strength: "8.5/10", crema: "مخملية وناعمة بطعم التوت والزهور", use: "إسبريسو سينجل أوريجن فاخر", price: 1450, note: "/ 1 كجم", cls: "" },
 ];
@@ -143,7 +143,7 @@ function BlendCard({
           <span className="text-sm text-stone-400">السعر</span>
           <span className="text-lg font-black text-white">
             {formatPrice(product.price)}
-            <span className="text-xs text-stone-400"> / 250 جم</span>
+            <span className="text-xs text-stone-400"> / {product.weight}</span>
           </span>
         </div>
 
@@ -249,8 +249,8 @@ export function SignatureCollection() {
             </table>
           </div>
           <p className="mt-4 text-center text-xs text-stone-500">
-            * أسعار الكيس 250 جم — 1 كجم والمطحون متاحان داخل كل بلند، والأصول
-            تُباع كيلو كامل.
+            * بريميم وكلاسيك يُباعان كيس 1 كجم (بريميم 70٪ أرابيكا / كلاسيك 50٪
+            أرابيكا) — والمطحون متاح داخل كل بلند.
           </p>
         </motion.div>
       </div>
