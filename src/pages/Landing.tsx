@@ -6,6 +6,7 @@ import { SignatureCollection } from "@/components/rovento/SignatureCollection";
 import { OfferSection } from "@/components/rovento/OfferSection";
 import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
 import { BestSellers } from "@/components/rovento/BestSellers";
+import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
 import { OtherVarieties } from "@/components/rovento/OtherVarieties";
 import { WhyRovento } from "@/components/rovento/WhyRovento";
 import { Testimonials } from "@/components/rovento/Testimonials";
@@ -18,8 +19,9 @@ import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 /**
  * Sales-funnel landing — ترتيب الأقسام مطابق للمرجع:
  * الهيرو (يبيع بسرعة) → اختار شخصيتك (#featured) → عرض الأسبوع (#deal)
- * → بريكا (#brikka) → الأكثر طلبًا (#bestsellers) → أصناف أخرى (فلاتر)
- * → لماذا روفينتو (#why-rovento) → آراء العملاء (#reviews) → الثقة → الفوتر.
+ * → بريكا (#brikka) → الأكثر طلبًا (#bestsellers) → خلطتك الخاصة (#blend-lab)
+ * → أصناف أخرى (فلاتر) → لماذا روفينتو (#why-rovento) → آراء العملاء
+ * (#reviews) → الثقة → الفوتر.
  */
 export default function Landing() {
   useEffect(() => {
@@ -37,6 +39,7 @@ export default function Landing() {
         <OfferSection />
         <MokaSpotlight />
         <BestSellers />
+        <CustomBlendStudio />
         <OtherVarieties />
         <WhyRovento />
         <Testimonials />

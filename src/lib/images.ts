@@ -47,6 +47,13 @@ export const IMAGES = {
     collections: "/images/banner-collections",
     /** صورة قسم بريكا — موكا بوت + كيس أزرق «عندما يلقى الإتقان بالإبداع» */
     brika: "/images/banner-brika",
+    /** بانر قسم «خلطتك الخاصة» (BLEND LAB) — ضع صورة حبوب/خلط هنا */
+    customBlend: "/images/banner-customblend",
+  },
+  /** حبوب خام لقسم خلطتك الخاصة — اختياري: ضع صورة حبوب أرابيكا/روبوستا */
+  beans: {
+    arabica: "/images/bean-arabica",
+    robusta: "/images/bean-robusta",
   },
   /** ماكينات القهوة — صور حقيقية (Wikimedia Commons) */
   machines: {

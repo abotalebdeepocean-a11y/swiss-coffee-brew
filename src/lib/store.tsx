@@ -17,6 +17,20 @@ export interface CartItem {
   qty: number;
   /** معرّف خيار المقاس/الطحن — اختياري للمنتجات اللي ليها variants */
   variantId?: string;
+  /** خلطة مخصصة من استوديو الخلط (خلطتك الخاصة) — بدل منتج جاهز */
+  custom?: CustomBlendSpec;
+}
+
+/** مواصفات خلطة مخصصة محفوظة في السلة بسعرها النهائي */
+export interface CustomBlendSpec {
+  /** اسم مختصر: "خلطة مخصصة ٧٠/٣٠ — 1 كجم" */
+  label: string;
+  /** تفاصيل الوصفة: النسب + التحميص + الطحن */
+  detail: string;
+  /** السعر النهائي حسب النسب والوزن */
+  price: number;
+  /** نسبة الأرابيكا (0-100) — لعرض قرص النسب في السلة */
+  arabica: number;
 }
 
 /** مفتاح سطر فريد في السلة = المنتج + خياره (نفس الكيس بمقاسين = سطرين) */
@@ -24,21 +38,32 @@ export function cartLineKey(item: Pick<CartItem, "slug" | "variantId">): string 
   return `${item.slug}::${item.variantId ?? ""}`;
 }
 
-/** معلومات سطر السلة: المنتج + الخيار + السعر الفعلي — undefined لو المنتج اتشال */
-export function cartLine(
-  item: CartItem,
-):
+/** معلومات سطر السلة — إما خلطة مخصصة أو منتج عادي + خياره + السعر الفعلي.
+ * يرجع undefined لو المنتج اتشال من الكتالوج. */
+export type CartLineInfo =
+  | { custom: true; spec: CustomBlendSpec; price: number; label: string }
   | {
+      custom: false;
       product: NonNullable<ReturnType<typeof getProduct>>;
       variant: ReturnType<typeof variantOf>;
       price: number;
       label: string;
-    }
-  | undefined {
+    };
+
+export function cartLine(item: CartItem): CartLineInfo | undefined {
+  if (item.custom && item.custom.price > 0) {
+    return {
+      custom: true,
+      spec: item.custom,
+      price: item.custom.price,
+      label: item.custom.detail,
+    };
+  }
   const product = getProduct(item.slug);
   if (!product) return undefined;
   const variant = variantOf(product, item.variantId);
   return {
+    custom: false,
     product,
     variant,
     price: variant?.price ?? product.price,
@@ -50,7 +75,12 @@ interface CartContextValue {
   items: CartItem[];
   count: number;
   subtotal: number;
-  add: (slug: string, qty?: number, variantId?: string) => void;
+  add: (
+    slug: string,
+    qty?: number,
+    variantId?: string,
+    custom?: CustomBlendSpec,
+  ) => void;
   remove: (slug: string, variantId?: string) => void;
   setQty: (slug: string, qty: number, variantId?: string) => void;
   clear: () => void;
@@ -68,7 +98,11 @@ function loadCart(): CartItem[] {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw) as CartItem[];
-    return parsed.filter((i) => getProduct(i.slug));
+    return parsed.filter(
+      (i) =>
+        (i.custom && i.custom.price > 0 && typeof i.custom.arabica === "number") ||
+        getProduct(i.slug),
+    );
   } catch {
     return [];
   }
@@ -82,19 +116,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const add = useCallback((slug: string, qty = 1, variantId?: string) => {
-    setItems((prev) => {
-      const key = cartLineKey({ slug, variantId });
-      const found = prev.find((i) => cartLineKey(i) === key);
-      if (found) {
-        return prev.map((i) =>
-          cartLineKey(i) === key ? { ...i, qty: i.qty + qty } : i,
-        );
-      }
-      return [...prev, { slug, qty, variantId }];
-    });
-    setIsOpen(true);
-  }, []);
+  const add = useCallback(
+    (
+      slug: string,
+      qty = 1,
+      variantId?: string,
+      custom?: CustomBlendSpec,
+    ) => {
+      setItems((prev) => {
+        const key = cartLineKey({ slug, variantId });
+        const found = prev.find((i) => cartLineKey(i) === key);
+        if (found) {
+          return prev.map((i) =>
+            cartLineKey(i) === key ? { ...i, qty: i.qty + qty } : i,
+          );
+        }
+        return [...prev, { slug, qty, variantId, custom }];
+      });
+      setIsOpen(true);
+    },
+    [],
+  );
 
   const remove = useCallback((slug: string, variantId?: string) => {
     const key = cartLineKey({ slug, variantId });
@@ -158,6 +200,9 @@ export function buildOrderMessage(items: CartItem[]): string {
     .map((i) => {
       const line = cartLine(i);
       if (!line) return "";
+      if (line.custom) {
+        return `• ${line.spec.label} (${line.spec.detail}) × ${i.qty} — ${formatPrice(line.price * i.qty)}`;
+      }
       return `• ${line.product.name} (${line.label}) × ${i.qty} — ${formatPrice(line.price * i.qty)}`;
     })
     .filter(Boolean);

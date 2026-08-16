@@ -7,16 +7,77 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { useCart, orderViaWhatsApp, cartLine, cartLineKey } from "@/lib/store";
+import { useCart, orderViaWhatsApp, cartLine, cartLineKey, type CartItem } from "@/lib/store";
 import { formatPrice } from "@/lib/products";
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 import { blendVariantFor } from "./CoffeeBag";
 import { WhatsAppIcon } from "./art";
 
+/** عدّاد الكمية + السعر + الحذف — مشترك بين سطور السلة العادية والمخصصة */
+function LineQtyControls({ item }: { item: CartItem }) {
+  const { setQty, remove } = useCart();
+  const line = cartLine(item);
+  if (!line) return null;
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center border border-white/15">
+        <button
+          onClick={() => setQty(item.slug, item.qty + 1, item.variantId)}
+          className="grid size-7 place-items-center transition-colors hover:bg-white/10"
+          aria-label="زيادة الكمية"
+        >
+          <Plus className="size-3.5" />
+        </button>
+        <span className="w-8 text-center font-mono text-sm">
+          {item.qty}
+        </span>
+        <button
+          onClick={() => setQty(item.slug, item.qty - 1, item.variantId)}
+          className="grid size-7 place-items-center transition-colors hover:bg-white/10"
+          aria-label="تقليل الكمية"
+        >
+          <Minus className="size-3.5" />
+        </button>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-sm font-bold">
+          {formatPrice(line.price * item.qty)}
+        </span>
+        <button
+          onClick={() => remove(item.slug, item.variantId)}
+          className="text-muted-foreground transition-colors hover:text-rv-red"
+          aria-label="حذف المنتج"
+        >
+          <Trash2 className="size-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** صورة مصغّرة لخلطة مخصصة: قرص مقسوم حسب النسب */
+function CustomBlendThumb({ spec }: { spec: NonNullable<CartItem["custom"]> }) {
+  const arabica = spec.arabica ?? 50;
+  return (
+    <div className="relative grid h-24 w-20 shrink-0 place-items-center overflow-hidden border border-rv-gold/30 bg-gradient-to-b from-rv-gold/15 to-transparent">
+      <div
+        className="absolute inset-x-0 bottom-0 transition-all duration-500"
+        style={{
+          height: `${arabica}%`,
+          background: "linear-gradient(to top, #d4af37, #a16207)",
+          opacity: 0.85,
+        }}
+      />
+      <div className="relative z-10 font-mono text-[10px] font-black leading-none text-black">
+        {arabica}/{100 - arabica}
+      </div>
+    </div>
+  );
+}
+
 export function CartDrawer() {
-  const { items, count, subtotal, isOpen, closeCart, setQty, remove, clear } =
-    useCart();
+  const { items, count, subtotal, isOpen, closeCart, clear } = useCart();
 
   return (
     <Sheet open={isOpen} onOpenChange={(o) => !o && closeCart()}>
@@ -59,6 +120,26 @@ export function CartDrawer() {
                 {items.map((item) => {
                   const line = cartLine(item);
                   if (!line) return null;
+
+                  if (line.custom) {
+                    return (
+                      <li key={cartLineKey(item)} className="flex gap-4 py-4">
+                        <CustomBlendThumb spec={line.spec} />
+                        <div className="flex flex-1 flex-col justify-between py-0.5">
+                          <div>
+                            <p className="text-sm font-semibold leading-snug text-rv-gold">
+                              {line.spec.label}
+                            </p>
+                            <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
+                              {line.spec.detail}
+                            </p>
+                          </div>
+                          <LineQtyControls item={item} />
+                        </div>
+                      </li>
+                    );
+                  }
+
                   const { product: p, variant } = line;
                   return (
                     <li key={cartLineKey(item)} className="flex gap-4 py-4">
@@ -90,39 +171,7 @@ export function CartDrawer() {
                             {variant ? variant.label : p.weight ?? p.category}
                           </p>
                         </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center border border-white/15">
-                            <button
-                              onClick={() => setQty(item.slug, item.qty + 1, item.variantId)}
-                              className="grid size-7 place-items-center transition-colors hover:bg-white/10"
-                              aria-label="زيادة الكمية"
-                            >
-                              <Plus className="size-3.5" />
-                            </button>
-                            <span className="w-8 text-center font-mono text-sm">
-                              {item.qty}
-                            </span>
-                            <button
-                              onClick={() => setQty(item.slug, item.qty - 1, item.variantId)}
-                              className="grid size-7 place-items-center transition-colors hover:bg-white/10"
-                              aria-label="تقليل الكمية"
-                            >
-                              <Minus className="size-3.5" />
-                            </button>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span className="text-sm font-bold">
-                              {formatPrice(line.price * item.qty)}
-                            </span>
-                            <button
-                              onClick={() => remove(item.slug, item.variantId)}
-                              className="text-muted-foreground transition-colors hover:text-rv-red"
-                              aria-label="حذف المنتج"
-                            >
-                              <Trash2 className="size-4" />
-                            </button>
-                          </div>
-                        </div>
+                        <LineQtyControls item={item} />
                       </div>
                     </li>
                   );

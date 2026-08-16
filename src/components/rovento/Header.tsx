@@ -10,6 +10,7 @@ const NAV = [
   { label: "عرض الأسبوع", to: "/#deal", hot: true },
   { label: "لماذا بريكا؟", to: "/#brikka" },
   { label: "الأكثر مبيعًا", to: "/#bestsellers" },
+  { label: "خلطتك الخاصة", to: "/#blend-lab", hot: true, badge: "جديد" },
   { label: "لماذا روفينتو؟", to: "/#why-rovento" },
   { label: "آراء العملاء", to: "/#reviews" },
 ];
@@ -88,7 +89,7 @@ export function Header() {
                 {item.label}
                 {item.hot && (
                   <span className="rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-black text-white">
-                    خصم
+                    {item.badge ?? "خصم"}
                   </span>
                 )}
               </button>
