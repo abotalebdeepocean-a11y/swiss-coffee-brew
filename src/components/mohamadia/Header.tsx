@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Emblem } from "./Emblem";
-import { COMPANY, NAV_LINKS } from "./content";
+import { COMPANY, IMAGES, NAV_LINKS } from "./content";
 
 function goTo(id: string) {
   if (window.location.hash === `#${id}`) {
@@ -34,12 +33,12 @@ export function Header() {
         className={cn(
           "transition-all duration-500",
           scrolled || open
-            ? "border-b border-white/10 bg-mh-navy-950/85 backdrop-blur-xl"
+            ? "border-b border-neutral-200 bg-white/85 shadow-[0_8px_30px_rgba(10,10,10,0.05)] backdrop-blur-xl"
             : "border-b border-transparent bg-transparent",
         )}
       >
         <div className="mx-auto flex h-18 w-full max-w-6xl items-center justify-between gap-4 px-5 md:px-8">
-          {/* Brand */}
+          {/* Brand: black tile with the real logo */}
           <a
             href="#top"
             onClick={(e) => {
@@ -50,12 +49,18 @@ export function Header() {
             className="flex items-center gap-3"
             aria-label="شركة المحمدية — الرئيسية"
           >
-            <Emblem className="size-10 md:size-11" />
+            <span className="grid h-11 w-14 place-items-center overflow-hidden rounded-xl bg-black shadow-[0_6px_18px_rgba(10,10,10,0.25)]">
+              <img
+                src={IMAGES.logo}
+                alt={COMPANY.fullName}
+                className="h-full w-full object-cover"
+              />
+            </span>
             <span className="leading-tight">
-              <span className="block text-base font-black text-white md:text-lg">
+              <span className="block text-base font-black text-neutral-900 md:text-lg">
                 {COMPANY.name}
               </span>
-              <span className="mt-0.5 block text-[10px] font-bold tracking-wide text-mh-gold-soft md:text-[11px]">
+              <span className="mt-0.5 block text-[10px] font-bold tracking-wide text-mh-gold-deep md:text-[11px]">
                 {COMPANY.tagline}
               </span>
             </span>
@@ -63,7 +68,7 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav
-            className="hidden items-center gap-1 lg:flex"
+            className="hidden items-center gap-0.5 lg:flex"
             aria-label="القائمة الرئيسية"
           >
             {NAV_LINKS.map((item) => (
@@ -71,7 +76,7 @@ export function Header() {
                 key={item.to}
                 href={item.to}
                 onClick={() => goTo(item.to.slice(1))}
-                className="rounded-full px-3.5 py-2 text-sm font-bold text-slate-300 transition-colors hover:text-mh-gold-soft"
+                className="rounded-full px-3.5 py-2 text-sm font-bold text-neutral-600 transition-colors hover:bg-black/[0.04] hover:text-neutral-900"
               >
                 {item.label}
               </a>
@@ -82,13 +87,13 @@ export function Header() {
             <a
               href="#contact"
               onClick={() => goTo("contact")}
-              className="hidden rounded-full bg-gradient-to-br from-mh-gold-soft via-mh-gold to-mh-gold-deep px-5 py-2.5 text-sm font-black text-mh-navy-950 shadow-[0_8px_24px_rgba(212,175,55,0.35)] transition hover:brightness-110 sm:inline-flex"
+              className="btn-gold-light hidden rounded-full px-5 py-2.5 text-sm font-black sm:inline-flex"
             >
               تواصل معنا
             </a>
             <button
               onClick={() => setOpen(true)}
-              className="grid size-10 place-items-center rounded-full border border-white/15 text-white lg:hidden"
+              className="grid size-10 place-items-center rounded-full border border-neutral-300 bg-white text-neutral-900 lg:hidden"
               aria-label="افتح القائمة"
             >
               <Menu className="size-5" />
@@ -101,25 +106,31 @@ export function Header() {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-[86%] max-w-sm overflow-y-auto border-e border-white/10 bg-mh-navy-950 p-5">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="absolute inset-y-0 left-0 w-[86%] max-w-sm overflow-y-auto border-e border-neutral-200 bg-white p-5">
+            <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
               <div className="flex items-center gap-3">
-                <Emblem className="size-10" />
+                <span className="grid h-11 w-14 place-items-center overflow-hidden rounded-xl bg-black">
+                  <img
+                    src={IMAGES.logo}
+                    alt={COMPANY.fullName}
+                    className="h-full w-full object-cover"
+                  />
+                </span>
                 <span className="leading-tight">
-                  <span className="block text-base font-black text-white">
+                  <span className="block text-base font-black text-neutral-900">
                     {COMPANY.name}
                   </span>
-                  <span className="mt-0.5 block text-[10px] font-bold text-mh-gold-soft">
+                  <span className="mt-0.5 block text-[10px] font-bold text-mh-gold-deep">
                     {COMPANY.tagline}
                   </span>
                 </span>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="grid size-9 place-items-center rounded-full border border-white/15 text-white"
+                className="grid size-9 place-items-center rounded-full border border-neutral-300 text-neutral-900"
                 aria-label="إغلاق"
               >
                 <X className="size-4" />
@@ -131,7 +142,7 @@ export function Header() {
                   key={item.to}
                   href={item.to}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between border-b border-white/5 px-2 py-4 text-start text-base font-bold text-slate-200 transition-colors hover:text-mh-gold-soft"
+                  className="flex items-center justify-between border-b border-neutral-100 px-2 py-4 text-start text-base font-bold text-neutral-800 transition-colors hover:text-mh-gold-deep"
                 >
                   {item.label}
                   <span className="font-mono text-[10px] text-mh-gold">
@@ -142,7 +153,7 @@ export function Header() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="mt-6 inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-br from-mh-gold-soft via-mh-gold to-mh-gold-deep font-black text-mh-navy-950 shadow-lg"
+                className="btn-gold-light mt-6 inline-flex h-12 items-center justify-center rounded-full font-black"
               >
                 تواصل معنا
               </a>

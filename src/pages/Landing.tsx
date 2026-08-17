@@ -25,7 +25,7 @@ export default function Landing() {
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-mh-navy-950 text-foreground">
+    <div dir="rtl" className="min-h-screen bg-white text-neutral-900">
       <Header />
       <main>
         <Hero />

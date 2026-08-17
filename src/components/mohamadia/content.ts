@@ -1,3 +1,9 @@
+export const IMAGES = {
+  chairman: "/images/mohamadia/chairman.png",
+  logo: "/images/mohamadia/logo.png",
+  logoSmall: "/images/mohamadia/logo-small.jpg",
+};
+
 export const COMPANY = {
   name: "شركة المحمدية",
   fullName: "شركة المحمدية للمقاولات العامة والتوريدات العمومية",

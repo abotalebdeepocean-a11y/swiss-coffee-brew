@@ -44,14 +44,14 @@ const HIGHLIGHTS = [
 
 export function Leadership() {
   return (
-    <Section id="leadership" className="bg-white/[0.015]">
+    <Section id="leadership" className="bg-white">
       <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
         <Reveal>
           <SectionHeading
             eyebrow="ما يميز قيادتنا"
             title={
               <>
-                رؤية قيادية <span className="gold-gradient-text">بمعايير عالمية</span>
+                رؤية قيادية <span className="gold-text">بمعايير عالمية</span>
               </>
             }
             subtitle="نؤمن أن نجاح الشركات الكبرى يبدأ من اختيار الكفاءات وبناء فريق قادر على تحمل المسؤولية والابتكار في كل تفصيلة."
@@ -61,12 +61,16 @@ export function Leadership() {
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {HIGHLIGHTS.map((item, i) => (
             <Reveal key={item.title} delay={(i % 3) * 0.1}>
-              <div className="group h-full rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/40 hover:bg-mh-gold/[0.05]">
-                <div className="grid size-13 place-items-center rounded-2xl border border-mh-gold/30 bg-mh-gold/[0.08] text-mh-gold transition-colors group-hover:border-mh-gold/60 group-hover:text-mh-gold-soft">
+              <div className="card-lux group h-full rounded-2xl bg-white p-7">
+                <div className="grid size-13 place-items-center rounded-2xl border border-mh-gold/40 bg-mh-gold/10 text-mh-gold-deep transition-colors group-hover:border-mh-gold group-hover:text-mh-gold">
                   <item.icon className="size-6" />
                 </div>
-                <h3 className="mt-5 text-lg font-black text-white">{item.title}</h3>
-                <p className="mt-2.5 text-sm leading-7 text-slate-400">{item.desc}</p>
+                <h3 className="mt-5 text-lg font-black text-neutral-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2.5 text-sm leading-7 text-neutral-500">
+                  {item.desc}
+                </p>
               </div>
             </Reveal>
           ))}

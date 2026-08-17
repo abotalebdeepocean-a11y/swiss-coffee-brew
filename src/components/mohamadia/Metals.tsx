@@ -20,14 +20,14 @@ const METALS = [
 
 export function Metals() {
   return (
-    <Section id="metals">
+    <Section id="metals" className="bg-[#f8f6f1]">
       <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
         <Reveal>
           <SectionHeading
             eyebrow="المعادن المطلوبة"
             title={
               <>
-                توريد وتصدير <span className="gold-gradient-text">المعادن الثمينة</span>{" "}
+                توريد وتصدير <span className="gold-text">المعادن الثمينة</span>{" "}
                 والاستراتيجية
               </>
             }
@@ -38,11 +38,11 @@ export function Metals() {
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {METALS.map((item, i) => (
             <Reveal key={item.label} delay={(i % 3) * 0.08}>
-              <div className="group flex items-center gap-4 rounded-2xl border border-white/10 border-s-2 border-s-mh-gold/70 bg-white/[0.03] px-6 py-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:border-s-mh-gold hover:bg-mh-gold/[0.05]">
-                <div className="grid size-11 shrink-0 place-items-center rounded-xl border border-mh-gold/30 bg-mh-gold/[0.08] text-mh-gold transition-colors group-hover:text-mh-gold-soft">
+              <div className="group flex items-center gap-4 rounded-2xl border border-neutral-200 border-s-2 border-s-mh-gold bg-white px-6 py-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:border-s-mh-gold-deep hover:shadow-[0_14px_30px_rgba(10,10,10,0.08)]">
+                <div className="grid size-11 shrink-0 place-items-center rounded-xl border border-mh-gold/40 bg-mh-gold/10 text-mh-gold-deep transition-colors group-hover:text-mh-gold">
                   <item.icon className="size-5" />
                 </div>
-                <p className="text-[15px] font-black leading-snug text-slate-100">
+                <p className="text-[15px] font-black leading-snug text-neutral-800">
                   {item.label}
                 </p>
               </div>
@@ -51,11 +51,11 @@ export function Metals() {
         </div>
 
         <Reveal delay={0.2}>
-          <p className="mt-10 text-center text-sm font-bold text-slate-500">
+          <p className="mt-10 text-center text-sm font-bold text-neutral-500">
             للاستفسار عن المواصفات والأسعار —{" "}
             <a
               href="#contact"
-              className="text-mh-gold underline-offset-4 hover:underline"
+              className="text-mh-gold-deep underline-offset-4 hover:underline"
             >
               تواصل معنا
             </a>

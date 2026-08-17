@@ -3,11 +3,11 @@ import { snapdom } from "@zumer/snapdom";
 import { Download, FileImage, FileText, Loader2, X } from "lucide-react";
 import { jsPDF } from "jspdf";
 
-/** Capture settings: fixed desktop width, dark navy background (JPEG has no
+/** Capture settings: fixed desktop width, white background (JPEG has no
  *  alpha), embedded fonts, and the floating UI excluded from the export. */
 const CAPTURE = {
   width: 1600,
-  backgroundColor: "#060a12",
+  backgroundColor: "#ffffff",
   embedFonts: true,
   cache: "full" as const,
   exclude: [".mh-export-hide"],
@@ -71,25 +71,25 @@ export function ExportTool() {
   return (
     <div className="mh-export-hide fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
       {open && (
-        <div className="w-64 rounded-2xl border border-white/10 bg-mh-navy-900/95 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+        <div className="w-64 rounded-2xl border border-neutral-200 bg-white p-4 shadow-[0_20px_60px_rgba(10,10,10,0.18)]">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-black text-white">تصدير الصفحة</p>
+            <p className="text-sm font-black text-neutral-900">تصدير الصفحة</p>
             <button
               onClick={() => setOpen(false)}
-              className="grid size-7 place-items-center rounded-full border border-white/15 text-slate-300 hover:text-white"
+              className="grid size-7 place-items-center rounded-full border border-neutral-300 text-neutral-500 hover:text-neutral-900"
               aria-label="إغلاق"
             >
               <X className="size-3.5" />
             </button>
           </div>
-          <p className="mt-1.5 text-[11px] leading-5 text-slate-400">
+          <p className="mt-1.5 text-[11px] leading-5 text-neutral-500">
             صورة واحدة بطول الصفحة كاملة — JPG أو PDF.
           </p>
           <div className="mt-3 grid gap-2">
             <button
               onClick={() => run("jpg")}
               disabled={busy !== null}
-              className="flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-mh-gold-soft via-mh-gold to-mh-gold-deep text-sm font-black text-mh-navy-950 transition hover:brightness-110 disabled:opacity-60"
+              className="btn-gold-light flex h-11 items-center justify-center gap-2 rounded-xl text-sm font-black disabled:opacity-60"
             >
               {busy === "jpg" ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -101,7 +101,7 @@ export function ExportTool() {
             <button
               onClick={() => run("pdf")}
               disabled={busy !== null}
-              className="flex h-11 items-center justify-center gap-2 rounded-xl border border-mh-gold/40 bg-mh-navy-800/70 text-sm font-black text-mh-gold-soft transition hover:bg-mh-gold/10 disabled:opacity-60"
+              className="flex h-11 items-center justify-center gap-2 rounded-xl border border-neutral-900 text-sm font-black text-neutral-900 transition hover:bg-black hover:text-white disabled:opacity-60"
             >
               {busy === "pdf" ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -112,14 +112,14 @@ export function ExportTool() {
             </button>
           </div>
           {error && (
-            <p className="mt-2 text-[11px] font-bold text-red-400">{error}</p>
+            <p className="mt-2 text-[11px] font-bold text-red-600">{error}</p>
           )}
         </div>
       )}
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="grid size-14 place-items-center rounded-full border border-mh-gold/50 bg-mh-navy-900/90 text-mh-gold shadow-[0_10px_30px_rgba(0,0,0,0.45)] backdrop-blur transition hover:scale-105 hover:text-mh-gold-soft"
+        className="grid size-14 place-items-center rounded-full border-2 border-neutral-900 bg-white text-neutral-900 shadow-[0_12px_30px_rgba(10,10,10,0.2)] transition hover:scale-105 hover:border-mh-gold hover:text-mh-gold-deep"
         aria-label="تصدير الصفحة كصورة أو PDF"
         title="تصدير الصفحة كصورة أو PDF"
       >

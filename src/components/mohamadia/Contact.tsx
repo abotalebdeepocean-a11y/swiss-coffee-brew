@@ -30,28 +30,28 @@ const CHANNELS = [
 
 export function Contact() {
   return (
-    <Section id="contact">
+    <Section id="contact" className="bg-[#f8f6f1]">
       <div className="mx-auto w-full max-w-5xl px-5 md:px-8">
         <Reveal>
-          <div className="gold-border-glow relative overflow-hidden rounded-[2rem] border border-mh-gold/30 bg-gradient-to-b from-mh-navy-800/90 via-mh-navy-900/95 to-mh-navy-950 p-8 md:p-14">
+          <div className="relative overflow-hidden rounded-[2rem] border border-mh-gold/50 bg-black p-8 shadow-[0_40px_90px_rgba(10,10,10,0.35)] md:p-14">
             <div
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.14),transparent_55%)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,162,39,0.16),transparent_55%)]"
               aria-hidden="true"
             />
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-mh-gold/80 to-transparent"
+              className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-mh-gold to-transparent"
               aria-hidden="true"
             />
 
             <div className="relative text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-mh-gold/30 bg-mh-gold/[0.08] px-4 py-1.5 text-xs font-bold text-mh-gold-soft">
-                <span className="size-1.5 rotate-45 bg-mh-gold/80" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-mh-gold/40 bg-mh-gold/10 px-4 py-1.5 text-xs font-bold text-mh-gold-soft">
+                <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
                 جاهزون للشراكة
               </span>
               <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
-                <span className="gold-gradient-text">تواصل معنا</span>
+                <span className="gold-text">تواصل معنا</span>
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-slate-400 md:text-base">
+              <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-white/60 md:text-base">
                 نحن على بُعد رسالة واحدة — تحدث معنا مباشرة عبر واتساب، أو
                 اتصل بنا، أو راسلنا على بريدنا الإلكتروني.
               </p>
@@ -62,15 +62,15 @@ export function Contact() {
                 <a
                   key={c.label}
                   href={c.href}
-                  className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/50 hover:bg-mh-gold/[0.06] ${
+                  className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/12 bg-white/[0.05] px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/60 hover:bg-mh-gold/10 ${
                     c.href ? "" : "pointer-events-none"
                   }`}
                 >
-                  <span className="grid size-13 place-items-center rounded-full border border-mh-gold/40 bg-mh-gold/[0.08] text-mh-gold transition-colors group-hover:text-mh-gold-soft">
+                  <span className="grid size-13 place-items-center rounded-full border border-mh-gold/50 bg-black text-mh-gold transition-colors group-hover:text-mh-gold-soft">
                     <c.icon className="size-6" />
                   </span>
                   <span>
-                    <span className="block text-xs font-bold text-slate-500">
+                    <span className="block text-xs font-bold text-white/40">
                       {c.label}
                     </span>
                     <span
@@ -91,14 +91,14 @@ export function Contact() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-13 items-center gap-2.5 rounded-full bg-gradient-to-br from-mh-gold-soft via-mh-gold to-mh-gold-deep px-8 text-base font-black text-mh-navy-950 shadow-[0_10px_30px_rgba(212,175,55,0.35)] transition hover:brightness-110"
+                className="btn-gold-light inline-flex h-13 items-center gap-2.5 rounded-full px-8 text-base font-black"
               >
                 <WhatsAppIcon className="size-5" />
                 تواصل عبر واتساب
               </a>
               <a
                 href={COMPANY.phoneHref}
-                className="inline-flex h-13 items-center gap-2 rounded-full border border-mh-gold/40 bg-mh-navy-900/60 px-8 text-base font-bold text-mh-gold-soft backdrop-blur transition hover:border-mh-gold/80 hover:bg-mh-gold/10"
+                className="inline-flex h-13 items-center gap-2 rounded-full border border-mh-gold/50 px-8 text-base font-bold text-mh-gold-soft transition hover:bg-mh-gold/10"
               >
                 <Phone className="size-4.5" />
                 <span dir="ltr">{COMPANY.phoneDisplay}</span>
