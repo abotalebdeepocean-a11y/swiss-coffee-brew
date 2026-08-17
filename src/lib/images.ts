@@ -10,18 +10,21 @@
  * الاحتياطي لو الصورة مش موجودة. راجع `public/images/README.txt`.
  */
 export const IMAGES = {
-  /** كيس الهيرو — كيس سيجنتشر الكريمي الاحترافي (بدل صورة القطة).
-   * لو عندك صورة أفضل (زي كيس الببغاء الكحلي من إعلان BIALETTI)
-   * ضعها هنا بنفس الاسم bag-hero وستحل محلها فورًا. */
-  heroBag: "/images/bag-hero",
-  /** حقائب ROVENTO الحقيقية (من صورك) + باقي أصناف الأكياس */
+  /** كيس الهيرو — الكيس الأخضر الحقيقي PREMIUM (المنتج الرئيسي).
+   * حذفنا صور الأكياس غير الحقيقية (الموسيقى الببغاء/الحمراء)
+   * — يظهر هنا دائمًا منتج روفينتو الحقيقي. */
+  heroBag: "/images/bag-premium",
+  /** حقائب ROVENTO الحقيقية — الأخضر (PREMIUM) والأزرق (CLASSIC) فقط،
+   * والباقي بيقع تلقائيًا على تصميم SVG الفخم. */
   bags: {
-    /** كيس PREMIUM BLEND بجوانب صفراء */
+    /** كيس PREMIUM BLEND الأخضر (70٪ أرابيكا) — المنتج الرئيسي */
     premium: "/images/bag-premium",
-    /** كيس INTENSO BLEND بجوانب حمراء */
+    /** كيس INTENSO BLEND — لا توجد صورة حقيقية: يظهر تصميم SVG */
     intenso: "/images/bag-intenso",
-    /** كيس CLASSIC BLEND بجوانب زرقاء */
+    /** كيس CLASSIC BLEND الأزرق (50٪ أرابيكا) — المنتج الأساسي */
     classic: "/images/bag-classic",
+    /** كيس CLASSIC 1 كجم — الغلاف الحقيقي (صورة جديدة من العميل) */
+    classic1kg: "/images/bag-classic-1kg",
     /** كيس INNOVATION BLEND (أصل إثيوبي) */
     innovation: "/images/bag-innovation",
     /** ORIGIN COLLECTION — إثيوبيا أصل واحد (كيس أسود بفيل ذهبي) */
@@ -49,7 +52,13 @@ export const IMAGES = {
     brika: "/images/banner-brika",
     /** بانر قسم «خلطتك الخاصة» (BLEND LAB) — ضع صورة حبوب/خلط هنا */
     customBlend: "/images/banner-customblend",
+    /** بانر الكيس الأخضر/الأزرق الحقيقي — غلاف CLASSIC 1 كجم */
+    classic1kg: "/images/bag-classic-1kg",
   },
+  /** قائمة أسعار البن الرسمية (صورة حقيقية من العميل) */
+  priceList: "/images/price-list",
+  /** شعار ROVENTO الحقيقي */
+  logo: "/images/rovento-logo",
   /** حبوب خام لقسم خلطتك الخاصة — اختياري: ضع صورة حبوب أرابيكا/روبوستا */
   beans: {
     arabica: "/images/bean-arabica",

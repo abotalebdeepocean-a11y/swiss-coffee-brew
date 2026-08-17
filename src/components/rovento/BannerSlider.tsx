@@ -15,6 +15,10 @@ const SLIDES = [
     title: "ROVENTO × Brikka — طعم قهوة لا ينسى",
   },
   {
+    image: IMAGES.banners.classic1kg,
+    title: "ROVENTO CLASSIC — غلاف الكيس الحقيقي",
+  },
+  {
     image: IMAGES.banners.signature,
     title: "ROVENTO — أكياسنا المتعددة",
   },

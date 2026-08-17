@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { SIGNATURE_BLENDS, getProduct, formatPrice, type Product } from "@/lib/products";
+import { getProduct, formatPrice, type Product } from "@/lib/products";
 import { BagVisual } from "./BagVisual";
 import { Stars } from "./art";
 import type { BlendVariant } from "./CoffeeBag";
 
-/** إعدادات الشخصيات — ألوان وشارات حسب المرجع */
+/** إعدادات الشخصيات — الألوان والشارات حسب المرجع (منتجين فقط) */
 const PERSONAS: Record<
   string,
   {
@@ -44,25 +44,12 @@ const PERSONAS: Record<
     cardCls: "border-2 border-rv-gold shadow-2xl",
     featured: true,
   },
-  "rovento-intenso": {
-    bannerCls: "bg-purple-800/90",
-    nameEn: "INTENSO",
-    tag: "قوة تركيز... قوام ثقيل",
-    strength: 10,
-    crema: 8,
-    roast: "غامق",
-    strengthCls: "text-purple-400",
-    ctaCls: "border border-stone-600 hover:border-purple-400 hover:text-purple-300",
-    cardCls: "border-purple-500/30 hover:border-purple-500/80",
-  },
 };
 
-/** جدول المقارنة — نفس روح المرجع */
+/** جدول المقارنة — كلاسيك وبريميم فقط (مثل المرجع) */
 const COMPARE_ROWS = [
   { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 690, note: "/ 1 كجم", cls: "" },
   { name: "Espresso Blend (Premium)", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 1200, note: "/ 1 كجم", cls: "bg-rv-gold/10 text-rv-gold" },
-  { name: "Intenso Blend", strength: "10/10", crema: "داكنة وثقيلة", use: "مشروبات الحليب الساخنة", price: 310, note: "/ 250 جم", cls: "" },
-  { name: "ROVENTO Origin — إثيوبيا", strength: "8.5/10", crema: "مخملية وناعمة بطعم التوت والزهور", use: "إسبريسو سينجل أوريجن فاخر", price: 1450, note: "/ 1 كجم", cls: "" },
 ];
 
 function BlendCard({
@@ -101,13 +88,19 @@ function BlendCard({
       )}
 
       <div className="flex flex-1 flex-col p-6">
-        {/* صورة الكيس الحقيقية */}
-        <div className="relative mx-auto mb-5 grid h-36 w-28 place-items-center rounded-xl border border-stone-800 bg-stone-950">
+        {/* صورة الكيس الحقيقية — كبيرة وواضحة */}
+        <div className="relative mx-auto mb-5 grid h-44 w-full place-items-center overflow-hidden rounded-xl border border-stone-800 bg-gradient-to-b from-stone-950 to-coffee-950">
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              background: `radial-gradient(220px 200px at 50% 45%, ${product.accent}30, transparent 70%)`,
+            }}
+          />
           <BagVisual
             image={product.image}
             variant={variant}
             alt={product.name}
-            className="h-32 w-auto"
+            className="relative h-40 w-auto object-contain"
           />
         </div>
 
@@ -151,7 +144,7 @@ function BlendCard({
           to={`/product/${product.slug}`}
           className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-transparent text-sm font-black text-stone-200 transition ${p.ctaCls}`}
         >
-          تسوق {p.nameEn === "CLASSIC" ? "كلاسيك" : p.nameEn === "PREMIUM" ? "بريميوم" : "إنتنسو"}
+          تسوق {p.nameEn === "CLASSIC" ? "كلاسيك" : "بريميوم"}
         </Link>
       </div>
     </motion.div>
@@ -159,8 +152,10 @@ function BlendCard({
 }
 
 export function SignatureCollection() {
-  const blends = SIGNATURE_BLENDS.map((slug) => getProduct(slug)!).filter(Boolean);
-  const variants: BlendVariant[] = ["premium", "intenso", "classic"];
+  const blends = ["rovento-classic", "rovento-premium"]
+    .map((slug) => getProduct(slug)!)
+    .filter(Boolean);
+  const variants: BlendVariant[] = ["classic", "premium"];
 
   return (
     <section
@@ -177,13 +172,13 @@ export function SignatureCollection() {
             اختر <span className="text-rv-red">شخصيتك</span> في فنجانك
           </h2>
           <p className="mt-3 text-lg text-stone-300">
-            صممنا خلطات روفينتو بعناية فائقة لتلائم أوقاتك المختلفة — توازن يومي
-            اقتصادي، كريما إسبريسو غنية، أو قوة تركيز مضاعفة.
+            منتجا روفينتو الأساسيان — توازن يومي اقتصادي، أو كريما إسبريسو غنية
+            فاخرة. الكيسان الأصليان بأعلى جودة تحميص في مصر.
           </p>
         </div>
 
-        {/* الكروت */}
-        <div className="grid gap-8 md:grid-cols-3">
+        {/* الكروت — منتجان فقط */}
+        <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
           {blends.map((product, i) => (
             <BlendCard
               key={product.slug}
@@ -204,7 +199,7 @@ export function SignatureCollection() {
         >
           <div className="mb-6 text-center">
             <h3 className="text-xl font-black text-white sm:text-2xl">
-              مقارنة سريعة بين خلطات روفينتو
+              مقارنة سريعة بين منتجي روفينتو
             </h3>
             <p className="mt-1 text-xs text-stone-400 sm:text-sm">
               اختار الخلطة الأنسب لطريقة تحضيرك المفضلة
