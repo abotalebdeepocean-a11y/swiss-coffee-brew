@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>روڤينتو ROVENTO | قهوة مختصة مصرية — حبوب إسبريسو وتحضير احترافي</title>
+<meta name="description" content="ROVENTO — عصارة قهوة خالصة في مصر. حبوب إسبريسو محمصة طازجة، بريكا، ماكينات وإكسسوارات مع شحن لكل المحافظات.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        coffee: { 950: '#0c0a09', 900: '#171412', 800: '#231f1c', 700: '#342e29', 600: '#4a4039' },
+        'rv-black': '#0c0a09',
+        'rv-ink': '#171412',
+        'rv-paper': '#f5f0e8',
+        'rv-red': '#d03b1e',
+        'rv-blue': '#002fa7',
+        'rv-gold': '#d4af37',
+        'rv-amber': '#d97706',
+      },
+      fontFamily: {
+        sans: ['Cairo', 'Tajawal', 'sans-serif'],
+        display: ['Archivo', 'Cairo', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Cairo', sans-serif; background: #0c0a09; color: #f5f0e8; overflow-x: hidden; }
+  ::selection { background: #d4af37; color: #171412; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0c0a09; }
+  ::-webkit-scrollbar-thumb { background: #342e29; border: 2px solid #0c0a09; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #f6d365 50%, #d4af37 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .btn-gold { background: linear-gradient(135deg, #d4af37, #b89728); color: #171412; transition: filter .2s ease, transform .2s ease; }
+  .btn-gold:hover { filter: brightness(1.1); }
+  .btn-gold:active { transform: scale(.98); }
+  .gold-border-glow { border: 1px solid rgba(212,175,55,.3); box-shadow: 0 0 25px rgba(212,175,55,.12); }
+  .gold-border-glow:hover { border-color: rgba(212,175,55,.7); box-shadow: 0 0 35px rgba(212,175,55,.25); }
+  .bg-glass { background: rgba(23,20,18,.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.08); }
+  .swiss-grid-bg {
+    background-image: linear-gradient(rgba(245,240,232,.045) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(245,240,232,.045) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-24px) rotate(calc(var(--rot,0deg) + 7deg)); } }
+  .animate-float { animation: float 10s ease-in-out infinite; }
+  .animate-float-slow { animation: float 16s ease-in-out infinite; }
+  @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,.5); } 70% { box-shadow: 0 0 0 20px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+  .animate-pulse-wa { animation: pulse-wa 2.4s ease-out infinite; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+
+  .blend-range { -webkit-appearance: none; appearance: none; height: 8px; border-radius: 9999px;
+    background: linear-gradient(90deg, #4a2c1a, #57534e, #c9a227); outline: none; }
+  .blend-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
+    border-radius: 9999px; background: #d4af37; border: none; box-shadow: 0 0 12px rgba(212,175,55,.7); cursor: pointer; }
+  .blend-range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 9999px; background: #d4af37;
+    border: none; box-shadow: 0 0 12px rgba(212,175,55,.7); cursor: pointer; }
+
+  .spot-tooltip { display: none; }
+  .spot:hover .spot-tooltip { display: block; }
+</style>
+</head>
+<body class="bg-coffee-950 text-stone-100 antialiased">
+
+<!-- ============ شريط العرض + الهيدر ============ -->
+<header class="sticky top-0 z-40">
+  <div class="bg-gradient-to-r from-amber-700 via-rv-gold to-amber-700 text-black">
+    <p class="mx-auto flex h-9 w-full max-w-[1200px] flex-wrap items-center justify-center gap-x-3 gap-y-0 px-4 text-center text-[12px] font-black md:text-[13px]">
+      <span>🔥 خصم 15% على أول طلب باستخدام كود:</span>
+      <button onclick="copyCode('ROVENTO15', this)" dir="ltr" title="اضغط لنسخ الكود" class="rounded bg-black px-2 py-0.5 font-mono text-[11px] font-bold tracking-wider text-rv-gold transition hover:bg-stone-900">ROVENTO15</button>
+      <span class="hidden items-center gap-1.5 md:inline-flex"><span class="opacity-50">|</span> 🚚 شحن سريع لكل محافظات مصر خلال 24-72 ساعة</span>
+    </p>
+  </div>
+
+  <div class="border-b border-stone-800 bg-coffee-900/90 backdrop-blur-md">
+    <div class="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4 md:h-20 md:px-6">
+      <!-- الشعار -->
+      <a href="#" aria-label="روڤينتو — الرئيسية" class="flex items-center gap-3">
+        <span class="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f6d365] to-[#997a15] shadow-lg">
+          <span class="font-display text-2xl font-black leading-none text-black" style="font-stretch:118%">R</span>
+        </span>
+        <span class="leading-none">
+          <span class="gold-gradient-text block font-display text-xl font-black tracking-[0.2em]" style="font-stretch:118%">ROVENTO</span>
+          <span class="mt-1 block text-[10px] font-bold uppercase tracking-[0.24em] text-rv-gold">Coffee • Cairo • Egypt</span>
+        </span>
+      </a>
+
+      <!-- القائمة -->
+      <nav class="hidden items-center gap-1 text-sm font-bold lg:flex" aria-label="القائمة الرئيسية">
+        <a href="#hero" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">الرئيسية</a>
+        <a href="#featured" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">اختار شخصيتك</a>
+        <a href="#deal" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">عرض الأسبوع <span class="rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-black text-white">خصم</span></a>
+        <a href="#brikka" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">لماذا بريكا؟</a>
+        <a href="#bestsellers" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">الأكثر مبيعًا</a>
+        <a href="#blend-lab" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">خلطتك الخاصة <span class="rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-black text-white">جديد</span></a>
+        <a href="#why-rovento" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">لماذا روفينتو؟</a>
+        <a href="#reviews" class="nav-link relative flex items-center gap-1.5 px-3 py-2 text-stone-300 transition-colors hover:text-rv-gold">آراء العملاء</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20ROVENTO%20%F0%9F%91%8B%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%D9%83%D9%85." target="_blank" rel="noopener noreferrer" class="hidden size-10 items-center justify-center rounded-full border border-emerald-500/40 text-emerald-400 transition-colors hover:bg-emerald-500/10 md:flex" aria-label="تواصل عبر واتساب">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-[18px]" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
+        <!-- هدية فورية -->
+        <button onclick="openPromo()" class="hidden items-center gap-2 rounded-full border border-rv-gold/30 bg-stone-800 px-3.5 py-2 text-xs font-bold text-rv-gold transition-colors hover:bg-stone-700 sm:flex">
+          <i class="fa-solid fa-gift"></i>
+          هدية فورية
+        </button>
+
+        <!-- زر السلة -->
+        <button onclick="openCartDrawer()" class="relative flex h-10 items-center gap-2 rounded-lg bg-gradient-to-r from-rv-gold to-[#b89728] px-4 font-black text-black shadow-lg transition hover:brightness-110" aria-label="سلة التسوق">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="hidden sm:inline">السلة</span>
+          <span id="cart-count" class="grid min-w-5 place-items-center rounded-full bg-black px-1.5 font-mono text-[10px] font-bold text-rv-gold">0</span>
+        </button>
+
+        <button onclick="document.getElementById('mobile-menu').classList.remove('hidden')" class="grid size-10 place-items-center rounded-lg border border-stone-700 lg:hidden" aria-label="افتح القائمة">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- قائمة الجوال -->
+<div id="mobile-menu" class="fixed inset-0 z-50 hidden lg:hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="document.getElementById('mobile-menu').classList.add('hidden')"></div>
+  <div class="absolute inset-y-0 left-0 w-[86%] max-w-sm overflow-y-auto border-e border-stone-800 bg-coffee-900 p-5">
+    <div class="flex items-center justify-between border-b border-stone-800 pb-4">
+      <span class="flex items-center gap-3">
+        <span class="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f6d365] to-[#997a15]"><span class="font-display text-xl font-black text-black">R</span></span>
+        <span class="gold-gradient-text font-display text-lg font-black tracking-[0.2em]">ROVENTO</span>
+      </span>
+      <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="grid size-9 place-items-center rounded-lg border border-stone-700" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <nav class="mt-2 flex flex-col" aria-label="قائمة الجوال">
+      <a href="#hero" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">الرئيسية <span class="font-mono text-[10px] text-rv-gold">01</span></a>
+      <a href="#featured" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">اختار شخصيتك <span class="font-mono text-[10px] text-rv-gold">02</span></a>
+      <a href="#deal" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">عرض الأسبوع <span class="font-mono text-[10px] text-rv-gold">03</span></a>
+      <a href="#brikka" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">لماذا بريكا؟ <span class="font-mono text-[10px] text-rv-gold">04</span></a>
+      <a href="#bestsellers" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">الأكثر مبيعًا <span class="font-mono text-[10px] text-rv-gold">05</span></a>
+      <a href="#blend-lab" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">خلطتك الخاصة <span class="font-mono text-[10px] text-rv-gold">06</span></a>
+      <a href="#why-rovento" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">لماذا روفينتو؟ <span class="font-mono text-[10px] text-rv-gold">07</span></a>
+      <a href="#reviews" class="mobile-link flex items-center justify-between border-b border-white/5 px-2 py-4 text-base font-bold text-stone-200 hover:text-rv-gold">آراء العملاء <span class="font-mono text-[10px] text-rv-gold">08</span></a>
+      <div class="mt-6 flex flex-col gap-3">
+        <button onclick="closeMobile(); scrollToId('bestsellers')" class="btn-gold flex h-11 items-center justify-center rounded-xl font-black">تسوق الآن</button>
+        <button onclick="closeMobile(); openPromo()" class="flex h-11 items-center justify-center gap-2 rounded-xl border border-rv-gold/40 text-sm font-bold text-rv-gold"><i class="fa-solid fa-gift"></i> هدية فورية — كوبون خصم</button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ سلايدر البنرات ============ -->
+<section aria-label="ROVENTO عروض وبانرات" class="relative w-full overflow-hidden border-b border-stone-800 bg-coffee-950">
+  <div class="relative aspect-[4/3] w-full sm:aspect-[16/9] md:aspect-[21/9]" id="slider">
+    <!-- السلايدات -->
+    <div id="slider-track" class="absolute inset-0">
+      <div class="slide absolute inset-0 transition-opacity duration-700" data-i="0" style="opacity:1">
+        <img src="__IMG_banner_hero__" alt="ROVENTO — مش قهوة… دي شخصية" class="h-full w-full object-cover">
+        <div class="absolute inset-0 bg-black/15"></div>
+      </div>
+      <div class="slide absolute inset-0 transition-opacity duration-700" data-i="1" style="opacity:0">
+        <img src="__IMG_banner_workshop__" alt="ROVENTO × Brikka — طعم قهوة لا ينسى" class="h-full w-full object-cover">
+        <div class="absolute inset-0 bg-black/15"></div>
+      </div>
+      <div class="slide absolute inset-0 transition-opacity duration-700" data-i="2" style="opacity:0">
+        <img src="__IMG_banner_signature__" alt="ROVENTO — أكياسنا المتعددة" class="h-full w-full object-cover">
+        <div class="absolute inset-0 bg-black/15"></div>
+      </div>
+      <div class="slide absolute inset-0 transition-opacity duration-700" data-i="3" style="opacity:0">
+        <img src="__IMG_banner_collections__" alt="ROVENTO — طزاجة محفوظة بصمام أحادي" class="h-full w-full object-cover">
+        <div class="absolute inset-0 bg-black/15"></div>
+      </div>
+    </div>
+
+    <!-- تدرج سفلي خفيف -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent"></div>
+
+    <!-- عربي RTL: السهم على اليسار = التالي -->
+    <button type="button" onclick="sliderGo(1)" aria-label="السلايد التالي" class="absolute end-3 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:border-rv-gold hover:bg-black/70 hover:text-rv-gold sm:grid">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <!-- عربي RTL: السهم على اليمين = السابق -->
+    <button type="button" onclick="sliderGo(-1)" aria-label="السلايد السابق" class="absolute start-3 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:border-rv-gold hover:bg-black/70 hover:text-rv-gold sm:grid">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+    <!-- النقاط -->
+    <div class="absolute inset-x-0 bottom-3 z-10 flex items-center justify-center gap-2">
+      <button type="button" onclick="sliderTo(0)" aria-label="الانتقال إلى السلايد 1" class="slider-dot h-1.5 rounded-full transition-all duration-300" style="width:2rem;background:#d4af37"></button>
+      <button type="button" onclick="sliderTo(1)" aria-label="الانتقال إلى السلايد 2" class="slider-dot h-1.5 rounded-full transition-all duration-300" style="width:.625rem;background:rgba(255,255,255,.5)"></button>
+      <button type="button" onclick="sliderTo(2)" aria-label="الانتقال إلى السلايد 3" class="slider-dot h-1.5 rounded-full transition-all duration-300" style="width:.625rem;background:rgba(255,255,255,.5)"></button>
+      <button type="button" onclick="sliderTo(3)" aria-label="الانتقال إلى السلايد 4" class="slider-dot h-1.5 rounded-full transition-all duration-300" style="width:.625rem;background:rgba(255,255,255,.5)"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ الهيرو ============ -->
+<section id="hero" class="relative overflow-hidden border-b border-stone-800 bg-gradient-to-b from-coffee-950 via-[#0d0b09] to-coffee-950">
+  <div class="pointer-events-none absolute left-1/2 top-1/4 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/10 blur-3xl"></div>
+  <div class="pointer-events-none absolute bottom-0 right-0 size-[400px] rounded-full bg-red-900/10 blur-3xl"></div>
+
+  <div class="relative mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 pb-14 pt-12 md:px-6 md:pt-16 lg:grid-cols-12">
+    <!-- النص -->
+    <div class="space-y-6 text-center lg:col-span-7 lg:text-start">
+      <div class="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-rv-gold/30 bg-coffee-900/90 px-4 py-2 shadow-lg">
+        <span class="flex items-center gap-0.5 text-rv-gold" dir="ltr">
+          <i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i>
+        </span>
+        <span class="rounded-full bg-rv-gold/20 px-2 py-0.5 text-xs font-bold text-rv-gold">4.9/5</span>
+        <span class="text-sm font-bold text-stone-200">+500 عميل يثقون في روفينتو في مصر</span>
+      </div>
+
+      <h1 class="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+        مش مجرد قهوة...<br>
+        <span class="gold-gradient-text">دي عصارة قهوة خالصة.</span>
+      </h1>
+
+      <p class="mx-auto max-w-2xl text-lg leading-relaxed text-stone-300 lg:mx-0">
+        طعم إسبريسو أصيل... في كل فنجان. حبوب محمصة طازجة في مصر بعناية لعشاق الكريما الغنية والطعم المتوازن.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
+        <button onclick="scrollToId('bestsellers')" class="inline-flex items-center gap-3 rounded-xl bg-amber-500 px-8 py-4 text-lg font-black text-stone-950 shadow-xl transition hover:-translate-y-0.5 hover:bg-amber-600">
+          تسوق الآن <i class="fa-solid fa-crown"></i>
+        </button>
+        <button onclick="scrollToId('featured')" class="inline-flex items-center gap-3 rounded-xl border border-stone-700 bg-stone-900 px-8 py-4 text-lg font-bold text-stone-200 transition hover:bg-stone-800">
+          <i class="fa-solid fa-eye text-rv-gold"></i>
+          استكشف المنتجات
+        </button>
+      </div>
+    </div>
+
+    <!-- كارت المنتج -->
+    <div class="relative flex justify-center lg:col-span-5">
+      <div class="relative w-full max-w-md">
+        <div class="absolute -inset-2 animate-pulse rounded-3xl bg-gradient-to-r from-rv-gold to-red-800 opacity-30 blur-xl"></div>
+
+        <div class="relative flex flex-col items-center rounded-3xl border border-stone-800 bg-coffee-900/80 p-6 shadow-2xl">
+          <img src="__IMG_bag_hero__" alt="Rovento Espresso Blend — كيس قهوة" class="h-[400px] w-auto rounded-xl object-contain transition duration-500 md:h-[480px]">
+
+          <!-- النقاط التفاعلية -->
+          <div class="absolute top-8 right-6 spot">
+            <span class="grid size-7 cursor-default place-items-center rounded-full bg-rv-gold text-xs font-black text-black shadow-lg animate-pulse">＋</span>
+            <span class="spot-tooltip absolute top-8 end-0 z-20 w-48 rounded-xl border bg-stone-950 p-2.5 text-xs shadow-2xl">
+              <strong class="mb-0.5 block text-rv-gold">🛡️ صمام أحادي الاتجاه</strong>
+              <span class="text-stone-400">يفرغ الغازات ويمنع دخول الهواء للحفظ على الزيوت العطرية.</span>
+            </span>
+          </div>
+          <div class="absolute top-1/2 left-6 spot">
+            <span class="grid size-7 cursor-default place-items-center rounded-full bg-red-600 text-xs font-black text-white shadow-lg animate-pulse">🔥</span>
+            <span class="spot-tooltip absolute top-8 start-0 z-20 w-48 rounded-xl border bg-stone-950 p-2.5 text-xs shadow-2xl">
+              <strong class="mb-0.5 block text-rv-gold">🔥 تحميص مصري طازج</strong>
+              <span class="text-stone-400">دفعات صغيرة محمصة في القاهرة لضمان أقصى طزاجة.</span>
+            </span>
+          </div>
+          <div class="absolute bottom-24 right-8 spot">
+            <span class="grid size-7 cursor-default place-items-center rounded-full bg-gradient-to-r from-rv-gold to-amber-500 text-xs font-black text-black shadow-lg animate-pulse">☕</span>
+            <span class="spot-tooltip absolute top-8 end-0 z-20 w-48 rounded-xl border bg-stone-950 p-2.5 text-xs shadow-2xl">
+              <strong class="mb-0.5 block text-rv-gold">☕ شاهد قوة الكريما الحقيقية</strong>
+              <span class="text-stone-400">كريما ذهبية كثيفة من خلطة الإسبريسو الملكية.</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- شارة عائمة -->
+        <div class="absolute -bottom-4 start-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-white/20 bg-gradient-to-r from-rv-gold to-[#b89728] px-6 py-2 text-sm font-black text-black shadow-lg">
+          <i class="fa-solid fa-crown"></i>
+          خلطة إسبريسو الملكية • 1 كجم
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط الثقة -->
+  <div class="border-t border-white/10 bg-coffee-900/60">
+    <div class="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-5 px-4 py-5 md:grid-cols-4 md:px-6">
+      <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-200"><i class="fa-solid fa-truck text-rv-gold"></i> شحن سريع داخل مصر</div>
+      <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-200"><i class="fa-solid fa-fire text-rv-gold"></i> تحميص طازج أسبوعياً</div>
+      <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-200"><i class="fa-solid fa-users text-rv-gold"></i> +5000 عميل سعيد</div>
+      <div class="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-200"><i class="fa-solid fa-shield-halved text-rv-gold"></i> ضمان استرجاع ذهبي</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ اختار شخصيتك ============ -->
+<section id="featured" class="border-b border-stone-800 bg-coffee-900/50 py-20">
+  <div class="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <span class="text-sm font-bold uppercase tracking-wider text-rv-gold">اختر ما يناسب مزاجك</span>
+      <h2 class="mt-2 text-3xl font-black sm:text-4xl">اختر <span class="text-rv-red">شخصيتك</span> في فنجانك</h2>
+      <p class="mt-3 text-lg text-stone-300">صممنا خلطات روفينتو بعناية فائقة لتلائم أوقاتك المختلفة — توازن يومي اقتصادي، كريما إسبريسو غنية، أو قوة تركيز مضاعفة.</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-3" id="persona-cards">
+      <!-- كلاسيك -->
+      <div class="relative flex flex-col overflow-hidden rounded-2xl border border-blue-500/30 bg-coffee-900/90 text-center shadow-xl transition hover:border-blue-500/80">
+        <div class="px-6 py-4 bg-blue-800/90">
+          <h3 class="text-xl font-black tracking-widest text-white font-display">CLASSIC</h3>
+          <p class="mt-1 text-xs font-bold text-white/85">متوازن لأي وقت في اليوم</p>
+        </div>
+        <div class="flex flex-1 flex-col p-6">
+          <div class="relative mx-auto mb-5 grid h-36 w-28 place-items-center rounded-xl border border-stone-800 bg-stone-950">
+            <img src="__IMG_bag_classic__" alt="ROVENTO Classic" class="h-32 w-auto rounded-lg object-contain">
+          </div>
+          <div class="mb-5 space-y-2.5 text-sm">
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">قوة الطعم</span><span class="flex items-center gap-1.5"><span class="flex text-[11px] text-rv-gold" dir="ltr">★★★★</span><span class="font-mono font-bold text-blue-400">7/10</span></span></div>
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">الكريما</span><span class="flex items-center gap-1.5"><span class="flex text-[11px] text-rv-gold" dir="ltr">★★★★</span><span class="font-mono font-bold text-blue-400">7/10</span></span></div>
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">التحميص</span><span class="font-mono font-bold text-stone-200">متوسط</span></div>
+          </div>
+          <div class="mb-5 flex items-center justify-between border-t border-stone-800 pt-4">
+            <span class="text-sm text-stone-400">السعر</span>
+            <span class="text-lg font-black text-white">690 ج.م <span class="text-xs text-stone-400">/ 1 كجم</span></span>
+          </div>
+          <button onclick="addToCart('rovento-classic')" class="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-stone-600 text-sm font-black text-stone-200 transition hover:border-blue-400 hover:text-blue-300">تسوق كلاسيك</button>
+        </div>
+      </div>
+
+      <!-- بريميم -->
+      <div class="relative flex flex-col overflow-hidden rounded-2xl border-2 border-rv-gold bg-coffee-900/90 text-center shadow-2xl md:-translate-y-2">
+        <span class="absolute top-0 right-4 z-10 flex items-center gap-1 rounded-b-lg bg-rv-gold px-3 py-1 text-xs font-black text-black shadow">⭐ اختيار العشاق</span>
+        <div class="px-6 py-4 bg-teal-800/90">
+          <h3 class="text-xl font-black tracking-widest text-white font-display">PREMIUM</h3>
+          <p class="mt-1 text-xs font-bold text-white/85">نكهات أعمق... تجربة فاخرة</p>
+        </div>
+        <div class="flex flex-1 flex-col p-6">
+          <div class="relative mx-auto mb-5 grid h-36 w-28 place-items-center rounded-xl border border-stone-800 bg-stone-950">
+            <img src="__IMG_bag_premium__" alt="ROVENTO Premium" class="h-32 w-auto rounded-lg object-contain">
+          </div>
+          <div class="mb-5 space-y-2.5 text-sm">
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">قوة الطعم</span><span class="flex items-center gap-1.5"><span class="flex text-[11px] text-rv-gold" dir="ltr">★★★★★</span><span class="font-mono font-bold text-teal-400">9/10</span></span></div>
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">الكريما</span><span class="flex items-center gap-1.5"><span class="flex text-[11px] text-rv-gold" dir="ltr">★★★★★</span><span class="font-mono font-bold text-teal-400">9/10</span></span></div>
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">التحميص</span><span class="font-mono font-bold text-stone-200">داكن</span></div>
+          </div>
+          <div class="mb-5 flex items-center justify-between border-t border-stone-800 pt-4">
+            <span class="text-sm text-stone-400">السعر</span>
+            <span class="text-lg font-black text-white">1,200 ج.م <span class="text-xs text-stone-400">/ 1 كجم</span></span>
+          </div>
+          <button onclick="addToCart('rovento-premium')" class="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-transparent text-sm font-black text-rv-gold border border-rv-gold transition hover:bg-rv-gold hover:text-black">تسوق بريميوم</button>
+        </div>
+      </div>
+
+      <!-- إنتنسو -->
+      <div class="relative flex flex-col overflow-hidden rounded-2xl border border-purple-500/30 bg-coffee-900/90 text-center shadow-xl transition hover:border-purple-500/80">
+        <div class="px-6 py-4 bg-purple-800/90">
+          <h3 class="text-xl font-black tracking-widest text-white font-display">INTENSO</h3>
+          <p class="mt-1 text-xs font-bold text-white/85">قوة تركيز... قوام ثقيل</p>
+        </div>
+        <div class="flex flex-1 flex-col p-6">
+          <div class="relative mx-auto mb-5 grid h-36 w-28 place-items-center rounded-xl border border-stone-800 bg-stone-950">
+            <img src="__IMG_bag_intenso__" alt="ROVENTO Intenso" class="h-32 w-auto rounded-lg object-contain">
+          </div>
+          <div class="mb-5 space-y-2.5 text-sm">
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">قوة الطعم</span><span class="flex items-center gap-1.5"><span class="flex text-[11px] text-rv-gold" dir="ltr">★★★★★</span><span class="font-mono font-bold text-purple-400">10/10</span></span></div>
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">الكريما</span><span class="flex items-center gap-1.5"><span class="flex text-[11px] text-rv-gold" dir="ltr">★★★★</span><span class="font-mono font-bold text-purple-400">8/10</span></span></div>
+            <div class="flex items-center justify-between gap-2"><span class="text-stone-400">التحميص</span><span class="font-mono font-bold text-stone-200">غامق</span></div>
+          </div>
+          <div class="mb-5 flex items-center justify-between border-t border-stone-800 pt-4">
+            <span class="text-sm text-stone-400">السعر</span>
+            <span class="text-lg font-black text-white">310 ج.م <span class="text-xs text-stone-400">/ 250 جم</span></span>
+          </div>
+          <button onclick="addToCart('rovento-intenso')" class="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-stone-600 text-sm font-black text-stone-200 transition hover:border-purple-400 hover:text-purple-300">تسوق إنتنسو</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- جدول المقارنة -->
+    <div class="mx-auto mt-14 max-w-4xl rounded-3xl border border-stone-800 bg-coffee-900/80 p-6 shadow-2xl sm:p-8">
+      <div class="mb-6 text-center">
+        <h3 class="text-xl font-black text-white sm:text-2xl">مقارنة سريعة بين خلطات روفينتو</h3>
+        <p class="mt-1 text-xs text-stone-400 sm:text-sm">اختار الخلطة الأنسب لطريقة تحضيرك المفضلة</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-right text-sm">
+          <thead>
+            <tr class="border-b border-stone-800 text-rv-gold">
+              <th class="px-4 py-3 font-black">النوع</th>
+              <th class="px-4 py-3 text-center font-black">القوة</th>
+              <th class="hidden px-4 py-3 font-black sm:table-cell">طبيعة الكريما</th>
+              <th class="hidden px-4 py-3 font-black md:table-cell">أفضل استخدام</th>
+              <th class="px-4 py-3 text-center font-black">السعر</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-800/60">
+            <tr class="transition hover:bg-stone-800/40"><td class="px-4 py-4 font-bold">Classic Blend</td><td class="px-4 py-4 text-center font-mono font-bold">7/10</td><td class="hidden px-4 py-4 sm:table-cell">متوازنة ولطيفة</td><td class="hidden px-4 py-4 md:table-cell">قهوة سوداء / فلتر / يومي</td><td class="px-4 py-4 text-center font-bold">690 ج.م<span class="block text-[10px] font-normal text-stone-500">/ 1 كجم</span></td></tr>
+            <tr class="bg-rv-gold/10 text-rv-gold transition hover:bg-stone-800/40"><td class="px-4 py-4 font-bold text-rv-gold">Espresso Blend (Premium)</td><td class="px-4 py-4 text-center font-mono font-bold">9/10</td><td class="hidden px-4 py-4 sm:table-cell">غنية وكثيفة جدًا</td><td class="hidden px-4 py-4 md:table-cell">إسبريسو / بريكا / كابتشينو</td><td class="px-4 py-4 text-center font-bold text-rv-gold">1,200 ج.م<span class="block text-[10px] font-normal text-stone-500">/ 1 كجم</span></td></tr>
+            <tr class="transition hover:bg-stone-800/40"><td class="px-4 py-4 font-bold">Intenso Blend</td><td class="px-4 py-4 text-center font-mono font-bold">10/10</td><td class="hidden px-4 py-4 sm:table-cell">داكنة وثقيلة</td><td class="hidden px-4 py-4 md:table-cell">مشروبات الحليب الساخنة</td><td class="px-4 py-4 text-center font-bold">310 ج.م<span class="block text-[10px] font-normal text-stone-500">/ 250 جم</span></td></tr>
+            <tr class="transition hover:bg-stone-800/40"><td class="px-4 py-4 font-bold">ROVENTO Origin — إثيوبيا</td><td class="px-4 py-4 text-center font-mono font-bold">8.5/10</td><td class="hidden px-4 py-4 sm:table-cell">مخملية وناعمة بطعم التوت والزهور</td><td class="hidden px-4 py-4 md:table-cell">إسبريسو سينجل أوريجن فاخر</td><td class="px-4 py-4 text-center font-bold">1,450 ج.م<span class="block text-[10px] font-normal text-stone-500">/ 1 كجم</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-center text-xs text-stone-500">* بريميم وكلاسيك يُباعان كيس 1 كجم (بريميم 70٪ أرابيكا / كلاسيك 50٪ أرابيكا) — والمطحون متاح داخل كل بلند.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ عرض الأسبوع ============ -->
+<section id="deal" class="relative overflow-hidden border-y-2 border-rv-gold bg-gradient-to-br from-[#1a160e] via-[#241e11] to-[#1a160e] py-16">
+  <div class="relative z-10 mx-auto w-full max-w-5xl px-4 text-center md:px-6">
+    <div class="mb-6 inline-flex items-center gap-2 rounded-full bg-rv-gold px-5 py-1.5 text-sm font-black uppercase tracking-wider text-black shadow-lg">
+      <i class="fa-solid fa-fire text-red-600"></i>
+      عرض الأسبوع الخاص لعشاق القهوة في مصر
+    </div>
+    <h2 class="mb-4 text-3xl font-black text-white sm:text-5xl">🔥 اشترِ 2 واحصل على <span class="gold-gradient-text">خصم فوري 400 ج.م</span></h2>
+    <p class="mx-auto mb-8 max-w-2xl text-base text-stone-300 sm:text-lg">على كيسين من بريميم 70٪ أرابيكا (1 كجم) — لفترة محدودة، مع شحن مجاني لأي محافظة في مصر.</p>
+
+    <div class="mb-10">
+      <p class="mb-3 text-sm font-bold text-rv-gold">⏳ ينتهي العرض خلال:</p>
+      <div class="flex items-center justify-center gap-2 font-mono sm:gap-3">
+        <div class="min-w-[70px] rounded-2xl border border-rv-gold/50 bg-black/80 px-4 py-3 text-center shadow-lg sm:min-w-[90px] sm:px-6 sm:py-4"><span id="cd-days" class="block text-2xl font-black text-rv-gold sm:text-4xl">00</span><span class="block text-[11px] font-bold uppercase text-stone-400 sm:text-xs">يوم</span></div>
+        <span class="text-2xl font-bold text-rv-gold">:</span>
+        <div class="min-w-[70px] rounded-2xl border border-rv-gold/50 bg-black/80 px-4 py-3 text-center shadow-lg sm:min-w-[90px] sm:px-6 sm:py-4"><span id="cd-hours" class="block text-2xl font-black text-rv-gold sm:text-4xl">00</span><span class="block text-[11px] font-bold uppercase text-stone-400 sm:text-xs">ساعة</span></div>
+        <span class="text-2xl font-bold text-rv-gold">:</span>
+        <div class="min-w-[70px] rounded-2xl border border-rv-gold/50 bg-black/80 px-4 py-3 text-center shadow-lg sm:min-w-[90px] sm:px-6 sm:py-4"><span id="cd-min" class="block text-2xl font-black text-rv-gold sm:text-4xl">00</span><span class="block text-[11px] font-bold uppercase text-stone-400 sm:text-xs">دقيقة</span></div>
+        <span class="text-2xl font-bold text-rv-gold">:</span>
+        <div class="min-w-[70px] rounded-2xl border border-rv-gold/50 bg-black/80 px-4 py-3 text-center shadow-lg sm:min-w-[90px] sm:px-6 sm:py-4"><span id="cd-sec" class="block text-2xl font-black text-rv-gold sm:text-4xl">00</span><span class="block text-[11px] font-bold uppercase text-stone-400 sm:text-xs">ثانية</span></div>
+      </div>
+    </div>
+
+    <button onclick="addToCart('rovento-premium', 2)" class="btn-gold inline-flex items-center gap-3 rounded-2xl px-10 py-5 text-lg font-black shadow-2xl transition hover:scale-105">
+      <i class="fa-solid fa-bag-shopping"></i>
+      اطلب العرض الآن — كيسان بـ 2,400 ج.م بدل 2,800 ج.م
+    </button>
+    <p class="mt-5 text-xs font-bold tracking-wide text-stone-400">⏳ العرض ساري حتى نفاد الكمية — اطلب اليوم وادفع عند الاستلام</p>
+  </div>
+</section>
+
+<!-- ============ لماذا بريكا؟ ============ -->
+<section id="brikka" class="border-b border-stone-800 bg-coffee-950 py-20">
+  <div class="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 md:px-6 lg:grid-cols-12">
+    <div class="space-y-6 lg:col-span-6">
+      <span class="inline-flex items-center gap-2 rounded-full bg-rv-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-rv-gold">BIALETTI Brikka</span>
+      <h2 class="text-3xl font-black leading-tight text-white sm:text-4xl">كريما أقرب للإسبريسو <span class="text-rv-gold">بدون ماكينة عالية!</span></h2>
+      <p class="text-lg leading-relaxed text-stone-300">
+        الكثير من عشاق القهوة يظنون أن الكريما الغنية تتطلب ماكينات إسبريسو باهظة الثمن. مع خلطة روفينتو المصممة خصيصًا لاستخلاص ممتاز مع وعاء "الموكا بوت بريكا" (Brikka)، ستحصل على فنجان إسبريسو احترافي في مطبخك خلال 3 دقائق فقط.
+      </p>
+
+      <div class="space-y-4 pt-2">
+        <div class="flex items-start gap-4 rounded-xl border border-stone-800 bg-coffee-900/80 p-4">
+          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-rv-gold/20 text-rv-gold"><i class="fa-solid fa-droplet"></i></span>
+          <div><h4 class="text-base font-bold text-white">كريما غنية وقوام مثالي</h4><p class="mt-1 text-sm text-stone-400">طبقة كريما ذهبية كثيفة ومخملية أقرب للإسبريسو الحقيقي.</p></div>
+        </div>
+        <div class="flex items-start gap-4 rounded-xl border border-stone-800 bg-coffee-900/80 p-4">
+          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-rv-gold/20 text-rv-gold"><i class="fa-solid fa-kitchen-set"></i></span>
+          <div><h4 class="text-base font-bold text-white">تعمل على البوتاجاز العادي</h4><p class="mt-1 text-sm text-stone-400">تحضير سريع وسهل على أي موقد غاز أو كهرباء في أقل من 3 دقائق.</p></div>
+        </div>
+        <div class="flex items-start gap-4 rounded-xl border border-stone-800 bg-coffee-900/80 p-4">
+          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-rv-gold/20 text-rv-gold"><i class="fa-solid fa-fire"></i></span>
+          <div><h4 class="text-base font-bold text-white">طعم احترافي في البيت</h4><p class="mt-1 text-sm text-stone-400">إسبريسو فاخر بلا ماكينة بـ 20 ألف جنيه — من مطبخك مباشرة.</p></div>
+        </div>
+      </div>
+
+      <!-- عرض الباندل -->
+      <div class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border-2 border-rv-gold/40 bg-rv-gold/10 p-5">
+        <div>
+          <p class="text-sm font-bold text-rv-gold">عرض Bialetti × ROVENTO</p>
+          <p class="mt-1 text-sm text-stone-300">موكا بوت بريكا الأصلية + كيس بريميم 1 كجم</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-black text-rv-gold">2,999 ج.م</span>
+            <span class="text-sm text-stone-400 line-through">3,999 ج.م</span>
+            <span class="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-black text-white">خصم 25%</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="addToCart('machine-moka')" class="btn-gold inline-flex h-12 items-center gap-2 rounded-xl px-6 text-sm font-black">اكتشف بريكا <i class="fa-solid fa-chevron-left"></i></button>
+          <button onclick="setFilter('machines'); scrollToId('varieties')" class="inline-flex h-12 items-center rounded-xl border border-stone-700 px-5 text-sm font-bold text-stone-300 transition-colors hover:border-rv-gold hover:text-rv-gold">كل الماكينات</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-6">
+      <div class="relative mx-auto w-full max-w-md">
+        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-br from-rv-gold to-amber-900 opacity-40 blur-lg"></div>
+        <div class="relative rounded-3xl border border-stone-800 bg-coffee-900 p-6 text-center shadow-2xl">
+          <img src="__IMG_banner_brika__" alt="موكا بوت Bialetti بريكا الأصلية" loading="lazy" class="mx-auto h-72 w-auto rounded-2xl object-contain shadow-xl md:h-[400px]">
+          <p class="mt-4 text-xs font-bold text-rv-gold">☕ استخلاص حقيقي لقهوة روفينتو مع طبقة كريما كثيفة</p>
+        </div>
+      </div>
+
+      <div class="mt-8 rounded-2xl border border-rv-gold/30 bg-coffee-900/80 p-6">
+        <h3 class="mb-5 text-center text-lg font-black text-white">لماذا بريكا <span class="text-rv-gold">مع روفينتو؟</span></h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="flex flex-col items-center gap-2 rounded-xl border border-stone-800 bg-coffee-950 p-4 text-center"><span class="grid size-10 place-items-center rounded-full bg-rv-gold/15 text-rv-gold"><i class="fa-solid fa-gauge-high"></i></span><span class="text-sm font-bold text-stone-200">استخلاص أفضل</span></div>
+          <div class="flex flex-col items-center gap-2 rounded-xl border border-stone-800 bg-coffee-950 p-4 text-center"><span class="grid size-10 place-items-center rounded-full bg-rv-gold/15 text-rv-gold"><i class="fa-solid fa-droplet"></i></span><span class="text-sm font-bold text-stone-200">كريما أكثر كثافة</span></div>
+          <div class="flex flex-col items-center gap-2 rounded-xl border border-stone-800 bg-coffee-950 p-4 text-center"><span class="grid size-10 place-items-center rounded-full bg-rv-gold/15 text-rv-gold"><i class="fa-solid fa-shield-halved"></i></span><span class="text-sm font-bold text-stone-200">تحكم في الطعم</span></div>
+          <div class="flex flex-col items-center gap-2 rounded-xl border border-stone-800 bg-coffee-950 p-4 text-center"><span class="grid size-10 place-items-center rounded-full bg-rv-gold/15 text-rv-gold"><i class="fa-solid fa-fire"></i></span><span class="text-sm font-bold text-stone-200">متينة تدوم طويلاً</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ الأكثر طلبًا ============ -->
+<section id="bestsellers" class="border-b border-stone-800 bg-coffee-900/60 py-20">
+  <div class="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+    <div class="mx-auto mb-12 max-w-3xl text-center">
+      <span class="text-sm font-bold uppercase tracking-wider text-rv-gold">اختيارات عشاق القهوة</span>
+      <h2 class="mt-2 text-3xl font-black sm:text-4xl">الأكثر طلبًا ومبيعًا <span class="text-rv-red">في مصر</span></h2>
+      <p class="mt-3 text-lg text-stone-300">منتجاتنا الحاصلة على أعلى تقييمات من عملائنا في القاهرة والجيزة والإسكندرية وجميع المحافظات.</p>
+    </div>
+
+    <div class="mb-8 flex flex-wrap justify-center gap-2">
+      <span class="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-xs font-black text-white shadow"><i class="fa-solid fa-fire"></i> الأكثر مبيعًا</span>
+      <span class="inline-flex items-center gap-2 rounded-full bg-rv-gold px-4 py-2 text-xs font-black text-black shadow"><i class="fa-solid fa-star"></i> تقييم 4.9+</span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-rv-gold/40 bg-stone-800 px-4 py-2 text-xs font-black text-rv-gold shadow"><i class="fa-solid fa-trophy"></i> اختيار الباريستا</span>
+    </div>
+
+    <div class="relative">
+      <div id="bestsellers-row" class="flex snap-x gap-4 overflow-x-auto pb-4 md:gap-5 no-scrollbar"></div>
+      <button onclick="scrollRow(-1)" aria-label="السابق" class="absolute start-0 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-rv-gold/40 bg-coffee-950/90 text-rv-gold shadow-lg backdrop-blur transition hover:bg-rv-gold hover:text-black"><i class="fa-solid fa-chevron-right"></i></button>
+      <button onclick="scrollRow(1)" aria-label="التالي" class="absolute end-0 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-rv-gold/40 bg-coffee-950/90 text-rv-gold shadow-lg backdrop-blur transition hover:bg-rv-gold hover:text-black"><i class="fa-solid fa-chevron-left"></i></button>
+    </div>
+
+    <div class="mt-8 text-center">
+      <button onclick="scrollToId('varieties')" class="inline-flex h-12 items-center gap-2 rounded-xl border border-rv-gold/40 px-6 text-sm font-bold text-rv-gold transition-colors hover:bg-rv-gold hover:text-black">عرض كل المنتجات <i class="fa-solid fa-arrow-left"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ خلطتك الخاصة — Blend Lab ============ -->
+<section id="blend-lab" aria-label="خلطتك الخاصة — استوديو خلط القهوة" class="border-b border-white/10 bg-coffee-950">
+  <!-- بانر الخدمة -->
+  <div class="relative overflow-hidden border-b border-white/10 bg-coffee-950">
+    <div class="absolute inset-0 swiss-grid-bg opacity-50"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 75% 65% at 50% -10%, rgba(212,175,55,0.28), transparent 62%);"></div>
+    <!-- حبات عائمة -->
+    <svg viewBox="0 0 48 48" class="absolute -top-4 start-[8%] size-14 opacity-40 animate-float" style="--rot:18deg" aria-hidden="true">
+      <ellipse cx="24" cy="24" rx="15" ry="20" fill="#c9a227"/><ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.5"/><path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    <svg viewBox="0 0 48 48" class="absolute top-10 end-[10%] size-10 opacity-50 animate-float-slow" style="--rot:-14deg" aria-hidden="true">
+      <ellipse cx="24" cy="24" rx="15" ry="20" fill="#4a2c1a"/><ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.5"/><path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    <svg viewBox="0 0 48 48" class="absolute bottom-6 start-[18%] hidden size-8 opacity-30 animate-float md:block" style="--rot:45deg" aria-hidden="true">
+      <ellipse cx="24" cy="24" rx="15" ry="20" fill="#c9a227"/><ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.5"/><path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    <svg viewBox="0 0 48 48" class="absolute bottom-2 end-[24%] hidden size-14 opacity-35 animate-float-slow md:block" style="--rot:22deg" aria-hidden="true">
+      <ellipse cx="24" cy="24" rx="15" ry="20" fill="#4a2c1a"/><ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.5"/><path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-coffee-950 to-transparent"></div>
+
+    <div class="relative mx-auto w-full max-w-[1200px] px-4 py-16 text-center md:py-24">
+      <p class="inline-flex items-center gap-2 rounded-full border border-rv-gold/40 bg-black/40 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.4em] text-rv-gold backdrop-blur-sm"><i class="fa-solid fa-flask"></i> ROVENTO · Blend Lab</p>
+      <h2 class="mx-auto mt-5 max-w-3xl text-3xl font-black leading-tight sm:text-4xl md:text-5xl">خلطتك الخاصة…<span class="gold-gradient-text block">بنسب إنت تحددها</span></h2>
+      <p class="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-stone-300 md:text-base">حدد نسبة الأرابيكا والروبوستا، اختار التحميص والطحن والوزن — واحنا نحمّص طازجًا وندمج ونغلّف خلطتك يدويًا ونتوصّلها لكل محافظات مصر خلال 24-72 ساعة.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <button onclick="scrollToId('blend-studio')" class="btn-gold flex h-12 items-center gap-2 rounded-full px-8 text-sm font-black shadow-lg"><i class="fa-solid fa-bolt"></i> ابدأ الخلط دلوقتي</button>
+        <p class="flex items-center gap-1.5 text-xs text-stone-400"><span class="text-rv-gold">★</span> +500 عميل في مصر · تحميص طازج يوم الطلب</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto w-full max-w-[1200px] px-4 py-16 md:px-6 md:py-20">
+    <!-- الخطوات -->
+    <div class="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+      <div class="relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-4 transition-colors hover:border-rv-gold/40 md:p-5">
+        <div class="flex items-center justify-between"><i class="fa-solid fa-mug-hot text-rv-gold"></i><span class="font-mono text-[10px] tracking-widest text-stone-500">01</span></div>
+        <p class="mt-3 text-sm font-black md:text-base">حدد نسبك</p>
+        <p class="mt-1.5 text-[11px] leading-relaxed text-stone-500 md:text-xs">اسحب المؤشر بين الأرابيكا والروبوستا واختار التحميص والطحن</p>
+      </div>
+      <div class="relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-4 transition-colors hover:border-rv-gold/40 md:p-5">
+        <div class="flex items-center justify-between"><i class="fa-solid fa-bolt text-rv-gold"></i><span class="font-mono text-[10px] tracking-widest text-stone-500">02</span></div>
+        <p class="mt-3 text-sm font-black md:text-base">نحمّصها طازج</p>
+        <p class="mt-1.5 text-[11px] leading-relaxed text-stone-500 md:text-xs">على دفعات صغيرة في نفس يوم التجهيز عشان تحتفظ بالنكهة</p>
+      </div>
+      <div class="relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-4 transition-colors hover:border-rv-gold/40 md:p-5">
+        <div class="flex items-center justify-between"><i class="fa-solid fa-flask text-rv-gold"></i><span class="font-mono text-[10px] tracking-widest text-stone-500">03</span></div>
+        <p class="mt-3 text-sm font-black md:text-base">ندمجها بدقة</p>
+        <p class="mt-1.5 text-[11px] leading-relaxed text-stone-500 md:text-xs">خلط يدوي بالنسب المطلوبة بالضبط — كل كيس موزون ومختوم بتاريخ</p>
+      </div>
+      <div class="relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-4 transition-colors hover:border-rv-gold/40 md:p-5">
+        <div class="flex items-center justify-between"><i class="fa-solid fa-truck text-rv-gold"></i><span class="font-mono text-[10px] tracking-widest text-stone-500">04</span></div>
+        <p class="mt-3 text-sm font-black md:text-base">نوصلها ليك</p>
+        <p class="mt-1.5 text-[11px] leading-relaxed text-stone-500 md:text-xs">تغليف بصمام أحادي الاتجاه + شحن لكل محافظات مصر 24-72 ساعة</p>
+      </div>
+    </div>
+
+    <!-- الاستوديو -->
+    <div id="blend-studio" class="mt-12 grid scroll-mt-28 gap-6 lg:grid-cols-[1fr_400px]">
+      <!-- عمود التحكم -->
+      <div class="rounded-3xl border border-white/10 bg-coffee-900/70 p-5 backdrop-blur-sm md:p-7">
+        <!-- 01 النسب -->
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">01 · النسب</p>
+          <h3 class="mt-1 text-lg font-black md:text-xl">أرابيكا × روبوستا — <span class="text-rv-gold"><span id="bl-a">70</span>/<span id="bl-r">30</span></span></h3>
+
+          <div class="mt-5 grid grid-cols-2 gap-3">
+            <div class="relative flex flex-col items-center gap-2 rounded-xl border border-rv-gold/40 bg-rv-gold/[0.08] p-4 text-center">
+              <div class="grid size-16 place-items-center overflow-hidden rounded-full bg-rv-gold/10">
+                <svg viewBox="0 0 48 48" class="size-11 drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]" aria-hidden="true">
+                  <ellipse cx="24" cy="24" rx="15" ry="20" fill="#c9a227"/><ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.5"/><path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M20 12 C 23 16, 25 20, 27 24" stroke="rgba(0,0,0,0.18)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="font-mono text-2xl font-black leading-none text-rv-gold"><span id="bl-a2">70</span>%</p>
+              <div><p class="text-xs font-bold">أرابيكا</p><p class="mt-0.5 text-[10px] leading-snug text-stone-500">حلاوة، حموضة، نكهات راقية</p></div>
+            </div>
+            <div class="relative flex flex-col items-center gap-2 rounded-xl border border-stone-600/40 bg-stone-800/40 p-4 text-center">
+              <div class="grid size-16 place-items-center overflow-hidden rounded-full bg-black/30">
+                <svg viewBox="0 0 48 48" class="size-11 drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]" aria-hidden="true">
+                  <ellipse cx="24" cy="24" rx="15" ry="20" fill="#4a2c1a"/><ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.5"/><path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M20 12 C 23 16, 25 20, 27 24" stroke="rgba(0,0,0,0.18)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="font-mono text-2xl font-black leading-none text-stone-200"><span id="bl-r2">30</span>%</p>
+              <div><p class="text-xs font-bold">روبوستا</p><p class="mt-0.5 text-[10px] leading-snug text-stone-500">كريما كثيفة، قوة، كافيين</p></div>
+            </div>
+          </div>
+
+          <div class="mt-6" dir="ltr">
+            <input id="bl-range" type="range" min="0" max="100" step="5" value="70" class="blend-range w-full" aria-label="نسبة الأرابيكا في الخلطة">
+            <div class="mt-2 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-stone-400">روبوستا</span>
+              <span class="font-mono text-[10px] tracking-widest text-stone-500">0% ← أرابيكا → 100%</span>
+              <span class="text-rv-gold">أرابيكا</span>
+            </div>
+          </div>
+
+          <!-- وصفات جاهزة -->
+          <div class="mt-4 flex flex-wrap gap-2" id="bl-presets">
+            <button type="button" onclick="setArabica(70)" class="preset-chip flex items-center gap-1.5 rounded-full border border-rv-gold bg-rv-gold/15 px-3.5 py-2 text-xs font-bold text-rv-gold shadow-[0_0_18px_rgba(212,175,55,0.2)]"><i class="fa-solid fa-wand-magic-sparkles text-rv-gold"></i> بريميم 70/30</button>
+            <button type="button" onclick="setArabica(50)" class="preset-chip flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-bold text-stone-300 transition-all hover:border-rv-gold/50">كلاسيك 50/50</button>
+            <button type="button" onclick="setArabica(30)" class="preset-chip flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-bold text-stone-300 transition-all hover:border-rv-gold/50">إنتنسو 30/70</button>
+            <button type="button" onclick="setArabica(100)" class="preset-chip flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-bold text-stone-300 transition-all hover:border-rv-gold/50">أرابيكا 100%</button>
+          </div>
+        </div>
+
+        <!-- 02 التحميص -->
+        <div class="mt-8 border-t border-white/5 pt-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">02 · التحميص</p>
+          <div class="mt-3 grid grid-cols-3 gap-2">
+            <button type="button" onclick="setRoast('light')" class="roast-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-sm font-black">فاتح</span><span class="mt-1 block text-[10px] leading-snug text-stone-500">حموضة مشرقة ونكهات زهرية</span></button>
+            <button type="button" onclick="setRoast('medium')" class="roast-chip rounded-xl border border-rv-gold bg-rv-gold/15 p-3 text-center text-rv-gold transition-all"><span class="block text-sm font-black">متوسط</span><span class="mt-1 block text-[10px] leading-snug text-stone-500">التوازن المثالي بين الطعم والكريما</span></button>
+            <button type="button" onclick="setRoast('dark')" class="roast-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-sm font-black">غامق</span><span class="mt-1 block text-[10px] leading-snug text-stone-500">كاكاو وجسم قوي</span></button>
+          </div>
+        </div>
+
+        <!-- 03 الطحن -->
+        <div class="mt-8 border-t border-white/5 pt-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">03 · الطحن</p>
+          <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <button type="button" onclick="setGrind('whole')" class="grind-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-xs font-black">حبوب كاملة</span><span class="mt-1 block text-[10px] text-stone-500">للمطحنة المنزلية</span></button>
+            <button type="button" onclick="setGrind('espresso')" class="grind-chip rounded-xl border border-rv-gold bg-rv-gold/15 p-3 text-center text-rv-gold transition-all"><span class="block text-xs font-black">مطحون إسبريسو</span><span class="mt-1 block text-[10px] text-stone-500">ناعم للماكينات</span></button>
+            <button type="button" onclick="setGrind('filter')" class="grind-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-xs font-black">مطحون V60 / فلتر</span><span class="mt-1 block text-[10px] text-stone-500">متوسط الخشونة</span></button>
+            <button type="button" onclick="setGrind('turkish')" class="grind-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-xs font-black">مطحون تركي</span><span class="mt-1 block text-[10px] text-stone-500">ناعم جدًا</span></button>
+          </div>
+        </div>
+
+        <!-- 04 الوزن -->
+        <div class="mt-8 border-t border-white/5 pt-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">04 · الوزن</p>
+          <div class="mt-3 grid grid-cols-3 gap-2">
+            <button type="button" onclick="setWeight('250g')" class="weight-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-sm font-black">250 جم</span><span class="mt-1 block font-mono text-[11px] font-bold text-stone-500" data-w="250g"></span></button>
+            <button type="button" onclick="setWeight('500g')" class="weight-chip rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center text-stone-300 transition-all hover:border-white/25"><span class="block text-sm font-black">500 جم</span><span class="mt-1 block font-mono text-[11px] font-bold text-stone-500" data-w="500g"></span></button>
+            <button type="button" onclick="setWeight('1kg')" class="weight-chip rounded-xl border border-rv-gold bg-rv-gold/15 p-3 text-center text-rv-gold transition-all"><span class="block text-sm font-black">1 كجم</span><span class="mt-1 block font-mono text-[11px] font-bold text-stone-500" data-w="1kg"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- عمود المعاينة -->
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <div class="overflow-hidden rounded-3xl border border-rv-gold/25 bg-gradient-to-b from-coffee-800/80 to-coffee-950 shadow-[0_0_50px_rgba(212,175,55,0.08)]">
+          <div class="flex items-center justify-between border-b border-white/10 px-5 py-4">
+            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">خلطتك الحية</p>
+            <span class="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold text-emerald-400"><span class="size-1.5 animate-pulse rounded-full bg-emerald-400"></span> جاهزة للطلب</span>
+          </div>
+
+          <div class="p-5 md:p-6">
+            <!-- قرص النسب -->
+            <div id="bl-disc" class="mx-auto grid size-44 place-items-center rounded-full transition-all duration-500 md:size-52" style="background: conic-gradient(#c9a227 0deg 252deg, #4a2c1a 252deg 360deg); box-shadow: 0 0 45px rgba(212,175,55,0.18);">
+              <div class="grid size-32 place-items-center rounded-full border border-white/15 bg-coffee-950/90 text-center md:size-40">
+                <div>
+                  <p class="font-mono text-3xl font-black text-rv-gold"><span id="bl-disc-a">70</span>/<span id="bl-disc-r">30</span></p>
+                  <p class="mt-1 font-mono text-[9px] uppercase tracking-[0.3em] text-stone-400">أرابيكا/روبوستا</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ملف النكهة -->
+            <div class="mt-6 space-y-3" id="bl-profile"></div>
+
+            <!-- شدة القهوة -->
+            <div class="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-4 py-3">
+              <span class="text-xs font-bold">شدة القهوة</span>
+              <div class="flex gap-1.5" id="bl-intensity"></div>
+            </div>
+
+            <!-- توقعات النكهة -->
+            <p class="mt-5 rounded-xl border border-rv-gold/15 bg-rv-gold/[0.06] p-3.5 text-xs leading-relaxed text-stone-200">
+              <span class="font-black text-rv-gold">توقعات الكوب: </span><span id="bl-notes"></span>
+            </p>
+
+            <p id="bl-preset-note" class="mt-3 flex items-center gap-1.5 text-[11px] text-stone-400">
+              <i class="fa-solid fa-wand-magic-sparkles text-rv-gold"></i> نسبك مطابقة لـ <span class="font-bold text-rv-gold">بريميم 70/30</span> الجاهز في المتجر
+            </p>
+
+            <!-- السعر -->
+            <div class="mt-6 border-t border-white/10 pt-5">
+              <div class="flex items-end justify-between">
+                <div>
+                  <p class="text-[11px] text-stone-500">سعر <span id="bl-weight-label">1 كجم</span></p>
+                  <p class="mt-0.5 text-3xl font-black text-rv-gold" id="bl-price">1,120 ج.م</p>
+                  <p class="mt-1 text-[11px]">
+                    <span class="text-stone-500 line-through" id="bl-oldprice">1,320 ج.م</span>
+                    <span class="ms-2 rounded bg-red-600/20 px-1.5 py-0.5 font-bold text-red-400">خصم أول طلب 15%</span>
+                  </p>
+                </div>
+                <p class="pb-1 font-mono text-[10px] text-stone-500" id="bl-kgprice">1,120 ج.م / كجم</p>
+              </div>
+
+              <button type="button" onclick="addBlendToCart()" class="btn-gold mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-black">
+                <i class="fa-solid fa-cart-shopping"></i>
+                ضيف خلطتك للسلة
+              </button>
+
+              <a id="bl-wa" href="#" target="_blank" rel="noopener noreferrer" class="mt-2.5 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/40 text-sm font-bold text-emerald-400 transition-colors hover:bg-emerald-500/10">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                اطلبها عبر واتساب
+              </a>
+
+              <p class="mt-3 text-center text-[10px] leading-relaxed text-stone-500">تحميص طازج يوم الطلب · تغليف بصمام أحادي · شحن لكل محافظات مصر</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ أصناف أخرى ============ -->
+<section id="varieties" class="border-b border-white/10 py-20 md:py-28">
+  <div class="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+    <div class="mx-auto mb-10 max-w-3xl text-center">
+      <h2 class="text-2xl font-black sm:text-3xl">اكتشف <span class="text-rv-red">المزيد</span></h2>
+      <p class="mt-2 text-sm text-stone-400">القهوة المطحونة، أدوات التحضير، الماكينات والإكسسوارات — كل ما يكمّل تجربتك مع روفينتو</p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-4" id="variety-filters">
+      <button onclick="setFilter('all')" class="v-filter rounded-full px-5 py-2.5 text-sm font-bold shadow btn-gold" data-filter="all">الكل</button>
+      <button onclick="setFilter('beans')" class="v-filter rounded-full bg-stone-800 px-5 py-2.5 text-sm font-bold text-stone-200 shadow transition hover:bg-stone-700" data-filter="beans">حبوب القهوة</button>
+      <button onclick="setFilter('espresso')" class="v-filter rounded-full bg-stone-800 px-5 py-2.5 text-sm font-bold text-stone-200 shadow transition hover:bg-stone-700" data-filter="espresso">حبوب الإسبريسو</button>
+      <button onclick="setFilter('capsules')" class="v-filter rounded-full bg-stone-800 px-5 py-2.5 text-sm font-bold text-stone-200 shadow transition hover:bg-stone-700" data-filter="capsules">كبسولات</button>
+      <button onclick="setFilter('machines')" class="v-filter rounded-full bg-stone-800 px-5 py-2.5 text-sm font-bold text-stone-200 shadow transition hover:bg-stone-700" data-filter="machines">ماكينات القهوة</button>
+      <button onclick="setFilter('accessories')" class="v-filter rounded-full bg-stone-800 px-5 py-2.5 text-sm font-bold text-stone-200 shadow transition hover:bg-stone-700" data-filter="accessories">إكسسوارات وأدوات</button>
+    </div>
+
+    <div id="varieties-grid" class="mt-10 grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4"></div>
+    <p id="varieties-empty" class="mt-8 hidden text-center text-sm text-stone-500">مفيش منتجات في الفئة دي هنا — كل المنتجات متاحة في المتجر.</p>
+  </div>
+</section>
+
+<!-- ============ لماذا روفينتو ============ -->
+<section id="why-rovento" class="border-b border-stone-800 bg-coffee-900/40 py-20">
+  <div class="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <span class="text-sm font-bold uppercase tracking-wider text-rv-gold">جودة نثق بها وتليق بك</span>
+      <h2 class="mt-2 text-3xl font-black sm:text-4xl">لماذا يختار عشاق القهوة في مصر <span class="text-rv-red">روفينتو؟</span></h2>
+      <p class="mt-3 text-lg text-stone-300">صممنا تجربتنا بالكامل لنحل أكبر المشاكل التي تواجه محبي القهوة مع العلامات التجارية المستوردة والمحمصات المحلية.</p>
+    </div>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50">
+        <div class="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl"><i class="fa-solid fa-fire text-rv-gold"></i></div>
+        <h3 class="text-xl font-bold text-white">تحميص طازج</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-400">نحمص القهوة في القاهرة على دفعات صغيرة ومدروسة للحفاظ على النكهة العطرية والطزاجة القصوى قبل وصولها إليك مباشرة.</p>
+      </div>
+      <div class="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50">
+        <div class="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl"><i class="fa-solid fa-seedling text-rv-gold"></i></div>
+        <h3 class="text-xl font-bold text-white">حبوب مختارة بعناية</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-400">مزج مدروس بعناية من أجود حبوب الأرابيكا والروبوستا العالمية لضمان القوام الغني والكريما الذهبية بدون مرارة مزعجة.</p>
+      </div>
+      <div class="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50">
+        <div class="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl"><i class="fa-solid fa-box text-rv-gold"></i></div>
+        <h3 class="text-xl font-bold text-white">تغليف احترافي</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-400">عبوات فاخرة مزودة بصمام أحادي الاتجاه (One-way Valve) لتفريغ الغازات وحفظ الزيوت العطرية من الأكسدة والرطوبة.</p>
+      </div>
+      <div class="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50">
+        <div class="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl"><i class="fa-solid fa-headset text-rv-gold"></i></div>
+        <h3 class="text-xl font-bold text-white">دعم حقيقي واستشارة</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-400">فريقنا متاح عبر واتساب المباشر لمساعدتك في ترشيح نوع القهوة والطحنة المناسبة لأدواتك — موكا بوت أو إسبريسو أو فلتر.</p>
+      </div>
+      <div class="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50">
+        <div class="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl"><i class="fa-solid fa-truck text-rv-gold"></i></div>
+        <h3 class="text-xl font-bold text-white">شحن سريع داخل مصر</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-400">توصيل سريع ومضمون خلال 24 إلى 72 ساعة للقاهرة والجيزة والإسكندرية وكافة المحافظات بالتعاون مع أفضل شركات الشحن.</p>
+      </div>
+      <div class="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50">
+        <div class="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl"><i class="fa-solid fa-rotate-left text-rv-gold"></i></div>
+        <h3 class="text-xl font-bold text-white">استرجاع سهل وضمان</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-400">ضمان ذهبي حقيقي: في حالة وجود أي مشكلة بالمنتج أو عدم رضاك، نضمن لك استبدال أو استرجاع فوري بدون تعقيد.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ آراء العملاء ============ -->
+<section id="reviews" class="relative overflow-hidden border-b border-stone-800 bg-coffee-950 py-20">
+  <div class="relative z-10 mx-auto w-full max-w-[1200px] px-4 md:px-6">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <span class="text-sm font-bold uppercase tracking-wider text-rv-gold">تجارب حقيقية من السوق المصري</span>
+      <h2 class="mt-2 text-3xl font-black sm:text-4xl">ماذا يقول <span class="text-rv-red">عملاؤنا؟</span></h2>
+      <p class="mt-3 text-lg text-stone-300">العميل المصري يثق في تجارب الناس الحقيقية أكثر من الإعلانات.. إليك ما يقوله عملاؤنا بعد تجربة روفينتو.</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-3">
+      <div class="relative rounded-2xl border border-stone-800 bg-coffee-900 p-6 shadow-xl">
+        <div class="mb-4 flex items-center gap-1 text-rv-gold"><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><span class="ms-auto text-xs text-stone-400">منذ 3 أيام</span></div>
+        <p class="mb-6 text-base leading-relaxed text-stone-200">"طعم ناعم ومتوازن، ومفيش مرارة نهائي. الكريما أحسن من معظم القهوة المستوردة اللي جربتها قبل كدة!"</p>
+        <div class="flex items-center gap-3 border-t border-stone-800 pt-4">
+          <span class="grid size-10 place-items-center rounded-full bg-pink-500/20 font-black text-pink-400">م</span>
+          <div><h4 class="text-sm font-bold text-white">مريم من الجيزة</h4><p class="text-xs text-stone-400">عميل موثوق</p></div>
+          <span class="ms-auto flex items-center gap-1 rounded bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400"><i class="fa-solid fa-circle-check"></i> مشتري موثق</span>
+        </div>
+        <div class="mt-3 flex items-center gap-3">
+          <span class="grid h-12 w-10 shrink-0 place-items-center rounded-lg border border-stone-800 bg-stone-950 overflow-hidden"><img src="__IMG_bag_premium__" alt="خلطة روفينتو إسبريسو" class="h-10 w-auto"></span>
+          <p class="text-[11px] font-bold tracking-wide text-rv-gold">اشترى: خلطة روفينتو إسبريسو</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-2xl border border-stone-800 bg-coffee-900 p-6 shadow-xl">
+        <div class="mb-4 flex items-center gap-1 text-rv-gold"><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><span class="ms-auto text-xs text-stone-400">منذ أسبوع</span></div>
+        <p class="mb-6 text-base leading-relaxed text-stone-200">"البريكا مع حبوب بريميوم طعمها عبقري! زي ما تكون قهوة مختصة من كافيهات القاهرة، وأنا في بيتي في سموحة."</p>
+        <div class="flex items-center gap-3 border-t border-stone-800 pt-4">
+          <span class="grid size-10 place-items-center rounded-full bg-blue-500/20 font-black text-blue-400">أ</span>
+          <div><h4 class="text-sm font-bold text-white">أحمد من الإسكندرية</h4><p class="text-xs text-stone-400">عميل موثوق</p></div>
+          <span class="ms-auto flex items-center gap-1 rounded bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400"><i class="fa-solid fa-circle-check"></i> مشتري موثق</span>
+        </div>
+        <div class="mt-3 flex items-center gap-3">
+          <span class="grid h-12 w-10 shrink-0 place-items-center rounded-lg border border-stone-800 bg-stone-950 overflow-hidden"><img src="__IMG_bag_premium__" alt="خلطة روفينتو إسبريسو" class="h-10 w-auto"></span>
+          <p class="text-[11px] font-bold tracking-wide text-rv-gold">اشترى: خلطة روفينتو إسبريسو</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-2xl border border-stone-800 bg-coffee-900 p-6 shadow-xl">
+        <div class="mb-4 flex items-center gap-1 text-rv-gold"><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><i class="fa-solid fa-star text-[13px]"></i><span class="ms-auto text-xs text-stone-400">منذ أسبوعين</span></div>
+        <p class="mb-6 text-base leading-relaxed text-stone-200">"أفضل كريما جربتها في البيت. عمرى ما هغيّر القهوة عندي — التحميص طازج والتوصيل وصلني تاني يوم."</p>
+        <div class="flex items-center gap-3 border-t border-stone-800 pt-4">
+          <span class="grid size-10 place-items-center rounded-full bg-purple-500/20 font-black text-purple-400">م</span>
+          <div><h4 class="text-sm font-bold text-white">محمد من القاهرة</h4><p class="text-xs text-stone-400">عميل موثوق</p></div>
+          <span class="ms-auto flex items-center gap-1 rounded bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400"><i class="fa-solid fa-circle-check"></i> مشتري موثق</span>
+        </div>
+        <div class="mt-3 flex items-center gap-3">
+          <span class="grid h-12 w-10 shrink-0 place-items-center rounded-lg border border-stone-800 bg-stone-950 overflow-hidden"><img src="__IMG_bag_classic__" alt="خلطة روفينتو إسبريسو" class="h-10 w-auto"></span>
+          <p class="text-[11px] font-bold tracking-wide text-rv-gold">اشترى: خلطة روفينتو إسبريسو</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ شريط الثقة ============ -->
+<section class="border-b border-stone-800 bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 py-10">
+  <div class="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-6 px-4 text-center md:grid-cols-4 md:px-6">
+    <div class="p-2"><span class="block text-2xl font-black text-rv-gold sm:text-3xl">4.9 / 5</span><span class="mt-1 block text-xs font-bold text-stone-300 sm:text-sm">تقييم العملاء</span></div>
+    <div class="p-2"><span class="block text-2xl font-black text-rv-gold sm:text-3xl">شحن لكل المحافظات</span><span class="mt-1 block text-xs font-bold text-stone-300 sm:text-sm">خدمة سريعة وموثوقة</span></div>
+    <div class="p-2"><span class="block text-2xl font-black text-rv-gold sm:text-3xl">+5000 عميل سعيد</span><span class="mt-1 block text-xs font-bold text-stone-300 sm:text-sm">تجربة موثوقة</span></div>
+    <div class="p-2"><span class="block text-2xl font-black text-rv-gold sm:text-3xl">دفع آمن 100%</span><span class="mt-1 block text-xs font-bold text-stone-300 sm:text-sm">بياناتك محمية</span></div>
+  </div>
+</section>
+
+<!-- ============ الفوتر ============ -->
+<footer class="border-t border-stone-800 bg-coffee-950 pb-12 pt-16 text-sm text-stone-400">
+  <div class="mx-auto grid w-full max-w-[1200px] gap-10 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-4">
+    <!-- العلامة -->
+    <div class="space-y-4">
+      <span class="flex items-center gap-3">
+        <span class="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f6d365] to-[#997a15] shadow-lg"><span class="font-display text-2xl font-black leading-none text-black">R</span></span>
+        <span class="leading-none">
+          <span class="gold-gradient-text block font-display text-xl font-black tracking-[0.2em]">ROVENTO</span>
+          <span class="mt-1 block text-[10px] font-bold uppercase tracking-[0.24em] text-rv-gold">Coffee • Cairo • Egypt</span>
+        </span>
+      </span>
+      <p class="text-xs leading-relaxed text-stone-400">عصارة قهوة خالصة لتجربة فريدة — علامة مصرية رائدة في تحميص وإنتاج قهوة الإسبريسو الفاخرة بأعلى معايير الجودة العالمية في قلب القاهرة.</p>
+      <div class="space-y-2 text-xs">
+        <p class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-rv-gold"></i> القاهرة، مصر</p>
+        <p class="flex items-center gap-2"><i class="fa-solid fa-phone text-rv-gold"></i> <span dir="ltr">+20 100 000 0000</span></p>
+      </div>
+      <div class="flex items-center gap-2 pt-1">
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="grid size-9 place-items-center rounded-full border border-stone-800 bg-coffee-900 text-stone-300 transition hover:border-rv-gold hover:text-rv-gold"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="grid size-9 place-items-center rounded-full border border-stone-800 bg-coffee-900 text-stone-300 transition hover:border-rv-gold hover:text-rv-gold"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="grid size-9 place-items-center rounded-full border border-stone-800 bg-coffee-900 text-stone-300 transition hover:border-rv-gold hover:text-rv-gold"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+    <!-- النشرة البريدية -->
+    <div>
+      <h4 class="mb-1 font-bold text-white">اشترك في نشرتنا البريدية</h4>
+      <p class="text-xs text-stone-400">احصل على عروض وخصومات حصرية + كود خصم أول طلب.</p>
+      <form onsubmit="newsletterSubmit(event)" class="mt-4">
+        <div id="newsletter-form" class="flex gap-2">
+          <input type="email" required placeholder="اكتب بريدك الإلكتروني" dir="ltr" class="h-11 min-w-0 flex-1 rounded-xl border border-stone-800 bg-coffee-900 px-3 text-sm text-stone-200 placeholder:text-stone-500 focus:border-rv-gold focus:outline-none">
+          <button type="submit" class="h-11 shrink-0 rounded-xl bg-rv-red px-4 text-sm font-black text-white transition hover:brightness-110">اشترك الآن</button>
+        </div>
+        <p id="newsletter-done" class="hidden items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-bold text-emerald-400"><i class="fa-solid fa-check"></i> تم الاشتراك! كوبون خصمك في الطريق 🎉</p>
+      </form>
+      <div class="mt-4">
+        <h5 class="mb-2 text-xs font-bold text-white">خدمة العملاء</h5>
+        <ul class="space-y-1.5 text-xs">
+          <li><a href="https://wa.me/201000000000" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-rv-gold">تواصل معنا عبر واتساب</a></li>
+          <li class="text-stone-500">متاحون يوميًا ٩ صباحًا — ١١ مساءً</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- روابط سريعة -->
+    <div>
+      <h4 class="mb-4 font-bold text-white">روابط سريعة</h4>
+      <ul class="space-y-2 text-xs">
+        <li><a href="#hero" class="nav-link transition-colors hover:text-rv-gold">الرئيسية</a></li>
+        <li><a href="#featured" class="nav-link transition-colors hover:text-rv-gold">خلطات روفينتو</a></li>
+        <li><a href="#deal" class="nav-link transition-colors hover:text-rv-gold">عرض الأسبوع</a></li>
+        <li><a href="#brikka" class="nav-link transition-colors hover:text-rv-gold">لماذا بريكا؟</a></li>
+        <li><a href="#reviews" class="nav-link transition-colors hover:text-rv-gold">تجارب العملاء</a></li>
+      </ul>
+    </div>
+
+    <!-- الدفع والشحن -->
+    <div class="space-y-6">
+      <div>
+        <h4 class="mb-4 font-bold text-white">وسائل الدفع المتاحة في مصر</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-stone-200">Visa</span>
+          <span class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-stone-200">Mastercard</span>
+          <span class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-rv-gold">ميزة (Meeza)</span>
+          <span class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-red-400">فودافون كاش</span>
+          <span class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-purple-400">Instapay</span>
+          <span class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-emerald-400">الدفع عند الاستلام (COD)</span>
+        </div>
+      </div>
+      <div>
+        <h4 class="mb-4 font-bold text-white">شركاء الشحن في مصر</h4>
+        <div class="flex flex-wrap gap-2">
+          <span dir="ltr" class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-red-500">Aramex</span>
+          <span dir="ltr" class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-blue-400">Bosta (بوسطة)</span>
+          <span dir="ltr" class="rounded-lg border border-stone-800 bg-coffee-900 px-3 py-1.5 text-xs font-bold text-amber-500">Mylerz (مايلرز)</span>
+        </div>
+        <p class="mt-4 text-xs text-stone-500">شحن مؤمن ومغلف بعناية لجميع أنحاء مصر خلال 24-72 ساعة.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط واتساب -->
+  <div class="mx-auto mt-10 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-stone-800 px-4 pt-8 md:px-6">
+    <div class="flex items-center gap-3">
+      <span class="grid size-10 place-items-center rounded-full bg-emerald-500 text-white"><i class="fa-brands fa-whatsapp text-lg"></i></span>
+      <div>
+        <p class="font-bold text-white">اطلب مباشرة عبر واتساب</p>
+        <p class="text-xs text-stone-400">رد سريع من ٩ صباحًا حتى ١١ مساءً</p>
+      </div>
+    </div>
+    <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20ROVENTO%20%F0%9F%91%8B%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%B7%D9%84%D8%A8%20%D8%A7%D9%84%D8%A2%D9%86." target="_blank" rel="noopener noreferrer" class="inline-flex h-11 items-center gap-2 rounded-xl bg-emerald-500 px-6 text-sm font-black text-white transition hover:bg-emerald-600"><i class="fa-solid fa-message"></i> راسلنا الآن</a>
+  </div>
+
+  <div class="mx-auto mt-8 w-full max-w-[1200px] border-t border-stone-900 px-4 pt-8 text-center text-xs text-stone-500 md:px-6">
+    <p>جميع الحقوق محفوظة © 2024 روفينتو للقهوة • صنع بكل فخر في مصر 🇪🇬</p>
+  </div>
+</footer>
+
+<!-- ============ سلة التسوق ============ -->
+<div id="cart-overlay" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeCartDrawer()"></div>
+  <div class="absolute inset-y-0 left-0 flex w-[92%] max-w-md flex-col border-e border-white/10 bg-coffee-900 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-white/10 px-5 py-4">
+      <span class="flex items-center gap-2 text-lg font-bold"><i class="fa-solid fa-bag-shopping text-rv-gold"></i> سلة التسوق</span>
+      <span id="cart-count-label" class="rounded-full bg-rv-gold/15 px-2.5 py-1 font-mono text-xs font-bold tracking-widest text-rv-gold">0 منتج</span>
+    </div>
+
+    <div id="cart-empty" class="flex flex-1 flex-col items-center justify-center gap-4 px-8 text-center">
+      <img src="__IMG_bag_hero__" alt="ROVENTO Premium Blend" class="h-44 w-auto rounded-xl opacity-60 object-contain">
+      <p class="text-lg font-semibold">سلتك فارغة</p>
+      <p class="text-sm text-stone-500">ابدأ رحلتك مع قهوة مختصة تُحمَّص طازجة في مصر.</p>
+      <button onclick="closeCartDrawer(); scrollToId('bestsellers')" class="btn-gold h-11 rounded-xl px-6 text-sm font-black">تصفح المتجر</button>
+    </div>
+
+    <div id="cart-filled" class="hidden flex-1 flex-col overflow-hidden">
+      <div id="cart-items" class="flex-1 overflow-y-auto px-5"></div>
+      <div class="border-t border-white/10 px-5 py-4">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-stone-500">الإجمالي</span>
+          <span id="cart-subtotal" class="text-xl font-black text-rv-gold">0 ج.م</span>
+        </div>
+        <p class="mt-1 text-[11px] leading-relaxed text-stone-500">الدفع عند الاستلام أو فودافون كاش / إنستاباي · الشحن لكل مصر</p>
+        <button onclick="orderWhatsApp()" class="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25d366] font-black text-white transition hover:bg-[#1fbd5b]"><i class="fa-brands fa-whatsapp text-lg"></i> أكمل الطلب عبر واتساب</button>
+        <button onclick="closeCartDrawer()" class="mt-2 w-full py-2 text-sm text-stone-500 transition-colors hover:text-stone-200">متابعة التسوق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ واتساب عائم ============ -->
+<div class="fixed bottom-6 left-6 z-40 flex items-center gap-3">
+  <div class="hidden rounded-2xl border border-emerald-500/50 bg-stone-900 px-4 py-2 text-xs font-bold text-stone-200 shadow-xl sm:block">
+    محتاج ترشيح نوع القهوة المناسب ليك؟<br>
+    <span class="text-emerald-400">تواصل معنا الآن على واتساب!</span>
+  </div>
+  <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20ROVENTO%20%F0%9F%91%8B%20%D9%85%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AA%D8%B1%D8%B4%D9%8A%D8%AD%20%D9%86%D9%88%D8%B9%20%D8%A7%D9%84%D9%82%D9%87%D9%88%D8%A9%20%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%20%D9%84%D9%8A%D8%A7.%20%D8%AA%D9%82%D8%AF%D8%B1%20%D8%AA%D8%B3%D8%A7%D8%B9%D8%AF%D9%86%D9%8A%D8%9F" target="_blank" rel="noopener noreferrer" aria-label="اطلب عبر واتساب" class="animate-pulse-wa grid size-14 place-items-center rounded-full bg-emerald-500 text-white shadow-2xl transition duration-300 hover:scale-110 hover:bg-emerald-600"><i class="fa-brands fa-whatsapp text-3xl"></i></a>
+</div>
+
+<!-- ============ بوب أب الهدية ============ -->
+<div id="promo-popup" class="fixed inset-0 z-[70] hidden grid place-items-center bg-black/80 p-4 backdrop-blur-sm">
+  <div class="relative w-full max-w-md rounded-3xl border-2 border-rv-gold bg-coffee-900 p-6 text-center shadow-2xl sm:p-8">
+    <button onclick="closePromo()" class="absolute left-4 top-4 text-stone-400 transition-colors hover:text-white" aria-label="إغلاق"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <div class="mx-auto mb-4 grid size-16 place-items-center rounded-full bg-rv-gold/20 text-3xl">🎁</div>
+    <h3 class="text-2xl font-black text-white">هدية خاصة لعملاء <span class="text-rv-gold">روفينتو</span>!</h3>
+    <p class="mb-6 mt-2 text-sm text-stone-300">استخدم كوبون الخصم التالي واحصل على <span class="font-bold text-rv-gold">خصم 10% فوري</span> على أي طلب اليوم:</p>
+    <div class="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-rv-gold/40 bg-black p-4">
+      <span dir="ltr" class="font-mono text-xl font-black tracking-wider text-rv-gold">ROVENTO10</span>
+      <button onclick="copyCode('ROVENTO10', this)" class="btn-gold inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold"><i class="fa-regular fa-copy"></i> نسخ الكود</button>
+    </div>
+    <button onclick="closePromo(); scrollToId('bestsellers')" class="btn-gold flex h-12 w-full items-center justify-center rounded-xl text-base font-black">استخدم الكود واطلب الآن</button>
+    <button onclick="closePromo()" class="mt-3 w-full py-2 text-xs font-bold text-stone-400 transition-colors hover:text-white">لسه بفكر — مش دلوقتي</button>
+  </div>
+</div>
+
+<!-- توست -->
+<div id="toast" class="fixed bottom-24 left-1/2 z-[80] hidden -translate-x-1/2 items-center gap-2 rounded-full border border-rv-gold/40 bg-stone-900 px-5 py-3 text-sm font-bold text-rv-gold shadow-2xl"></div>
+
+<script>
+/* ================= بيانات المنتجات ================= */
+const WHATSAPP_NUMBER = "201000000000";
+const fmt = n => n.toLocaleString("en-US") + " ج.م";
+const round5 = n => Math.round(n/5)*5;
+const round10 = n => Math.round(n/10)*10;
+const kgPrice = a => round5(700 + a*6);
+
+const CATS = [
+  { id:"beans", name:"حبوب القهوة" },
+  { id:"espresso", name:"حبوب الإسبريسو" },
+  { id:"capsules", name:"كبسولات" },
+  { id:"machines", name:"ماكينات القهوة" },
+  { id:"accessories", name:"إكسسوارات وأدوات" },
+];
+
+const PRODUCTS = [
+  { slug:"rovento-premium", name:"ROVENTO بريميم بليند — حبوب إسبريسو 70% أرابيكا", nameEn:"ROVENTO Premium Blend", cat:"beans", price:1200, weight:"1 كجم", rating:4.9, reviews:214, accent:"#c9a227", img:"__IMG_bag_premium__", badge:"الأكثر مبيعًا", bestseller:true,
+    variants:[{id:"1kg",label:"1 كجم",price:1200},{id:"ground",label:"مطحون إسبريسو — 1 كجم",price:1200}] },
+  { slug:"rovento-intenso", name:"ROVENTO إنتنسو بليند — حبوب إسبريسو", nameEn:"ROVENTO Intenso Blend", cat:"espresso", price:310, oldPrice:375, weight:"250 جم", rating:4.8, reviews:168, accent:"#d03b1e", img:"__IMG_bag_intenso__", badge:"إسبريسو قوي", bestseller:true,
+    variants:[{id:"250g",label:"250 جم",price:310,oldPrice:375},{id:"1kg",label:"1 كجم",price:1180}] },
+  { slug:"rovento-classic", name:"ROVENTO كلاسيك بليند — حبوب إسبريسو 50% أرابيكا", nameEn:"ROVENTO Classic Blend", cat:"beans", price:690, weight:"1 كجم", rating:4.7, reviews:142, accent:"#002fa7", img:"__IMG_bag_classic__", bestseller:true,
+    variants:[{id:"1kg",label:"1 كجم",price:690},{id:"ground",label:"مطحون — 1 كجم",price:690}] },
+  { slug:"rovento-innovation", name:"ROVENTO إنوفيشن بليند — أصل إثيوبي 500 جم", nameEn:"ROVENTO Innovation Blend", cat:"beans", price:420, oldPrice:480, weight:"500 جم", rating:4.8, reviews:38, accent:"#0d9488", badge:"أصل واحد", isNew:true },
+  { slug:"rovento-capsules", name:"كبسولات ROVENTO — علبة 10", nameEn:"ROVENTO Capsules x10", cat:"capsules", price:260, oldPrice:300, weight:"10 كبسولة", rating:4.6, reviews:54, accent:"#d03b1e", badge:"خصم ١٣٪", isNew:true },
+  { slug:"machine-espresso", name:"ماكينة إسبريسو منزلية ١٥ بار", nameEn:"Espresso Machine 15 bar", cat:"machines", price:18900, oldPrice:21500, weight:"ضمان سنتين", rating:4.8, reviews:39, accent:"#c9a227", badge:"عرض خاص" },
+  { slug:"grinder-hand", name:"مطحنة يدوية سيراميك", nameEn:"Hand Grinder", cat:"accessories", price:1450, weight:"معدنية", rating:4.7, reviews:88, accent:"#002fa7" },
+  { slug:"grinder-electric", name:"مطحنة كهربائية باريستا", nameEn:"Electric Grinder", cat:"accessories", price:3200, oldPrice:3700, weight:"ضمان سنة", rating:4.6, reviews:47, accent:"#c9a227", badge:"خصم ١٤٪", bestseller:true },
+  { slug:"v60-kit", name:"طقم V60 كامل", nameEn:"V60 Kit", cat:"accessories", price:650, weight:"فلاتر + إبريق", rating:4.8, reviews:112, accent:"#002fa7", bestseller:true },
+  { slug:"french-press", name:"فرنش بريس ٦٠٠ مل", nameEn:"French Press 600ml", cat:"accessories", price:450, weight:"زجاج مقاوم", rating:4.6, reviews:65, accent:"#d03b1e" },
+  { slug:"gooseneck-kettle", name:"غلاية غوزنيك كهربائية", nameEn:"Gooseneck Kettle", cat:"accessories", price:1350, weight:"١ لتر", rating:4.7, reviews:58, accent:"#c9a227" },
+  { slug:"barista-scale", name:"ميزان باريستا رقمي", nameEn:"Barista Scale", cat:"accessories", price:850, weight:"دقة ٠.١ جم", rating:4.8, reviews:92, accent:"#002fa7" },
+  { slug:"cups-set", name:"طقم أكواب إسبريسو — قطعتان", nameEn:"Espresso Cup Set", cat:"accessories", price:380, weight:"سيراميك", rating:4.5, reviews:44, accent:"#d03b1e" },
+  { slug:"rovento-origin-ethiopia", name:"ROVENTO أوريجن — إثيوبيا أصل واحد 1 كجم", nameEn:"ROVENTO Origin Collection — Ethiopia", cat:"beans", price:1450, oldPrice:1650, weight:"1 كجم", rating:4.8, reviews:52, accent:"#c9a227", badge:"أصل واحد", isNew:true },
+  { slug:"rovento-mastery", name:"ROVENTO ماستري — إتقان الإسبريسو 1 كجم", nameEn:"ROVENTO Mastery Collection", cat:"espresso", price:1550, weight:"1 كجم", rating:4.9, reviews:41, accent:"#b45309", badge:"إتقان" },
+  { slug:"rovento-signature-1kg", name:"ROVENTO سيجنتشر — تحميص داكن 1 كجم", nameEn:"ROVENTO Signature Collection — Dark Roast", cat:"beans", price:1320, weight:"1 كجم", rating:4.7, reviews:63, accent:"#a16207", badge:"تحميص داكن" },
+  { slug:"rovento-egyptian-1kg", name:"ROVENTO حبوب مصرية — أصل واحد 1 كجم", nameEn:"ROVENTO Egyptian Single Origin", cat:"espresso", price:980, weight:"1 كجم", rating:4.7, reviews:57, accent:"#c9a227", badge:"من قلب مصر", isNew:true },
+  { slug:"machine-espresso-pro", name:"ماكينة إسبريسو شبه احترافية — PID", nameEn:"Semi-Pro Espresso Machine", cat:"machines", price:38500, oldPrice:42000, weight:"ضمان سنتين", rating:4.9, reviews:23, accent:"#c9a227", badge:"احترافية", isNew:true },
+  { slug:"machine-automatic", name:"ماكينة إسبريسو أوتوماتيك بالكامل", nameEn:"Fully Automatic Espresso Machine", cat:"machines", price:27500, weight:"ضمان سنتين", rating:4.8, reviews:31, accent:"#002fa7", badge:"ضغطة واحدة", isNew:true },
+  { slug:"machine-capsule", name:"ماكينة كبسولات ١٩ بار", nameEn:"Capsule Coffee Machine", cat:"machines", price:8900, oldPrice:10500, weight:"ضمان سنة", rating:4.6, reviews:44, accent:"#d03b1e", badge:"خصم ١٥٪" },
+  { slug:"machine-moka", name:"موكا بوت إسبريسو — ٣ أكواب", nameEn:"Moka Pot 3-Cup", cat:"machines", price:1250, weight:"ألمنيوم", rating:4.7, reviews:96, accent:"#c9a227", bestseller:true },
+  { slug:"machine-cezve", name:"جازة قهوة تركية نحاسية", nameEn:"Turkish Coffee Pot (Cezve)", cat:"machines", price:550, weight:"نحاس", rating:4.8, reviews:118, accent:"#b45309", isNew:true },
+];
+
+const productBySlug = slug => PRODUCTS.find(p => p.slug === slug);
+
+/* ================= رسم كيس احتياطي SVG ================= */
+let artUid = 0;
+function bagArt(accent, label){
+  const id = "g" + (++artUid);
+  return `<svg viewBox="0 0 480 700" class="h-full max-h-72 w-auto" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#23211f"/><stop offset="45%" stop-color="#141312"/><stop offset="100%" stop-color="#0b0b0b"/></linearGradient></defs>
+    <path d="M84 118C58 128 54 150 54 192L54 480C54 566 108 656 172 660L308 660C372 656 426 566 426 480L426 192C426 150 422 128 396 118Z" fill="url(#${id})" stroke="rgba(242,239,232,0.16)" stroke-width="1.5"/>
+    <rect x="54" y="118" width="26" height="545" fill="${accent}" opacity="0.85"/><rect x="400" y="118" width="26" height="545" fill="${accent}" opacity="0.85"/>
+    <rect x="84" y="58" width="312" height="30" fill="#1b1b1b"/>
+    <text x="240" y="108" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="3" fill="#f2efe8" opacity="0.9">ROVENTO · محمصة مصر</text>
+    <g transform="translate(240 150)"><path d="M-20 16L-20 -8L-10 -20L0 -12L10 -20L20 -8L20 16Z" fill="#141210" stroke="${accent}" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-weight="900" font-size="21" fill="${accent}" font-family="Archivo, sans-serif">R</text></g>
+    <text x="240" y="212" text-anchor="middle" font-weight="900" font-size="34" letter-spacing="3" fill="#e8dcc8" font-family="Archivo, sans-serif">ROVENTO</text>
+    <text x="240" y="236" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="8" fill="${accent}">COFFEE</text>
+    <g>
+      <circle cx="240" cy="330" r="40" fill="#e8dcc8" stroke="#1c160f" stroke-width="3"/>
+      <path d="M206 300L196 262L228 290Z" fill="#e8dcc8" stroke="#1c160f" stroke-width="3"/><path d="M274 300L284 262L252 290Z" fill="#e8dcc8" stroke="#1c160f" stroke-width="3"/>
+      <path d="M206 296L202 272L222 290Z" fill="${accent}"/><path d="M274 296L278 272L258 290Z" fill="${accent}"/>
+      <ellipse cx="221" cy="328" rx="8" ry="10" fill="#fff" stroke="#1c160f" stroke-width="2"/><ellipse cx="259" cy="328" rx="8" ry="10" fill="#fff" stroke="#1c160f" stroke-width="2"/>
+      <circle cx="223" cy="329" r="3" fill="#1c160f"/><circle cx="257" cy="329" r="3" fill="#1c160f"/>
+      <path d="M235 342L245 342L240 349Z" fill="${accent}"/>
+      <path d="M240 349C236 354 233 352 231 349M240 349C244 354 247 352 249 349" stroke="#1c160f" stroke-width="2" fill="none"/>
+      <path d="M196 374C190 414 196 446 216 456C230 462 250 462 264 456C284 446 290 414 284 374Z" fill="#e8dcc8" stroke="#1c160f" stroke-width="3"/>
+    </g>
+    <rect x="90" y="126" width="112" height="26" fill="${accent}"/>
+    <text x="146" y="144" text-anchor="middle" font-family="monospace" font-weight="600" font-size="10.5" letter-spacing="2" fill="#141210">${label}</text>
+    <text x="240" y="520" text-anchor="middle" font-weight="800" font-size="15" letter-spacing="4" fill="${accent}" font-family="Archivo, sans-serif">${label}</text>
+    <text x="240" y="540" text-anchor="middle" font-family="monospace" font-size="8.5" letter-spacing="1.4" fill="#f2efe8" opacity="0.9">FRESH ROAST · EGYPT</text>
+  </svg>`;
+}
+const shortLabel = nameEn => (nameEn.split(" ")[0] || "ROVENTO").toUpperCase().slice(0,9);
+
+/* ================= كروت المنتجات ================= */
+function starsHtml(value){
+  return Array.from({length:5}, (_,i) =>
+    `<svg viewBox="0 0 20 20" class="size-3.5" aria-hidden="true"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.11l-4.94 2.6.94-5.5-4-3.9 5.53-.8z" fill="${i < Math.round(value) ? '#c9a227' : 'rgba(242,239,232,0.18)'}"/></svg>`
+  ).join("");
+}
+
+function renderCard(p, index){
+  const cat = CATS.find(c => c.id === p.cat) || {name:""};
+  const disc = p.oldPrice ? Math.round((p.oldPrice - p.price)/p.oldPrice*100) : null;
+  const badge = disc
+    ? `<span class="bg-rv-red px-2 py-1 font-mono text-[10px] font-semibold text-white">خصم ${disc}٪</span>`
+    : p.badge
+      ? `<span class="bg-rv-gold px-2 py-1 font-mono text-[10px] font-semibold text-black">${p.badge}</span>`
+      : p.isNew
+        ? `<span class="bg-rv-blue px-2 py-1 font-mono text-[10px] font-semibold text-white">جديد</span>`
+        : "";
+  const art = p.img
+    ? `<img src="${p.img}" alt="${p.name}" loading="lazy" class="h-full max-h-72 w-auto rounded-lg object-contain">`
+    : bagArt(p.accent, shortLabel(p.nameEn));
+
+  const variantsHtml = (p.variants && p.variants.length > 1)
+    ? `<div class="mt-3 flex flex-wrap gap-1">${p.variants.map((v,i) =>
+        `<button type="button" onclick="event.stopPropagation(); setVariant('${p.slug}','${v.id}')" class="var-chip h-7 border px-2 font-mono text-[10px] transition-colors ${i===0 ? 'border-rv-gold bg-rv-gold/10 text-rv-gold' : 'border-stone-700 text-stone-400 hover:border-stone-500 hover:text-stone-200'}" data-slug="${p.slug}" data-v="${v.id}">${v.label}</button>`
+      ).join("")}</div>` : "";
+
+  return `<article class="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-800 bg-coffee-900/70 transition-colors hover:border-rv-gold/60 hover:shadow-[0_10px_40px_rgba(212,175,55,0.08)]">
+    <div class="relative grid aspect-[4/5] place-items-center overflow-hidden border-b border-stone-800 bg-gradient-to-b from-white/[0.04] via-transparent to-transparent">
+      <div class="flex h-full w-full items-center justify-center p-6 transition-transform duration-500 group-hover:scale-[1.05]">${art}</div>
+      <div class="absolute start-2.5 top-2.5 flex flex-col items-start gap-1.5">${badge}</div>
+      <div class="absolute inset-x-0 bottom-0 flex translate-y-full flex-col gap-2 bg-coffee-900/95 p-3 transition-transform duration-300 group-hover:translate-y-0">
+        <button onclick="addToCart('${p.slug}')" class="btn-gold flex h-10 w-full items-center justify-center gap-2 rounded-lg text-sm font-black"><i class="fa-solid fa-plus"></i> أضف إلى السلة</button>
+        <button onclick="toast('${p.name.replace(/'/g,"").slice(0,40)} — متاح في المتجر الكامل')" class="flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-stone-700 text-xs font-semibold text-stone-400 transition-colors hover:border-rv-gold hover:text-rv-gold"><i class="fa-solid fa-eye"></i> عرض سريع</button>
+      </div>
+    </div>
+    <div class="flex flex-1 flex-col p-4">
+      <div class="flex items-center justify-between">
+        <span class="font-mono text-[9px] uppercase tracking-[0.22em]" style="color:${p.accent}">${cat.name}</span>
+        <span class="font-mono text-[9px] text-stone-500">${p.weight || ""}</span>
+      </div>
+      <p class="mt-2 line-clamp-2 text-[15px] font-semibold leading-snug">${p.name}</p>
+      <div class="mt-2 flex items-center gap-2">${starsHtml(p.rating)}<span class="font-mono text-[10px] text-stone-500">${p.rating} (${p.reviews})</span></div>
+      ${variantsHtml}
+      <div class="mt-3 flex items-baseline gap-2">
+        <span class="text-lg font-bold" data-price="${p.slug}">${fmt(p.price)}</span>
+        ${p.oldPrice ? `<span class="text-xs text-stone-500 line-through">${fmt(p.oldPrice)}</span>` : ""}
+      </div>
+    </div>
+  </article>`;
+}
+
+/* حالة المتغيرات المختارة لكل منتج */
+const selectedVariant = {};
+function setVariant(slug, vid){
+  selectedVariant[slug] = vid;
+  const p = productBySlug(slug);
+  document.querySelectorAll(`.var-chip[data-slug="${slug}"]`).forEach(ch => {
+    const on = ch.dataset.v === vid;
+    ch.className = "var-chip h-7 border px-2 font-mono text-[10px] transition-colors " + (on ? "border-rv-gold bg-rv-gold/10 text-rv-gold" : "border-stone-700 text-stone-400 hover:border-stone-500 hover:text-stone-200");
+  });
+  const v = p.variants.find(v => v.id === vid);
+  const el = document.querySelector(`[data-price="${slug}"]`);
+  if (el && v) el.textContent = fmt(v.price);
+}
+
+/* ================= السلة ================= */
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("rovento-preview-cart") || "[]"); } catch(e) { cart = []; }
+
+function saveCart(){ localStorage.setItem("rovento-preview-cart", JSON.stringify(cart)); renderCart(); }
+
+function addToCart(slug, qty, variantId, custom){
+  if (!custom) {
+    const p = productBySlug(slug);
+    if (!p) return;
+    const vid = variantId || selectedVariant[slug] || (p.variants ? p.variants[0].id : undefined);
+    const v = vid && p.variants ? p.variants.find(x => x.id === vid) : null;
+    const key = slug + "::" + (vid || "");
+    const found = cart.find(i => i.key === key);
+    if (found) found.qty += (qty || 1);
+    else cart.push({ key, slug, qty: qty || 1, variantId: vid, name: p.name, detail: v ? v.label : (p.weight || ""), price: v ? v.price : p.price, img: p.img, accent: p.accent });
+  } else {
+    const key = "custom::" + (custom.key || Date.now());
+    const found = cart.find(i => i.key === key && i.custom);
+    if (found) found.qty += 1;
+    else cart.push({ key, slug:"custom-blend", qty:1, custom, name: custom.label, detail: custom.detail, price: custom.price, accent:"#d4af37" });
+  }
+  saveCart();
+  openCartDrawer();
+  toast("تمت الإضافة للسلة ✓");
+}
+
+function cartTotal(){ return cart.reduce((s,i) => s + i.price * i.qty, 0); }
+function cartCount(){ return cart.reduce((s,i) => s + i.qty, 0); }
+
+function renderCart(){
+  document.getElementById("cart-count").textContent = cartCount();
+  document.getElementById("cart-count-label").textContent = cartCount() + " منتج";
+  const empty = document.getElementById("cart-empty");
+  const filled = document.getElementById("cart-filled");
+  if (cart.length === 0) { empty.classList.remove("hidden"); filled.classList.add("hidden"); return; }
+  empty.classList.add("hidden"); filled.classList.remove("hidden");
+
+  document.getElementById("cart-items").innerHTML = cart.map(i => {
+    const thumb = i.custom
+      ? `<div class="relative grid h-24 w-20 shrink-0 place-items-center overflow-hidden border border-rv-gold/30 bg-gradient-to-b from-rv-gold/15 to-transparent">
+           <div class="absolute inset-x-0 bottom-0 transition-all duration-500" style="height:${i.custom.arabica}%;background:linear-gradient(to top,#d4af37,#a16207);opacity:.85"></div>
+           <div class="relative z-10 font-mono text-[10px] font-black leading-none text-black">${i.custom.arabica}/${100 - i.custom.arabica}</div>
+         </div>`
+      : `<div class="grid h-24 w-20 shrink-0 place-items-center border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent overflow-hidden">
+           ${i.img ? `<img src="${i.img}" alt="${i.name}" class="h-20 w-auto rounded object-contain">` : bagArt(i.accent || "#c9a227", shortLabel(i.name))}
+         </div>`;
+    return `<li class="flex gap-4 py-4">
+      ${thumb}
+      <div class="flex flex-1 flex-col justify-between py-0.5">
+        <div>
+          <p class="text-sm font-semibold leading-snug ${i.custom ? 'text-rv-gold' : ''}">${i.name}</p>
+          <p class="mt-0.5 text-[11px] leading-relaxed text-stone-500">${i.detail}</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center border border-white/15">
+            <button onclick="changeQty('${i.key}',1)" class="grid size-7 place-items-center transition-colors hover:bg-white/10"><i class="fa-solid fa-plus text-[11px]"></i></button>
+            <span class="w-8 text-center font-mono text-sm">${i.qty}</span>
+            <button onclick="changeQty('${i.key}',-1)" class="grid size-7 place-items-center transition-colors hover:bg-white/10"><i class="fa-solid fa-minus text-[11px]"></i></button>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-sm font-bold">${fmt(i.price * i.qty)}</span>
+            <button onclick="removeLine('${i.key}')" class="text-stone-500 transition-colors hover:text-rv-red" aria-label="حذف"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+      </div>
+    </li>`;
+  }).join("") + `<div class="pt-3 pb-2"><button onclick="clearCart()" class="font-mono text-[11px] uppercase tracking-widest text-stone-500 underline-offset-4 hover:text-rv-red hover:underline">إفراغ السلة</button></div>`;
+  document.getElementById("cart-subtotal").textContent = fmt(cartTotal());
+}
+
+function changeQty(key, d){
+  const i = cart.find(x => x.key === key);
+  if (!i) return;
+  i.qty += d;
+  if (i.qty <= 0) cart = cart.filter(x => x.key !== key);
+  saveCart();
+}
+function removeLine(key){ cart = cart.filter(x => x.key !== key); saveCart(); }
+function clearCart(){ cart = []; saveCart(); }
+
+function openCartDrawer(){ document.getElementById("cart-overlay").classList.remove("hidden"); }
+function closeCartDrawer(){ document.getElementById("cart-overlay").classList.add("hidden"); }
+
+function orderWhatsApp(){
+  if (cart.length === 0) return;
+  const lines = cart.map(i => `• ${i.name} (${i.detail}) × ${i.qty} — ${fmt(i.price * i.qty)}`).join("\n");
+  const msg = "☕ طلب جديد من متجر ROVENTO:\n\n" + lines + "\n\nالإجمالي: " + fmt(cartTotal()) + "\n\nالاسم:\nالعنوان:\nرقم الهاتف:\nطريقة الدفع: (فودافون كاش / إنستاباي / الدفع عند الاستلام)";
+  window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
+}
+
+/* ================= السلايدر ================= */
+let slideIndex = 0, slideTimer = null;
+const SLIDE_COUNT = 4;
+
+function showSlide(){
+  document.querySelectorAll(".slide").forEach(s => {
+    const on = Number(s.dataset.i) === slideIndex;
+    s.style.opacity = on ? "1" : "0";
+  });
+  document.querySelectorAll(".slider-dot").forEach((d,i) => {
+    d.style.width = i === slideIndex ? "2rem" : ".625rem";
+    d.style.background = i === slideIndex ? "#d4af37" : "rgba(255,255,255,.5)";
+  });
+}
+function sliderGo(dir){ slideIndex = (slideIndex + dir + SLIDE_COUNT) % SLIDE_COUNT; showSlide(); }
+function sliderTo(i){ slideIndex = i; showSlide(); }
+function startSlider(){ clearInterval(slideTimer); slideTimer = setInterval(() => sliderGo(1), 5200); }
+
+/* ================= العداد التنازلي ================= */
+function tickCountdown(){
+  const d = new Date();
+  const daysToSunday = (7 - d.getDay()) % 7 || 7;
+  const t = new Date(d); t.setDate(t.getDate() + daysToSunday); t.setHours(23,59,59,0);
+  const diff = Math.max(0, t.getTime() - Date.now());
+  const pad = n => String(n).padStart(2,"0");
+  document.getElementById("cd-days").textContent = pad(Math.floor(diff/86400000));
+  document.getElementById("cd-hours").textContent = pad(Math.floor(diff%86400000/3600000));
+  document.getElementById("cd-min").textContent = pad(Math.floor(diff%3600000/60000));
+  document.getElementById("cd-sec").textContent = pad(Math.floor(diff%60000/1000));
+}
+
+/* ================= خلطتك الخاصة ================= */
+let bl = { a: 70, roast: "medium", grind: "espresso", weight: "1kg" };
+const ROASTS = {
+  light: { label:"فاتح", acid:2, sweet:1, body:-1, crema:-1 },
+  medium: { label:"متوسط", acid:0.5, sweet:1.5, body:0.5, crema:0 },
+  dark: { label:"غامق", acid:-1, sweet:0, body:1.5, crema:1 },
+};
+const GRINDS = {
+  whole: { label:"حبوب كاملة", desc:"للمطحنة المنزلية" },
+  espresso: { label:"مطحون إسبريسو", desc:"ناعم للماكينات" },
+  filter: { label:"مطحون V60 / فلتر", desc:"متوسط الخشونة" },
+  turkish: { label:"مطحون تركي", desc:"ناعم جدًا" },
+};
+const WEIGHTS = { "250g": { label:"250 جم", mult:0.3 }, "500g": { label:"500 جم", mult:0.55 }, "1kg": { label:"1 كجم", mult:1 } };
+const PRESETS = [ {a:70,label:"بريميم 70/30",hint:"نفس نسب ROVENTO Premium",star:true}, {a:50,label:"كلاسيك 50/50",hint:"نفس نسب ROVENTO Classic"}, {a:30,label:"إنتنسو 30/70",hint:"نفس نسب ROVENTO Intenso"}, {a:100,label:"أرابيكا 100%",hint:"قهوة مختصة خالصة"} ];
+const clamp10 = n => Math.min(10, Math.max(1, Math.round(n)));
+
+function blendNotes(a, roastId){
+  if (a >= 90) return roastId === "light"
+    ? "فواكه وزهور وحموضة مشرقة — متعة محبي القهوة المختصة."
+    : "أصل فاخر: حلاوة الأرابيكا ونكهات راقية في كل كوب.";
+  if (a >= 60) return roastId === "dark"
+    ? "توازن فاخر: حلاوة الأرابيكا مع كريما غنية وجسم مخملي."
+    : "كوب متوازن حلو المذاق غني بالكريما — الخيار المميز الآمن.";
+  if (a >= 40) return "جسم أقوى وكافيين أعلى مع كريما كثيفة — قهوة يومية بطابع إسبريسو.";
+  return "قوة وكافيين وكريما كثيفة جدًا — لعشاق الإسبريسو الجريء.";
+}
+
+function setArabica(a){
+  bl.a = a;
+  document.getElementById("bl-range").value = a;
+  renderBlend();
+}
+function setRoast(r){ bl.roast = r; document.querySelectorAll(".roast-chip").forEach(c => {
+  const on = c.getAttribute("onclick").includes(`'${r}'`);
+  c.className = "roast-chip rounded-xl border p-3 text-center transition-all " + (on ? "border-rv-gold bg-rv-gold/15 text-rv-gold" : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25");
+}); renderBlend(); }
+function setGrind(g){ bl.grind = g; document.querySelectorAll(".grind-chip").forEach(c => {
+  const on = c.getAttribute("onclick").includes(`'${g}'`);
+  c.className = "grind-chip rounded-xl border p-3 text-center transition-all " + (on ? "border-rv-gold bg-rv-gold/15 text-rv-gold" : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25");
+}); renderBlend(); }
+function setWeight(w){ bl.weight = w; document.querySelectorAll(".weight-chip").forEach(c => {
+  const on = c.getAttribute("onclick").includes(`'${w}'`);
+  c.className = "weight-chip rounded-xl border p-3 text-center transition-all " + (on ? "border-rv-gold bg-rv-gold/15 text-rv-gold" : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25");
+}); renderBlend(); }
+
+function renderBlend(){
+  const a = bl.a, r = 100 - a, roast = ROASTS[bl.roast], w = WEIGHTS[bl.weight], g = GRINDS[bl.grind];
+  document.getElementById("bl-a").textContent = a;
+  document.getElementById("bl-r").textContent = r;
+  document.getElementById("bl-a2").textContent = a;
+  document.getElementById("bl-r2").textContent = r;
+
+  const disc = document.getElementById("bl-disc");
+  disc.style.background = `conic-gradient(#c9a227 0deg ${a*3.6}deg, #4a2c1a ${a*3.6}deg 360deg)`;
+  document.getElementById("bl-disc-a").textContent = a;
+  document.getElementById("bl-disc-r").textContent = r;
+
+  const profile = [
+    { label:"الحموضة", value: clamp10(a/10 + roast.acid), accent:"#f59e0b" },
+    { label:"الحلاوة", value: clamp10(a/12 + roast.sweet), accent:"#d4af37" },
+    { label:"الجسم", value: clamp10(r/10 + roast.body), accent:"#a16207" },
+    { label:"الكريما", value: clamp10(r/6 + roast.crema), accent:"#b45309" },
+    { label:"الكافيين", value: clamp10(r/7), accent:"#78350f" },
+  ];
+  document.getElementById("bl-profile").innerHTML = profile.map(f => `
+    <div>
+      <div class="flex items-center justify-between text-[11px]"><span class="font-bold">${f.label}</span><span class="font-mono text-stone-500">${f.value}/10</span></div>
+      <div class="mt-1 h-1.5 overflow-hidden rounded-full bg-white/10"><div class="h-full rounded-full transition-all duration-500 ease-out" style="width:${f.value*10}%;background:${f.accent}"></div></div>
+    </div>`).join("");
+
+  const intensity = Math.min(5, Math.max(1, Math.round(1 + r/30 + (bl.roast === "dark" ? 1.5 : bl.roast === "medium" ? 0.75 : 0))));
+  document.getElementById("bl-intensity").innerHTML = Array.from({length:5}, (_,i) =>
+    `<span class="size-2 rounded-full transition-colors ${i < intensity ? "bg-rv-gold" : "bg-white/15"}"></span>`).join("");
+
+  document.getElementById("bl-notes").textContent = blendNotes(a, bl.roast);
+
+  const preset = PRESETS.find(p => p.a === a);
+  const note = document.getElementById("bl-preset-note");
+  if (preset) {
+    note.classList.remove("hidden");
+    note.querySelector("span").textContent = preset.label;
+  } else note.classList.add("hidden");
+
+  const price = round10(kgPrice(a) * w.mult);
+  const oldPrice = round10(price / 0.85);
+  document.getElementById("bl-price").textContent = fmt(price);
+  document.getElementById("bl-oldprice").textContent = fmt(oldPrice);
+  document.getElementById("bl-kgprice").textContent = fmt(kgPrice(a)) + " / كجم";
+  document.getElementById("bl-weight-label").textContent = w.label;
+
+  /* أسعار خيارات الوزن */
+  document.querySelectorAll(".weight-chip [data-w]").forEach(el => {
+    const mult = WEIGHTS[el.dataset.w].mult;
+    el.textContent = fmt(round10(kgPrice(a) * mult));
+  });
+
+  /* تحديث ربط واتساب */
+  const label = `خلطة مخصصة ${a}/${r} — ${w.label}`;
+  const detail = `${a}٪ أرابيكا · ${r}٪ روبوستا · تحميص ${roast.label} · ${g.label}`;
+  document.getElementById("bl-wa").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(`مرحبًا ROVENTO ☕ عايز أطلب خلطتي المخصصة:\n${label}\n${detail}\nالسعر: ${fmt(price)}`);
+}
+
+function addBlendToCart(){
+  const a = bl.a, r = 100 - a, w = WEIGHTS[bl.weight], roast = ROASTS[bl.roast], g = GRINDS[bl.grind];
+  const price = round10(kgPrice(a) * w.mult);
+  const key = "cb-" + a + "-" + bl.roast + "-" + bl.grind + "-" + bl.weight;
+  addToCart(null, 1, null, {
+    key,
+    label: `خلطة مخصصة ${a}/${r} — ${w.label}`,
+    detail: `${a}٪ أرابيكا · ${r}٪ روبوستا · تحميص ${roast.label} · ${g.label}`,
+    price,
+    arabica: a,
+  });
+}
+
+/* ================= الأكثر مبيعًا + أصناف أخرى ================= */
+let currentFilter = "all";
+
+function renderBestsellers(){
+  const list = PRODUCTS.filter(p => p.bestseller).slice(0,5);
+  document.getElementById("bestsellers-row").innerHTML = list.map((p,i) =>
+    `<div class="w-[260px] shrink-0 snap-start sm:w-[280px]">${renderCard(p,i)}</div>`).join("");
+}
+
+function renderVarieties(){
+  const bestsellerSlugs = new Set(PRODUCTS.filter(p => p.bestseller).map(p => p.slug));
+  const base = PRODUCTS.filter(p => !bestsellerSlugs.has(p.slug));
+  const others = currentFilter === "all" ? base.slice(0,8) : base.filter(p => p.cat === currentFilter);
+  document.getElementById("varieties-grid").innerHTML = others.map((p,i) => renderCard(p,i)).join("");
+  document.getElementById("varieties-empty").classList.toggle("hidden", others.length > 0);
+}
+
+function setFilter(f){
+  currentFilter = f;
+  document.querySelectorAll(".v-filter").forEach(b => {
+    const on = b.dataset.filter === f;
+    b.className = "v-filter rounded-full px-5 py-2.5 text-sm font-bold shadow transition " + (on ? "btn-gold" : "bg-stone-800 text-stone-200 hover:bg-stone-700");
+  });
+  renderVarieties();
+}
+
+/* ================= عام ================= */
+function scrollToId(id){
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior:"smooth" });
+}
+function closeMobile(){ document.getElementById("mobile-menu").classList.add("hidden"); }
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.remove("hidden");
+  t.classList.add("flex");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.classList.add("hidden"); t.classList.remove("flex"); }, 2600);
+}
+async function copyCode(code, btn){
+  try { await navigator.clipboard.writeText(code); } catch(e) {}
+  const old = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ!';
+  setTimeout(() => btn.innerHTML = old, 1800);
+}
+function newsletterSubmit(e){
+  e.preventDefault();
+  document.getElementById("newsletter-form").classList.add("hidden");
+  const done = document.getElementById("newsletter-done");
+  done.classList.remove("hidden");
+  done.classList.add("flex");
+}
+function scrollRow(dir){
+  const el = document.getElementById("bestsellers-row");
+  el.scrollBy({ left: dir * 300, behavior:"smooth" });
+}
+
+/* ================= بوب أب الهدية ================= */
+function openPromo(){ document.getElementById("promo-popup").classList.remove("hidden"); }
+function closePromo(){ document.getElementById("promo-popup").classList.add("hidden"); }
+
+/* ================= التشغيل ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  showSlide();
+  startSlider();
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+  renderBlend();
+  renderBestsellers();
+  renderVarieties();
+  renderCart();
+
+  /* إيقاف السلايدر عند اللمس أو الوقوف */
+  const slider = document.getElementById("slider");
+  slider.addEventListener("mouseenter", () => clearInterval(slideTimer));
+  slider.addEventListener("mouseleave", startSlider);
+  let touchX = null;
+  slider.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; clearInterval(slideTimer); }, { passive:true });
+  slider.addEventListener("touchend", e => {
+    const end = e.changedTouches[0].clientX;
+    if (touchX !== null && Math.abs(end - touchX) > 48) sliderGo(end - touchX < 0 ? 1 : -1);
+    touchX = null;
+    startSlider();
+  }, { passive:true });
+
+  /* تمرير سلس للروابط الداخلية */
+  document.querySelectorAll(".nav-link, .mobile-link").forEach(a => {
+    a.addEventListener("click", e => {
+      const href = a.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        e.preventDefault();
+        closeMobile();
+        scrollToId(href.slice(1));
+      }
+    });
+  });
+
+  /* بوب أب الهدية: عند الخروج + بعد 15 ثانية */
+  let exitShown = false, timedShown = false;
+  document.addEventListener("mouseleave", e => {
+    if (e.clientY <= 0 && !exitShown) { exitShown = true; setTimeout(openPromo, 150); }
+  });
+  setTimeout(() => { if (!exitShown && !timedShown) { timedShown = true; openPromo(); } }, 15000);
+});
+</script>
+</body>
+</html>
