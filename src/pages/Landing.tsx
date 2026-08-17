@@ -10,6 +10,7 @@ import { Works } from "@/components/mohamadia/Works";
 import { Contact } from "@/components/mohamadia/Contact";
 import { Footer } from "@/components/mohamadia/Footer";
 import { WhatsAppFloat } from "@/components/mohamadia/WhatsAppFloat";
+import { ExportTool } from "@/components/mohamadia/ExportTool";
 
 /**
  * بروفايل شركة المحمدية للمقاولات العامة والتوريدات العمومية —
@@ -38,6 +39,7 @@ export default function Landing() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <ExportTool />
     </div>
   );
 }

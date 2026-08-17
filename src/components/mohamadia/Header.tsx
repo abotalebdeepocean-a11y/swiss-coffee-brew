@@ -29,7 +29,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="mh-export-hide fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
           "transition-all duration-500",
