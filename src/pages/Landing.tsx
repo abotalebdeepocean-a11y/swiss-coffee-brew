@@ -1,54 +1,43 @@
 import { useEffect } from "react";
-import { Header } from "@/components/rovento/Header";
-import { BannerSlider } from "@/components/rovento/BannerSlider";
-import { Hero } from "@/components/rovento/Hero";
-import { SignatureCollection } from "@/components/rovento/SignatureCollection";
-import { OfferSection } from "@/components/rovento/OfferSection";
-import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
-import { BestSellers } from "@/components/rovento/BestSellers";
-import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
-import { OtherVarieties } from "@/components/rovento/OtherVarieties";
-import { WhyRovento } from "@/components/rovento/WhyRovento";
-import { Testimonials } from "@/components/rovento/Testimonials";
-import { TrustBar } from "@/components/rovento/TrustBar";
-import { Footer } from "@/components/rovento/Footer";
-import { CartDrawer } from "@/components/rovento/CartDrawer";
-import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
-import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
+import { Header } from "@/components/mohamadia/Header";
+import { Hero } from "@/components/mohamadia/Hero";
+import { Chairman } from "@/components/mohamadia/Chairman";
+import { Leadership } from "@/components/mohamadia/Leadership";
+import { Values } from "@/components/mohamadia/Values";
+import { WhyUs } from "@/components/mohamadia/WhyUs";
+import { Metals } from "@/components/mohamadia/Metals";
+import { Works } from "@/components/mohamadia/Works";
+import { Contact } from "@/components/mohamadia/Contact";
+import { Footer } from "@/components/mohamadia/Footer";
+import { WhatsAppFloat } from "@/components/mohamadia/WhatsAppFloat";
 
 /**
- * Sales-funnel landing — ترتيب الأقسام مطابق للمرجع:
- * الهيرو (يبيع بسرعة) → اختار شخصيتك (#featured) → عرض الأسبوع (#deal)
- * → بريكا (#brikka) → الأكثر طلبًا (#bestsellers) → خلطتك الخاصة (#blend-lab)
- * → أصناف أخرى (فلاتر) → لماذا روفينتو (#why-rovento) → آراء العملاء
- * (#reviews) → الثقة → الفوتر.
+ * بروفايل شركة المحمدية للمقاولات العامة والتوريدات العمومية —
+ * صفحة تعريفية احترافية بأسلوب راقٍ (ناف بلو + ذهبي).
+ * الهيرو (الشركة + بطاقة المدير التنفيذي) → كلمة رئيس مجلس الإدارة
+ * → ما يميز قيادتنا → قيمنا → لماذا المحمدية؟ → المعادن المطلوبة
+ * → سابقة أعمال مختارة → تواصل معنا → الفوتر.
  */
 export default function Landing() {
   useEffect(() => {
-    document.title =
-      "روڤينتو ROVENTO | قهوة مختصة مصرية — حبوب إسبريسو وتحضير احترافي";
+    document.title = "شركة المحمدية للمقاولات العامة والتوريدات العمومية";
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div dir="rtl" className="min-h-screen bg-mh-navy-950 text-foreground">
       <Header />
-      <BannerSlider />
       <main>
         <Hero />
-        <SignatureCollection />
-        <OfferSection />
-        <MokaSpotlight />
-        <BestSellers />
-        <CustomBlendStudio />
-        <OtherVarieties />
-        <WhyRovento />
-        <Testimonials />
+        <Chairman />
+        <Leadership />
+        <Values />
+        <WhyUs />
+        <Metals />
+        <Works />
+        <Contact />
       </main>
-      <TrustBar />
       <Footer />
-      <CartDrawer />
       <WhatsAppFloat />
-      <ExitIntentPopup />
     </div>
   );
 }

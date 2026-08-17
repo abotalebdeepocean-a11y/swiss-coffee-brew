@@ -135,6 +135,21 @@
   }
 }
 
+/* ============================================================
+   MOHAMADIA — CORPORATE NAVY & GOLD
+   Deep navy-charcoal base with refined gold accents
+   ============================================================ */
+
+@theme {
+  --color-mh-navy-950: #060a12;
+  --color-mh-navy-900: #0a101d;
+  --color-mh-navy-800: #0f1829;
+  --color-mh-navy-700: #17223a;
+  --color-mh-gold: #d4af37;
+  --color-mh-gold-soft: #e8c96a;
+  --color-mh-gold-deep: #a8842a;
+}
+
 /* CHANGE VALUES FOR THEME */
 :root {
   --radius: 14px;
