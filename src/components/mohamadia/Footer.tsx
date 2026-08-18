@@ -3,7 +3,7 @@ import { COMPANY, IMAGES, NAV_LINKS } from "./content";
 
 export function Footer() {
   return (
-    <footer className="border-t border-neutral-900 bg-black">
+    <footer className="border-t border-white/10 bg-[#080808]">
       <div className="mx-auto w-full max-w-6xl px-5 py-14 md:px-8">
         <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_1fr]">
           {/* brand */}
@@ -25,10 +25,9 @@ export function Footer() {
                 </span>
               </span>
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-white/55">
-              شريك استراتيجي في المقاولات والتوريدات والتجارة الدولية،
-              ومتخصصون في توريد وتصدير المعادن الثمينة والاستراتيجية وفق
-              أعلى المعايير العالمية.
+            <p className="mt-5 max-w-sm text-sm leading-7 text-white/45">
+              شريك استراتيجي للمشاريع الحكومية والخاصة داخل وخارج جمهورية مصر
+              العربية.
             </p>
           </div>
 
@@ -40,7 +39,7 @@ export function Footer() {
                 <li key={item.to}>
                   <a
                     href={item.to}
-                    className="text-sm font-bold text-white/50 transition-colors hover:text-mh-gold-soft"
+                    className="text-sm font-bold text-white/40 transition-colors hover:text-mh-gold-soft"
                   >
                     {item.label}
                   </a>
@@ -52,7 +51,7 @@ export function Footer() {
           {/* contact */}
           <div>
             <h3 className="text-sm font-black text-white">معلومات التواصل</h3>
-            <ul className="mt-4 space-y-3 text-sm font-bold text-white/50">
+            <ul className="mt-4 space-y-3 text-sm font-bold text-white/40">
               <li className="flex items-start gap-2.5">
                 <Phone className="mt-0.5 size-4 shrink-0 text-mh-gold" />
                 <a
@@ -80,8 +79,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs font-bold text-white/40 sm:flex-row">
-          <p>© {new Date().getFullYear()} {COMPANY.fullName} — جميع الحقوق محفوظة</p>
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs font-bold text-white/30 sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {COMPANY.fullName} — جميع الحقوق
+            محفوظة
+          </p>
           <p className="flex items-center gap-2">
             <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
             سجل تجاري وبطاقة ضريبية منذ 2013

@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Header } from "@/components/mohamadia/Header";
 import { Hero } from "@/components/mohamadia/Hero";
+import { WhoWeAre } from "@/components/mohamadia/WhoWeAre";
+import { Sectors } from "@/components/mohamadia/Sectors";
 import { Chairman } from "@/components/mohamadia/Chairman";
 import { Leadership } from "@/components/mohamadia/Leadership";
 import { Values } from "@/components/mohamadia/Values";
 import { WhyUs } from "@/components/mohamadia/WhyUs";
-import { Metals } from "@/components/mohamadia/Metals";
-import { Works } from "@/components/mohamadia/Works";
+import { Portfolio } from "@/components/mohamadia/Portfolio";
 import { Contact } from "@/components/mohamadia/Contact";
 import { Footer } from "@/components/mohamadia/Footer";
 import { WhatsAppFloat } from "@/components/mohamadia/WhatsAppFloat";
@@ -14,10 +15,7 @@ import { ExportTool } from "@/components/mohamadia/ExportTool";
 
 /**
  * بروفايل شركة المحمدية للمقاولات العامة والتوريدات العمومية —
- * صفحة تعريفية احترافية بأسلوب راقٍ (ناف بلو + ذهبي).
- * الهيرو (الشركة + بطاقة المدير التنفيذي) → كلمة رئيس مجلس الإدارة
- * → ما يميز قيادتنا → قيمنا → لماذا المحمدية؟ → المعادن المطلوبة
- * → سابقة أعمال مختارة → تواصل معنا → الفوتر.
+ * صفحة تعريفية احترافية بهوية فاخرة (أسود + ذهبي + أبيض).
  */
 export default function Landing() {
   useEffect(() => {
@@ -25,16 +23,17 @@ export default function Landing() {
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-white text-neutral-900">
+    <div dir="rtl" className="min-h-screen bg-[#0a0a0a] text-white">
       <Header />
       <main>
         <Hero />
+        <WhoWeAre />
+        <Sectors />
         <Chairman />
         <Leadership />
         <Values />
         <WhyUs />
-        <Metals />
-        <Works />
+        <Portfolio />
         <Contact />
       </main>
       <Footer />

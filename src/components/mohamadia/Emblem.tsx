@@ -54,7 +54,7 @@ export function ChairmanAvatar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "shrink-0 overflow-hidden rounded-full border-2 border-mh-gold bg-black shadow-[0_8px_24px_rgba(10,10,10,0.25)]",
+        "shrink-0 overflow-hidden rounded-full border-2 border-mh-gold bg-[#111] shadow-[0_8px_24px_rgba(0,0,0,0.4)]",
         className,
       )}
     >

@@ -22,7 +22,7 @@ const CHANNELS = [
   {
     icon: MapPin,
     label: "العنوان",
-    value: "13 شارع أبو بكر الصديق — مدينة الأمل، مدينة نصر أول، القاهرة",
+    value: COMPANY.address,
     href: undefined,
     ltr: false,
   },
@@ -30,12 +30,12 @@ const CHANNELS = [
 
 export function Contact() {
   return (
-    <Section id="contact" className="bg-[#f8f6f1]">
+    <Section id="contact" className="bg-[#0a0a0a]">
       <div className="mx-auto w-full max-w-5xl px-5 md:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-mh-gold/50 bg-black p-8 shadow-[0_40px_90px_rgba(10,10,10,0.35)] md:p-14">
+          <div className="relative overflow-hidden rounded-[2rem] border border-mh-gold/40 bg-[#111] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.5)] md:p-14">
             <div
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,162,39,0.16),transparent_55%)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12),transparent_55%)]"
               aria-hidden="true"
             />
             <div
@@ -44,14 +44,14 @@ export function Contact() {
             />
 
             <div className="relative text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-mh-gold/40 bg-mh-gold/10 px-4 py-1.5 text-xs font-bold text-mh-gold-soft">
+              <span className="inline-flex items-center gap-2 rounded-full border border-mh-gold/30 bg-mh-gold/10 px-4 py-1.5 text-xs font-bold text-mh-gold-soft">
                 <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
                 جاهزون للشراكة
               </span>
               <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
                 <span className="gold-text">تواصل معنا</span>
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-white/60 md:text-base">
+              <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-white/50 md:text-base">
                 نحن على بُعد رسالة واحدة — تحدث معنا مباشرة عبر واتساب، أو
                 اتصل بنا، أو راسلنا على بريدنا الإلكتروني.
               </p>
@@ -62,11 +62,11 @@ export function Contact() {
                 <a
                   key={c.label}
                   href={c.href}
-                  className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/12 bg-white/[0.05] px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/60 hover:bg-mh-gold/10 ${
+                  className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/40 hover:bg-mh-gold/5 ${
                     c.href ? "" : "pointer-events-none"
                   }`}
                 >
-                  <span className="grid size-13 place-items-center rounded-full border border-mh-gold/50 bg-black text-mh-gold transition-colors group-hover:text-mh-gold-soft">
+                  <span className="grid size-13 place-items-center rounded-full border border-mh-gold/40 bg-[#0a0a0a] text-mh-gold transition-colors group-hover:text-mh-gold-soft">
                     <c.icon className="size-6" />
                   </span>
                   <span>
@@ -91,14 +91,14 @@ export function Contact() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold-light inline-flex h-13 items-center gap-2.5 rounded-full px-8 text-base font-black"
+                className="btn-gold inline-flex h-13 items-center gap-2.5 rounded-full px-8 text-base font-black"
               >
                 <WhatsAppIcon className="size-5" />
                 تواصل عبر واتساب
               </a>
               <a
                 href={COMPANY.phoneHref}
-                className="inline-flex h-13 items-center gap-2 rounded-full border border-mh-gold/50 px-8 text-base font-bold text-mh-gold-soft transition hover:bg-mh-gold/10"
+                className="btn-outline-gold inline-flex h-13 items-center gap-2 rounded-full px-8 text-base font-bold"
               >
                 <Phone className="size-4.5" />
                 <span dir="ltr">{COMPANY.phoneDisplay}</span>

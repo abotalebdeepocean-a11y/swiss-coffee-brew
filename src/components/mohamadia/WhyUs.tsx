@@ -4,35 +4,15 @@ import {
   FileCheck2,
   Network,
 } from "lucide-react";
+import { WHY_US } from "./content";
 import { Reveal } from "./Reveal";
 import { Section, SectionHeading } from "./Section";
 
-const REASONS = [
-  {
-    icon: CreditCard,
-    title: "حلول دفع مرنة",
-    desc: "SBLC · LC · تحويلات بنكية — وفق متطلبات كل صفقة وطرف.",
-  },
-  {
-    icon: FileCheck2,
-    title: "عقود دولية موثقة",
-    desc: "إجراءات احترافية موثقة تضمن حقوق جميع الأطراف.",
-  },
-  {
-    icon: Network,
-    title: "شبكة أعمال دولية",
-    desc: "علاقات مباشرة مع موردين وشركاء في عدة أسواق عالمية.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "فحص ومطابقة",
-    desc: "التأكد الكامل من الجودة والمواصفات قبل الشحن.",
-  },
-];
+const ICONS = [CreditCard, FileCheck2, Network, ClipboardCheck];
 
 export function WhyUs() {
   return (
-    <Section id="why" className="bg-white">
+    <Section id="why" className="bg-[#0d0d0d]">
       <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
         <Reveal>
           <SectionHeading
@@ -48,23 +28,26 @@ export function WhyUs() {
         </Reveal>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2">
-          {REASONS.map((item, i) => (
-            <Reveal key={item.title} delay={(i % 2) * 0.12}>
-              <div className="card-lux group flex h-full items-start gap-5 rounded-2xl bg-white p-7">
-                <div className="grid size-13 shrink-0 place-items-center rounded-2xl border border-mh-gold/40 bg-mh-gold/10 text-mh-gold-deep transition-colors group-hover:border-mh-gold group-hover:text-mh-gold">
-                  <item.icon className="size-6" />
+          {WHY_US.map((item, i) => {
+            const Icon = ICONS[i];
+            return (
+              <Reveal key={item.title} delay={(i % 2) * 0.12}>
+                <div className="card-dark group flex h-full items-start gap-5 rounded-2xl p-7">
+                  <div className="grid size-13 shrink-0 place-items-center rounded-2xl border border-mh-gold/30 bg-mh-gold/10 text-mh-gold transition-colors group-hover:border-mh-gold/60">
+                    <Icon className="size-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-black text-mh-gold-soft">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-white/50">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-black text-mh-gold-deep">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-neutral-500">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </Section>

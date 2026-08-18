@@ -314,51 +314,64 @@
   }
 
   /* ============================================================
-     MOHAMADIA LIGHT — white / black / gold identity
+     MOHAMADIA — DARK LUXURY identity
+     Deep black base · gold accents · white text
      ============================================================ */
 
-  /* نص ذهبي متدرج للخلفيات الفاتحة */
+  /* نص ذهبي متدرج */
   .gold-text {
     background: linear-gradient(
       120deg,
-      #8a6d1d 0%,
-      #c9a227 38%,
-      #e8c96a 62%,
-      #a8842a 100%
+      #f0d98c 0%,
+      #d4af37 40%,
+      #e8c96a 65%,
+      #c9a227 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* شبكة خفيفة سوداء للخلفيات البيضاء */
-  .grid-light {
-    background-image: linear-gradient(rgba(10, 10, 10, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10, 10, 10, 0.045) 1px, transparent 1px);
-    background-size: 52px 52px;
+  /* شبكة خفيفة للخلفيات الداكنة */
+  .grid-dark {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
 
-  /* حدود سوداء رفيعة بلمسة ذهبية للكروت الفاتحة */
-  .card-lux {
-    border: 1px solid rgba(10, 10, 10, 0.12);
+  /* كرت فاخر على خلفية داكنة */
+  .card-dark {
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: rgba(255, 255, 255, 0.03);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   }
-  .card-lux:hover {
-    border-color: rgba(201, 162, 39, 0.6);
-    box-shadow: 0 18px 40px rgba(10, 10, 10, 0.08);
+  .card-dark:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
   }
 
-  /* زر ذهبي للهوية الفاتحة */
-  .btn-gold-light {
-    background: linear-gradient(135deg, #e8c96a, #c9a227 55%, #a8842a);
+  /* زر ذهبي */
+  .btn-gold {
+    background: linear-gradient(135deg, #e8c96a, #d4af37 55%, #a8842a);
     color: #0a0a0a;
-    box-shadow: 0 10px 28px rgba(201, 162, 39, 0.35);
+    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.3);
     transition: filter 0.2s ease, transform 0.2s ease;
   }
-  .btn-gold-light:hover {
-    filter: brightness(1.06);
+  .btn-gold:hover {
+    filter: brightness(1.08);
   }
-  .btn-gold-light:active {
+  .btn-gold:active {
     transform: scale(0.98);
+  }
+
+  /* زر شفاف مع حد ذهبي */
+  .btn-outline-gold {
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: #e8c96a;
+    transition: all 0.2s ease;
+  }
+  .btn-outline-gold:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
   }
 }

@@ -71,25 +71,25 @@ export function ExportTool() {
   return (
     <div className="mh-export-hide fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
       {open && (
-        <div className="w-64 rounded-2xl border border-neutral-200 bg-white p-4 shadow-[0_20px_60px_rgba(10,10,10,0.18)]">
+        <div className="w-64 rounded-2xl border border-white/10 bg-[#111] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-black text-neutral-900">تصدير الصفحة</p>
+            <p className="text-sm font-black text-white">تصدير الصفحة</p>
             <button
               onClick={() => setOpen(false)}
-              className="grid size-7 place-items-center rounded-full border border-neutral-300 text-neutral-500 hover:text-neutral-900"
+              className="grid size-7 place-items-center rounded-full border border-white/20 text-white/50 hover:text-white"
               aria-label="إغلاق"
             >
               <X className="size-3.5" />
             </button>
           </div>
-          <p className="mt-1.5 text-[11px] leading-5 text-neutral-500">
+          <p className="mt-1.5 text-[11px] leading-5 text-white/40">
             صورة واحدة بطول الصفحة كاملة — JPG أو PDF.
           </p>
           <div className="mt-3 grid gap-2">
             <button
               onClick={() => run("jpg")}
               disabled={busy !== null}
-              className="btn-gold-light flex h-11 items-center justify-center gap-2 rounded-xl text-sm font-black disabled:opacity-60"
+              className="btn-gold flex h-11 items-center justify-center gap-2 rounded-xl text-sm font-black disabled:opacity-60"
             >
               {busy === "jpg" ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -101,7 +101,7 @@ export function ExportTool() {
             <button
               onClick={() => run("pdf")}
               disabled={busy !== null}
-              className="flex h-11 items-center justify-center gap-2 rounded-xl border border-neutral-900 text-sm font-black text-neutral-900 transition hover:bg-black hover:text-white disabled:opacity-60"
+              className="btn-outline-gold flex h-11 items-center justify-center gap-2 rounded-xl text-sm font-black disabled:opacity-60"
             >
               {busy === "pdf" ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -119,7 +119,7 @@ export function ExportTool() {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="grid size-14 place-items-center rounded-full border-2 border-neutral-900 bg-white text-neutral-900 shadow-[0_12px_30px_rgba(10,10,10,0.2)] transition hover:scale-105 hover:border-mh-gold hover:text-mh-gold-deep"
+        className="grid size-14 place-items-center rounded-full border-2 border-white/20 bg-[#111] text-white shadow-[0_12px_30px_rgba(0,0,0,0.4)] transition hover:scale-105 hover:border-mh-gold hover:text-mh-gold"
         aria-label="تصدير الصفحة كصورة أو PDF"
         title="تصدير الصفحة كصورة أو PDF"
       >
