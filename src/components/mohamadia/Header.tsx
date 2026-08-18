@@ -38,7 +38,7 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
-          {/* Brand */}
+          {/* Brand — logo only */}
           <a
             href="#top"
             onClick={(e) => {
@@ -46,24 +46,14 @@ export function Header() {
               window.scrollTo({ top: 0, behavior: "smooth" });
               setOpen(false);
             }}
-            className="flex items-center gap-3"
+            className="flex items-center"
             aria-label="شركة المحمدية — الرئيسية"
           >
-            <span className="grid h-10 w-14 place-items-center overflow-hidden rounded-lg bg-mh-black">
-              <img
-                src={IMAGES.logo}
-                alt={COMPANY.fullName}
-                className="h-full w-full object-cover"
-              />
-            </span>
-            <span className="leading-tight">
-              <span className="block text-sm font-black uppercase tracking-wider text-mh-black">
-                {COMPANY.name}
-              </span>
-              <span className="mt-0.5 block text-[9px] font-bold tracking-widest text-mh-gold-deep uppercase">
-                {COMPANY.tagline}
-              </span>
-            </span>
+            <img
+              src={IMAGES.logo}
+              alt={COMPANY.fullName}
+              className="h-12 w-auto object-contain"
+            />
           </a>
 
           {/* Desktop nav */}
@@ -111,22 +101,12 @@ export function Header() {
           />
           <div className="absolute inset-y-0 left-0 w-[86%] max-w-sm overflow-y-auto border-e border-mh-black/8 bg-white p-5">
             <div className="flex items-center justify-between border-b border-mh-black/8 pb-4">
-              <div className="flex items-center gap-3">
-                <span className="grid h-10 w-14 place-items-center overflow-hidden rounded-lg bg-mh-black">
-                  <img
-                    src={IMAGES.logo}
-                    alt={COMPANY.fullName}
-                    className="h-full w-full object-cover"
-                  />
-                </span>
-                <span className="leading-tight">
-                  <span className="block text-sm font-black uppercase tracking-wider text-mh-black">
-                    {COMPANY.name}
-                  </span>
-                  <span className="mt-0.5 block text-[9px] font-bold tracking-widest text-mh-gold-deep uppercase">
-                    {COMPANY.tagline}
-                  </span>
-                </span>
+              <div className="flex items-center">
+                <img
+                  src={IMAGES.logo}
+                  alt={COMPANY.fullName}
+                  className="h-12 w-auto object-contain"
+                />
               </div>
               <button
                 onClick={() => setOpen(false)}
