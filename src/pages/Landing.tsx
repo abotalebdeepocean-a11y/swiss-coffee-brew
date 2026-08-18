@@ -1,44 +1,46 @@
 import { useEffect } from "react";
-import { Header } from "@/components/mohamadia/Header";
-import { Hero } from "@/components/mohamadia/Hero";
-import { WhoWeAre } from "@/components/mohamadia/WhoWeAre";
-import { Sectors } from "@/components/mohamadia/Sectors";
-import { Chairman } from "@/components/mohamadia/Chairman";
-import { Leadership } from "@/components/mohamadia/Leadership";
-import { Values } from "@/components/mohamadia/Values";
-import { WhyUs } from "@/components/mohamadia/WhyUs";
-import { Portfolio } from "@/components/mohamadia/Portfolio";
-import { Contact } from "@/components/mohamadia/Contact";
-import { Footer } from "@/components/mohamadia/Footer";
-import { WhatsAppFloat } from "@/components/mohamadia/WhatsAppFloat";
-import { ExportTool } from "@/components/mohamadia/ExportTool";
+import { Header } from "@/components/rovento/Header";
+import { BannerSlider } from "@/components/rovento/BannerSlider";
+import { Hero } from "@/components/rovento/Hero";
+import { SignatureCollection } from "@/components/rovento/SignatureCollection";
+import { OfferSection } from "@/components/rovento/OfferSection";
+import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
+import { BestSellers } from "@/components/rovento/BestSellers";
+import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
+import { OtherVarieties } from "@/components/rovento/OtherVarieties";
+import { WhyRovento } from "@/components/rovento/WhyRovento";
+import { Testimonials } from "@/components/rovento/Testimonials";
+import { TrustBar } from "@/components/rovento/TrustBar";
+import { Footer } from "@/components/rovento/Footer";
+import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
+import { CartDrawer } from "@/components/rovento/CartDrawer";
+import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 
-/**
- * بروفايل شركة المحمدية للمقاولات العامة والتوريدات العمومية —
- * صفحة تعريفية احترافية بهوية minimalist editorial (أسود + أبيض + بيج).
- */
 export default function Landing() {
   useEffect(() => {
-    document.title = "شركة المحمدية للمقاولات العامة والتوريدات العمومية";
+    document.title = "ROVENTO | روفينتو — قهوة مختصة مصرية";
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-mh-cream text-mh-black">
+    <div dir="rtl" className="min-h-screen bg-coffee-950 text-stone-100 antialiased">
       <Header />
-      <main id="mohamadia-export-target">
+      <main>
+        <BannerSlider />
         <Hero />
-        <WhoWeAre />
-        <Sectors />
-        <Chairman />
-        <Leadership />
-        <Values />
-        <WhyUs />
-        <Portfolio />
-        <Contact />
+        <SignatureCollection />
+        <OfferSection />
+        <MokaSpotlight />
+        <BestSellers />
+        <CustomBlendStudio />
+        <OtherVarieties />
+        <WhyRovento />
+        <Testimonials />
+        <TrustBar />
       </main>
       <Footer />
+      <CartDrawer />
       <WhatsAppFloat />
-      <ExportTool />
+      <ExitIntentPopup />
     </div>
   );
 }
