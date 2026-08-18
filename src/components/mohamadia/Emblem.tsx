@@ -1,6 +1,5 @@
 import { useId } from "react";
 import { cn } from "@/lib/utils";
-import { IMAGES } from "./content";
 
 /** Architectural emblem — three overlapping towers with arched tops, in gold. */
 export function Emblem({ className }: { className?: string }) {
@@ -49,21 +48,38 @@ export function Emblem({ className }: { className?: string }) {
   );
 }
 
-/** Circular chairman photo with a gold ring — used as signature avatar. */
+/** Gold monogram circle with initials — used as signature avatar. */
 export function ChairmanAvatar({ className }: { className?: string }) {
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
+  const grad = `mh-avatar-${uid}`;
+
   return (
     <div
       className={cn(
-        "shrink-0 overflow-hidden rounded-full border-2 border-mh-gold bg-[#111] shadow-[0_8px_24px_rgba(0,0,0,0.4)]",
+        "shrink-0 grid place-items-center rounded-full border-2 border-mh-gold bg-[#111] shadow-[0_8px_24px_rgba(0,0,0,0.4)]",
         className,
       )}
     >
-      <img
-        src={IMAGES.chairman}
-        alt="م/ خليفة حامد نجار الأحمر"
-        className="size-full object-cover"
-        loading="lazy"
-      />
+      <svg viewBox="0 0 64 64" fill="none" className="size-full" aria-hidden="true">
+        <defs>
+          <linearGradient id={grad} x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#f0d98c" />
+            <stop offset="0.5" stopColor="#d4af37" />
+            <stop offset="1" stopColor="#a8842a" />
+          </linearGradient>
+        </defs>
+        <text
+          x="32"
+          y="38"
+          textAnchor="middle"
+          fontSize="24"
+          fontWeight="900"
+          fontFamily="Cairo, sans-serif"
+          fill={`url(#${grad})`}
+        >
+          خ
+        </text>
+      </svg>
     </div>
   );
 }
