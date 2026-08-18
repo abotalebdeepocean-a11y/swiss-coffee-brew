@@ -1,4 +1,4 @@
-import { COMPANY, WHO_WE_ARE } from "./content";
+import { COMPANY, WHO_WE_ARE, WHO_WE_ARE_EN } from "./content";
 import { Reveal } from "./Reveal";
 import { Section, SectionHeading } from "./Section";
 
@@ -9,14 +9,16 @@ export function WhoWeAre() {
         <Reveal>
           <SectionHeading
             eyebrow="من نحن"
+            eyebrowEn="About Us"
             title={
               <>
-                <span className="text-mh-black">شركة المحمدية</span>
+                <span className="text-mh-black editorial-heading">WHO WE ARE</span>
                 <br />
-                <span className="text-mh-gold-deep">للمقاولات العامة والتوريدات العمومية</span>
+                <span className="text-mh-gold-deep editorial-heading">{COMPANY.nameEn}</span>
               </>
             }
             subtitle={WHO_WE_ARE}
+            subtitleEn={WHO_WE_ARE_EN}
           />
         </Reveal>
 
@@ -25,6 +27,9 @@ export function WhoWeAre() {
             <div className="w-16 h-0.5 bg-mh-gold mx-auto mb-8" />
             <p className="text-lg leading-9 text-mh-black/50 md:text-xl md:leading-10">
               {COMPANY.vision}
+            </p>
+            <p className="mt-4 text-sm leading-7 text-mh-black/30 italic">
+              {COMPANY.visionEn}
             </p>
           </div>
         </Reveal>

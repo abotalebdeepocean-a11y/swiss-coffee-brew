@@ -24,10 +24,10 @@ const TRUST = [
 ];
 
 const STATS = [
-  { value: "1995", label: "بداية الخبرة" },
-  { value: "2013", label: "تأسيس الشركة" },
-  { value: "6", label: "قطاعات رئيسية" },
-  { value: "37", label: "دولة خارج مصر" },
+  { value: "1995", label: "بداية الخبرة", labelEn: "Experience Started" },
+  { value: "2013", label: "تأسيس الشركة", labelEn: "Company Founded" },
+  { value: "8", label: "قطاعات رئيسية", labelEn: "Key Sectors" },
+  { value: "37", label: "دولة خارج مصر", labelEn: "Countries Beyond Egypt" },
 ];
 
 export function Hero() {
@@ -40,6 +40,14 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -right-40 top-0 h-[120%] w-px rotate-[12deg] bg-mh-black/5" />
         <div className="absolute -right-20 top-0 h-[120%] w-px rotate-[12deg] bg-mh-black/3" />
+        <div className="absolute -left-40 top-0 h-[120%] w-px rotate-[-12deg] bg-mh-gold/10" />
+      </div>
+
+      {/* Decorative circles */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -right-20 top-20 size-40 rounded-full border border-mh-gold/10" />
+        <div className="absolute -right-10 top-30 size-20 rounded-full border border-mh-black/5" />
+        <div className="absolute -left-10 bottom-20 size-32 rounded-full border border-mh-gold/10" />
       </div>
 
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pb-16 pt-32 md:px-8 md:pt-40 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-44">
@@ -57,14 +65,14 @@ export function Hero() {
             {...fadeUp(0.15)}
             className="mt-7 text-balance font-black leading-[1.02] text-mh-black"
           >
-            <span className="block text-[clamp(2.5rem,5.5vw,4.5rem)]">
-              شركة المحمدية
+            <span className="block text-[clamp(2.5rem,5.5vw,4.5rem)] editorial-heading">
+              {COMPANY.nameEn}
             </span>
-            <span className="block text-[clamp(1.8rem,4vw,3.2rem)] text-mh-gold-deep">
-              للمقاولات العامة
+            <span className="block text-[clamp(1.8rem,4vw,3.2rem)] text-mh-gold-deep editorial-heading">
+              {COMPANY.taglineEn}
             </span>
-            <span className="block text-[clamp(1.5rem,3vw,2.5rem)] text-mh-black/40">
-              والتوريدات العمومية
+            <span className="block text-[clamp(1.5rem,3vw,2.5rem)] text-mh-black/40 editorial-heading">
+              {COMPANY.fullName}
             </span>
           </motion.h1>
 
@@ -132,11 +140,11 @@ export function Hero() {
               />
               {/* name plate on photo */}
               <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                <p className="text-2xl font-black leading-snug text-white md:text-3xl">
-                  {COMPANY.chairman}
+                <p className="text-2xl font-black leading-snug text-white md:text-3xl editorial-heading">
+                  {COMPANY.chairmanEn}
                 </p>
                 <p className="mt-2 text-sm font-bold text-mh-gold">
-                  {COMPANY.chairmanTitle}
+                  {COMPANY.chairmanTitleEn}
                 </p>
                 <div className="mt-4 flex items-center gap-4">
                   <a
@@ -172,11 +180,14 @@ export function Hero() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="text-center"
             >
-              <p className="text-3xl font-black text-white md:text-4xl">
+              <p className="text-4xl font-black text-white md:text-5xl editorial-heading">
                 {s.value}
               </p>
               <p className="mt-2 text-xs font-bold text-white/40 md:text-sm">
                 {s.label}
+              </p>
+              <p className="mt-1 text-[10px] font-bold text-mh-gold/60 uppercase tracking-wider">
+                {s.labelEn}
               </p>
             </motion.div>
           ))}

@@ -9,12 +9,15 @@ export function Portfolio() {
         <Reveal>
           <SectionHeading
             eyebrow="سابقة أعمال مختارة"
+            eyebrowEn="Featured Projects"
             title={
               <>
-                أعمالنا <span className="text-mh-gold-deep">تتحدث عنا</span>
+                <span className="text-mh-black editorial-heading">OUR WORK</span>{" "}
+                <span className="text-mh-gold-deep editorial-heading">SPEAKS</span>
               </>
             }
             subtitle="نخبة من المشروعات والشراكات التي تعكس قدراتنا التنفيذية في التوريدات والمقاولات والتجارة الدولية."
+            subtitleEn="A selection of projects and partnerships that reflect our executive capabilities in supply chain, contracting, and international trade."
           />
         </Reveal>
 
@@ -36,9 +39,12 @@ export function Portfolio() {
                 />
 
                 <div className="relative p-7">
-                  <h3 className="text-xl font-black text-white">
-                    {item.title}
+                  <h3 className="text-xl font-black text-white editorial-heading">
+                    {item.titleEn}
                   </h3>
+                  <p className="text-sm font-bold text-mh-gold mt-1">
+                    {item.title}
+                  </p>
                   <p className="mt-3 text-sm leading-7 text-white/60">
                     {item.desc}
                   </p>
@@ -51,8 +57,8 @@ export function Portfolio() {
         {/* Metals showcase — editorial grid */}
         <Reveal delay={0.2}>
           <div className="mt-16">
-            <p className="text-center text-xs font-black tracking-[0.3em] uppercase text-mh-gold-deep mb-10">
-              المعادن والسبائك
+            <p className="text-center text-xs font-black tracking-[0.3em] uppercase text-mh-gold-deep mb-10 editorial-heading">
+              METALS & BULLION
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {METALS_IMAGES.map((item, i) => (
@@ -69,9 +75,12 @@ export function Portfolio() {
                       aria-hidden="true"
                     />
                     <div className="absolute inset-x-0 bottom-0 p-5">
-                      <h4 className="text-lg font-black text-white">
-                        {item.title}
+                      <h4 className="text-lg font-black text-white editorial-heading">
+                        {item.titleEn}
                       </h4>
+                      <p className="mt-1 text-sm font-bold text-mh-gold">
+                        {item.title}
+                      </p>
                       <p className="mt-1 text-xs font-bold text-white/50">
                         {item.desc}
                       </p>

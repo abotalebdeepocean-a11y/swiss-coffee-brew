@@ -10,8 +10,8 @@ export function Values() {
     <Section id="values" className="bg-mh-cream">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
-          <p className="text-center text-xs font-black tracking-[0.3em] uppercase text-mh-gold-deep">
-            قيمنا الراسخة
+          <p className="text-center text-xs font-black tracking-[0.3em] uppercase text-mh-gold-deep editorial-heading">
+            OUR CORE VALUES
           </p>
         </Reveal>
 
@@ -29,6 +29,9 @@ export function Values() {
                   <h3 className="mt-6 text-base font-black leading-snug text-mh-black md:text-lg">
                     {item.title}
                   </h3>
+                  <p className="text-xs font-bold text-mh-gold-deep uppercase tracking-wider">
+                    {item.titleEn}
+                  </p>
                   <p className="text-sm font-bold text-mh-gold-deep">{item.sub}</p>
                 </div>
               </Reveal>

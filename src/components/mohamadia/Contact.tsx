@@ -8,6 +8,7 @@ const CHANNELS = [
   {
     icon: Phone,
     label: "هاتف / واتساب",
+    labelEn: "Phone / WhatsApp",
     value: COMPANY.phoneDisplay,
     href: COMPANY.phoneHref,
     ltr: true,
@@ -15,6 +16,7 @@ const CHANNELS = [
   {
     icon: Mail,
     label: "البريد الإلكتروني",
+    labelEn: "Email",
     value: COMPANY.email,
     href: COMPANY.emailHref,
     ltr: false,
@@ -22,6 +24,7 @@ const CHANNELS = [
   {
     icon: MapPin,
     label: "العنوان",
+    labelEn: "Address",
     value: COMPANY.address,
     href: undefined,
     ltr: false,
@@ -37,14 +40,13 @@ export function Contact() {
             <div className="relative text-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-mh-gold">
                 <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
-                جاهزون للشراكة
+                READY TO PARTNER
               </span>
-              <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
-                <span className="text-mh-gold">تواصل معنا</span>
+              <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl editorial-heading">
+                <span className="text-mh-gold">GET IN TOUCH</span>
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-white/40 md:text-base">
-                نحن على بُعد رسالة واحدة — تحدث معنا مباشرة عبر واتساب، أو
-                اتصل بنا، أو راسلنا على بريدنا الإلكتروني.
+                تواصل معنا مباشرة عبر واتساب، أو اتصل بنا، أو راسلنا على بريدنا الإلكتروني.
               </p>
             </div>
 
@@ -62,6 +64,9 @@ export function Contact() {
                   </span>
                   <span>
                     <span className="block text-xs font-bold text-white/30">
+                      {c.labelEn}
+                    </span>
+                    <span className="block text-[10px] font-bold text-white/20 mt-0.5">
                       {c.label}
                     </span>
                     <span

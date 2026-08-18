@@ -17,13 +17,16 @@ export function WhyUs() {
         <Reveal>
           <SectionHeading
             eyebrow="لماذا المحمدية؟"
+            eyebrowEn="Why Al Mohammadiya?"
             title={
               <>
-                حلول تجارية <span className="text-mh-gold-deep">متكاملة</span> بثقة
-                وموثوقية
+                <span className="text-mh-black editorial-heading">INTEGRATED</span>{" "}
+                <span className="text-mh-gold-deep editorial-heading">SOLUTIONS</span>{" "}
+                <span className="text-mh-black editorial-heading">WITH TRUST</span>
               </>
             }
             subtitle="نقدم حلولاً تجارية متكاملة تجمع بين الخبرة التنفيذية والشبكات الدولية والالتزام الكامل بمعايير الجودة والموثوقية."
+            subtitleEn="We provide integrated business solutions that combine executive expertise, international networks, and full commitment to quality and reliability standards."
           />
         </Reveal>
 
@@ -40,6 +43,9 @@ export function WhyUs() {
                     <h3 className="text-lg font-black text-mh-black">
                       {item.title}
                     </h3>
+                    <p className="text-xs font-bold text-mh-gold-deep uppercase tracking-wider mt-1">
+                      {item.titleEn}
+                    </p>
                     <p className="mt-2 text-sm leading-7 text-mh-black/50">
                       {item.desc}
                     </p>

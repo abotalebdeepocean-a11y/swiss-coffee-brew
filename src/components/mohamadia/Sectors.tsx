@@ -9,12 +9,15 @@ export function Sectors() {
         <Reveal>
           <SectionHeading
             eyebrow="قطاعات العمل الرئيسية"
+            eyebrowEn="Key Business Sectors"
             title={
               <>
-                ثمانية قطاعات <span className="text-mh-gold-deep">استراتيجية</span>
+                <span className="text-mh-black editorial-heading">EIGHT STRATEGIC</span>{" "}
+                <span className="text-mh-gold-deep editorial-heading">SECTORS</span>
               </>
             }
-            subtitle="نغطي spectrum واسعاً من القطاعات لخدمة المشاريع الحكومية والخاصة داخل وخارج جمهورية مصر العربية."
+            subtitle="نغطي نطاقاً واسعاً من القطاعات لخدمة المشاريع الحكومية والخاصة داخل وخارج جمهورية مصر العربية."
+            subtitleEn="We cover a wide spectrum of sectors to serve government and private projects inside and outside the Arab Republic of Egypt."
           />
         </Reveal>
 
@@ -22,13 +25,16 @@ export function Sectors() {
           {SECTORS.map((item, i) => (
             <Reveal key={item.num} delay={(i % 2) * 0.1}>
               <div className="card-editorial group flex gap-5 rounded-2xl p-6 md:p-7">
-                <span className="shrink-0 text-4xl font-black text-mh-black/10 transition-colors group-hover:text-mh-gold font-wide">
+                <span className="shrink-0 text-4xl font-black text-mh-black/10 transition-colors group-hover:text-mh-gold editorial-heading">
                   {item.num}
                 </span>
                 <div>
                   <h3 className="text-lg font-black text-mh-black">
                     {item.title}
                   </h3>
+                  <p className="text-xs font-bold text-mh-gold-deep uppercase tracking-wider mt-1">
+                    {item.titleEn}
+                  </p>
                   <p className="mt-2.5 text-sm leading-7 text-mh-black/50">
                     {item.desc}
                   </p>

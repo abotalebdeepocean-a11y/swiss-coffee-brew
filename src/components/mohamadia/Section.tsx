@@ -25,28 +25,46 @@ export function Section({
 
 export function SectionHeading({
   eyebrow,
+  eyebrowEn,
   title,
   subtitle,
+  subtitleEn,
   center = true,
 }: {
   eyebrow: string;
+  eyebrowEn?: string;
   title: ReactNode;
   subtitle?: ReactNode;
+  subtitleEn?: string;
   center?: boolean;
 }) {
   return (
     <div className={cn("max-w-3xl", center && "mx-auto text-center")}>
-      <span className="inline-flex items-center gap-2 rounded-full border border-mh-black/10 bg-white px-4 py-1.5 text-xs font-bold tracking-wide text-mh-black/50">
-        <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
-        {eyebrow}
-      </span>
+      <div className="inline-flex items-center gap-2">
+        <span className="inline-flex items-center gap-2 rounded-full border border-mh-black/10 bg-white px-4 py-1.5 text-xs font-bold tracking-wide text-mh-black/50">
+          <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
+          {eyebrow}
+        </span>
+        {eyebrowEn && (
+          <span className="text-[10px] font-bold tracking-widest text-mh-gold-deep uppercase">
+            {eyebrowEn}
+          </span>
+        )}
+      </div>
       <h2 className="mt-6 text-balance text-3xl font-black leading-tight text-mh-black sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-5 text-pretty text-base leading-8 text-mh-black/45 md:text-lg">
-          {subtitle}
-        </p>
+        <div className="mt-5">
+          <p className="text-pretty text-base leading-8 text-mh-black/45 md:text-lg">
+            {subtitle}
+          </p>
+          {subtitleEn && (
+            <p className="mt-2 text-sm leading-7 text-mh-black/30 italic">
+              {subtitleEn}
+            </p>
+          )}
+        </div>
       )}
     </div>
   );

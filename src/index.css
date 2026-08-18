@@ -48,6 +48,7 @@
   --font-display: "Archivo", "Cairo", "IBM Plex Sans Arabic", ui-sans-serif,
     system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-condensed: "Bebas Neue", "Archivo", "Cairo", ui-sans-serif;
 
   /* Rovento palette — keep for the store */
   --color-coffee-950: #0c0a09;
@@ -64,18 +65,21 @@
   --color-rv-amber: #d97706;
   --color-rv-terra: #8b3c1e;
 
-  /* Mohamadia editorial palette */
-  --color-mh-gold: #d4af37;
-  --color-mh-gold-soft: #c4a035;
-  --color-mh-gold-deep: #b89528;
-  --color-mh-cream: #f5f0e8;
+  /* Mohamadia editorial palette — inspired by brand guidelines + Romy Keane */
+  --color-mh-gold: #c8943e;
+  --color-mh-gold-soft: #d4af37;
+  --color-mh-gold-deep: #a67c2e;
+  --color-mh-cream: #f5efe6;
   --color-mh-warm: #e8e0d4;
   --color-mh-black: #0a0a0a;
   --color-mh-charcoal: #1a1a1a;
+  --color-mh-dark: #111111;
 
   --animate-float: float 10s ease-in-out infinite;
   --animate-float-slow: float 16s ease-in-out infinite;
   --animate-pulse-wa: pulse-wa 2.4s ease-out infinite;
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+  --animate-slide-up: slide-up 0.6s ease-out forwards;
 
   @keyframes float {
     0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
@@ -86,42 +90,50 @@
     70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
     100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
   }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
 /* CHANGE VALUES FOR THEME */
 :root {
   --radius: 14px;
-  --background: #f5f0e8;
+  --background: #f5efe6;
   --foreground: #0a0a0a;
   --card: #ffffff;
   --card-foreground: #0a0a0a;
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
   --primary: #0a0a0a;
-  --primary-foreground: #f5f0e8;
+  --primary-foreground: #f5efe6;
   --secondary: #e8e0d4;
   --secondary-foreground: #0a0a0a;
   --muted: #e8e0d4;
   --muted-foreground: #666666;
-  --accent: #d4af37;
+  --accent: #c8943e;
   --accent-foreground: #0a0a0a;
   --destructive: oklch(0.577 0.245 27.325);
   --border: #d5cfc3;
   --input: #d5cfc3;
-  --ring: #d4af37;
+  --ring: #c8943e;
   --chart-1: #0a0a0a;
-  --chart-2: #d4af37;
+  --chart-2: #c8943e;
   --chart-3: #e8e0d4;
   --chart-4: #666666;
-  --chart-5: #f5f0e8;
-  --sidebar: #f5f0e8;
+  --chart-5: #f5efe6;
+  --sidebar: #f5efe6;
   --sidebar-foreground: #0a0a0a;
   --sidebar-primary: #0a0a0a;
-  --sidebar-primary-foreground: #f5f0e8;
+  --sidebar-primary-foreground: #f5efe6;
   --sidebar-accent: #e8e0d4;
   --sidebar-accent-foreground: #0a0a0a;
   --sidebar-border: #d5cfc3;
-  --sidebar-ring: #d4af37;
+  --sidebar-ring: #c8943e;
 }
 
 @layer base {
@@ -140,7 +152,7 @@
     cursor: pointer;
   }
   ::selection {
-    background: #d4af37;
+    background: #c8943e;
     color: #0a0a0a;
   }
   ::-webkit-scrollbar {
@@ -148,14 +160,14 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #f5f0e8;
+    background: #f5efe6;
   }
   ::-webkit-scrollbar-thumb {
     background: #c5bfb3;
-    border: 2px solid #f5f0e8;
+    border: 2px solid #f5efe6;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #d4af37;
+    background: #c8943e;
   }
 }
 
@@ -189,10 +201,10 @@
 
   /* Editorial bold heading — condensed uppercase look */
   .editorial-heading {
-    font-family: "Archivo", "Cairo", ui-sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    font-family: "Bebas Neue", "Archivo", "Cairo", ui-sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 0.95;
   }
 
   /* Black editorial card */
@@ -214,7 +226,7 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   }
   .card-dark-editorial:hover {
-    border-color: rgba(212, 175, 55, 0.3);
+    border-color: rgba(200, 148, 62, 0.3);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   }
 
@@ -222,5 +234,17 @@
   .warm-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, #c5bfb3, transparent);
+  }
+
+  /* Gold accent line */
+  .gold-line {
+    height: 2px;
+    background: linear-gradient(90deg, #c8943e, #d4af37, #c8943e);
+  }
+
+  /* Decorative circle */
+  .deco-circle {
+    border: 1px solid rgba(200, 148, 62, 0.2);
+    border-radius: 50%;
   }
 }

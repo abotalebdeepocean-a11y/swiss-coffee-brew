@@ -1,5 +1,5 @@
 import { Quote } from "lucide-react";
-import { CHAIRMAN_MESSAGE, COMPANY, ADVANTAGES } from "./content";
+import { CHAIRMAN_MESSAGE, CHAIRMAN_MESSAGE_EN, COMPANY, ADVANTAGES } from "./content";
 import { Reveal } from "./Reveal";
 import { Section, SectionHeading } from "./Section";
 
@@ -11,13 +11,13 @@ export function Chairman() {
           <div className="max-w-3xl mx-auto text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold tracking-wide text-mh-gold">
               <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
-              نبذة عن الخبرة
+              CHAIRMAN'S STATEMENT
             </span>
-            <h2 className="mt-6 text-balance text-3xl font-black leading-tight text-white sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
-              كلمة <span className="text-mh-gold">رئيس مجلس الإدارة</span>
+            <h2 className="mt-6 text-balance text-3xl font-black leading-tight text-white sm:text-4xl md:text-[2.75rem] md:leading-[1.15] editorial-heading">
+              WORDS FROM <span className="text-mh-gold">THE CHAIRMAN</span>
             </h2>
             <p className="mt-5 text-pretty text-base leading-8 text-white/40 md:text-lg">
-              رؤية قيادية صاغها صاحبها على مدى ثلاثة عقود من العمل والبناء.
+              كلمة رئيس مجلس الإدارة — رؤية قيادية صاغها صاحبها على مدى ثلاثة عقود من العمل والبناء.
             </p>
           </div>
         </Reveal>
@@ -31,17 +31,20 @@ export function Chairman() {
                 <p className="text-pretty text-lg font-semibold leading-[2] text-white/80 md:text-xl md:leading-[2]">
                   «{CHAIRMAN_MESSAGE}»
                 </p>
+                <p className="mt-6 text-sm leading-7 text-white/30 italic border-t border-white/8 pt-6">
+                  {CHAIRMAN_MESSAGE_EN}
+                </p>
               </blockquote>
               <figcaption className="mt-10 flex items-center gap-4 border-t border-white/8 pt-8">
                 <div className="grid size-14 shrink-0 place-items-center rounded-full border-2 border-mh-gold bg-white">
                   <span className="text-xl font-black text-mh-black">خ</span>
                 </div>
                 <div>
-                  <p className="text-lg font-black text-white md:text-xl">
-                    {COMPANY.chairman}
+                  <p className="text-lg font-black text-white md:text-xl editorial-heading">
+                    {COMPANY.chairmanEn}
                   </p>
                   <p className="mt-1 text-sm font-bold text-mh-gold">
-                    {COMPANY.chairmanTitle}
+                    {COMPANY.chairmanTitleEn}
                   </p>
                 </div>
               </figcaption>
@@ -53,14 +56,14 @@ export function Chairman() {
             <aside className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] p-8 md:p-10">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-mh-gold/20 bg-mh-gold/5 px-4 py-1.5 text-xs font-bold text-mh-gold">
                 <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
-                مميزاتنا
+                ADVANTAGES
               </span>
 
-              <h3 className="mt-6 text-2xl font-black leading-snug text-white">
-                {COMPANY.chairman}
+              <h3 className="mt-6 text-2xl font-black leading-snug text-white editorial-heading">
+                {COMPANY.chairmanEn}
               </h3>
               <p className="mt-2 text-sm font-bold text-mh-gold">
-                {COMPANY.chairmanTitle}
+                {COMPANY.chairmanTitleEn}
               </p>
 
               <div className="my-7 flex items-center gap-3" aria-hidden="true">

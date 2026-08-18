@@ -37,7 +37,7 @@ export function Header() {
             : "border-b border-transparent bg-transparent",
         )}
       >
-        <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
+        <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
           {/* Brand — logo only */}
           <a
             href="#top"
@@ -52,13 +52,13 @@ export function Header() {
             <img
               src={IMAGES.logo}
               alt={COMPANY.fullName}
-              className="h-12 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </a>
 
           {/* Desktop nav */}
           <nav
-            className="hidden items-center gap-0.5 lg:flex"
+            className="hidden items-center gap-1 lg:flex"
             aria-label="القائمة الرئيسية"
           >
             {NAV_LINKS.map((item) => (
@@ -66,7 +66,7 @@ export function Header() {
                 key={item.to}
                 href={item.to}
                 onClick={() => goTo(item.to.slice(1))}
-                className="rounded-full px-3.5 py-2 text-[13px] font-bold text-mh-black/50 transition-colors hover:bg-mh-black/5 hover:text-mh-black"
+                className="rounded-full px-4 py-2 text-[13px] font-bold text-mh-black/50 transition-colors hover:bg-mh-black/5 hover:text-mh-black"
               >
                 {item.label}
               </a>
@@ -77,7 +77,7 @@ export function Header() {
             <a
               href="#contact"
               onClick={() => goTo("contact")}
-              className="hidden rounded-full bg-mh-black px-5 py-2.5 text-[13px] font-bold text-white transition-all hover:bg-mh-charcoal sm:inline-flex"
+              className="hidden rounded-full bg-mh-black px-6 py-2.5 text-[13px] font-bold text-white transition-all hover:bg-mh-charcoal sm:inline-flex"
             >
               تواصل معنا
             </a>
@@ -105,7 +105,7 @@ export function Header() {
                 <img
                   src={IMAGES.logo}
                   alt={COMPANY.fullName}
-                  className="h-12 w-auto object-contain"
+                  className="h-14 w-auto object-contain"
                 />
               </div>
               <button

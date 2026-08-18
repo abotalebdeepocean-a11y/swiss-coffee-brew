@@ -19,12 +19,15 @@ export function Leadership() {
         <Reveal>
           <SectionHeading
             eyebrow="ما يميز قيادتنا"
+            eyebrowEn="Our Leadership"
             title={
               <>
-                رؤية قيادية <span className="text-mh-gold-deep">بمعايير عالمية</span>
+                <span className="text-mh-black editorial-heading">LEADERSHIP</span>{" "}
+                <span className="text-mh-gold-deep editorial-heading">EXCELLENCE</span>
               </>
             }
             subtitle="نؤمن أن نجاح الشركات الكبرى يبدأ من اختيار الكفاءات وبناء فريق قادر على تحمل المسؤولية والابتكار في كل تفصيلة."
+            subtitleEn="We believe that the success of major companies begins with selecting competencies and building a team capable of bearing responsibility and innovating in every detail."
           />
         </Reveal>
 
@@ -40,6 +43,9 @@ export function Leadership() {
                   <h3 className="mt-5 text-lg font-black text-mh-black">
                     {item.title}
                   </h3>
+                  <p className="text-xs font-bold text-mh-gold-deep uppercase tracking-wider mt-1">
+                    {item.titleEn}
+                  </p>
                   <p className="mt-2.5 text-sm leading-7 text-mh-black/50">
                     {item.desc}
                   </p>
