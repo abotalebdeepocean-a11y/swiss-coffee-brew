@@ -15,7 +15,7 @@ import { ExportTool } from "@/components/mohamadia/ExportTool";
 
 /**
  * بروفايل شركة المحمدية للمقاولات العامة والتوريدات العمومية —
- * صفحة تعريفية احترافية بهوية فاخرة (أسود + ذهبي + أبيض).
+ * صفحة تعريفية احترافية بهوية minimalist editorial (أسود + أبيض + بيج).
  */
 export default function Landing() {
   useEffect(() => {
@@ -23,9 +23,9 @@ export default function Landing() {
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-[#0a0a0a] text-white">
+    <div dir="rtl" className="min-h-screen bg-mh-cream text-mh-black">
       <Header />
-      <main>
+      <main id="mohamadia-export-target">
         <Hero />
         <WhoWeAre />
         <Sectors />

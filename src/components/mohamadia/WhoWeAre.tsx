@@ -4,16 +4,16 @@ import { Section, SectionHeading } from "./Section";
 
 export function WhoWeAre() {
   return (
-    <Section id="who" className="bg-[#0a0a0a]">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <Section id="who" className="bg-white">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
           <SectionHeading
             eyebrow="من نحن"
             title={
               <>
-                <span className="gold-text">شركة المحمدية</span>
+                <span className="text-mh-black">شركة المحمدية</span>
                 <br />
-                للمقاولات العامة والتوريدات العمومية
+                <span className="text-mh-gold-deep">للمقاولات العامة والتوريدات العمومية</span>
               </>
             }
             subtitle={WHO_WE_ARE}
@@ -22,7 +22,8 @@ export function WhoWeAre() {
 
         <Reveal delay={0.15}>
           <div className="mx-auto mt-14 max-w-3xl text-center">
-            <p className="text-lg leading-9 text-white/60 md:text-xl md:leading-10">
+            <div className="w-16 h-0.5 bg-mh-gold mx-auto mb-8" />
+            <p className="text-lg leading-9 text-mh-black/50 md:text-xl md:leading-10">
               {COMPANY.vision}
             </p>
           </div>

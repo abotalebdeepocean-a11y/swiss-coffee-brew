@@ -33,11 +33,11 @@ export function Header() {
         className={cn(
           "transition-all duration-500",
           scrolled || open
-            ? "border-b border-white/10 bg-black/80 shadow-[0_8px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl"
+            ? "border-b border-black/8 bg-white/90 shadow-[0_4px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl"
             : "border-b border-transparent bg-transparent",
         )}
       >
-        <div className="mx-auto flex h-18 w-full max-w-6xl items-center justify-between gap-4 px-5 md:px-8">
+        <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
           {/* Brand */}
           <a
             href="#top"
@@ -49,7 +49,7 @@ export function Header() {
             className="flex items-center gap-3"
             aria-label="شركة المحمدية — الرئيسية"
           >
-            <span className="grid h-11 w-14 place-items-center overflow-hidden rounded-xl bg-white/5 border border-white/10 shadow-[0_6px_18px_rgba(0,0,0,0.3)]">
+            <span className="grid h-10 w-14 place-items-center overflow-hidden rounded-lg bg-mh-black">
               <img
                 src={IMAGES.logo}
                 alt={COMPANY.fullName}
@@ -57,10 +57,10 @@ export function Header() {
               />
             </span>
             <span className="leading-tight">
-              <span className="block text-base font-black text-white md:text-lg">
+              <span className="block text-sm font-black uppercase tracking-wider text-mh-black">
                 {COMPANY.name}
               </span>
-              <span className="mt-0.5 block text-[10px] font-bold tracking-wide text-mh-gold-soft md:text-[11px]">
+              <span className="mt-0.5 block text-[9px] font-bold tracking-widest text-mh-gold-deep uppercase">
                 {COMPANY.tagline}
               </span>
             </span>
@@ -76,7 +76,7 @@ export function Header() {
                 key={item.to}
                 href={item.to}
                 onClick={() => goTo(item.to.slice(1))}
-                className="rounded-full px-3.5 py-2 text-sm font-bold text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
+                className="rounded-full px-3.5 py-2 text-[13px] font-bold text-mh-black/50 transition-colors hover:bg-mh-black/5 hover:text-mh-black"
               >
                 {item.label}
               </a>
@@ -87,13 +87,13 @@ export function Header() {
             <a
               href="#contact"
               onClick={() => goTo("contact")}
-              className="btn-gold hidden rounded-full px-5 py-2.5 text-sm font-black sm:inline-flex"
+              className="hidden rounded-full bg-mh-black px-5 py-2.5 text-[13px] font-bold text-white transition-all hover:bg-mh-charcoal sm:inline-flex"
             >
               تواصل معنا
             </a>
             <button
               onClick={() => setOpen(true)}
-              className="grid size-10 place-items-center rounded-full border border-white/20 bg-white/5 text-white lg:hidden"
+              className="grid size-10 place-items-center rounded-full border border-mh-black/10 bg-white text-mh-black lg:hidden"
               aria-label="افتح القائمة"
             >
               <Menu className="size-5" />
@@ -106,13 +106,13 @@ export function Header() {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/20 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-[86%] max-w-sm overflow-y-auto border-e border-white/10 bg-[#0a0a0a] p-5">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="absolute inset-y-0 left-0 w-[86%] max-w-sm overflow-y-auto border-e border-mh-black/8 bg-white p-5">
+            <div className="flex items-center justify-between border-b border-mh-black/8 pb-4">
               <div className="flex items-center gap-3">
-                <span className="grid h-11 w-14 place-items-center overflow-hidden rounded-xl bg-white/5 border border-white/10">
+                <span className="grid h-10 w-14 place-items-center overflow-hidden rounded-lg bg-mh-black">
                   <img
                     src={IMAGES.logo}
                     alt={COMPANY.fullName}
@@ -120,17 +120,17 @@ export function Header() {
                   />
                 </span>
                 <span className="leading-tight">
-                  <span className="block text-base font-black text-white">
+                  <span className="block text-sm font-black uppercase tracking-wider text-mh-black">
                     {COMPANY.name}
                   </span>
-                  <span className="mt-0.5 block text-[10px] font-bold text-mh-gold-soft">
+                  <span className="mt-0.5 block text-[9px] font-bold tracking-widest text-mh-gold-deep uppercase">
                     {COMPANY.tagline}
                   </span>
                 </span>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="grid size-9 place-items-center rounded-full border border-white/20 text-white"
+                className="grid size-9 place-items-center rounded-full border border-mh-black/10 text-mh-black"
                 aria-label="إغلاق"
               >
                 <X className="size-4" />
@@ -142,10 +142,10 @@ export function Header() {
                   key={item.to}
                   href={item.to}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between border-b border-white/5 px-2 py-4 text-start text-base font-bold text-white/70 transition-colors hover:text-mh-gold-soft"
+                  className="flex items-center justify-between border-b border-mh-black/5 px-2 py-4 text-start text-base font-bold text-mh-black/60 transition-colors hover:text-mh-black"
                 >
                   {item.label}
-                  <span className="font-mono text-[10px] text-mh-gold">
+                  <span className="font-mono text-[10px] text-mh-gold-deep">
                     0{i + 1}
                   </span>
                 </a>
@@ -153,7 +153,7 @@ export function Header() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="btn-gold mt-6 inline-flex h-12 items-center justify-center rounded-full font-black"
+                className="mt-6 inline-flex h-12 items-center justify-center rounded-full bg-mh-black font-bold text-white"
               >
                 تواصل معنا
               </a>

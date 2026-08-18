@@ -24,7 +24,7 @@ const TRUST = [
 ];
 
 const STATS = [
-  { value: "1995", label: "بداية الخبرة التنفيذية" },
+  { value: "1995", label: "بداية الخبرة" },
   { value: "2013", label: "تأسيس الشركة" },
   { value: "6", label: "قطاعات رئيسية" },
   { value: "37", label: "دولة خارج مصر" },
@@ -32,20 +32,22 @@ const STATS = [
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-[#0a0a0a]">
-      {/* layered background */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(212,175,55,0.04),transparent_60%)]" />
-        <div className="grid-dark absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
+    <section id="top" className="relative overflow-hidden bg-mh-cream">
+      {/* Subtle editorial grid */}
+      <div className="pointer-events-none absolute inset-0 grid-editorial opacity-40" aria-hidden="true" />
+
+      {/* Decorative diagonal lines */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -right-40 top-0 h-[120%] w-px rotate-[12deg] bg-mh-black/5" />
+        <div className="absolute -right-20 top-0 h-[120%] w-px rotate-[12deg] bg-mh-black/3" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 pb-16 pt-32 md:px-8 md:pt-40 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-44">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pb-16 pt-32 md:px-8 md:pt-40 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-44">
         {/* ---- intro copy ---- */}
         <div>
           <motion.span
             {...fadeUp(0.05)}
-            className="inline-flex items-center gap-2 rounded-full border border-mh-gold/30 bg-mh-gold/5 px-4 py-2 text-xs font-bold text-mh-gold-soft backdrop-blur md:text-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-mh-black/10 bg-white px-4 py-2 text-xs font-bold tracking-wide text-mh-black/60 md:text-sm"
           >
             <ShieldCheck className="size-4 text-mh-gold" />
             منذ 2013 | سجل تجاري وبطاقة ضريبية
@@ -53,16 +55,22 @@ export function Hero() {
 
           <motion.h1
             {...fadeUp(0.15)}
-            className="mt-7 text-balance text-4xl font-black leading-[1.15] text-white sm:text-5xl md:text-6xl md:leading-[1.12]"
+            className="mt-7 text-balance font-black leading-[1.02] text-mh-black"
           >
-            <span className="block">شركة المحمدية</span>
-            <span className="gold-text block">للمقاولات العامة</span>
-            <span className="block text-white/80">والتوريدات العمومية</span>
+            <span className="block text-[clamp(2.5rem,5.5vw,4.5rem)]">
+              شركة المحمدية
+            </span>
+            <span className="block text-[clamp(1.8rem,4vw,3.2rem)] text-mh-gold-deep">
+              للمقاولات العامة
+            </span>
+            <span className="block text-[clamp(1.5rem,3vw,2.5rem)] text-mh-black/40">
+              والتوريدات العمومية
+            </span>
           </motion.h1>
 
           <motion.p
             {...fadeUp(0.25)}
-            className="mt-7 max-w-xl text-pretty text-base leading-8 text-white/50 md:text-lg md:leading-9"
+            className="mt-7 max-w-xl text-pretty text-base leading-8 text-mh-black/50 md:text-lg md:leading-9"
           >
             {COMPANY.heroIntro}
           </motion.p>
@@ -77,13 +85,13 @@ export function Hero() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold inline-flex h-13 items-center gap-2 rounded-full px-7 text-base font-black"
+              className="inline-flex h-13 items-center gap-2 rounded-full bg-mh-black px-7 text-base font-bold text-white transition-all hover:bg-mh-charcoal"
             >
               تواصل الآن
             </a>
             <a
               href="#sectors"
-              className="btn-outline-gold inline-flex h-13 items-center gap-2 rounded-full px-7 text-base font-bold"
+              className="inline-flex h-13 items-center gap-2 rounded-full border border-mh-black/15 px-7 text-base font-bold text-mh-black transition-all hover:bg-mh-black/5"
             >
               قطاعات العمل
               <ArrowDown className="size-4" />
@@ -92,7 +100,7 @@ export function Hero() {
 
           <motion.ul
             {...fadeUp(0.45)}
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-6 text-sm font-bold text-white/40"
+            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-mh-black/10 pt-6 text-sm font-bold text-mh-black/40"
           >
             {TRUST.map((item) => (
               <li key={item.label} className="flex items-center gap-2">
@@ -103,91 +111,58 @@ export function Hero() {
           </motion.ul>
         </div>
 
-        {/* ---- executive photo card (dark with gold lines) ---- */}
+        {/* ---- chairman photo card (editorial style) ---- */}
         <motion.div
           initial={{ opacity: 0, y: 34, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
           className="relative mx-auto w-full max-w-md lg:max-w-none"
         >
-          <div
-            className="absolute -inset-5 rounded-[2.5rem] bg-[radial-gradient(circle_at_70%_15%,rgba(212,175,55,0.2),transparent_60%)]"
-            aria-hidden="true"
-          />
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#111] shadow-[0_40px_90px_rgba(0,0,0,0.5)]">
-            {/* gold diagonal lines */}
-            <div
-              className="absolute -right-20 -top-20 h-[120%] w-px rotate-[25deg] bg-gradient-to-b from-transparent via-mh-gold/40 to-transparent"
-              aria-hidden="true"
-            />
-            <div
-              className="absolute -right-10 -top-20 h-[120%] w-px rotate-[25deg] bg-gradient-to-b from-transparent via-mh-gold/20 to-transparent"
-              aria-hidden="true"
-            />
-
+          <div className="relative overflow-hidden rounded-2xl bg-mh-black shadow-[0_40px_90px_rgba(0,0,0,0.15)]">
             {/* photo */}
             <div className="relative aspect-[4/5] overflow-hidden">
               <img
                 src={IMAGES.chairman}
                 alt={COMPANY.chairman}
-                className="size-full object-cover object-top"
+                className="size-full object-cover object-top grayscale contrast-[1.1]"
               />
               <div
-                className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-mh-gold/80 to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-mh-black via-mh-black/30 to-transparent"
                 aria-hidden="true"
               />
               {/* name plate on photo */}
-              <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
-                <p className="text-xl font-black leading-snug text-white md:text-2xl">
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <p className="text-2xl font-black leading-snug text-white md:text-3xl">
                   {COMPANY.chairman}
                 </p>
-                <p className="mt-1 text-sm font-bold text-mh-gold-soft">
+                <p className="mt-2 text-sm font-bold text-mh-gold">
                   {COMPANY.chairmanTitle}
                 </p>
-              </div>
-            </div>
-
-            {/* contact strip */}
-            <div className="grid gap-2.5 border-t border-white/10 bg-gradient-to-b from-[#111] to-[#0a0a0a] p-5 md:p-6">
-              <p className="text-[13px] leading-6 text-white/60">{COMPANY.bio}</p>
-              <div className="mt-2 grid gap-2.5">
-                <a
-                  href={COMPANY.phoneHref}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-bold text-white transition hover:border-mh-gold/50"
-                >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full border border-mh-gold/40 text-mh-gold">
-                    <Phone className="size-4" />
-                  </span>
-                  <span dir="ltr" className="font-mono tracking-wide">
-                    {COMPANY.phoneDisplay}
-                  </span>
-                </a>
-                <a
-                  href={COMPANY.emailHref}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-bold text-white transition hover:border-mh-gold/50"
-                >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full border border-mh-gold/40 text-mh-gold">
-                    <Mail className="size-4" />
-                  </span>
-                  <span className="truncate">{COMPANY.email}</span>
-                </a>
+                <div className="mt-4 flex items-center gap-4">
+                  <a
+                    href={COMPANY.phoneHref}
+                    className="flex items-center gap-2 text-sm font-bold text-white/70 transition-colors hover:text-white"
+                  >
+                    <Phone className="size-4 text-mh-gold" />
+                    <span dir="ltr">{COMPANY.phoneDisplay}</span>
+                  </a>
+                  <a
+                    href={COMPANY.emailHref}
+                    className="flex items-center gap-2 text-sm font-bold text-white/70 transition-colors hover:text-white"
+                  >
+                    <Mail className="size-4 text-mh-gold" />
+                    <span className="truncate max-w-[180px]">{COMPANY.email}</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* stats band */}
-      <div className="relative border-t border-white/10 bg-[#080808]">
-        <div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_60%)]"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto grid w-full max-w-6xl grid-cols-2 gap-y-8 px-5 py-10 md:grid-cols-4 md:px-8">
+      {/* stats band — editorial black */}
+      <div className="relative border-t border-mh-black/10 bg-mh-black">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-y-8 px-5 py-10 md:grid-cols-4 md:px-8">
           {STATS.map((s, i) => (
             <motion.div
               key={s.label}
@@ -197,8 +172,10 @@ export function Hero() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="text-center"
             >
-              <p className="gold-text text-3xl font-black md:text-4xl">{s.value}</p>
-              <p className="mt-2 text-xs font-bold text-white/50 md:text-sm">
+              <p className="text-3xl font-black text-white md:text-4xl">
+                {s.value}
+              </p>
+              <p className="mt-2 text-xs font-bold text-white/40 md:text-sm">
                 {s.label}
               </p>
             </motion.div>

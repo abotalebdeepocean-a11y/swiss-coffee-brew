@@ -7,10 +7,10 @@ const ICONS = [BadgeCheck, Globe, FileSignature, Handshake];
 
 export function Values() {
   return (
-    <Section id="values" className="bg-[#0a0a0a]">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <Section id="values" className="bg-mh-cream">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
-          <p className="text-center text-xs font-black tracking-[0.3em] text-mh-gold-deep">
+          <p className="text-center text-xs font-black tracking-[0.3em] uppercase text-mh-gold-deep">
             قيمنا الراسخة
           </p>
         </Reveal>
@@ -22,18 +22,14 @@ export function Values() {
               <Reveal key={item.title} delay={i * 0.1}>
                 <div className="group flex flex-col items-center text-center">
                   <div className="relative">
-                    <span
-                      className="absolute -inset-3 rounded-full bg-mh-gold/10 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"
-                      aria-hidden="true"
-                    />
-                    <div className="relative grid size-24 place-items-center rounded-full border-2 border-mh-gold/40 bg-[#111] text-mh-gold shadow-[0_14px_34px_rgba(0,0,0,0.4)] transition-all duration-300 group-hover:border-mh-gold md:size-28">
-                      <Icon className="size-9 md:size-10" />
+                    <div className="relative grid size-24 place-items-center rounded-full border-2 border-mh-black/10 bg-white shadow-[0_14px_34px_rgba(0,0,0,0.06)] transition-all duration-300 group-hover:border-mh-gold md:size-28">
+                      <Icon className="size-9 text-mh-black md:size-10" />
                     </div>
                   </div>
-                  <h3 className="mt-6 text-base font-black leading-snug text-white md:text-lg">
+                  <h3 className="mt-6 text-base font-black leading-snug text-mh-black md:text-lg">
                     {item.title}
                   </h3>
-                  <p className="text-sm font-bold text-mh-gold-soft">{item.sub}</p>
+                  <p className="text-sm font-bold text-mh-gold-deep">{item.sub}</p>
                 </div>
               </Reveal>
             );

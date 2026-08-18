@@ -17,9 +17,9 @@ export function Emblem({ className }: { className?: string }) {
           y2="64"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#f0d98c" />
-          <stop offset="0.5" stopColor="#d4af37" />
-          <stop offset="1" stopColor="#a8842a" />
+          <stop stopColor="#c4a035" />
+          <stop offset="0.5" stopColor="#b89528" />
+          <stop offset="1" stopColor="#a07d1e" />
         </linearGradient>
       </defs>
       <circle
@@ -50,36 +50,14 @@ export function Emblem({ className }: { className?: string }) {
 
 /** Gold monogram circle with initials — used as signature avatar. */
 export function ChairmanAvatar({ className }: { className?: string }) {
-  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const grad = `mh-avatar-${uid}`;
-
   return (
     <div
       className={cn(
-        "shrink-0 grid place-items-center rounded-full border-2 border-mh-gold bg-[#111] shadow-[0_8px_24px_rgba(0,0,0,0.4)]",
+        "shrink-0 grid place-items-center rounded-full border-2 border-mh-gold bg-mh-black",
         className,
       )}
     >
-      <svg viewBox="0 0 64 64" fill="none" className="size-full" aria-hidden="true">
-        <defs>
-          <linearGradient id={grad} x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#f0d98c" />
-            <stop offset="0.5" stopColor="#d4af37" />
-            <stop offset="1" stopColor="#a8842a" />
-          </linearGradient>
-        </defs>
-        <text
-          x="32"
-          y="38"
-          textAnchor="middle"
-          fontSize="24"
-          fontWeight="900"
-          fontFamily="Cairo, sans-serif"
-          fill={`url(#${grad})`}
-        >
-          خ
-        </text>
-      </svg>
+      <span className="text-lg font-black text-mh-gold">خ</span>
     </div>
   );
 }
@@ -88,9 +66,9 @@ export function ChairmanAvatar({ className }: { className?: string }) {
 export function GoldDivider({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center gap-3", className)} aria-hidden="true">
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-mh-gold/50 to-transparent" />
+      <span className="h-px flex-1 bg-mh-black/8" />
       <span className="size-1.5 rotate-45 bg-mh-gold" />
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-mh-gold/50 to-transparent" />
+      <span className="h-px flex-1 bg-mh-black/8" />
     </div>
   );
 }

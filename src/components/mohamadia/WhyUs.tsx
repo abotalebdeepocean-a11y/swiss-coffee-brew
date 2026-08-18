@@ -12,14 +12,14 @@ const ICONS = [CreditCard, FileCheck2, Network, ClipboardCheck];
 
 export function WhyUs() {
   return (
-    <Section id="why" className="bg-[#0d0d0d]">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <Section id="why" className="bg-white">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
           <SectionHeading
             eyebrow="لماذا المحمدية؟"
             title={
               <>
-                حلول تجارية <span className="gold-text">متكاملة</span> بثقة
+                حلول تجارية <span className="text-mh-gold-deep">متكاملة</span> بثقة
                 وموثوقية
               </>
             }
@@ -32,15 +32,15 @@ export function WhyUs() {
             const Icon = ICONS[i];
             return (
               <Reveal key={item.title} delay={(i % 2) * 0.12}>
-                <div className="card-dark group flex h-full items-start gap-5 rounded-2xl p-7">
-                  <div className="grid size-13 shrink-0 place-items-center rounded-2xl border border-mh-gold/30 bg-mh-gold/10 text-mh-gold transition-colors group-hover:border-mh-gold/60">
-                    <Icon className="size-6" />
+                <div className="card-editorial group flex h-full items-start gap-5 rounded-2xl p-7">
+                  <div className="grid size-12 shrink-0 place-items-center rounded-full bg-mh-black text-white transition-colors group-hover:bg-mh-gold-deep">
+                    <Icon className="size-5" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-black text-mh-gold-soft">
+                    <h3 className="text-lg font-black text-mh-black">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-7 text-white/50">
+                    <p className="mt-2 text-sm leading-7 text-mh-black/50">
                       {item.desc}
                     </p>
                   </div>

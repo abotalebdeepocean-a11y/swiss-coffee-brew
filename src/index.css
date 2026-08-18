@@ -42,12 +42,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* ============================================================
-   ROVENTO — CAIRO EDITION
-   Warm roasted-coffee palette · rounded cards · gold glow
-   Palette: coffee 950 / gold / amber / terracotta red
-   ============================================================ */
-
 @theme {
   --font-sans: "Cairo", "IBM Plex Sans Arabic", "Archivo", ui-sans-serif,
     system-ui, sans-serif;
@@ -55,12 +49,12 @@
     system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 
+  /* Rovento palette — keep for the store */
   --color-coffee-950: #0c0a09;
   --color-coffee-900: #171412;
   --color-coffee-800: #231f1c;
   --color-coffee-700: #342e29;
   --color-coffee-600: #4a4039;
-
   --color-rv-black: #0c0a09;
   --color-rv-ink: #171412;
   --color-rv-paper: #f5f0e8;
@@ -70,153 +64,63 @@
   --color-rv-amber: #d97706;
   --color-rv-terra: #8b3c1e;
 
+  /* Mohamadia editorial palette */
+  --color-mh-gold: #d4af37;
+  --color-mh-gold-soft: #c4a035;
+  --color-mh-gold-deep: #b89528;
+  --color-mh-cream: #f5f0e8;
+  --color-mh-warm: #e8e0d4;
+  --color-mh-black: #0a0a0a;
+  --color-mh-charcoal: #1a1a1a;
+
   --animate-float: float 10s ease-in-out infinite;
   --animate-float-slow: float 16s ease-in-out infinite;
-  --animate-steam: steam 5.5s ease-in-out infinite;
-  --animate-ray: ray 7s ease-in-out infinite;
-  --animate-dust: dust 9s ease-in-out infinite;
-  --animate-spin-slow: spin 26s linear infinite;
   --animate-pulse-wa: pulse-wa 2.4s ease-out infinite;
 
   @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0) rotate(var(--rot, 0deg));
-    }
-    50% {
-      transform: translateY(-24px) rotate(calc(var(--rot, 0deg) + 7deg));
-    }
-  }
-  @keyframes steam {
-    0% {
-      transform: translateY(14px) scaleX(1);
-      opacity: 0;
-    }
-    22% {
-      opacity: var(--steam-opacity, 0.55);
-    }
-    100% {
-      transform: translateY(-110px) scaleX(1.45);
-      opacity: 0;
-    }
-  }
-  @keyframes ray {
-    0%,
-    100% {
-      opacity: 0.35;
-    }
-    50% {
-      opacity: 0.75;
-    }
-  }
-  @keyframes dust {
-    0% {
-      transform: translate(0, 0);
-      opacity: 0;
-    }
-    12% {
-      opacity: 0.65;
-    }
-    100% {
-      transform: translate(var(--dx, 40px), -130px);
-      opacity: 0;
-    }
+    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    50% { transform: translateY(-24px) rotate(calc(var(--rot, 0deg) + 7deg)); }
   }
   @keyframes pulse-wa {
-    0% {
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
-    }
-    70% {
-      box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
   }
-}
-
-/* ============================================================
-   MOHAMADIA — CORPORATE NAVY & GOLD
-   Deep navy-charcoal base with refined gold accents
-   ============================================================ */
-
-@theme {
-  --color-mh-navy-950: #060a12;
-  --color-mh-navy-900: #0a101d;
-  --color-mh-navy-800: #0f1829;
-  --color-mh-navy-700: #17223a;
-  --color-mh-gold: #d4af37;
-  --color-mh-gold-soft: #e8c96a;
-  --color-mh-gold-deep: #a8842a;
 }
 
 /* CHANGE VALUES FOR THEME */
 :root {
   --radius: 14px;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #d03b1e;
-  --primary-foreground: #ffffff;
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: #002fa7;
-  --accent-foreground: #ffffff;
+  --background: #f5f0e8;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #f5f0e8;
+  --secondary: #e8e0d4;
+  --secondary-foreground: #0a0a0a;
+  --muted: #e8e0d4;
+  --muted-foreground: #666666;
+  --accent: #d4af37;
+  --accent-foreground: #0a0a0a;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: #d03b1e;
-  --chart-1: #d03b1e;
-  --chart-2: #002fa7;
-  --chart-3: #c9a227;
-  --chart-4: #8b3c1e;
-  --chart-5: #f2efe8;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #d03b1e;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: #d03b1e;
-}
-
-.dark {
-  --background: #0c0a09;
-  --foreground: #f5f0e8;
-  --card: #171412;
-  --card-foreground: #f5f0e8;
-  --popover: #171412;
-  --popover-foreground: #f5f0e8;
-  --primary: #d4af37;
-  --primary-foreground: #171412;
-  --secondary: #231f1c;
-  --secondary-foreground: #f5f0e8;
-  --muted: #231f1c;
-  --muted-foreground: #a8a29e;
-  --accent: #002fa7;
-  --accent-foreground: #ffffff;
-  --destructive: #b3261e;
-  --border: rgba(245, 240, 232, 0.14);
-  --input: rgba(245, 240, 232, 0.16);
+  --border: #d5cfc3;
+  --input: #d5cfc3;
   --ring: #d4af37;
-  --chart-1: #d4af37;
-  --chart-2: #d03b1e;
-  --chart-3: #002fa7;
-  --chart-4: #8b3c1e;
+  --chart-1: #0a0a0a;
+  --chart-2: #d4af37;
+  --chart-3: #e8e0d4;
+  --chart-4: #666666;
   --chart-5: #f5f0e8;
-  --sidebar: #171412;
-  --sidebar-foreground: #f5f0e8;
-  --sidebar-primary: #d4af37;
-  --sidebar-primary-foreground: #171412;
-  --sidebar-accent: #231f1c;
-  --sidebar-accent-foreground: #f5f0e8;
-  --sidebar-border: rgba(245, 240, 232, 0.14);
+  --sidebar: #f5f0e8;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #0a0a0a;
+  --sidebar-primary-foreground: #f5f0e8;
+  --sidebar-accent: #e8e0d4;
+  --sidebar-accent-foreground: #0a0a0a;
+  --sidebar-border: #d5cfc3;
   --sidebar-ring: #d4af37;
 }
 
@@ -237,18 +141,18 @@
   }
   ::selection {
     background: #d4af37;
-    color: #171412;
+    color: #0a0a0a;
   }
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0c0a09;
+    background: #f5f0e8;
   }
   ::-webkit-scrollbar-thumb {
-    background: #342e29;
-    border: 2px solid #0c0a09;
+    background: #c5bfb3;
+    border: 2px solid #f5f0e8;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #d4af37;
@@ -266,112 +170,57 @@
   .text-balance {
     text-wrap: balance;
   }
-  .swiss-grid-bg {
-    background-image: linear-gradient(
-        rgba(245, 240, 232, 0.045) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(245, 240, 232, 0.045) 1px, transparent 1px);
+
+  /* Editorial grid background — light mode */
+  .grid-editorial {
+    background-image:
+      linear-gradient(rgba(10, 10, 10, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 10, 10, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
-  /* نص متدرج ذهبي — روح العلامة */
-  .gold-gradient-text {
-    background: linear-gradient(135deg, #ffffff 0%, #f6d365 50%, #d4af37 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* حدود ذهبية متوهجة */
-  .gold-border-glow {
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.12);
-  }
-  .gold-border-glow:hover {
-    border-color: rgba(212, 175, 55, 0.7);
-    box-shadow: 0 0 35px rgba(212, 175, 55, 0.25);
-  }
-
-  /* زر ذهبي أساسي */
-  .btn-gold {
-    background: linear-gradient(135deg, #d4af37, #b89728);
-    color: #171412;
-    transition: filter 0.2s ease, transform 0.2s ease;
-  }
-  .btn-gold:hover {
-    filter: brightness(1.1);
-  }
-  .btn-gold:active {
-    transform: scale(0.98);
-  }
-
-  /* زجاج داكن */
-  .bg-glass {
-    background: rgba(23, 20, 18, 0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  /* ============================================================
-     MOHAMADIA — DARK LUXURY identity
-     Deep black base · gold accents · white text
-     ============================================================ */
-
-  /* نص ذهبي متدرج */
-  .gold-text {
-    background: linear-gradient(
-      120deg,
-      #f0d98c 0%,
-      #d4af37 40%,
-      #e8c96a 65%,
-      #c9a227 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* شبكة خفيفة للخلفيات الداكنة */
+  /* Dark sections grid */
   .grid-dark {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
-  /* كرت فاخر على خلفية داكنة */
-  .card-dark {
-    border: 1px solid rgba(212, 175, 55, 0.15);
+  /* Editorial bold heading — condensed uppercase look */
+  .editorial-heading {
+    font-family: "Archivo", "Cairo", ui-sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  /* Black editorial card */
+  .card-editorial {
+    border: 1px solid rgba(10, 10, 10, 0.08);
+    background: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card-editorial:hover {
+    border-color: rgba(10, 10, 10, 0.18);
+    box-shadow: 0 20px 50px rgba(10, 10, 10, 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Dark editorial card */
+  .card-dark-editorial {
+    border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.03);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   }
-  .card-dark:hover {
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+  .card-dark-editorial:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   }
 
-  /* زر ذهبي */
-  .btn-gold {
-    background: linear-gradient(135deg, #e8c96a, #d4af37 55%, #a8842a);
-    color: #0a0a0a;
-    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.3);
-    transition: filter 0.2s ease, transform 0.2s ease;
-  }
-  .btn-gold:hover {
-    filter: brightness(1.08);
-  }
-  .btn-gold:active {
-    transform: scale(0.98);
-  }
-
-  /* زر شفاف مع حد ذهبي */
-  .btn-outline-gold {
-    border: 1px solid rgba(212, 175, 55, 0.5);
-    color: #e8c96a;
-    transition: all 0.2s ease;
-  }
-  .btn-outline-gold:hover {
-    background: rgba(212, 175, 55, 0.1);
-    border-color: #d4af37;
+  /* Warm beige accent bar */
+  .warm-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c5bfb3, transparent);
   }
 }

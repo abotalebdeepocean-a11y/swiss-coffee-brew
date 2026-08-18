@@ -14,14 +14,14 @@ const ICONS = [CalendarDays, Users, UserCheck, TrendingUp, ShieldCheck, Lightbul
 
 export function Leadership() {
   return (
-    <Section id="leadership" className="bg-[#0d0d0d]">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <Section id="leadership" className="bg-white">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
           <SectionHeading
             eyebrow="ما يميز قيادتنا"
             title={
               <>
-                رؤية قيادية <span className="gold-text">بمعايير عالمية</span>
+                رؤية قيادية <span className="text-mh-gold-deep">بمعايير عالمية</span>
               </>
             }
             subtitle="نؤمن أن نجاح الشركات الكبرى يبدأ من اختيار الكفاءات وبناء فريق قادر على تحمل المسؤولية والابتكار في كل تفصيلة."
@@ -33,14 +33,14 @@ export function Leadership() {
             const Icon = ICONS[i];
             return (
               <Reveal key={item.title} delay={(i % 3) * 0.1}>
-                <div className="card-dark group h-full rounded-2xl p-7">
-                  <div className="grid size-13 place-items-center rounded-2xl border border-mh-gold/30 bg-mh-gold/10 text-mh-gold transition-colors group-hover:border-mh-gold/60">
-                    <Icon className="size-6" />
+                <div className="card-editorial group h-full rounded-2xl p-7">
+                  <div className="grid size-12 place-items-center rounded-full bg-mh-black text-white transition-colors group-hover:bg-mh-gold-deep">
+                    <Icon className="size-5" />
                   </div>
-                  <h3 className="mt-5 text-lg font-black text-white">
+                  <h3 className="mt-5 text-lg font-black text-mh-black">
                     {item.title}
                   </h3>
-                  <p className="mt-2.5 text-sm leading-7 text-white/50">
+                  <p className="mt-2.5 text-sm leading-7 text-mh-black/50">
                     {item.desc}
                   </p>
                 </div>

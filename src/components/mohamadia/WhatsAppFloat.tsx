@@ -1,20 +1,19 @@
 import { WhatsAppIcon } from "@/components/rovento/art";
-import { waLink } from "./content";
+import { COMPANY, waLink } from "./content";
 
 export function WhatsAppFloat() {
   return (
     <a
-      href={waLink("السلام عليكم، أرغب في الاستفسار عن خدمات شركة المحمدية.")}
+      href={waLink(
+        "السلام عليكم، أرغب في الاستفسار عن خدمات شركة المحمدية.",
+      )}
       target="_blank"
       rel="noopener noreferrer"
+      className="mh-export-hide fixed bottom-6 left-6 z-40 grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_8px_30px_rgba(37,211,102,0.35)] transition-transform hover:scale-110"
+      style={{ animation: "pulse-wa 2.4s ease-out infinite" }}
       aria-label="تواصل عبر واتساب"
-      className="mh-export-hide fixed bottom-6 left-6 z-40 grid size-14 place-items-center rounded-full border-2 border-white/20 bg-[#25d366] text-white shadow-[0_12px_30px_rgba(0,0,0,0.4)] transition-transform hover:scale-105"
     >
-      <span
-        className="absolute inset-0 rounded-full bg-[#25d366] opacity-40 animate-ping [animation-duration:2.2s]"
-        aria-hidden="true"
-      />
-      <WhatsAppIcon className="relative size-7" />
+      <WhatsAppIcon className="size-7" />
     </a>
   );
 }

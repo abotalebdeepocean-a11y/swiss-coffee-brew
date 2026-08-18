@@ -30,28 +30,19 @@ const CHANNELS = [
 
 export function Contact() {
   return (
-    <Section id="contact" className="bg-[#0a0a0a]">
+    <Section id="contact" className="bg-white">
       <div className="mx-auto w-full max-w-5xl px-5 md:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-mh-gold/40 bg-[#111] p-8 shadow-[0_40px_90px_rgba(0,0,0,0.5)] md:p-14">
-            <div
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12),transparent_55%)]"
-              aria-hidden="true"
-            />
-            <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-mh-gold to-transparent"
-              aria-hidden="true"
-            />
-
+          <div className="relative overflow-hidden rounded-2xl bg-mh-black p-8 shadow-[0_40px_90px_rgba(0,0,0,0.12)] md:p-14">
             <div className="relative text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-mh-gold/30 bg-mh-gold/10 px-4 py-1.5 text-xs font-bold text-mh-gold-soft">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-mh-gold">
                 <span className="size-1.5 rotate-45 bg-mh-gold" aria-hidden="true" />
                 جاهزون للشراكة
               </span>
               <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
-                <span className="gold-text">تواصل معنا</span>
+                <span className="text-mh-gold">تواصل معنا</span>
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-white/50 md:text-base">
+              <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-8 text-white/40 md:text-base">
                 نحن على بُعد رسالة واحدة — تحدث معنا مباشرة عبر واتساب، أو
                 اتصل بنا، أو راسلنا على بريدنا الإلكتروني.
               </p>
@@ -62,15 +53,15 @@ export function Contact() {
                 <a
                   key={c.label}
                   href={c.href}
-                  className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/40 hover:bg-mh-gold/5 ${
+                  className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/8 bg-white/[0.03] px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-mh-gold/30 hover:bg-mh-gold/5 ${
                     c.href ? "" : "pointer-events-none"
                   }`}
                 >
-                  <span className="grid size-13 place-items-center rounded-full border border-mh-gold/40 bg-[#0a0a0a] text-mh-gold transition-colors group-hover:text-mh-gold-soft">
-                    <c.icon className="size-6" />
+                  <span className="grid size-12 place-items-center rounded-full border border-mh-gold/30 bg-mh-black text-mh-gold transition-colors group-hover:text-white">
+                    <c.icon className="size-5" />
                   </span>
                   <span>
-                    <span className="block text-xs font-bold text-white/40">
+                    <span className="block text-xs font-bold text-white/30">
                       {c.label}
                     </span>
                     <span
@@ -91,16 +82,16 @@ export function Contact() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold inline-flex h-13 items-center gap-2.5 rounded-full px-8 text-base font-black"
+                className="inline-flex h-13 items-center gap-2.5 rounded-full bg-mh-gold px-8 text-base font-black text-mh-black transition-all hover:brightness-110"
               >
                 <WhatsAppIcon className="size-5" />
                 تواصل عبر واتساب
               </a>
               <a
                 href={COMPANY.phoneHref}
-                className="btn-outline-gold inline-flex h-13 items-center gap-2 rounded-full px-8 text-base font-bold"
+                className="inline-flex h-13 items-center gap-2 rounded-full border border-white/15 px-8 text-base font-bold text-white transition-all hover:bg-white/5"
               >
-                <Phone className="size-4.5" />
+                <Phone className="size-4" />
                 <span dir="ltr">{COMPANY.phoneDisplay}</span>
               </a>
             </div>
