@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, Tag, Grid3X3, LayoutList } from "lucide-react";
 import { Header } from "@/components/rovento/Header";
 import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
@@ -8,7 +8,6 @@ import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ProductCard } from "@/components/rovento/ProductCard";
 import { IMAGES } from "@/lib/images";
 import { useImageCandidates } from "@/components/rovento/BagVisual";
-import { Tag } from "lucide-react";
 import {
   PRODUCTS,
   CATEGORIES,
@@ -25,24 +24,30 @@ const SORTS: { id: SortKey; label: string }[] = [
   { id: "rating", label: "الأعلى تقييمًا" },
 ];
 
-/** قائمة أسعار البن الرسمية — صورة حقيقية من العميل (price-list.jpg) */
+/** أيقونات الفئات */
+const CATEGORY_ICONS: Record<string, string> = {
+  all: "☕",
+  beans: "🫘",
+  espresso: "☕",
+  capsules: "💊",
+  machines: "⚙️",
+  accessories: "🔧",
+};
+
+/** قائمة أسعار البن الرسمية */
 function PriceListSection() {
   const { src, onError } = useImageCandidates(IMAGES.priceList);
   if (!src) return null;
 
   return (
-    <section className="mx-auto w-full max-w-[1200px] px-4 pt-10 md:px-6">
+    <section className="mx-auto w-full max-w-[1200px] px-4 pt-8 md:px-6 md:pt-10">
       <div className="overflow-hidden rounded-2xl border border-stone-800 bg-coffee-900">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-800 px-5 py-4">
           <div className="flex items-center gap-2.5">
             <Tag className="size-4 text-rv-gold" />
-            <h2 className="text-base font-black text-white">
-              قائمة أسعار البن الرسمية
-            </h2>
+            <h2 className="text-base font-black text-white">قائمة أسعار البن الرسمية</h2>
           </div>
-          <p className="text-xs text-muted-foreground">
-            أسعار الكيلو بجميع أنواع البن — محدثة باستمرار
-          </p>
+          <p className="text-xs text-muted-foreground">أسعار الكيلو بجميع أنواع البن — محدثة باستمرار</p>
         </div>
         <div className="bg-white p-4 sm:p-6">
           <img
@@ -103,14 +108,12 @@ export default function Shop() {
       <main>
         {/* page header */}
         <section className="border-b border-white/10 bg-[#111111]">
-          <div className="mx-auto w-full max-w-[1200px] px-4 py-12 md:px-6 md:py-16">
+          <div className="mx-auto w-full max-w-[1200px] px-4 py-10 md:px-6 md:py-14">
             <div className="flex items-center gap-3">
               <span className="h-px w-10 bg-rv-red" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rv-red">
-                Shop · المتجر
-              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rv-red">Shop · المتجر</span>
             </div>
-            <h1 className="mt-4 text-4xl font-bold md:text-5xl">
+            <h1 className="mt-4 text-3xl font-bold md:text-4xl lg:text-5xl">
               {activeCat ? activeCat.name : "كل المنتجات"}
             </h1>
             <p className="mt-3 max-w-xl text-sm text-muted-foreground md:text-base">
@@ -121,22 +124,23 @@ export default function Shop() {
           </div>
         </section>
 
-        {/* قائمة الأسعار الرسمية — صورة حقيقية من روفينتو */}
+        {/* قائمة الأسعار */}
         <PriceListSection />
 
-        <section className="mx-auto w-full max-w-[1200px] px-4 py-10 md:px-6">
-          {/* filters */}
+        <section className="mx-auto w-full max-w-[1200px] px-4 py-8 md:px-6 md:py-10">
+          {/* فلاتر الفئات — أقراص بسيطة */}
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap gap-2" role="tablist" aria-label="تصفية حسب الفئة">
               <button
                 onClick={() => setCategory("all")}
                 className={cn(
-                  "h-9 border px-4 text-sm font-semibold transition-colors",
+                  "inline-flex items-center gap-1.5 h-10 border px-4 text-sm font-semibold transition-all rounded-full",
                   category === "all"
-                    ? "border-rv-red bg-rv-red text-white"
+                    ? "border-rv-gold bg-rv-gold/10 text-rv-gold shadow-[0_0_15px_rgba(212,175,55,0.15)]"
                     : "border-white/15 text-muted-foreground hover:border-white/40 hover:text-foreground",
                 )}
               >
+                <span>☕</span>
                 الكل ({PRODUCTS.length})
               </button>
               {CATEGORIES.map((c) => (
@@ -144,41 +148,43 @@ export default function Shop() {
                   key={c.id}
                   onClick={() => setCategory(c.id)}
                   className={cn(
-                    "h-9 border px-4 text-sm font-semibold transition-colors",
+                    "inline-flex items-center gap-1.5 h-10 border px-4 text-sm font-semibold transition-all rounded-full",
                     category === c.id
-                      ? "border-rv-red bg-rv-red text-white"
+                      ? "border-rv-gold bg-rv-gold/10 text-rv-gold shadow-[0_0_15px_rgba(212,175,55,0.15)]"
                       : "border-white/15 text-muted-foreground hover:border-white/40 hover:text-foreground",
                   )}
                 >
+                  <span>{CATEGORY_ICONS[c.id] ?? "📦"}</span>
                   {c.name}
+                  <span className="font-mono text-[10px] text-muted-foreground">({c.count})</span>
                 </button>
               ))}
             </div>
 
+            {/* الترتيب */}
             <label className="flex items-center gap-2">
               <SlidersHorizontal className="size-4 text-muted-foreground" />
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
-                className="h-9 border border-white/15 bg-background px-3 text-sm outline-none transition-colors focus:border-rv-red"
+                className="h-10 border border-white/15 bg-background px-3 text-sm outline-none transition-colors focus:border-rv-gold rounded-lg"
                 aria-label="ترتيب المنتجات"
               >
                 {SORTS.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.label}
-                  </option>
+                  <option key={s.id} value={s.id}>{s.label}</option>
                 ))}
               </select>
             </label>
           </div>
 
-          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+          {/* عدد المنتجات */}
+          <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
             {items.length} منتج متاح
           </p>
 
-          {/* grid */}
+          {/* الشبكة */}
           {items.length > 0 ? (
-            <div className="mt-6 grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:grid-cols-4">
               {items.map((p, i) => (
                 <ProductCard key={p.slug} product={p} index={i} />
               ))}
@@ -186,10 +192,7 @@ export default function Shop() {
           ) : (
             <div className="mt-10 flex flex-col items-center gap-4 border border-dashed border-white/15 py-20 text-center">
               <p className="text-lg font-semibold">لا توجد منتجات في هذه الفئة</p>
-              <Link
-                to="/shop"
-                className="text-sm font-semibold text-rv-red underline-offset-4 hover:underline"
-              >
+              <Link to="/shop" className="text-sm font-semibold text-rv-red underline-offset-4 hover:underline">
                 عرض كل المنتجات
               </Link>
             </div>
