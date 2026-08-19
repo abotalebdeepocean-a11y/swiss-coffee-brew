@@ -4,65 +4,90 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { SlideVisual, useImageCandidates } from "./BagVisual";
 
-/** السلايدات الأربعة — بنرات ROVENTO الحقيقية من Google Drive */
+/** السلايدات — بنرات ROVENTO الحقيقية من Google Drive */
 const SLIDES = [
   {
     image: IMAGES.banners.hero,
     title: "ROVENTO — مش قهوة… دي شخصية",
+    subtitle: "من قلب مصر إلى عشاق القهوة حول العالم",
+    accent: "from-rv-gold/60",
   },
   {
     image: IMAGES.banners.workshop,
     title: "ROVENTO × Brikka — طعم قهوة لا ينسى",
-  },
-  {
-    image: IMAGES.banners.classic1kg,
-    title: "ROVENTO CLASSIC — غلاف الكيس الحقيقي",
+    subtitle: "حبوب مختارة بعناية، تحميص احترافي، نكهة لا تُنسى",
+    accent: "from-amber-700/60",
   },
   {
     image: IMAGES.banners.signature,
-    title: "ROVENTO — أكياسنا المتعددة",
+    title: "الفرق يبدأ من أول رشفة",
+    subtitle: "مجموعة السيجنتشر — تحميص داكن لعشاق القهوة القوية",
+    accent: "from-red-800/60",
   },
   {
     image: IMAGES.banners.collections,
-    title: "ROVENTO — طزاجة محفوظة بصمام أحادي",
+    title: "ليست قهوة فقط… إنها تجربة كاملة",
+    subtitle: "تغليف احترافي بصمام أحادي للحفاظ على الطزاجة",
+    accent: "from-coffee-700/60",
   },
 ] as const;
 
-const AUTOPLAY_MS = 5200;
+const AUTOPLAY_MS = 5500;
 
-function FallbackSlide({ title }: { title: string }) {
+function FallbackSlide({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-coffee-950 via-[#17120d] to-coffee-950">
-      <div className="text-center">
+      <div className="text-center px-6">
         <p className="font-mono text-xs uppercase tracking-[0.5em] text-rv-gold">
           ROVENTO
         </p>
-        <p className="mt-3 text-3xl font-black text-white md:text-5xl">
+        <p className="mt-3 text-2xl font-black text-white sm:text-3xl md:text-5xl">
           {title}
         </p>
+        {subtitle && (
+          <p className="mt-2 text-sm text-stone-300 md:text-base">{subtitle}</p>
+        )}
         <div className="mx-auto mt-4 h-px w-24 bg-rv-gold/60" />
       </div>
     </div>
   );
 }
 
-/** صورة السلايد — بتجرب png/jpg/webp وتقع على التصميم البديل عند الحاجة */
-function SlideImage({ image, title }: { image: string; title: string }) {
+/** صورة السلايد */
+function SlideImage({
+  image,
+  title,
+  subtitle,
+  accent,
+}: {
+  image: string;
+  title: string;
+  subtitle?: string;
+  accent: string;
+}) {
   const { src, onError } = useImageCandidates(image);
-  return (
-    <SlideVisual
-      src={src}
-      onError={onError}
-      scrim="soft"
-      fallback={() => <FallbackSlide title={title} />}
-    />
-  );
+
+  if (src) {
+    return (
+      <>
+        <img
+          src={src}
+          alt=""
+          onError={onError}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* تدرج سفلي أقوى لوضوح النص */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/40" />
+        <div className={`absolute inset-0 bg-gradient-to-r ${accent} to-transparent opacity-40`} />
+      </>
+    );
+  }
+
+  return <FallbackSlide title={title} subtitle={subtitle} />;
 }
 
 /**
- * سلايدر البنرات — سينمائي، يشتغل تلقائيًا، ومسؤول بالكامل على الموبايل:
- * سحب باللمس + أسهم + نقاط، وأبعاد (aspect) مضبوطة لكل شاشة حتى لا تتقطع
- * الصورة أو تظهر فارغة على أي هاتف.
+ * سلايدر البنرات — سينمائي، متجاوب، مسؤول بالكامل على الموبايل
  */
 export function BannerSlider() {
   const [index, setIndex] = useState(0);
@@ -77,12 +102,13 @@ export function BannerSlider() {
 
   const goTo = useCallback((i: number) => setIndex(i % count), [count]);
 
-  // تشغيل تلقائي — يتوقف مؤقتًا عند اللمس أو الوقوف عليه
   useEffect(() => {
     if (paused) return;
     const t = setInterval(() => go(1), AUTOPLAY_MS);
     return () => clearInterval(t);
   }, [paused, go]);
+
+  const slide = SLIDES[index];
 
   return (
     <section
@@ -91,8 +117,8 @@ export function BannerSlider() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* أبعاد مسؤولة: على الموبايل 4:3 لسهولة القراءة، وأوسع على الشاشات الكبيرة */}
-      <div className="relative aspect-[4/3] w-full sm:aspect-[16/9] md:aspect-[21/9]">
+      {/* أبعاد مسؤولة: أعلى على الموبايل، أوسع على الشاشات الكبيرة */}
+      <div className="relative aspect-[3/2] w-full sm:aspect-[16/9] md:aspect-[21/9]">
         <AnimatePresence initial={false}>
           <motion.div
             key={index}
@@ -116,21 +142,45 @@ export function BannerSlider() {
               setPaused(false);
             }}
           >
-            <SlideImage image={SLIDES[index].image} title={SLIDES[index].title} />
+            <SlideImage
+              image={slide.image}
+              title={slide.title}
+              subtitle={slide.subtitle}
+              accent={slide.accent}
+            />
+
+            {/* نص السلايد — على الصورة مباشرة */}
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-16 text-center sm:pb-20 md:items-start md:px-12 lg:px-20">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-rv-gold sm:text-xs">
+                  ROVENTO · {new Date().getFullYear()}
+                </p>
+                <h2 className="mt-2 max-w-lg text-2xl font-black text-white sm:text-3xl md:text-4xl lg:text-5xl">
+                  {slide.title}
+                </h2>
+                <p className="mt-2 max-w-md text-sm text-stone-300 md:text-base">
+                  {slide.subtitle}
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* تدرج سفلي خفيف لراحة النقاط والأسهم على أي صورة */}
+        {/* تدرج سفلي خفيف */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent" />
 
-        {/* عربي RTL: السهم على اليسار = التالي (يتقدم مع اتجاه القراءة) */}
+        {/* عربي RTL: السهم على اليسار = التالي */}
         <button
           type="button"
           onClick={() => go(1)}
           aria-label="السلايد التالي"
-          className="absolute end-3 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:border-rv-gold hover:bg-black/70 hover:text-rv-gold sm:grid"
+          className="absolute end-3 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-sm transition hover:border-rv-gold hover:bg-black/80 hover:text-rv-gold sm:end-5 sm:size-12"
         >
-          <ChevronLeft className="size-5" />
+          <ChevronLeft className="size-5 sm:size-6" />
         </button>
 
         {/* عربي RTL: السهم على اليمين = السابق */}
@@ -138,23 +188,23 @@ export function BannerSlider() {
           type="button"
           onClick={() => go(-1)}
           aria-label="السلايد السابق"
-          className="absolute start-3 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:border-rv-gold hover:bg-black/70 hover:text-rv-gold sm:grid"
+          className="absolute start-3 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-sm transition hover:border-rv-gold hover:bg-black/80 hover:text-rv-gold sm:start-5 sm:size-12"
         >
-          <ChevronRight className="size-5" />
+          <ChevronRight className="size-5 sm:size-6" />
         </button>
 
         {/* النقاط — سهلة اللمس على الموبايل */}
-        <div className="absolute inset-x-0 bottom-3 z-10 flex items-center justify-center gap-2">
+        <div className="absolute inset-x-0 bottom-3 z-10 flex items-center justify-center gap-2 sm:bottom-5">
           {SLIDES.map((s, i) => (
             <button
               key={s.image}
               type="button"
               onClick={() => goTo(i)}
               aria-label={`الانتقال إلى السلايد ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-2 rounded-full transition-all duration-300 sm:h-2.5 ${
                 i === index
-                  ? "w-8 bg-rv-gold"
-                  : "w-2.5 bg-white/50 hover:bg-white/80"
+                  ? "w-10 bg-rv-gold shadow-lg shadow-rv-gold/30"
+                  : "w-3 bg-white/40 hover:bg-white/70"
               }`}
             />
           ))}
