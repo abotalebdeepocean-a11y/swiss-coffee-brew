@@ -2,69 +2,28 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { IMAGES } from "@/lib/images";
-import { SlideVisual, useImageCandidates } from "./BagVisual";
+import { useImageCandidates } from "./BagVisual";
 
 /** السلايدات — بنرات ROVENTO الحقيقية من Google Drive */
 const SLIDES = [
   {
     image: IMAGES.banners.hero,
-    title: "ROVENTO — مش قهوة… دي شخصية",
-    subtitle: "من قلب مصر إلى عشاق القهوة حول العالم",
-    accent: "from-rv-gold/60",
   },
   {
     image: IMAGES.banners.workshop,
-    title: "ROVENTO × Brikka — طعم قهوة لا ينسى",
-    subtitle: "حبوب مختارة بعناية، تحميص احترافي، نكهة لا تُنسى",
-    accent: "from-amber-700/60",
   },
   {
     image: IMAGES.banners.signature,
-    title: "الفرق يبدأ من أول رشفة",
-    subtitle: "مجموعة السيجنتشر — تحميص داكن لعشاق القهوة القوية",
-    accent: "from-red-800/60",
   },
   {
     image: IMAGES.banners.collections,
-    title: "ليست قهوة فقط… إنها تجربة كاملة",
-    subtitle: "تغليف احترافي بصمام أحادي للحفاظ على الطزاجة",
-    accent: "from-coffee-700/60",
   },
 ] as const;
 
 const AUTOPLAY_MS = 5500;
 
-function FallbackSlide({ title, subtitle }: { title: string; subtitle?: string }) {
-  return (
-    <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-coffee-950 via-[#17120d] to-coffee-950">
-      <div className="text-center px-6">
-        <p className="font-mono text-xs uppercase tracking-[0.5em] text-rv-gold">
-          ROVENTO
-        </p>
-        <p className="mt-3 text-2xl font-black text-white sm:text-3xl md:text-5xl">
-          {title}
-        </p>
-        {subtitle && (
-          <p className="mt-2 text-sm text-stone-300 md:text-base">{subtitle}</p>
-        )}
-        <div className="mx-auto mt-4 h-px w-24 bg-rv-gold/60" />
-      </div>
-    </div>
-  );
-}
-
-/** صورة السلايد */
-function SlideImage({
-  image,
-  title,
-  subtitle,
-  accent,
-}: {
-  image: string;
-  title: string;
-  subtitle?: string;
-  accent: string;
-}) {
+/** صورة السلايد — الصور فيها كلام مكتوب، فنشيل النص المضاف */
+function SlideImage({ image }: { image: string }) {
   const { src, onError } = useImageCandidates(image);
 
   if (src) {
@@ -76,14 +35,23 @@ function SlideImage({
           onError={onError}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        {/* تدرج سفلي أقوى لوضوح النص */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/40" />
-        <div className={`absolute inset-0 bg-gradient-to-r ${accent} to-transparent opacity-40`} />
+        {/* تدرج سفلي خفيف فقط — الصور فيها كلام مكتوب */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
       </>
     );
   }
 
-  return <FallbackSlide title={title} subtitle={subtitle} />;
+  // Fallback إذا الصورة مش موجودة
+  return (
+    <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-coffee-950 via-[#17120d] to-coffee-950">
+      <div className="text-center px-6">
+        <p className="font-mono text-xs uppercase tracking-[0.5em] text-rv-gold">
+          ROVENTO
+        </p>
+        <div className="mx-auto mt-4 h-px w-24 bg-rv-gold/60" />
+      </div>
+    </div>
+  );
 }
 
 /**
@@ -142,31 +110,7 @@ export function BannerSlider() {
               setPaused(false);
             }}
           >
-            <SlideImage
-              image={slide.image}
-              title={slide.title}
-              subtitle={slide.subtitle}
-              accent={slide.accent}
-            />
-
-            {/* نص السلايد — على الصورة مباشرة */}
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-16 text-center sm:pb-20 md:items-start md:px-12 lg:px-20">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-rv-gold sm:text-xs">
-                  ROVENTO · {new Date().getFullYear()}
-                </p>
-                <h2 className="mt-2 max-w-lg text-2xl font-black text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                  {slide.title}
-                </h2>
-                <p className="mt-2 max-w-md text-sm text-stone-300 md:text-base">
-                  {slide.subtitle}
-                </p>
-              </motion.div>
-            </div>
+            <SlideImage image={slide.image} />
           </motion.div>
         </AnimatePresence>
 
