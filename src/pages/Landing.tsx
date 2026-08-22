@@ -5,7 +5,6 @@ import { Hero } from "@/components/rovento/Hero";
 import { SignatureCollection } from "@/components/rovento/SignatureCollection";
 import { OfferSection } from "@/components/rovento/OfferSection";
 import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
-import { BestSellers } from "@/components/rovento/BestSellers";
 import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
 import { OtherVarieties } from "@/components/rovento/OtherVarieties";
 import { WhyRovento } from "@/components/rovento/WhyRovento";
@@ -30,7 +29,6 @@ export default function Landing() {
         <SignatureCollection />
         <OfferSection />
         <MokaSpotlight />
-        <BestSellers />
         <CustomBlendStudio />
         <OtherVarieties />
         <WhyRovento />

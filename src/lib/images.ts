@@ -17,26 +17,32 @@ export const IMAGES = {
   /** حقائب ROVENTO الحقيقية — الأخضر (PREMIUM) والأزرق (CLASSIC) فقط،
    * والباقي بيقع تلقائيًا على تصميم SVG الفخم. */
   bags: {
-    /** كيس PREMIUM BLEND الأخضر (70٪ أرابيكا) — المنتج الرئيسي */
+    /** كيس PREMIUM BLEND الأخضر (70٪ أرابيكا) */
     premium: "/images/bag-premium",
-    /** كيس INTENSO BLEND — لا توجد صورة حقيقية: يظهر تصميم SVG */
-    intenso: "/images/bag-intenso",
-    /** كيس CLASSIC BLEND الأزرق (50٪ أرابيكا) — المنتج الأساسي */
+    /** كيس INTENSO BLEND الأسود */
+    intenso: "/images/bag-intenso-black",
+    /** كيس CLASSIC BLEND الأزرق (50٪ أرابيكا) */
     classic: "/images/bag-classic",
-    /** كيس CLASSIC 1 كجم — الغلاف الحقيقي (صورة جديدة من العميل) */
+    /** كيس CLASSIC 1 كجم */
     classic1kg: "/images/bag-classic-1kg",
-    /** كيس INNOVATION BLEND (أصل إثيوبي) */
-    innovation: "/images/bag-innovation",
-    /** ORIGIN COLLECTION — إثيوبيا أصل واحد (كيس أسود بفيل ذهبي) */
-    origin: "/images/bag-origin",
-    /** MASTERY COLLECTION — إتقان الإسبريسو (كيس بني ببورتافلتر) */
-    mastery: "/images/bag-mastery",
-    /** SIGNATURE COLLECTION — تحميص داكن (كيس كريمي) */
-    signatureCream: "/images/bag-signature-cream",
-    /** حبوب مصرية أصل واحد (جانب أصفر) */
-    egyptian: "/images/bag-egyptian",
-    /** علبة كبسولات ROVENTO (10) */
-    capsules: "/images/bag-capsules",
+    /** كيس INNOVATION / بريكا الأزرق */
+    innovation: "/images/bag-brika-blue",
+    /** علبة كبسولات */
+    capsules: "/images/bag-intenso-black",
+    /** صورتين معاً */
+    twoPackages: "/images/bag-two-packages",
+    /** صورة اختيار */
+    choose: "/images/bag-choose",
+    /** صورة ماكرو */
+    macro: "/images/bag-macro",
+    /** ORIGIN */
+    origin: "/images/bag-brika-blue",
+    /** MASTERY */
+    mastery: "/images/bag-intenso-black",
+    /** SIGNATURE CREAM */
+    signatureCream: "/images/bag-classic-1kg",
+    /** EGYPTIAN */
+    egyptian: "/images/bag-choose",
   },
   /** بنرات السلايدر الأربعة (من صورك الحقيقية من Google Drive) */
   banners: {
