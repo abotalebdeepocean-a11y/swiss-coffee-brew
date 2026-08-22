@@ -13,36 +13,36 @@ export const IMAGES = {
   /** كيس الهيرو — الكيس الأخضر الحقيقي PREMIUM (المنتج الرئيسي).
    * حذفنا صور الأكياس غير الحقيقية (الموسيقى الببغاء/الحمراء)
    * — يظهر هنا دائمًا منتج روفينتو الحقيقي. */
-  heroBag: "/images/bag-premium",
+  heroBag: "/images/bag-premium-dark",
   /** حقائب ROVENTO الحقيقية — الأخضر (PREMIUM) والأزرق (CLASSIC) فقط،
    * والباقي بيقع تلقائيًا على تصميم SVG الفخم. */
   bags: {
-    /** كيس PREMIUM BLEND الأخضر — صقر بالبدل */
-    premium: "/images/bag-premium",
-    /** كيس INTENSO / CLASSIC BLEND الأزرق — ببغاء بالبدل */
-    intenso: "/images/bag-classic",
-    /** كيس CLASSIC BLEND الأزرق */
-    classic: "/images/bag-classic",
+    /** كيس PREMIUM BLEND — صورة بخلفية داكنة */
+    premium: "/images/bag-premium-dark",
+    /** كيس INTENSO / CLASSIC BLEND — صورة بخلفية داكنة */
+    intenso: "/images/bag-classic-dark",
+    /** كيس CLASSIC BLEND */
+    classic: "/images/bag-classic-dark",
     /** كيس CLASSIC 1 كجم */
-    classic1kg: "/images/bag-classic-1kg",
+    classic1kg: "/images/bag-special-dark",
     /** كيس INNOVATION / بريكا */
-    innovation: "/images/bag-brika-blue",
+    innovation: "/images/bag-brika-dark",
     /** علبة كبسولات */
-    capsules: "/images/bag-classic",
+    capsules: "/images/bag-classic-dark",
     /** الكيسين مع بعض */
-    twoPackages: "/images/bag-two-packages",
+    twoPackages: "/images/bag-two-dark",
     /** صورة اختيار */
-    choose: "/images/bag-choose",
+    choose: "/images/bag-choose-dark",
     /** صورة ماكرو */
-    macro: "/images/bag-macro",
+    macro: "/images/bag-brika-dark",
     /** ORIGIN */
-    origin: "/images/bag-brika-blue",
+    origin: "/images/bag-brika-dark",
     /** MASTERY */
-    mastery: "/images/bag-premium",
+    mastery: "/images/bag-premium-dark",
     /** SIGNATURE CREAM */
-    signatureCream: "/images/bag-classic-1kg",
+    signatureCream: "/images/bag-special-dark",
     /** EGYPTIAN */
-    egyptian: "/images/bag-choose",
+    egyptian: "/images/bag-choose-dark",
   },
   /** بنرات السلايدر الأربعة (من صورك الحقيقية من Google Drive) */
   banners: {
