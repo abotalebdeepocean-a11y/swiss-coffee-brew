@@ -10,6 +10,7 @@ import {
   Star,
   ShoppingBag,
 } from "lucide-react";
+/* HOTSPOTS removed — bag speaks for itself */
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 import { Stars } from "./art";
@@ -20,34 +21,6 @@ const TRUST_STRIP = [
   { icon: Flame, label: "تحميص طازج أسبوعياً" },
   { icon: Users, label: "+5000 عميل سعيد" },
   { icon: ShieldCheck, label: "ضمان استرجاع ذهبي" },
-];
-
-/** نقاط تفاعلية على كارت المنتج */
-const HOTSPOTS = [
-  {
-    icon: "＋",
-    cls: "top-8 right-6",
-    color: "bg-rv-gold text-black",
-    title: "🛡️ صمام أحادي الاتجاه",
-    desc: "يفرغ الغازات ويمنع دخول الهواء للحفاظ على الزيوت العطرية.",
-    side: "tooltip-end" as const,
-  },
-  {
-    icon: "🔥",
-    cls: "top-1/2 left-6",
-    color: "bg-red-600 text-white",
-    title: "🔥 تحميص مصري طازج",
-    desc: "دفعات صغيرة محمصة في القاهرة لضمان أقصى طزاجة.",
-    side: "tooltip-start" as const,
-  },
-  {
-    icon: "☕",
-    cls: "bottom-24 right-8",
-    color: "bg-gradient-to-r from-rv-gold to-amber-500 text-black",
-    title: "☕ شاهد قوة الكريما الحقيقية",
-    desc: "كريما ذهبية كثيفة من خلطة الإسبريسو الملكية.",
-    side: "tooltip-end" as const,
-  },
 ];
 
 export function Hero() {
@@ -160,72 +133,48 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* كارت المنتج — الكيس هو البطل */}
+        {/* الكيس — البطل الرئيسي */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
           className="relative flex justify-center lg:col-span-5"
         >
-          <div className="relative w-full max-w-md">
-            {/* توهج متحرك خلف الكيس — أقوى وأوضح */}
-            <div className="absolute -inset-4 animate-pulse rounded-3xl bg-gradient-to-br from-rv-gold/40 via-rv-gold/20 to-red-800/30 blur-2xl" />
+          <div className="relative w-full max-w-lg">
+            {/* توهج ذهبي واسع خلف الكيس */}
+            <div className="absolute -inset-8 rounded-full bg-rv-gold/15 blur-3xl" />
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-rv-gold/25 to-amber-900/20 blur-xl" />
 
-            <div className="relative flex flex-col items-center rounded-3xl border border-stone-800/80 bg-coffee-900/90 p-6 shadow-2xl backdrop-blur-sm">
-              {/* الكيس — كبير وواضح */}
-              <div className="relative">
-                <BagVisual
-                  image={IMAGES.heroBag}
-                  variant="premium"
-                  eager
-                  alt="Rovento Premium Blend — كيس قهوة إسبريسو"
-                  className="relative h-[320px] w-auto rounded-xl object-contain transition duration-500 md:h-[420px]"
-                />
+            {/* الكيس — كبير وواضح */}
+            <div className="relative">
+              <BagVisual
+                image={IMAGES.heroBag}
+                variant="premium"
+                eager
+                alt="Rovento Premium Blend — كيس قهوة إسبريسو"
+                className="relative h-[380px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(212,175,55,0.25)] md:h-[480px]"
+              />
+            </div>
 
-                {/* النقاط التفاعلية */}
-                {HOTSPOTS.map((h) => (
-                  <div key={h.title} className={`absolute ${h.cls} group/spot`}>
-                    <span
-                      className={`grid size-7 cursor-default place-items-center rounded-full text-xs font-black shadow-lg animate-pulse ${h.color}`}
-                    >
-                      {h.icon}
-                    </span>
-                    <span
-                      className={`pointer-events-none absolute top-8 z-20 hidden w-48 rounded-xl border bg-stone-950 p-2.5 text-xs shadow-2xl group-hover/spot:block ${
-                        h.side === "tooltip-start"
-                          ? "start-0"
-                          : "end-0 text-start"
-                      }`}
-                    >
-                      <strong className="mb-0.5 block text-rv-gold">
-                        {h.title}
-                      </strong>
-                      <span className="text-stone-400">{h.desc}</span>
-                    </span>
-                  </div>
-                ))}
+            {/* بادجات أسفل الكيس */}
+            <div className="relative mt-4 flex flex-wrap items-center justify-center gap-3">
+              <div className="flex items-center gap-2 rounded-full border border-rv-gold/30 bg-coffee-900/90 px-5 py-2.5 backdrop-blur-sm">
+                <Crown className="size-4 text-rv-gold" />
+                <span className="text-sm font-black text-white">PREMIUM</span>
+                <span className="text-xs text-stone-400">70% أرابيكا</span>
               </div>
-
-              {/* بادج أسفل الكيس — السعر والمواصفات */}
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-                <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-4 py-2 backdrop-blur-sm">
-                  <Crown className="size-4 text-rv-gold" />
-                  <span className="text-sm font-black text-white">PREMIUM</span>
-                  <span className="text-xs text-stone-400">70% أرابيكا</span>
-                </div>
-                <div className="flex items-center gap-1.5 rounded-full bg-rv-gold px-4 py-2 text-sm font-black text-black">
-                  1,200 ج.م
-                  <span className="text-xs font-bold text-black/70">/ 1 كجم</span>
-                </div>
+              <div className="flex items-center gap-1.5 rounded-full bg-rv-gold px-5 py-2.5 text-sm font-black text-black shadow-lg shadow-rv-gold/20">
+                1,200 ج.م
+                <span className="text-xs font-bold text-black/70">/ 1 كجم</span>
               </div>
             </div>
 
-            {/* شارة عائمة — الكلاسيك */}
+            {/* شارة الكلاسيك */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="absolute -bottom-4 start-0 flex items-center gap-2 whitespace-nowrap rounded-full border border-blue-400/30 bg-blue-900/90 px-4 py-2 text-sm font-bold text-blue-200 shadow-lg backdrop-blur-sm md:-bottom-5 md:start-4"
+              className="relative mt-3 flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-blue-400/30 bg-blue-900/80 px-5 py-2.5 text-sm font-bold text-blue-200 shadow-lg backdrop-blur-sm"
             >
               <Star className="size-3.5 fill-blue-400 text-blue-400" />
               CLASSIC — 690 ج.م / 1 كجم

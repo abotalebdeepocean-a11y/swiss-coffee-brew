@@ -91,20 +91,20 @@ function BlendCard({
       )}
 
       <div className="flex flex-1 flex-col p-6">
-        {/* صورة الكيس — كبيرة وواضحة مع توهج */}
-        <div className="relative mx-auto mb-5 grid h-52 w-full place-items-center overflow-hidden rounded-xl border border-stone-800 bg-gradient-to-b from-stone-950 to-coffee-950">
+        {/* صورة الكيس — كبيرة وواضحة */}
+        <div className="relative mx-auto mb-5 grid h-64 w-full place-items-center overflow-hidden rounded-2xl border border-stone-700/50 bg-gradient-to-b from-stone-900/80 to-coffee-950 sm:h-72 md:h-80">
           {/* توهج خلف الكيس */}
           <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(250px 220px at 50% 45%, ${p.glowColor}, transparent 70%)`,
+              background: `radial-gradient(280px 260px at 50% 45%, ${p.glowColor}, transparent 60%)`,
             }}
           />
           <BagVisual
             image={product.image}
             variant={variant}
             alt={product.name}
-            className="relative h-48 w-auto object-contain drop-shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
+            className="relative h-56 w-auto object-contain drop-shadow-[0_12px_40px_rgba(0,0,0,0.5)] sm:h-64 md:h-72"
           />
         </div>
 
