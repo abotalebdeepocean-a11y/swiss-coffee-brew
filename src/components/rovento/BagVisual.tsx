@@ -7,7 +7,7 @@ import {
 } from "react";
 import { CoffeeBag, type BlendVariant } from "./CoffeeBag";
 
-const EXTENSIONS = [".png", ".jpg", ".webp"] as const;
+const EXTENSIONS = [".webp", ".png", ".jpg"] as const;
 
 function candidatesFor(base: string): string[] {
   return EXTENSIONS.map((ext) => `${base}${ext}`);
