@@ -17,19 +17,19 @@ export const IMAGES = {
   /** حقائب ROVENTO الحقيقية — الأخضر (PREMIUM) والأزرق (CLASSIC) فقط،
    * والباقي بيقع تلقائيًا على تصميم SVG الفخم. */
   bags: {
-    /** كيس PREMIUM BLEND الأخضر (70٪ أرابيكا) */
+    /** كيس PREMIUM BLEND الأخضر — صقر بالبدل */
     premium: "/images/bag-premium",
-    /** كيس INTENSO BLEND الأسود */
-    intenso: "/images/bag-intenso-black",
-    /** كيس CLASSIC BLEND الأزرق (50٪ أرابيكا) */
+    /** كيس INTENSO / CLASSIC BLEND الأزرق — ببغاء بالبدل */
+    intenso: "/images/bag-classic",
+    /** كيس CLASSIC BLEND الأزرق */
     classic: "/images/bag-classic",
     /** كيس CLASSIC 1 كجم */
     classic1kg: "/images/bag-classic-1kg",
-    /** كيس INNOVATION / بريكا الأزرق */
+    /** كيس INNOVATION / بريكا */
     innovation: "/images/bag-brika-blue",
     /** علبة كبسولات */
-    capsules: "/images/bag-intenso-black",
-    /** صورتين معاً */
+    capsules: "/images/bag-classic",
+    /** الكيسين مع بعض */
     twoPackages: "/images/bag-two-packages",
     /** صورة اختيار */
     choose: "/images/bag-choose",
@@ -38,7 +38,7 @@ export const IMAGES = {
     /** ORIGIN */
     origin: "/images/bag-brika-blue",
     /** MASTERY */
-    mastery: "/images/bag-intenso-black",
+    mastery: "/images/bag-premium",
     /** SIGNATURE CREAM */
     signatureCream: "/images/bag-classic-1kg",
     /** EGYPTIAN */
