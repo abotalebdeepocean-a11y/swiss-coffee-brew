@@ -12,6 +12,7 @@ import { Testimonials } from "@/components/rovento/Testimonials";
 import { TrustBar } from "@/components/rovento/TrustBar";
 import { Footer } from "@/components/rovento/Footer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
+import { BrikkaStickyBar } from "@/components/rovento/BrikkaStickyBar";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 
@@ -38,6 +39,7 @@ export default function Landing() {
       <Footer />
       <CartDrawer />
       <WhatsAppFloat />
+      <BrikkaStickyBar />
       <ExitIntentPopup />
     </div>
   );

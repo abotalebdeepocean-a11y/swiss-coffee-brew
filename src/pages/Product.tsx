@@ -14,6 +14,8 @@ import { Header } from "@/components/rovento/Header";
 import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
+import { BrikkaStickyBar } from "@/components/rovento/BrikkaStickyBar";
+import { BrikkaUpsellCard } from "@/components/rovento/BrikkaUpsellCard";
 import { ProductCard } from "@/components/rovento/ProductCard";
 import { BagVisual } from "@/components/rovento/BagVisual";
 import { blendVariantFor } from "@/components/rovento/CoffeeBag";
@@ -242,6 +244,11 @@ export default function Product() {
                 اطلب عبر واتساب
               </a>
 
+              {/* Brikka Upsell — يظهر فقط على منتجات البن */}
+              {(product.category === "beans" || product.category === "espresso") && (
+                <BrikkaUpsellCard />
+              )}
+
               {/* شريط الثقة */}
               <div className="mt-6 grid grid-cols-3 gap-3">
                 {[
@@ -339,6 +346,7 @@ export default function Product() {
       <Footer />
       <CartDrawer />
       <WhatsAppFloat />
+      <BrikkaStickyBar />
     </div>
   );
 }
