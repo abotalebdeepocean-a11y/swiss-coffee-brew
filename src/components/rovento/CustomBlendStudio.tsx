@@ -312,7 +312,7 @@ export function CustomBlendStudio() {
         {/* ===== الاستوديو ===== */}
         <div id="blend-studio" className="mt-10 grid scroll-mt-28 gap-6 lg:grid-cols-[1fr_400px]">
           {/* عمود التحكم */}
-          <div className="rounded-3xl border border-white/10 bg-coffee-900/70 p-4 backdrop-blur-sm md:p-6">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] md:p-6">
             {/* 01 — النسب */}
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">01 · النسب</p>
@@ -439,7 +439,7 @@ export function CustomBlendStudio() {
 
           {/* عمود المعاينة */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <div className="overflow-hidden rounded-3xl border border-rv-gold/25 bg-gradient-to-b from-coffee-800/80 to-coffee-950 shadow-[0_0_50px_rgba(212,175,55,0.08)]">
+            <div className="overflow-hidden rounded-3xl border border-rv-gold/25 bg-gradient-to-b from-coffee-800/60 to-coffee-950/80 shadow-[0_0_50px_rgba(212,175,55,0.12)] backdrop-blur-xl">
               <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5 sm:py-4">
                 <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">خليطتك الحية</p>
                 <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold text-emerald-400">
