@@ -6,7 +6,6 @@ import { SignatureCollection } from "@/components/rovento/SignatureCollection";
 import { OfferSection } from "@/components/rovento/OfferSection";
 import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
 import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
-import { OtherVarieties } from "@/components/rovento/OtherVarieties";
 import { WhyRovento } from "@/components/rovento/WhyRovento";
 import { Testimonials } from "@/components/rovento/Testimonials";
 import { TrustBar } from "@/components/rovento/TrustBar";
@@ -36,7 +35,6 @@ export default function Landing() {
         <FadeIn><OfferSection /></FadeIn>
         <FadeIn><MokaSpotlight /></FadeIn>
         <FadeIn><CustomBlendStudio /></FadeIn>
-        <FadeIn><OtherVarieties /></FadeIn>
         <FadeIn><WhyRovento /></FadeIn>
         <FadeIn><Testimonials /></FadeIn>
         <FadeIn><TrustBar /></FadeIn>
