@@ -55,6 +55,10 @@ export interface Product {
   brewing?: string[];
   bestseller?: boolean;
   isNew?: boolean;
+  /** صور المعرض — حتى 5 صور للمنتج */
+  gallery?: string[];
+  /** تعليقات العملاء */
+  testimonials?: { name: string; text: string; rating: number; date: string }[];
 }
 
 export const CATEGORIES: Category[] = [
@@ -91,6 +95,20 @@ export const PRODUCTS: Product[] = [
       "منتج روفينتو الرئيسي — 70٪ أرابيكا من أجود الأنواع في العالم مدمجة مع 30٪ روبوستا عالية الجودة. كوب متوازن حلو المذاق غني بالكريما، مثالي للإسبريسو واللاتيه.",
     brewing: ["إسبريسو", "لاتيه", "كابتشينو"],
     bestseller: true,
+    gallery: [
+      "/images/bag-premium-real",
+      "/images/bag-premium-scene",
+      "/images/bag-premium-design",
+      "/images/bag-two-packages",
+      "/images/bag-macro-closeup",
+    ],
+    testimonials: [
+      { name: "أحمد م.", text: "أحلى كريما جربتها في مصر! البريميوم بجد فرق عن أي قهوة تانية. بقالي 3 شهور بطلبها." , rating: 5, date: "2026-08-10" },
+      { name: "سارة ك.", text: "الطعم متوازن وحلو من غير سكر. بستخدمها في اللاتيه كل صبح. أنصح بيها جدًا." , rating: 5, date: "2026-08-05" },
+      { name: "محمد ع.", text: "شفت الإعلان على فيسبوك وجرّبتها. الكريما حلوة جدًا والتحميص طازج. هفضل أطلبها." , rating: 4, date: "2026-07-28" },
+      { name: "نور ه.", text: "هديتها لأبويا وقال أحلى قهوة جربها. التغليف فخم والتوصيل سريع. 10/10" , rating: 5, date: "2026-07-20" },
+      { name: "ياسر ب.", text: "من أحسن الحبوب اللي جربتها في مصر. الكريما بتبان فورًا. الكيس يكفي أكتر من أسبوع." , rating: 5, date: "2026-07-15" },
+    ],
   },
   {
     slug: "rovento-intenso",
@@ -118,6 +136,17 @@ export const PRODUCTS: Product[] = [
       "لأصحاب الإسبريسو الجريء. نسبة روبوستا عالية (70٪) تعني كريما كثيفة وطعمًا قويًا لا يخذلك تحت الضغط. خيار الباريستا المحترف للكورتوادو والماكياتو.",
     brewing: ["إسبريسو", "كورتوادو", "ماكياتو"],
     bestseller: true,
+    gallery: [
+      "/images/bag-classic-real",
+      "/images/bag-classic-1kg-real",
+      "/images/bag-macro-closeup",
+      "/images/bag-two-packages",
+    ],
+    testimonials: [
+      { name: "خالد ر.", text: "الإنتنسو قوي و:pointer بجد. بستخدمه للكورتوادو والطعم لا يُقاوم." , rating: 5, date: "2026-08-12" },
+      { name: "منى أ.", text: "أحسن إسبريسو جربته بالموكا بوت. الكريما بتبان فورًا. مفيش مقارنة." , rating: 5, date: "2026-08-01" },
+      { name: "عمر ش.", text: "بحبه قوي بس قوي شوية عليّا. بخلطه مع الكلاسيك والنتيجة ممتازة." , rating: 4, date: "2026-07-25" },
+    ],
   },
   {
     slug: "rovento-classic",
@@ -143,6 +172,17 @@ export const PRODUCTS: Product[] = [
       "منتج روفينتو الأساسي — 50٪ أرابيكا و50٪ روبوستا بتحميص متوازن يعطي كوبًا ناعمًا غنيًا بالكريما يناسب الإسبريسو اليومي وجميع أفراد البيت.",
     brewing: ["إسبريسو", "V60", "فرنش بريس"],
     bestseller: true,
+    gallery: [
+      "/images/bag-classic-real",
+      "/images/bag-classic-1kg-real",
+      "/images/bag-two-packages",
+      "/images/bag-macro-closeup",
+    ],
+    testimonials: [
+      { name: "هدى م.", text: "الكلاسيك يومي ممتاز. طعم متوازن ومش غالي. بطلبة كل شهر." , rating: 5, date: "2026-08-08" },
+      { name: "طارق ج.", text: "ﾋ_HORIZONTAL بحبه في الفلتر. نكهة الكراميل واضحة ومنعشة. أنصح المبتدئين يبدأوا بيه." , rating: 4, date: "2026-07-30" },
+      { name: "فاطمة ز.", text: "أفضل قهوة في السعر ده. التغليف ممتاز والتوصيل سريع. بن recommand." , rating: 5, date: "2026-07-18" },
+    ],
   },
   {
     slug: "rovento-innovation",

@@ -247,4 +247,13 @@
     border: 1px solid rgba(200, 148, 62, 0.2);
     border-radius: 50%;
   }
+
+  /* Hide scrollbar for horizontal carousels */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
