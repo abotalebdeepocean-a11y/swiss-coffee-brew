@@ -32,10 +32,10 @@ export function Newsletter() {
 
           <h2 className="text-xl font-black md:text-2xl">
             اشترك واحصل على{" "}
-            <span className="text-rv-gold">10% خصم</span>
+            <span className="text-rv-gold">10% خصم</span> أول طلب 🎁
           </h2>
           <p className="mt-2 text-sm text-stone-400">
-            سجّل بريدك وهنبعتلك كود الخصم فورًا + أحدث العروض
+            انضم لعائلة روفينتو وتوصلك أحدث العروض والخلطات الحصرية قبل الجميع.
           </p>
 
           {submitted ? (
@@ -72,7 +72,7 @@ export function Newsletter() {
           )}
 
           <p className="mt-3 text-[10px] text-stone-600">
-            بالاشتراك أنت توافق على سياسة الخصوصية. يمكنك إلغاء الاشتراك في أي وقت.
+            بدون Spam. نرسل فقط ما يستحق القراءة. يمكنك إلغاء الاشتراك في أي وقت.
           </p>
         </motion.div>
       </div>

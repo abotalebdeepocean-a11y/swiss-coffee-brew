@@ -79,12 +79,11 @@ export function ExitIntentPopup() {
               🎁
             </div>
             <h3 className="text-2xl font-black text-white">
-              هدية خاصة لعملاء <span className="text-rv-gold">روفينتو</span>!
+              استنى! فيه خصم <span className="text-rv-gold">10%</span> مستنيك 🎁
             </h3>
             <p className="mb-6 mt-2 text-sm text-stone-300">
-              استخدم كوبون الخصم التالي واحصل على{" "}
-              <span className="font-bold text-rv-gold">خصم 10% فوري</span> على
-              أي طلب اليوم:
+              سجّل بريدك الآن واحصل على كوبون خصم{' '}<span className="font-bold text-rv-gold">10%</span> صالح على أول طلب.
+              <br />العرض ساري لـ <span className="font-bold text-rv-gold">24 ساعة</span> فقط!
             </p>
 
             <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-rv-gold/40 bg-black p-4">

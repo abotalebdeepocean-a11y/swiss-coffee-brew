@@ -6,15 +6,15 @@ import { BagVisual } from "./BagVisual";
 
 const REVIEWS = [
   {
-    name: "مريم",
+    name: "محمد",
     initial: "م",
-    city: "من الجيزة",
+    city: "من المعادي",
     avatarCls: "bg-pink-500/20 text-pink-400",
     when: "منذ 3 أيام",
     stars: 5,
-    text: "طعم ناعم ومتوازن، ومفيش مرارة نهائي. الكريما أحسن من معظم القهوة المستوردة اللي جربتها قبل كدة!",
+    text: "جربت البريميوم على الإسبريسو... النتيجة؟ كريمة غنية ونكهة مستحيل أوصفها. ده مش مجرد قهوة، ده فن.",
     img: IMAGES.bags.premium,
-    product: "Premium Blend",
+    product: "ROVENTO Premium 1KG",
   },
   {
     name: "أحمد",
@@ -23,20 +23,20 @@ const REVIEWS = [
     avatarCls: "bg-blue-500/20 text-blue-400",
     when: "منذ أسبوع",
     stars: 5,
-    text: "البريكا مع حبوب بريميوم طعمها عبقري! زي ما تكون قهوة مختصة من كافيهات القاهرة، وأنا في بيتي في سموحة.",
-    img: IMAGES.bags.premium,
-    product: "Premium + Brikka",
+    text: "أول مرة أطلب قهوة أونلاين وألاقي الطعم فعلاً مختلف. التغليف فاخر والتوصيل كان سريع جداً.",
+    img: IMAGES.bags.twoPackages,
+    product: "Duo Bundle",
   },
   {
-    name: "محمد",
+    name: "مريم",
     initial: "م",
-    city: "من القاهرة",
+    city: "من 6 أكتوبر",
     avatarCls: "bg-purple-500/20 text-purple-400",
     when: "منذ أسبوعين",
     stars: 5,
-    text: "أفضل كريما جربتها في البيت. عمرى ما هغيّر القهوة عندي — التحميص طازج والتوصيل وصلني تاني يوم.",
-    img: IMAGES.bags.classic,
-    product: "Classic Blend",
+    text: "صممت خلطة 80% عربيكا مع كراميل... النتيجة خرافية. حسيت إنها قهوة صنعت خصيصاً ليا.",
+    img: IMAGES.bags.premium,
+    product: "Blend Builder — Custom Mix",
   },
 ];
 
@@ -52,12 +52,8 @@ export function Testimonials() {
             تجارب حقيقية من السوق المصري
           </span>
           <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-            ماذا يقول <span className="text-rv-red">عملاؤنا؟</span>
+            ماذا يقول <span className="text-rv-red">عشاقنا؟</span>
           </h2>
-          <p className="mt-3 text-base text-stone-300 md:text-lg">
-            العميل المصري يثق في تجارب الناس الحقيقية أكثر من الإعلانات.. إليك
-            ما يقوله عملاؤنا بعد تجربة روفينتو.
-          </p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3 md:gap-8">

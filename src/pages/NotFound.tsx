@@ -52,14 +52,14 @@ export default function NotFound() {
             className="flex h-12 items-center gap-2 rounded-xl bg-rv-gold px-6 text-sm font-black text-black transition-all hover:bg-rv-gold/90 hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
           >
             <Home className="size-4" />
-            العودة للرئيسية
+            ارجع للرئيسية
           </Link>
           <Link
             to="/shop"
             className="flex h-12 items-center gap-2 rounded-xl border border-white/15 px-6 text-sm font-bold text-stone-300 transition-all hover:border-rv-gold/50 hover:text-rv-gold"
           >
             <ShoppingBag className="size-4" />
-            تصفّح المتجر
+            تسوق الآن
           </Link>
         </div>
       </motion.div>

@@ -77,8 +77,8 @@ export function Hero() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-300 md:text-lg lg:mx-0">
-            حبوب إسبريسو محمصة بعناية لعشاق الكريما الغنية والطعم المتوازن.
-            <span className="hidden text-rv-gold md:inline"> في مصر للعالم.</span>
+            حبوب البريميوم المختارة بعناية من أعلى المزارع، والتحميص المثالي في مصر
+            <span className="hidden text-rv-gold md:inline"> لتجربة فنجان لا تُنسى في كل رشفة</span>
           </p>
 
           {/* أبرز المزايا — 3 نقاط سريعة */}
@@ -111,7 +111,7 @@ export function Hero() {
               }}
               className="inline-flex items-center gap-3 rounded-xl bg-amber-500 px-8 py-4 text-lg font-black text-stone-950 shadow-xl shadow-amber-500/20 transition hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-amber-500/30"
             >
-              اطلب الآن
+              اطلب الآن ☕
               <Crown className="size-5" />
             </Link>
             <Link
@@ -127,7 +127,7 @@ export function Hero() {
               className="inline-flex items-center gap-3 rounded-xl border border-stone-700 bg-stone-900 px-8 py-4 text-lg font-bold text-stone-200 transition hover:border-rv-gold hover:bg-stone-800 hover:text-rv-gold"
             >
               <Eye className="size-5 text-rv-gold" />
-              استكشف المنتجات
+              صمّم خلطتك الخاصة ⚡
             </Link>
           </div>
         </motion.div>
