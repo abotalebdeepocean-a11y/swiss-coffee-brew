@@ -10,58 +10,55 @@
  * الاحتياطي لو الصورة مش موجودة. راجع `public/images/README.txt`.
  */
 export const IMAGES = {
-  /** كيس الهيرو — الكيس الأخضر الحقيقي PREMIUM (المنتج الرئيسي).
-   * حذفنا صور الأكياس غير الحقيقية (الموسيقى الببغاء/الحمراء)
-   * — يظهر هنا دائمًا منتج روفينتو الحقيقي. */
-  heroBag: "/images/bag-premium-dark",
-  /** حقائب ROVENTO الحقيقية — الأخضر (PREMIUM) والأزرق (CLASSIC) فقط،
-   * والباقي بيقع تلقائيًا على تصميم SVG الفخم. */
+  /** كيس الهيرو — صورة بريميوم عالية الجودة بخلفية داكنة */
+  heroBag: "/images/bag-premium-scene",
+  /** حقائب ROVENTO الحقيقية — الصور المنسقة بمقاس ثابت (800×1000) */
   bags: {
-    /** كيس PREMIUM BLEND — صورة بخلفية داكنة */
-    premium: "/images/bag-premium-dark",
-    /** كيس INTENSO / CLASSIC BLEND — صورة بخلفية داكنة */
-    intenso: "/images/bag-classic-dark",
+    /** كيس PREMIUM BLEND — صورة حقيقية بخلفية شفافة (النسر الأخضر) */
+    premium: "/images/bag-premium-real",
+    /** كيس INTENSO / CLASSIC BLEND — صورة حقيقية بخلفية شفافة (الببغاء الأزرق) */
+    intenso: "/images/bag-classic-real",
     /** كيس CLASSIC BLEND */
-    classic: "/images/bag-classic-dark",
+    classic: "/images/bag-classic-real",
     /** كيس CLASSIC 1 كجم */
-    classic1kg: "/images/bag-special-dark",
+    classic1kg: "/images/bag-classic-1kg-real",
     /** كيس INNOVATION / بريكا */
-    innovation: "/images/bag-brika-dark",
+    innovation: "/images/bag-classic-real",
     /** علبة كبسولات */
-    capsules: "/images/bag-classic-dark",
+    capsules: "/images/bag-classic-real",
     /** الكيسين مع بعض */
-    twoPackages: "/images/bag-two-dark",
+    twoPackages: "/images/bag-two-packages",
     /** صورة اختيار */
-    choose: "/images/bag-choose-dark",
+    choose: "/images/bag-two-packages",
     /** صورة ماكرو */
-    macro: "/images/bag-brika-dark",
+    macro: "/images/bag-macro-closeup",
     /** ORIGIN */
-    origin: "/images/bag-brika-dark",
+    origin: "/images/bag-premium-real",
     /** MASTERY */
-    mastery: "/images/bag-premium-dark",
+    mastery: "/images/bag-premium-real",
     /** SIGNATURE CREAM */
-    signatureCream: "/images/bag-special-dark",
+    signatureCream: "/images/bag-special-package",
     /** EGYPTIAN */
-    egyptian: "/images/bag-choose-dark",
+    egyptian: "/images/bag-two-ancient",
   },
-  /** بنرات السلايدر الأربعة (من صورك الحقيقية من Google Drive) */
+  /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {
-    /** السلايد 1 — بنر ROVENTO الرئيسي «مش قهوة… دي شخصية» (داكن + أكياس) */
+    /** السلايد 1 — بنر ROVENTO الرئيسي */
     hero: "/images/banner-hero",
-    /** السلايد 2 — موكا بوت + كيس أسود «طعم قهوة… لا ينسى» */
+    /** السلايد 2 — موكا بوت + كيس */
     workshop: "/images/banner-workshop",
-    /** السلايد 3 — أكياس ROVENTO المتعددة جنب بعض */
+    /** السلايد 3 — أكياس ROVENTO */
     signature: "/images/banner-signature",
-    /** السلايد 4 — صمام الكيس + حبوب ذهبية (الطزاجة) */
+    /** السلايد 4 — بنر متعدد */
     collections: "/images/banner-collections",
-    /** صورة قسم بريكا — موكا بوت + كيس أزرق «عندما يلقى الإتقان بالإبداع» */
+    /** صورة قسم بريكا */
     brika: "/images/banner-brika",
-    /** بانر قسم «خلطتك الخاصة» (BLEND LAB) — ضع صورة حبوب/خلط هنا */
-    customBlend: "/images/banner-customblend",
-    /** بانر الكيس الأخضر/الأزرق الحقيقي — غلاف CLASSIC 1 كجم */
-    classic1kg: "/images/bag-classic-1kg",
+    /** بانر قسم خلطتك الخاصة */
+    customBlend: "/images/banner-collections",
+    /** بانر الكيس CLASSIC 1 كجم */
+    classic1kg: "/images/bag-classic-1kg-real",
   },
-  /** قائمة أسعار البن الرسمية (صورة حقيقية من العميل) */
+  /** قائمة أسعار البن الرسمية */
   priceList: "/images/price-list",
   /** شعار ROVENTO الحقيقي */
   logo: "/images/rovento-logo",
