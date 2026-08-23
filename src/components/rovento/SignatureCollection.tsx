@@ -1,266 +1,304 @@
-import { Link } from "react-router";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { getProduct, formatPrice, type Product } from "@/lib/products";
-import { BagVisual } from "./BagVisual";
-import { Stars } from "./art";
-import type { BlendVariant } from "./CoffeeBag";
+import { ShoppingCart, Star, Check } from "lucide-react";
+import { getProduct, formatPrice } from "@/lib/products";
+import { useCart } from "@/lib/store";
+import { IMAGES } from "@/lib/images";
 
-/** إعدادات الشخصيات — الألوان والشارات */
-const PERSONAS: Record<
-  string,
+const BAGS = [
   {
-    bannerCls: string;
-    nameEn: string;
-    tag: string;
-    strength: number;
-    crema: number;
-    roast: string;
-    strengthCls: string;
-    ctaCls: string;
-    cardCls: string;
-    glowColor: string;
-    featured?: boolean;
-  }
-> = {
-  "rovento-classic": {
-    bannerCls: "bg-blue-800/90",
-    nameEn: "CLASSIC",
-    tag: "متوازن لأي وقت في اليوم",
-    strength: 7,
-    crema: 7,
-    roast: "متوسط",
-    strengthCls: "text-blue-400",
-    ctaCls: "border border-stone-600 hover:border-blue-400 hover:text-blue-300",
-    cardCls: "border-blue-500/30 hover:border-blue-500/80",
-    glowColor: "rgba(59, 130, 246, 0.15)",
-  },
-  "rovento-premium": {
-    bannerCls: "bg-teal-800/90",
+    slug: "rovento-premium" as const,
+    image: IMAGES.bags.premium,
     nameEn: "PREMIUM",
-    tag: "نكهات أعمق... تجربة فاخرة",
-    strength: 9,
-    crema: 9,
-    roast: "داكن",
-    strengthCls: "text-teal-400",
-    ctaCls: "border border-stone-600 hover:border-teal-400 hover:text-teal-300",
-    cardCls: "border-2 border-rv-gold shadow-2xl",
-    featured: true,
-    glowColor: "rgba(212, 175, 55, 0.12)",
+    nameAr: "بريميوم بليند",
+    tagline: "100% أرابيكا — نكهات كراميل وشوكولاتة داكنة",
+    price: 1200,
+    weight: "1 كجم",
+    accent: "from-teal-900/40 to-teal-950/0",
+    glow: "rgba(201,169,97,0.18)",
+    borderColor: "border-rv-gold/30",
+    badgeColor: "bg-rv-gold text-black",
+    rating: 4.9,
+    reviews: 214,
+    animDelay: "0s",
   },
-};
-
-/** جدول المقارنة */
-const COMPARE_ROWS = [
-  { name: "Classic Blend", strength: "7/10", crema: "متوازنة ولطيفة", use: "قهوة سوداء / فلتر / يومي", price: 690, note: "/ 1 كجم", cls: "" },
-  { name: "Premium Blend", strength: "9/10", crema: "غنية وكثيفة جدًا", use: "إسبريسو / بريكا / كابتشينو", price: 1200, note: "/ 1 كجم", cls: "bg-rv-gold/10 text-rv-gold" },
+  {
+    slug: "rovento-classic" as const,
+    image: IMAGES.bags.intenso,
+    nameEn: "CLASSIC",
+    nameAr: "كلاسيك بليند",
+    tagline: "70% أرابيكا — متوازن وأنيق لكل يوم",
+    price: 690,
+    weight: "1 كجم",
+    accent: "from-blue-900/40 to-blue-950/0",
+    glow: "rgba(59,130,246,0.12)",
+    borderColor: "border-blue-500/20",
+    badgeColor: "bg-blue-500 text-white",
+    rating: 4.7,
+    reviews: 142,
+    animDelay: "0.5s",
+  },
 ];
 
-function BlendCard({
-  product,
-  variant,
-  num,
-}: {
-  product: Product;
-  variant: BlendVariant;
-  num: number;
-}) {
-  const p = PERSONAS[product.slug]!;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, delay: num * 0.1 }}
-      className={`relative flex flex-col overflow-hidden rounded-2xl border bg-coffee-900/90 text-center shadow-xl transition ${
-        p.cardCls
-      } ${p.featured ? "md:-translate-y-2" : ""}`}
-    >
-      {/* شريط الرأس الملون */}
-      <div className={`px-6 py-4 ${p.bannerCls}`}>
-        <h3 className="text-xl font-black tracking-widest text-white">
-          {p.nameEn}
-        </h3>
-        <p className="mt-1 text-xs font-bold text-white/85">{p.tag}</p>
-      </div>
-
-      {p.featured && (
-        <span className="absolute -top-0 right-4 z-10 flex items-center gap-1 rounded-b-lg bg-rv-gold px-3 py-1 text-xs font-black text-black shadow">
-          ⭐ اختيار العشاق
-        </span>
-      )}
-
-      <div className="flex flex-1 flex-col p-6">
-        {/* صورة الكيس — كبيرة وواضحة */}
-        <div className="relative mx-auto mb-5 grid h-72 w-full place-items-center overflow-hidden rounded-2xl border border-stone-700/30 bg-gradient-to-b from-stone-900/50 to-coffee-950 sm:h-80 md:h-96">
-          {/* توهج ملون واسع خلف الكيس */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(300px 280px at 50% 45%, ${p.glowColor}, transparent 65%)`,
-            }}
-          />
-          <BagVisual
-            image={product.image}
-            variant={variant}
-            alt={product.name}
-            className="relative h-60 w-auto object-contain drop-shadow-[0_16px_50px_rgba(0,0,0,0.6)] sm:h-64 md:h-80"
-          />
-        </div>
-
-        {/* تقييم تفصيلي */}
-        <div className="mb-5 space-y-2.5 text-sm">
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-stone-400">قوة الطعم</span>
-            <span className="flex items-center gap-1.5">
-              <Stars value={Math.round(p.strength / 2)} />
-              <span className={`font-mono font-bold ${p.strengthCls}`}>
-                {p.strength}/10
-              </span>
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-stone-400">الكريما</span>
-            <span className="flex items-center gap-1.5">
-              <Stars value={Math.round(p.crema / 2)} />
-              <span className={`font-mono font-bold ${p.strengthCls}`}>
-                {p.crema}/10
-              </span>
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-stone-400">التحميص</span>
-            <span className="font-mono font-bold text-stone-200">
-              {p.roast}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-stone-400">النكهات</span>
-            <span className="text-xs text-stone-300">
-              {product.notes?.join(" · ")}
-            </span>
-          </div>
-        </div>
-
-        <div className="mb-5 flex items-center justify-between border-t border-stone-800 pt-4">
-          <span className="text-sm text-stone-400">السعر</span>
-          <div className="text-start">
-            <span className="text-xl font-black text-white">
-              {formatPrice(product.price)}
-            </span>
-            <span className="block text-xs text-stone-400">
-              / {product.weight}
-            </span>
-          </div>
-        </div>
-
-        <Link
-          to={`/product/${product.slug}`}
-          className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-transparent text-sm font-black text-stone-200 transition ${p.ctaCls}`}
-        >
-          تسوق {p.nameEn === "CLASSIC" ? "كلاسيك" : "بريميوم"}
-        </Link>
-      </div>
-    </motion.div>
-  );
-}
+const COMPARE_FEATURES = [
+  { label: "نسبة الأرابيكا", premium: "100%", classic: "70%" },
+  { label: "درجة التحميص", premium: "متوسط-غامق", classic: "وسط" },
+  { label: "النكهات", premium: "كراميل · شوكولاتة", classic: "مكسرات · كاكاو" },
+  { label: "الأفضل لـ", premium: "إسبريسو فاخر", classic: "إسبريسو يومي" },
+  { label: "الكريما", premium: "غنية جدًا", classic: "متوازنة" },
+];
 
 export function SignatureCollection() {
-  const blends = ["rovento-classic", "rovento-premium"]
-    .map((slug) => getProduct(slug)!)
-    .filter(Boolean);
-  const variants: BlendVariant[] = ["classic", "premium"];
+  const cart = useCart();
+  const [addedSlug, setAddedSlug] = useState<string | null>(null);
+
+  const handleAdd = (slug: string) => {
+    cart.add(slug, 1);
+    setAddedSlug(slug);
+    setTimeout(() => setAddedSlug(null), 1800);
+  };
 
   return (
     <section
       id="featured"
-      className="border-b border-stone-800 bg-coffee-900/50 py-16 md:py-20"
+      className="relative overflow-hidden bg-[#0a0a0a] py-20 md:py-28"
     >
-      <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        {/* رأس القسم */}
-        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
-          <span className="text-sm font-bold uppercase tracking-wider text-rv-gold">
-            اختر ما يناسب مزاجك
+      {/* Background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-rv-gold/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rv-gold/20 to-transparent" />
+      </div>
+
+      <div className="relative mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mx-auto mb-16 max-w-3xl text-center"
+        >
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-rv-gold/80">
+            ✦ Choose Your Experience ✦
           </span>
-          <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-            اختر <span className="text-rv-red">شخصيتك</span> في فنجانك
+          <h2 className="mt-4 text-3xl font-black sm:text-4xl md:text-5xl">
+            <span className="gold-gradient-text">اختر تجربتك</span>
           </h2>
-          <p className="mt-3 text-base text-stone-300 md:text-lg">
-            منتجا روفينتو الأساسيان — توازن يومي اقتصادي، أو كريما إسبريسو غنية
-            فاخرة. الكيسان الأصليان بأعلى جودة تحميص في مصر.
+          <p className="mx-auto mt-4 max-w-xl text-sm text-stone-400 md:text-base">
+            اثنان من خلطاتنا المميزة — كلاهما مُحمّص طازج في القاهرة بعناية فائقة
           </p>
+          <div className="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-rv-gold to-transparent" />
+        </motion.div>
+
+        {/* Two floating bags — side by side */}
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:gap-6 lg:gap-10">
+          {BAGS.map((bag, i) => {
+            const product = getProduct(bag.slug);
+            const isAdded = addedSlug === bag.slug;
+            return (
+              <motion.div
+                key={bag.slug}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                className="group relative flex flex-col items-center text-center"
+              >
+                {/* Badge */}
+                <span
+                  className={`absolute -top-2 right-6 z-10 rounded-full px-3 py-1 text-[11px] font-bold tracking-wide shadow-lg ${bag.badgeColor}`}
+                >
+                  {i === 0 ? "الأكثر مبيعًا" : "الأفضل قيمة"}
+                </span>
+
+                {/* Floating bag area */}
+                <div className="relative mb-8 flex h-[320px] w-full items-center justify-center sm:h-[380px] md:h-[420px]">
+                  {/* Glow behind bag */}
+                  <div
+                    className="absolute inset-0 rounded-3xl opacity-60 transition-opacity duration-700 group-hover:opacity-100"
+                    style={{
+                      background: `radial-gradient(280px 260px at 50% 55%, ${bag.glow}, transparent 65%)`,
+                    }}
+                  />
+
+                  {/* Decorative dots */}
+                  <div className="absolute top-8 left-1/2 -translate-x-1/2 flex gap-1.5">
+                    <div className="h-1 w-1 rounded-full bg-rv-gold/40" />
+                    <div className="h-1 w-6 rounded-full bg-rv-gold/30" />
+                    <div className="h-1 w-1 rounded-full bg-rv-gold/40" />
+                  </div>
+
+                  {/* The floating bag image */}
+                  <motion.img
+                    src={`${bag.image}.webp`}
+                    alt={product?.name ?? bag.nameEn}
+                    className={`relative z-10 h-[260px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:h-[300px] md:h-[340px] ${
+                      i === 0 ? "animate-float-bag" : "animate-float-bag-reverse"
+                    }`}
+                    style={{ animationDelay: bag.animDelay }}
+                    whileHover={{ scale: 1.05, y: -10 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                  />
+
+                  {/* Shadow on ground */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-4 w-40 rounded-[50%] bg-black/40 blur-xl" />
+                </div>
+
+                {/* Product info */}
+                <div className="w-full max-w-xs space-y-3">
+                  {/* Name */}
+                  <h3 className="text-xl font-black tracking-wider text-white">
+                    {bag.nameEn}
+                  </h3>
+                  <p className="text-xs text-stone-400">{bag.nameAr}</p>
+
+                  {/* Rating */}
+                  <div className="flex items-center justify-center gap-1">
+                    {[...Array(5)].map((_, s) => (
+                      <Star
+                        key={s}
+                        className={`h-3 w-3 ${
+                          s < Math.round(bag.rating)
+                            ? "fill-rv-gold text-rv-gold"
+                            : "text-stone-700"
+                        }`}
+                      />
+                    ))}
+                    <span className="mr-1 text-xs text-stone-400">
+                      {bag.rating} ({bag.reviews})
+                    </span>
+                  </div>
+
+                  {/* Tagline */}
+                  <p className="text-xs leading-relaxed text-stone-400/80">
+                    {bag.tagline}
+                  </p>
+
+                  {/* Price + Weight */}
+                  <div className="flex items-baseline justify-center gap-2">
+                    <span className="text-2xl font-black text-rv-gold">
+                      {formatPrice(bag.price)}
+                    </span>
+                    <span className="text-xs text-stone-500">/ {bag.weight}</span>
+                  </div>
+
+                  {/* Add to Cart button */}
+                  <button
+                    onClick={() => handleAdd(bag.slug)}
+                    className={`mt-2 flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold transition-all duration-300 ${
+                      isAdded
+                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                        : "bg-gradient-to-r from-rv-gold/90 to-rv-gold text-black hover:from-rv-gold hover:to-[#d4b96a] hover:shadow-[0_8px_30px_rgba(201,169,97,0.3)] hover:-translate-y-0.5"
+                    }`}
+                  >
+                    {isAdded ? (
+                      <>
+                        <Check className="h-4 w-4" />
+                        تمت الإضافة للسلة
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart className="h-4 w-4" />
+                        أضف للسلة
+                      </>
+                    )}
+                  </button>
+
+                  {/* Free shipping note */}
+                  <p className="text-[10px] text-stone-600">🚚 شحن مجاني لكل مصر</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* الكروت — منتجان فقط */}
-        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
-          {blends.map((product, i) => (
-            <BlendCard
-              key={product.slug}
-              product={product}
-              variant={variants[i]}
-              num={i}
-            />
-          ))}
+        {/* Decorative divider with VS */}
+        <div className="relative my-14 md:my-16">
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-stone-700/50 to-transparent" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0a0a0a] px-6 py-1">
+            <span className="text-xs font-black tracking-[0.3em] text-rv-gold/60">
+              VS
+            </span>
+          </div>
         </div>
 
-        {/* جدول المقارنة — محسّن */}
+        {/* Comparison table — sleek minimal */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55 }}
-          className="mx-auto mt-12 max-w-4xl rounded-3xl border border-stone-800 bg-coffee-900/80 p-4 shadow-2xl sm:p-6 md:mt-14 md:p-8"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-4xl rounded-2xl border border-stone-800/50 bg-stone-900/30 p-4 sm:p-6 md:p-8"
         >
           <div className="mb-6 text-center">
-            <h3 className="text-xl font-black text-white sm:text-2xl">
-              مقارنة سريعة بين منتجي روفينتو
+            <h3 className="text-lg font-black text-white sm:text-xl">
+              مقارنة سريعة
             </h3>
-            <p className="mt-1 text-xs text-stone-400 sm:text-sm">
-              اختار الخلطة الأنسب لطريقة تحضيرك المفضلة
+            <p className="mt-1 text-xs text-stone-500">
+              اختار الخلطة الأنسب لطريقتك في التحضير
             </p>
           </div>
+
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-right text-sm">
+            <table className="w-full border-collapse text-right text-xs sm:text-sm">
               <thead>
-                <tr className="border-b border-stone-800 text-rv-gold">
-                  <th className="px-3 py-3 font-black sm:px-4">النوع</th>
-                  <th className="px-3 py-3 text-center font-black sm:px-4">القوة</th>
-                  <th className="hidden px-4 py-3 font-black sm:table-cell">
-                    الكريما
+                <tr className="border-b border-stone-800/60">
+                  <th className="px-3 py-3 text-xs font-bold text-stone-500 sm:px-4">
+                    الميزة
                   </th>
-                  <th className="hidden px-4 py-3 font-black md:table-cell">
-                    أفضل استخدام
+                  <th className="px-3 py-3 text-center text-xs font-bold text-rv-gold sm:px-4">
+                    PREMIUM
                   </th>
-                  <th className="px-3 py-3 text-center font-black sm:px-4">السعر</th>
+                  <th className="px-3 py-3 text-center text-xs font-bold text-blue-400 sm:px-4">
+                    CLASSIC
+                  </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-800/60">
-                {COMPARE_ROWS.map((r) => (
-                  <tr
-                    key={r.name}
-                    className={`transition hover:bg-stone-800/40 ${r.cls}`}
-                  >
-                    <td className={`px-3 py-4 font-bold sm:px-4 ${r.cls}`}>{r.name}</td>
-                    <td className="px-3 py-4 text-center font-mono font-bold sm:px-4">
-                      {r.strength}
+              <tbody className="divide-y divide-stone-800/40">
+                {COMPARE_FEATURES.map((row) => (
+                  <tr key={row.label} className="hover:bg-stone-800/20 transition-colors">
+                    <td className="px-3 py-3.5 text-stone-400 sm:px-4">
+                      {row.label}
                     </td>
-                    <td className="hidden px-4 py-4 sm:table-cell">{r.crema}</td>
-                    <td className="hidden px-4 py-4 md:table-cell">{r.use}</td>
-                    <td className="px-3 py-4 text-center font-bold sm:px-4">
-                      {formatPrice(r.price)}
-                      <span className="block text-[10px] font-normal text-stone-500">
-                        {r.note}
-                      </span>
+                    <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
+                      {row.premium}
+                    </td>
+                    <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
+                      {row.classic}
                     </td>
                   </tr>
                 ))}
+                {/* Price row highlighted */}
+                <tr className="bg-rv-gold/5">
+                  <td className="px-3 py-3.5 font-bold text-stone-300 sm:px-4">
+                    السعر
+                  </td>
+                  <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
+                    ١٬٢٠٠ ج.م
+                  </td>
+                  <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
+                    ٦٩٠ ج.م
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-center text-xs text-stone-500">
-            * بريميم (70٪ أرابيكا) وكلاسيك (50٪ أرابيكا) — يُباعان كيس 1 كجم، والمطحون متاح.
+
+          <p className="mt-4 text-center text-[10px] text-stone-600">
+            * كلا المنتجين 1 كجم — يُشحن مطحون أو حبوب كاملة حسب اختياراتك
           </p>
         </motion.div>
+
+        {/* Bottom tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-12 text-center text-xs tracking-wider text-stone-600"
+        >
+          ✦ Sourced from the finest coffee beans from Brazil & Colombia ✦
+        </motion.p>
       </div>
     </section>
   );

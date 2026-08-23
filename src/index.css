@@ -85,6 +85,20 @@
     0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
     50% { transform: translateY(-24px) rotate(calc(var(--rot, 0deg) + 7deg)); }
   }
+  @keyframes float-bag {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+  }
+  @keyframes float-bag-reverse {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  .animate-float-bag {
+    animation: float-bag 4s ease-in-out infinite;
+  }
+  .animate-float-bag-reverse {
+    animation: float-bag-reverse 5s ease-in-out infinite;
+  }
   @keyframes pulse-wa {
     0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
     70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
