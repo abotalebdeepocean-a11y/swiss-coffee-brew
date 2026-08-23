@@ -92,19 +92,19 @@ function BlendCard({
 
       <div className="flex flex-1 flex-col p-6">
         {/* صورة الكيس — كبيرة وواضحة */}
-        <div className="relative mx-auto mb-5 grid h-64 w-full place-items-center overflow-hidden rounded-2xl border border-stone-700/50 bg-gradient-to-b from-stone-900/80 to-coffee-950 sm:h-72 md:h-80">
-          {/* توهج خلف الكيس */}
+        <div className="relative mx-auto mb-5 grid h-72 w-full place-items-center overflow-hidden rounded-2xl border border-stone-700/30 bg-gradient-to-b from-stone-900/50 to-coffee-950 sm:h-80 md:h-96">
+          {/* توهج ملون واسع خلف الكيس */}
           <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(280px 260px at 50% 45%, ${p.glowColor}, transparent 60%)`,
+              background: `radial-gradient(300px 280px at 50% 45%, ${p.glowColor}, transparent 65%)`,
             }}
           />
           <BagVisual
             image={product.image}
             variant={variant}
             alt={product.name}
-            className="relative h-56 w-auto object-contain drop-shadow-[0_12px_40px_rgba(0,0,0,0.5)] sm:h-64 md:h-72"
+            className="relative h-60 w-auto object-contain drop-shadow-[0_16px_50px_rgba(0,0,0,0.6)] sm:h-64 md:h-80"
           />
         </div>
 
@@ -192,7 +192,7 @@ export function SignatureCollection() {
         </div>
 
         {/* الكروت — منتجان فقط */}
-        <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
           {blends.map((product, i) => (
             <BlendCard
               key={product.slug}

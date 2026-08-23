@@ -10,7 +10,6 @@ import {
   Star,
   ShoppingBag,
 } from "lucide-react";
-/* HOTSPOTS removed — bag speaks for itself */
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 import { Stars } from "./art";
@@ -29,10 +28,10 @@ export function Hero() {
       id="hero"
       className="relative overflow-hidden border-b border-stone-800 bg-gradient-to-b from-coffee-950 via-[#0d0b09] to-coffee-950"
     >
-      {/* توهج محيطي — أكبر وأقوى */}
-      <div className="pointer-events-none absolute left-1/2 top-1/4 size-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/8 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 size-[500px] rounded-full bg-red-900/8 blur-[100px]" />
-      <div className="pointer-events-none absolute bottom-1/4 left-0 size-[400px] rounded-full bg-amber-900/5 blur-[80px]" />
+      {/* توهج سينمائي — إضاءة ذهبية خلف الكيسين */}
+      <div className="pointer-events-none absolute left-1/2 top-1/3 size-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/10 blur-[150px]" />
+      <div className="pointer-events-none absolute bottom-0 right-1/4 size-[600px] rounded-full bg-amber-900/8 blur-[120px]" />
+      <div className="pointer-events-none absolute top-0 left-1/4 size-[400px] rounded-full bg-rv-gold/5 blur-[100px]" />
 
       <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-8 px-4 pb-14 pt-10 md:gap-12 md:px-6 md:pt-16 lg:grid-cols-12">
         {/* النص */}
@@ -101,12 +100,12 @@ export function Hero() {
           {/* الأزرار — زر رئيسي واحد واضح + زر ثانوي */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
             <Link
-              to="/#bestsellers"
+              to="/#featured"
               onClick={(e) => {
                 if (window.location.pathname === "/") {
                   e.preventDefault();
                   document
-                    .getElementById("bestsellers")
+                    .getElementById("featured")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
@@ -133,52 +132,44 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* الكيس — البطل الرئيسي */}
+        {/* الكيسين — البطل الرئيسي */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
           className="relative flex justify-center lg:col-span-5"
         >
-          <div className="relative w-full max-w-lg">
-            {/* توهج ذهبي واسع خلف الكيس */}
-            <div className="absolute -inset-8 rounded-full bg-rv-gold/15 blur-3xl" />
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-rv-gold/25 to-amber-900/20 blur-xl" />
+          <div className="relative w-full max-w-xl">
+            {/* توهج سينمائي ذهبي واسع */}
+            <div className="absolute -inset-12 rounded-full bg-rv-gold/12 blur-[80px]" />
+            <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-rv-gold/20 to-amber-800/15 blur-[60px]" />
 
-            {/* الكيس — كبير وواضح */}
+            {/* صورة الكيسين — كبيرة وواضحة بدون كارت */}
             <div className="relative">
               <BagVisual
-                image={IMAGES.heroBag}
+                image={IMAGES.bags.twoPackages}
                 variant="premium"
                 eager
-                alt="Rovento Premium Blend — كيس قهوة إسبريسو"
-                className="relative h-[380px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(212,175,55,0.25)] md:h-[480px]"
+                alt="كياس روفينتو — بريميوم وكلاسيك"
+                className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(212,175,55,0.3)] sm:h-[380px] md:h-[460px]"
               />
             </div>
 
-            {/* بادجات أسفل الكيس */}
-            <div className="relative mt-4 flex flex-wrap items-center justify-center gap-3">
+            {/* بادجات أسفل الكيسين */}
+            <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
               <div className="flex items-center gap-2 rounded-full border border-rv-gold/30 bg-coffee-900/90 px-5 py-2.5 backdrop-blur-sm">
                 <Crown className="size-4 text-rv-gold" />
                 <span className="text-sm font-black text-white">PREMIUM</span>
                 <span className="text-xs text-stone-400">70% أرابيكا</span>
+                <span className="text-sm font-black text-rv-gold">1,200 ج.م</span>
               </div>
-              <div className="flex items-center gap-1.5 rounded-full bg-rv-gold px-5 py-2.5 text-sm font-black text-black shadow-lg shadow-rv-gold/20">
-                1,200 ج.م
-                <span className="text-xs font-bold text-black/70">/ 1 كجم</span>
+              <div className="flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-900/80 px-5 py-2.5 backdrop-blur-sm">
+                <Star className="size-3.5 fill-blue-400 text-blue-400" />
+                <span className="text-sm font-black text-blue-100">CLASSIC</span>
+                <span className="text-xs text-blue-300">50% أرابيكا</span>
+                <span className="text-sm font-black text-blue-200">690 ج.م</span>
               </div>
             </div>
-
-            {/* شارة الكلاسيك */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="relative mt-3 flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-blue-400/30 bg-blue-900/80 px-5 py-2.5 text-sm font-bold text-blue-200 shadow-lg backdrop-blur-sm"
-            >
-              <Star className="size-3.5 fill-blue-400 text-blue-400" />
-              CLASSIC — 690 ج.م / 1 كجم
-            </motion.div>
           </div>
         </motion.div>
       </div>

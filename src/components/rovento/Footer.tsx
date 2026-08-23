@@ -105,11 +105,23 @@ export function Footer() {
             </p>
             <p className="flex items-center gap-2">
               <Phone className="size-3.5 text-rv-gold" />
-              <span dir="ltr">+20 100 000 0000</span>
+              <span dir="ltr">01033012381</span>
+            </p>
+            <p className="flex items-center gap-2">
+              <Phone className="size-3.5 text-rv-gold" />
+              <span dir="ltr">01042324842</span>
+            </p>
+            <p className="flex items-center gap-2">
+              <Phone className="size-3.5 text-rv-gold" />
+              <span dir="ltr">01042320848</span>
             </p>
             <p className="flex items-center gap-2">
               <Mail className="size-3.5 text-rv-gold" />
-              info@rovento.com
+              info@rovento.site
+            </p>
+            <p className="flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="size-3.5 text-rv-gold" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span dir="ltr">www.rovento.site</span>
             </p>
           </div>
 

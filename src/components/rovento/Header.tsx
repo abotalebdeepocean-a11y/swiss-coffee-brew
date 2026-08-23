@@ -9,7 +9,6 @@ const NAV = [
   { label: "اختار شخصيتك", to: "/#featured" },
   { label: "عرض الأسبوع", to: "/#deal", hot: true },
   { label: "لماذا بريكا؟", to: "/#brikka" },
-  { label: "الأكثر مبيعًا", to: "/#bestsellers" },
   { label: "خلطتك الخاصة", to: "/#blend-lab", hot: true, badge: "جديد" },
   { label: "لماذا روفينتو؟", to: "/#why-rovento" },
   { label: "آراء العملاء", to: "/#reviews" },
