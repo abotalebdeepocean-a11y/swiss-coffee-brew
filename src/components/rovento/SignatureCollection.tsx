@@ -24,7 +24,7 @@ const BAGS = [
   },
   {
     slug: "rovento-classic" as const,
-    image: IMAGES.bags.premium,
+    image: IMAGES.bags.classic,
     nameEn: "CLASSIC",
     nameAr: "كلاسيك بليند",
     tagline: "70% أرابيكا — متوازن وأنيق لكل يوم",
