@@ -64,7 +64,7 @@ export function Hero() {
             >
               <ShoppingBag className="size-4 text-black" />
               <span className="text-sm font-black text-black">
-                يبدأ من 690 ج.م / كجم
+                يبدأ من 650 ج.م / كجم
               </span>
             </motion.div>
           </div>
@@ -77,8 +77,9 @@ export function Hero() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-300 md:text-lg lg:mx-0">
-            حبوب البريميوم المختارة بعناية من أعلى المزارع، والتحميص المثالي في مصر
-            <span className="hidden text-rv-gold md:inline"> لتجربة فنجان لا تُنسى في كل رشفة</span>
+            5 بلندات فاخرة — من البار انتينسو القوي للكولومبيا الأصيلة.
+            <br className="hidden md:block" />
+            <span className="text-rv-gold">تحميص طازج يومياً في مصر. شحن مجاني لكل المحافظات.</span>
           </p>
 
           {/* أبرز المزايا — 3 نقاط سريعة */}
@@ -160,14 +161,14 @@ export function Hero() {
               <div className="flex items-center gap-2 rounded-full border border-rv-gold/30 bg-coffee-900/90 px-5 py-2.5 backdrop-blur-sm">
                 <Crown className="size-4 text-rv-gold" />
                 <span className="text-sm font-black text-white">PREMIUM</span>
-                <span className="text-xs text-stone-400">70% أرابيكا</span>
-                <span className="text-sm font-black text-rv-gold">1,200 ج.م</span>
+                <span className="text-xs text-stone-400">100% أرابيكا</span>
+                <span className="text-sm font-black text-rv-gold">850 ج.م</span>
               </div>
-              <div className="flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-900/80 px-5 py-2.5 backdrop-blur-sm">
-                <Star className="size-3.5 fill-blue-400 text-blue-400" />
-                <span className="text-sm font-black text-blue-100">CLASSIC</span>
-                <span className="text-xs text-blue-300">50% أرابيكا</span>
-                <span className="text-sm font-black text-blue-200">690 ج.م</span>
+              <div className="flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-900/80 px-5 py-2.5 backdrop-blur-sm">
+                <Star className="size-3.5 fill-emerald-400 text-emerald-400" />
+                <span className="text-sm font-black text-emerald-100">CLASSIC</span>
+                <span className="text-xs text-emerald-300">70% أرابيكا</span>
+                <span className="text-sm font-black text-emerald-200">750 ج.م</span>
               </div>
             </div>
           </div>
