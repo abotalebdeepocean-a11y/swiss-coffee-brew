@@ -18,6 +18,7 @@ import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 import { LoadingScreen } from "@/components/rovento/LoadingScreen";
 import { FadeIn } from "@/components/rovento/FadeIn";
+import { ProductsGrid } from "@/components/rovento/ProductsGrid";
 
 export default function Landing() {
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function Landing() {
         <BannerSlider />
         <Hero />
         <FadeIn><SignatureCollection /></FadeIn>
+        <FadeIn><ProductsGrid /></FadeIn>
         <FadeIn><OfferSection /></FadeIn>
         <FadeIn><MokaSpotlight /></FadeIn>
         <FadeIn><CustomBlendStudio /></FadeIn>
