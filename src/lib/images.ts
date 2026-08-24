@@ -14,32 +14,28 @@ export const IMAGES = {
   heroBag: "/images/bag-premium-scene",
   /** حقائب ROVENTO الحقيقية — الصور المنسقة بمقاس ثابت (800×1000) */
   bags: {
-    /** كيس PREMIUM BLEND — صورة حقيقية بخلفية شفافة (النسر الأخضر) */
+    /** كيس PREMIUM BLEND — النسر الأخضر الفاخر */
     premium: "/images/bag-premium-real",
-    /** كيس INTENSO / CLASSIC BLEND — صورة حقيقية بخلفية شفافة (الببغاء الأزرق) */
-    intenso: "/images/bag-classic-real",
-    /** كيس CLASSIC BLEND */
+    /** كيس CLASSIC BLEND — الببغاء الأزرق */
     classic: "/images/bag-classic-real",
     /** كيس CLASSIC 1 كجم */
     classic1kg: "/images/bag-classic-1kg-real",
-    /** كيس INNOVATION / بريكا */
-    innovation: "/images/bag-classic-real",
-    /** علبة كبسولات */
-    capsules: "/images/bag-classic-real",
+    /** كيس BAR INTENSO — الغامق القوي */
+    intenso: "/images/bag-intenso-new",
+    /** كيس ARABICA — الأرابيكا النقي */
+    arabica: "/images/bag-arabica-new",
+    /** كيس COLOMBIA SINGLE ORIGIN */
+    colombia: "/images/bag-colombia-new",
     /** الكيسين مع بعض */
     twoPackages: "/images/bag-two-packages",
     /** صورة اختيار */
     choose: "/images/bag-two-packages",
     /** صورة ماكرو */
     macro: "/images/bag-macro-closeup",
-    /** ORIGIN */
-    origin: "/images/bag-premium-real",
-    /** MASTERY */
-    mastery: "/images/bag-premium-real",
-    /** SIGNATURE CREAM */
-    signatureCream: "/images/bag-special-package",
-    /** EGYPTIAN */
-    egyptian: "/images/bag-two-ancient",
+    /** صورة خاصة */
+    special: "/images/bag-special-package",
+    /** صورة تمهيد */
+    upcoming: "/images/bag-upcoming",
   },
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {

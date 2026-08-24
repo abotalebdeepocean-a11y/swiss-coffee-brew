@@ -11,9 +11,9 @@ const BAGS = [
     slug: "rovento-premium" as const,
     image: IMAGES.bags.premium,
     nameEn: "PREMIUM",
-    nameAr: "بريميوم بليند",
-    tagline: "100% أرابيكا — نكهات كراميل وشوكولاتة داكنة",
-    price: 1200,
+    nameAr: "بريميوم",
+    tagline: "100% أرابيكا — كريمة غنية، تحميص متوسط، قوة متوازنة",
+    price: 850,
     weight: "1 كجم",
     accent: "from-teal-900/40 to-teal-950/0",
     glow: "rgba(201,169,97,0.18)",
@@ -27,26 +27,26 @@ const BAGS = [
     slug: "rovento-classic" as const,
     image: IMAGES.bags.classic,
     nameEn: "CLASSIC",
-    nameAr: "كلاسيك بليند",
-    tagline: "70% أرابيكا — متوازن وأنيق لكل يوم",
-    price: 690,
+    nameAr: "كلاسيك",
+    tagline: "التوليفة الذهبية — توازن مثالي بين القوة والنكهة",
+    price: 750,
     weight: "1 كجم",
     accent: "from-blue-900/40 to-blue-950/0",
     glow: "rgba(59,130,246,0.12)",
     borderColor: "border-blue-500/20",
     badgeColor: "bg-blue-500 text-white",
-    rating: 4.7,
-    reviews: 142,
+    rating: 4.8,
+    reviews: 203,
     animDelay: "0.5s",
   },
 ];
 
 const COMPARE_FEATURES = [
   { label: "نسبة الأرابيكا", premium: "100%", classic: "70%" },
-  { label: "درجة التحميص", premium: "متوسط-غامق", classic: "وسط" },
-  { label: "النكهات", premium: "كراميل · شوكولاتة", classic: "مكسرات · كاكاو" },
-  { label: "الأفضل لـ", premium: "إسبريسو فاخر", classic: "إسبريسو يومي" },
-  { label: "الكريما", premium: "غنية جدًا", classic: "متوازنة" },
+  { label: "درجة التحميص", premium: "متوسط", classic: "متوسط-غامق" },
+  { label: "النكهات", premium: "نكهة غنية فاخرة", classic: "توازن مثالي" },
+  { label: "الأفضل لـ", premium: "إسبريسو فاخر", classic: "إسبريسو والكابتشينو" },
+  { label: "الكريما", premium: "غنية (Rich Crema)", classic: "متوازنة (Balanced Crema)" },
 ];
 
 export function SignatureCollection() {
@@ -277,10 +277,10 @@ export function SignatureCollection() {
                     السعر
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
-                    ١٬٢٠٠ ج.م
+                    ٨٥٠ ج.م
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
-                    ٦٩٠ ج.م
+                    ٧٥٠ ج.م
                   </td>
                 </tr>
               </tbody>
