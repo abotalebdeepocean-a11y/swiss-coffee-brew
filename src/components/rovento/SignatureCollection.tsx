@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { ShoppingCart, Star, Check } from "lucide-react";
 import { getProduct, formatPrice } from "@/lib/products";
@@ -128,17 +129,19 @@ export function SignatureCollection() {
                     <div className="h-1 w-1 rounded-full bg-rv-gold/40" />
                   </div>
 
-                  {/* The floating bag image */}
-                  <motion.img
-                    src={`${bag.image}.webp`}
-                    alt={product?.name ?? bag.nameEn}
-                    className={`relative z-10 h-[260px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:h-[300px] md:h-[340px] ${
-                      i === 0 ? "animate-float-bag" : "animate-float-bag-reverse"
-                    }`}
-                    style={{ animationDelay: bag.animDelay }}
-                    whileHover={{ scale: 1.05, y: -10 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                  />
+                  {/* The floating bag image — clickable → product page */}
+                  <Link to={`/product/${bag.slug}`} className="relative z-10">
+                    <motion.img
+                      src={`${bag.image}.webp`}
+                      alt={product?.name ?? bag.nameEn}
+                      className={`h-[260px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:h-[300px] md:h-[340px] ${
+                        i === 0 ? "animate-float-bag" : "animate-float-bag-reverse"
+                      }`}
+                      style={{ animationDelay: bag.animDelay }}
+                      whileHover={{ scale: 1.08, y: -10 }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                    />
+                  </Link>
 
                   {/* Shadow on ground */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-4 w-40 rounded-[50%] bg-black/40 blur-xl" />

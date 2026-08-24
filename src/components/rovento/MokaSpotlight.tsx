@@ -215,7 +215,7 @@ export function MokaSpotlight() {
                 <ChevronLeft className="size-5" />
               </button>
               <a
-                href="https://wa.me/201033012381?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20ROVENTO%20%F0%9F%91%8B%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%B1%D9%8A%D9%83%D8%A7%20%C3%97%20%D9%83%D9%8A%D8%B3%20%D8%B1%D9%88%D9%81%D9%8A%D9%86%D8%AA%D9%88"
+                href="https://wa.me/201109600543?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20ROVENTO%20%F0%9F%91%8B%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%B1%D9%8A%D9%83%D8%A7%20%C3%97%20%D9%83%D9%8A%D8%B3%20%D8%B1%D9%88%D9%81%D9%8A%D9%86%D8%AA%D9%88"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-13 items-center gap-2 rounded-xl border-2 border-[#25d366]/50 bg-[#25d366]/10 px-6 text-sm font-bold text-[#25d366] transition-colors hover:bg-[#25d366] hover:text-white"
