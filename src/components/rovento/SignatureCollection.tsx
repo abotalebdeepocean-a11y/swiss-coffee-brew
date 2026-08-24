@@ -9,7 +9,7 @@ import { IMAGES } from "@/lib/images";
 const BAGS = [
   {
     slug: "rovento-premium" as const,
-    image: IMAGES.bags.premium,
+    image: IMAGES.products.premium,
     nameEn: "PREMIUM",
     nameAr: "بريميوم",
     tagline: "100% أرابيكا — كريمة غنية، تحميص متوسط، قوة متوازنة",
@@ -25,7 +25,7 @@ const BAGS = [
   },
   {
     slug: "rovento-classic" as const,
-    image: IMAGES.bags.classic,
+    image: IMAGES.products.classic,
     nameEn: "CLASSIC",
     nameAr: "كلاسيك",
     tagline: "التوليفة الذهبية — توازن مثالي بين القوة والنكهة",

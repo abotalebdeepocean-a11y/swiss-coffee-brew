@@ -10,7 +10,7 @@ import { IMAGES } from "@/lib/images";
 const MAIN_PRODUCTS = [
   {
     slug: "rovento-bar-intenso",
-    image: IMAGES.bags.intenso,
+    image: IMAGES.products.barIntenso,
     nameEn: "BAR INTENSO",
     nameAr: "بار انتينسو",
     price: 650,
@@ -31,7 +31,7 @@ const MAIN_PRODUCTS = [
   },
   {
     slug: "rovento-classic",
-    image: IMAGES.bags.classic,
+    image: IMAGES.products.classic,
     nameEn: "CLASSIC",
     nameAr: "كلاسيك",
     price: 750,
@@ -52,7 +52,7 @@ const MAIN_PRODUCTS = [
   },
   {
     slug: "rovento-premium",
-    image: IMAGES.bags.premium,
+    image: IMAGES.products.premium,
     nameEn: "PREMIUM",
     nameAr: "بريميوم",
     price: 850,
@@ -73,7 +73,7 @@ const MAIN_PRODUCTS = [
   },
   {
     slug: "rovento-arabica",
-    image: IMAGES.bags.arabica,
+    image: IMAGES.products.arabica,
     nameEn: "ARABICA",
     nameAr: "أرابيكا",
     price: 950,
@@ -94,7 +94,7 @@ const MAIN_PRODUCTS = [
   },
   {
     slug: "rovento-colombia",
-    image: IMAGES.bags.colombia,
+    image: IMAGES.products.colombia,
     nameEn: "COLOMBIA",
     nameAr: "كولومبيا",
     price: 950,

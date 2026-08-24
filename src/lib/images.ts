@@ -37,6 +37,14 @@ export const IMAGES = {
     /** صورة تمهيد */
     upcoming: "/images/bag-upcoming",
   },
+  /** صور المنتجات الخمسة — من جوجل درايف (بانرات المنتجات) */
+  products: {
+    barIntenso: "/images/product-bar-intenso",
+    classic: "/images/product-classic",
+    premium: "/images/product-premium",
+    arabica: "/images/product-arabica",
+    colombia: "/images/product-colombia",
+  },
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {
     /** السلايد 1 — بنر ROVENTO الرئيسي */

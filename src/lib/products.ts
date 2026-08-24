@@ -93,10 +93,10 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "كورتوادو", "ماكياتو"],
     bestseller: true,
     gallery: [
-      "/images/bag-intenso-new",
-      "/images/bag-classic-1kg-real",
-      "/images/bag-macro-closeup",
-      "/images/bag-two-packages",
+      IMAGES.products.barIntenso,
+      IMAGES.bags.intenso,
+      IMAGES.bags.macro,
+      IMAGES.bags.twoPackages,
     ],
     testimonials: [
       { name: "خالد ر.", text: "البار انتينسو قوي وجريء بجد. بستخدمه للكورتوادو والطعم لا يُقاوم. أقوى إسبريسو جربته في مصر!", rating: 5, date: "2026-08-12" },
@@ -126,10 +126,10 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "كابتشينو", "لاتيه", "V60"],
     bestseller: true,
     gallery: [
-      "/images/bag-classic-real",
-      "/images/bag-classic-1kg-real",
-      "/images/bag-two-packages",
-      "/images/bag-macro-closeup",
+      IMAGES.products.classic,
+      IMAGES.bags.classic,
+      IMAGES.bags.twoPackages,
+      IMAGES.bags.macro,
     ],
     testimonials: [
       { name: "هدى م.", text: "الكلاسيك يومي ممتاز. طعم متوازن ومش غالي. بطلبة كل شهر. التوليفة الذهبية فعلاً!", rating: 5, date: "2026-08-08" },
@@ -159,11 +159,11 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "لاتيه", "كابتشينو", "فلتر"],
     bestseller: true,
     gallery: [
-      "/images/bag-premium-real",
-      "/images/bag-premium-scene",
-      "/images/bag-premium-design",
-      "/images/bag-two-packages",
-      "/images/bag-macro-closeup",
+      IMAGES.products.premium,
+      IMAGES.bags.premium,
+      IMAGES.bags.special,
+      IMAGES.bags.twoPackages,
+      IMAGES.bags.macro,
     ],
     testimonials: [
       { name: "أحمد م.", text: "أحلى كريما جربتها في مصر! البريميوم بجد فرق عن أي قهوة تانية. بقالي 3 شهور بطلبها.", rating: 5, date: "2026-08-10" },
@@ -193,10 +193,10 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "فلتر", "V60", "كولد برو"],
     isNew: true,
     gallery: [
-      "/images/bag-arabica-new",
-      "/images/bag-premium-scene",
-      "/images/bag-macro-closeup",
-      "/images/bag-two-packages",
+      IMAGES.products.arabica,
+      IMAGES.bags.arabica,
+      IMAGES.bags.macro,
+      IMAGES.bags.twoPackages,
     ],
     testimonials: [
       { name: "مريم س.", text: "أرابيكا 100% بجد مفيش زيها. النكهة الفاكهية حلوة جدًا في الفلتر. بقت قهوتي المفضلة.", rating: 5, date: "2026-08-15" },
@@ -226,10 +226,10 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "فلتر", "V60", "فرنش بريس"],
     isNew: true,
     gallery: [
-      "/images/bag-colombia-new",
-      "/images/bag-premium-scene",
-      "/images/bag-macro-closeup",
-      "/images/bag-two-packages",
+      IMAGES.products.colombia,
+      IMAGES.bags.colombia,
+      IMAGES.bags.macro,
+      IMAGES.bags.twoPackages,
     ],
     testimonials: [
       { name: "سلمى ح.", text: "كولومبيا بجد بتحكي قصة. النكهة الشوكولاتية واضحة والحموضة معتدلة. من أحسن الإبريزو جربته.", rating: 5, date: "2026-08-14" },
