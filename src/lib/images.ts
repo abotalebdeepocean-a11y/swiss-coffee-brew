@@ -47,18 +47,20 @@ export const IMAGES = {
   },
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {
-    /** السلايد 1 — بنر ROVENTO الرئيسي */
-    hero: "/images/banner-hero",
-    /** السلايد 2 — موكا بوت + كيس */
-    workshop: "/images/banner-workshop",
-    /** السلايد 3 — أكياس ROVENTO */
-    signature: "/images/banner-signature",
-    /** السلايد 4 — بنر متعدد */
-    collections: "/images/banner-collections",
+    /** السلايد 1 — البنر الرئيسي */
+    hero: "/images/banner-main",
+    /** السلايد 2 — بنر تاني */
+    workshop: "/images/banner-2",
+    /** السلايد 3 — بنر الطلب الآن */
+    signature: "/images/banner-order",
+    /** السلايد 4 — بنر الفخامة */
+    collections: "/images/banner-velvet",
+    /** السلايد 5 — بنر اختيار الباكيجتين */
+    choose: "/images/banner-choose",
     /** صورة قسم بريكا */
-    brika: "/images/banner-brika",
+    brika: "/images/banner-brika-new",
     /** بانر قسم خلطتك الخاصة */
-    customBlend: "/images/banner-collections",
+    customBlend: "/images/banner-2",
     /** بانر الكيس CLASSIC 1 كجم */
     classic1kg: "/images/bag-classic-1kg-real",
   },

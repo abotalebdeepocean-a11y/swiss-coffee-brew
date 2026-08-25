@@ -18,6 +18,9 @@ const SLIDES = [
   {
     image: IMAGES.banners.collections,
   },
+  {
+    image: IMAGES.banners.choose,
+  },
 ] as const;
 
 const AUTOPLAY_MS = 5500;
