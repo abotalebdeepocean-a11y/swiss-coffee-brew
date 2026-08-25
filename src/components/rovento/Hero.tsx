@@ -148,13 +148,13 @@ export function Hero() {
             <div className="absolute -inset-12 rounded-full bg-rv-gold/12 blur-[80px]" />
             <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-rv-gold/20 to-amber-800/15 blur-[60px]" />
 
-            {/* صورة الكيسين — كبيرة وواضحة بدون كارت */}
+            {/* صورة كيس البريميوم — كبيرة وواضحة */}
             <div className="relative">
               <BagVisual
-                image={IMAGES.bags.twoPackages}
+                image={IMAGES.bags.premium}
                 variant="premium"
                 eager
-                alt="كياس روفينتو — بريميوم وكلاسيك"
+                alt="كيس روفينتو بريميوم — 100% أرابيكا فاخر"
                 className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(212,175,55,0.3)] sm:h-[380px] md:h-[460px]"
               />
             </div>

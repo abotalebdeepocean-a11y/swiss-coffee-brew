@@ -231,24 +231,26 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Brand logo                                                         */
+/* Brand logo — uses the real Rovento logo image                       */
 /* ------------------------------------------------------------------ */
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, size = "default" }: { className?: string; size?: "small" | "default" | "large" }) {
+  const sizeClasses = {
+    small: "h-8 md:h-9",
+    default: "h-10 md:h-12",
+    large: "h-14 md:h-18",
+  };
+
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <div className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f6d365] to-[#997a15] shadow-lg">
-        <span className="font-display text-2xl font-black leading-none text-black font-wide">
-          R
-        </span>
-      </div>
-      <div className="leading-none">
-        <span className="gold-gradient-text block font-display text-xl font-black tracking-[0.2em] font-wide">
-          ROVENTO
-        </span>
-        <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.24em] text-rv-gold">
-          Coffee • Cairo • Egypt
-        </span>
-      </div>
+    <div className={cn("flex items-center", className)}>
+      <img
+        src="/images/rovento-logo.webp"
+        alt="ROVENTO Coffee Logo"
+        className={cn(
+          "w-auto object-contain",
+          sizeClasses[size],
+        )}
+        loading="eager"
+      />
     </div>
   );
 }
