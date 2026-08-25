@@ -26,7 +26,9 @@ const ROBUSTA_BROWN = "#4a2c1a";
 const ROASTS = [
   { id: "light", label: "فاتح", desc: "حموضة مشرقة", emoji: "☀️" },
   { id: "medium", label: "متوسط", desc: "التوازن المثالي", emoji: "⚖️" },
+  { id: "med-dark", label: "متوسط-غامق", desc: "كريما غنية", emoji: "🌗" },
   { id: "dark", label: "غامق", desc: "كاكاو وجسم قوي", emoji: "🌑" },
+  { id: "italian", label: "إيطالي", desc: "جريء ومكثف", emoji: "🇮🇹" },
 ] as const;
 
 type RoastId = (typeof ROASTS)[number]["id"];
@@ -268,10 +270,11 @@ export function CustomBlendStudio() {
   const closestPreset = PRESETS.find((p) => p.a === arabica);
 
   const profile = useMemo(() => {
-    const acid = roastId === "light" ? 2 : roastId === "medium" ? 0.5 : -1;
-    const sweet = roastId === "light" ? 1 : roastId === "medium" ? 1.5 : 0;
-    const body = roastId === "light" ? -1 : roastId === "medium" ? 0.5 : 1.5;
-    const crema = roastId === "light" ? -1 : roastId === "medium" ? 0 : 1;
+    const roastIntensity = { light: -1, medium: 0, "med-dark": 0.5, dark: 1, italian: 1.5 }[roastId] ?? 0;
+    const acid = roastIntensity < 0 ? 2 : roastIntensity < 0.5 ? 1 : roastIntensity < 1 ? 0.5 : -0.5;
+    const sweet = roastIntensity < 0 ? 1 : roastIntensity < 0.5 ? 1.5 : roastIntensity < 1 ? 1 : 0.5;
+    const body = roastIntensity < 0 ? -1 : roastIntensity < 0.5 ? 0.5 : roastIntensity < 1 ? 1 : 1.5;
+    const crema = roastIntensity < 0 ? -1 : roastIntensity < 0.5 ? 0 : roastIntensity < 1 ? 0.5 : 1;
     return [
       { label: "الحموضة", value: clamp10(arabica / 10 + acid), accent: "#f59e0b" },
       { label: "الحلاوة", value: clamp10(arabica / 12 + sweet), accent: "#d4af37" },
@@ -282,9 +285,22 @@ export function CustomBlendStudio() {
   }, [arabica, robusta, roastId]);
 
   const intensity = useMemo(
-    () => Math.min(5, Math.max(1, Math.round(1 + robusta / 30 + (roastId === "dark" ? 1.5 : roastId === "medium" ? 0.75 : 0)))),
+    () => Math.min(5, Math.max(1, Math.round(1 + robusta / 30 + ({ light: 0, medium: 0.5, "med-dark": 1, dark: 1.5, italian: 2 }[roastId] ?? 0)))),
     [robusta, roastId],
   );
+
+  /** اقتراح ذكي لدرجة التحميص */
+  const suggestedRoast = useMemo(() => {
+    if (arabica >= 80) return "medium";
+    if (arabica >= 55) return "med-dark";
+    if (arabica >= 35) return "dark";
+    return "italian";
+  }, [arabica]);
+
+  const suggestedLabel = useMemo(() => {
+    const r = ROASTS.find((x) => x.id === suggestedRoast);
+    return r ? r.label : "";
+  }, [suggestedRoast]);
 
   const recipeKey = `cb-${arabica}-${roastId}-${grindId}-${weightId}`;
   const spec = {
@@ -367,8 +383,14 @@ export function CustomBlendStudio() {
 
             {/* 02 — التحميص */}
             <div className="mt-6 border-t border-white/5 pt-5">
-              <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">02 · التحميص</p>
-              <div className="mt-3 grid grid-cols-3 gap-2">
+              <div className="flex items-center justify-between">
+                <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">02 · التحميص</p>
+                <span className="flex items-center gap-1.5 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-2.5 py-1 text-[10px] font-bold text-rv-gold">
+                  <Sparkles className="size-3" />
+                  نوصي بـ {suggestedLabel}
+                </span>
+              </div>
+              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
                 {ROASTS.map((r) => (
                   <button
                     key={r.id}
@@ -384,6 +406,12 @@ export function CustomBlendStudio() {
                     <span className="block text-lg">{r.emoji}</span>
                     <span className="mt-1 block text-sm font-black">{r.label}</span>
                     <span className="mt-0.5 block text-[10px] text-muted-foreground">{r.desc}</span>
+                    {suggestedRoast === r.id && roastId !== r.id && (
+                      <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-rv-gold/15 px-1.5 py-0.5 text-[9px] font-bold text-rv-gold">
+                        <Sparkles className="size-2.5" />
+                        مقترح
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>

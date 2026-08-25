@@ -2,36 +2,36 @@ import { motion } from "framer-motion";
 import {
   Flame,
   Package,
+  Gem,
+  Sparkles,
   Truck,
-  Headset,
-  RotateCcw,
-  Sprout,
 } from "lucide-react";
 
 const FEATURES = [
   {
-    icon: Sprout,
-    emoji: "🌱",
-    title: "حبوب مختارة بعناية",
-    desc: "نختار حبوبنا بنفسنا من أفضل المزارع في إثيوبيا وكولومبيا والبرازيل. لا وسطاء. لا حبوب رديئة. فقط ما يليق بفنجانك.",
+    icon: Gem,
+    title: "حبوب مختارة من أفضل المزارع",
+    desc: "نختار حبوبنا بنفسنا من أفضل المزارع في إثيوبيا وكولومبيا والبرازيل. لا وسطاء. فقط ما يليق بفنجانك.",
   },
   {
     icon: Flame,
-    emoji: "🔥",
-    title: "تحميص طازج",
+    title: "تحميص احترافي",
     desc: "نحمص يومياً في القاهرة بمعدات احترافية. القهوة اللي توصلك عمرها ما يتعدى 7 أيام من التحميص.",
   },
   {
-    icon: Package,
-    emoji: "📦",
-    title: "تغليف احترافي",
-    desc: "أكياس بصمام تنفس وحماية ثلاثية الطبقات ضد الرطوبة والهواء. نكهتك محفوظة زي ما هي لحد آخر حبة.",
+    icon: Sparkles,
+    title: "جودة ثابتة",
+    desc: "كل كيس يمر بـ 7 مراحل مراقبة جودة. النكهة واحدة في كل مرة — مضمونة 100%.",
   },
   {
-    icon: Truck,
-    emoji: "🚚",
-    title: "شحن سريع داخل مصر",
-    desc: "توصيل من القاهرة لأسوان خلال 24-72 ساعة. شحن مجاني على كل الطلبات — بدون حد أدنى.",
+    icon: Gem,
+    title: "نكهات متوازنة",
+    desc: "كل بلند مصمم بعناية ليمنحك تجربة فريدة — من الكراميل للشوكولاتة للفاكهة.",
+  },
+  {
+    icon: Package,
+    title: "تعبئة احترافية",
+    desc: "أكياس بصمام تنفس وحماية ثلاثية الطبقات ضد الرطوبة. نكهتك محفوظة لحد آخر حبة.",
   },
 ];
 
@@ -51,21 +51,21 @@ export function WhyRovento() {
             <span className="text-rv-red">روفينتو؟</span>
           </h2>
           <p className="mt-3 text-lg text-stone-300">
-            ليه يختار عشاق القهوة في مصر روفينتو؟
+            خمسة أسباب تخلي روفينتو اختيار عشاق القهوة في مصر.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {FEATURES.map((f, i) => (
             <motion.div
               key={f.title}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
-              className="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-6 transition-colors hover:border-rv-gold/50"
+              transition={{ duration: 0.45, delay: (i % 5) * 0.08 }}
+              className="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-5 transition-colors hover:border-rv-gold/50"
             >
-              <div className="mb-4 grid size-12 place-items-center rounded-xl bg-rv-gold/10 text-2xl">
+              <div className="mb-4 grid size-10 place-items-center rounded-xl bg-rv-gold/10">
                 <f.icon className="size-5 text-rv-gold" />
               </div>
               <h3 className="text-xl font-bold text-white">{f.title}</h3>

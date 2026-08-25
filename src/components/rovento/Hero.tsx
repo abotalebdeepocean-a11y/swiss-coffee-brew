@@ -70,11 +70,14 @@ export function Hero() {
           </div>
 
           {/* الشعار الرئيسي */}
-          <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            مش مجرد قهوة...
+          <h1 className="font-display text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+            <span className="text-rv-cream">القهوة المختصة...</span>
             <br />
-            <span className="gold-gradient-text">دي عصارة قهوة خالصة.</span>
+            <span className="gold-gradient-text">بطابع إيطالي.</span>
           </h1>
+          <p className="mt-1 font-display text-sm italic tracking-wider text-rv-gold/70">
+            Specialty Coffee... Italian Soul
+          </p>
 
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-300 md:text-lg lg:mx-0">
             5 بلندات فاخرة — من البار انتينسو القوي للكولومبيا الأصيلة.

@@ -43,27 +43,28 @@
 }
 
 @theme {
-  --font-sans: "Cairo", "IBM Plex Sans Arabic", "Archivo", ui-sans-serif,
+  --font-sans: "Cairo", "Tajawal", "Noto Sans Arabic", ui-sans-serif,
     system-ui, sans-serif;
-  --font-display: "Archivo", "Cairo", "IBM Plex Sans Arabic", ui-sans-serif,
-    system-ui, sans-serif;
+  --font-display: "Playfair Display", "Cairo", "Tajawal", ui-serif,
+    Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
   --font-condensed: "Bebas Neue", "Archivo", "Cairo", ui-sans-serif;
 
-  /* Rovento palette — keep for the store */
-  --color-coffee-950: #0c0a09;
-  --color-coffee-900: #171412;
-  --color-coffee-800: #231f1c;
-  --color-coffee-700: #342e29;
-  --color-coffee-600: #4a4039;
-  --color-rv-black: #0c0a09;
-  --color-rv-ink: #171412;
-  --color-rv-paper: #f5f0e8;
+  /* Rovento Luxury palette — updated to match brand spec */
+  --color-coffee-950: #0B1120;
+  --color-coffee-900: #0f1729;
+  --color-coffee-800: #162447;
+  --color-coffee-700: #1A2332;
+  --color-coffee-600: #243352;
+  --color-rv-black: #0B1120;
+  --color-rv-ink: #0f1729;
+  --color-rv-paper: #F5E6C8;
   --color-rv-red: #d03b1e;
-  --color-rv-blue: #002fa7;
-  --color-rv-gold: #d4af37;
-  --color-rv-amber: #d97706;
+  --color-rv-blue: #162447;
+  --color-rv-gold: #C9A227;
+  --color-rv-amber: #E5C158;
   --color-rv-terra: #8b3c1e;
+  --color-rv-cream: #F5E6C8;
 
   /* Mohamadia editorial palette — inspired by brand guidelines + Romy Keane */
   --color-mh-gold: #c8943e;
