@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { ShoppingCart, Star, Check, Coffee, Flame, Droplets } from "lucide-react";
-import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 import { IMAGES } from "@/lib/images";
 

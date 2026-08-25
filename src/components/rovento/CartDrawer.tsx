@@ -27,7 +27,6 @@ import { Button } from "@/components/ui/button";
 import {
   useCart,
   orderViaWhatsApp,
-  whatsappLink,
   cartLine,
   cartLineKey,
   type CartItem,
