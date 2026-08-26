@@ -9,7 +9,7 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col overflow-hidden"
     >
-      {/* Background - Clean gradient without logo */}
+      {/* Background - Clean gradient */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-mh-black via-mh-charcoal to-mh-black" />
         <div className="absolute inset-0 opacity-10 grid-editorial" />
@@ -63,14 +63,44 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Banner Images Section - Under the Hero */}
+      {/* Banner Images Section - New project images */}
       <div className="relative z-10 pb-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Construction Image 1 */}
+            {/* Modular Building */}
             <div className="relative h-32 md:h-40 rounded-xl overflow-hidden group">
               <img
-                src="/images/mohamadia/سابق. الاعمال/construction-1.jpg"
+                src="/images/mohamadia/Projects/modular-building.jpg"
+                alt="مباني معيارية"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-mh-gold/0 group-hover:bg-mh-gold/20 transition-colors" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <span className="text-xs md:text-sm text-white bg-mh-black/70 px-2 py-1 rounded backdrop-blur-sm">
+                  مباني معيارية
+                </span>
+              </div>
+            </div>
+
+            {/* Office Buildings */}
+            <div className="relative h-32 md:h-40 rounded-xl overflow-hidden group">
+              <img
+                src="/images/mohamadia/Projects/office-buildings.webp"
+                alt="مباني إدارية"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-mh-gold/0 group-hover:bg-mh-gold/20 transition-colors" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <span className="text-xs md:text-sm text-white bg-mh-black/70 px-2 py-1 rounded backdrop-blur-sm">
+                  مباني إدارية
+                </span>
+              </div>
+            </div>
+
+            {/* Construction Project 1 */}
+            <div className="relative h-32 md:h-40 rounded-xl overflow-hidden group">
+              <img
+                src="/images/mohamadia/Projects/construction-project-1.jpg"
                 alt="مشاريع إنشائية"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
@@ -82,47 +112,17 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Mining Image */}
+            {/* Construction Project 2 */}
             <div className="relative h-32 md:h-40 rounded-xl overflow-hidden group">
               <img
-                src="/images/mohamadia/سابق. الاعمال/mining-project.jpg"
-                alt="المعادن"
+                src="/images/mohamadia/Projects/construction-project-2.jpg"
+                alt="مشاريع عامة"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-mh-gold/0 group-hover:bg-mh-gold/20 transition-colors" />
               <div className="absolute bottom-2 left-2 right-2">
                 <span className="text-xs md:text-sm text-white bg-mh-black/70 px-2 py-1 rounded backdrop-blur-sm">
-                  المعادن الثمينة
-                </span>
-              </div>
-            </div>
-
-            {/* Trading Image */}
-            <div className="relative h-32 md:h-40 rounded-xl overflow-hidden group">
-              <img
-                src="/images/mohamadia/سابق. الاعمال/trading-project.jpg"
-                alt="التجارة الدولية"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-mh-gold/0 group-hover:bg-mh-gold/20 transition-colors" />
-              <div className="absolute bottom-2 left-2 right-2">
-                <span className="text-xs md:text-sm text-white bg-mh-black/70 px-2 py-1 rounded backdrop-blur-sm">
-                  التجارة الدولية
-                </span>
-              </div>
-            </div>
-
-            {/* Precious Metals */}
-            <div className="relative h-32 md:h-40 rounded-xl overflow-hidden group">
-              <img
-                src="/images/mohamadia/سابق. الاعمال/precious-metals.jpg"
-                alt="المعادن الاستراتيجية"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-mh-gold/0 group-hover:bg-mh-gold/20 transition-colors" />
-              <div className="absolute bottom-2 left-2 right-2">
-                <span className="text-xs md:text-sm text-white bg-mh-black/70 px-2 py-1 rounded backdrop-blur-sm">
-                  المعادن الاستراتيجية
+                  مشاريع عامة
                 </span>
               </div>
             </div>
