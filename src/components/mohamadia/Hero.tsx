@@ -1,6 +1,9 @@
 import { ArrowDown, Phone, Package } from "lucide-react";
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function Hero() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="hero"
@@ -9,9 +12,7 @@ export function Hero() {
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-mh-black via-mh-charcoal to-mh-black" />
-        {/* Decorative grid */}
         <div className="absolute inset-0 opacity-10 grid-editorial" />
-        {/* Gold accent glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-mh-gold/10 rounded-full blur-[150px]" />
       </div>
 
@@ -19,24 +20,24 @@ export function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-mh-gold/30 bg-mh-gold/10 mb-8">
           <span className="text-mh-gold text-sm font-medium">
-            منذ 2013 | سجل تجاري وبطاقة ضريبية
+            {t("badge")}
           </span>
         </div>
 
         {/* Main heading */}
         <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-          <span className="text-mh-gold">شركة المحمدية</span>
+          <span className="text-mh-gold">{t("heroTitle1")}</span>
           <br />
-          <span className="text-mh-cream">للمقاولات العامة</span>
+          <span className="text-mh-cream">{t("heroTitle2")}</span>
           <br />
-          <span className="text-mh-cream">والتوريدات العمومية</span>
+          <span className="text-mh-cream">{t("heroTitle3")}</span>
         </h2>
 
         {/* Description */}
         <p className="text-xl md:text-2xl text-mh-cream/70 max-w-4xl mx-auto mb-12 leading-relaxed">
-          شركة استراتيجية في المقاولات والتوريدات والتجارة الدولية، ومتخصصون في توريد
-          <span className="text-mh-gold font-semibold"> وتصدير المعادن الثمينة والاستراتيجية </span>
-          وفق أعلى المعايير العالمية.
+          {t("heroDesc")}
+          <span className="text-mh-gold font-semibold">{t("heroDescHighlight")}</span>
+          {t("heroDescEnd")}
         </p>
 
         {/* CTA Buttons */}
@@ -46,14 +47,14 @@ export function Hero() {
             className="flex items-center gap-3 bg-mh-gold text-mh-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-mh-gold-soft transition-all hover:scale-105"
           >
             <Phone className="w-5 h-5" />
-            تواصل الآن
+            {t("callNow")}
           </a>
           <a
             href="#minerals"
             className="flex items-center gap-3 border-2 border-mh-gold text-mh-gold px-8 py-4 rounded-lg font-bold text-lg hover:bg-mh-gold/10 transition-all"
           >
             <Package className="w-5 h-5" />
-            المعادن المطلوبة
+            {t("requiredMinerals")}
           </a>
         </div>
 
@@ -62,7 +63,7 @@ export function Hero() {
           href="#why-us"
           className="inline-flex flex-col items-center text-mh-cream/50 hover:text-mh-gold transition-colors"
         >
-          <span className="text-sm mb-2">اكتشف المزيد</span>
+          <span className="text-sm mb-2">{t("discoverMore")}</span>
           <ArrowDown className="w-5 h-5 animate-bounce" />
         </a>
       </div>

@@ -1,39 +1,42 @@
 import { Gem, Disc, Flame, Diamond, Box, Layers } from "lucide-react";
-
-const minerals = [
-  {
-    icon: Gem,
-    name: "الذهب بجميع العيارات",
-    gradient: "from-yellow-500 to-amber-600",
-  },
-  {
-    icon: Disc,
-    name: "النحاس: سبيكة - أسلاك - بودرة",
-    gradient: "from-orange-600 to-red-700",
-  },
-  {
-    icon: Flame,
-    name: "النيكل كروم: أسلاك - بودرة",
-    gradient: "from-gray-400 to-gray-600",
-  },
-  {
-    icon: Diamond,
-    name: "خام الدايموند 'الألماس' أو المثقول",
-    gradient: "from-cyan-400 to-blue-500",
-  },
-  {
-    icon: Box,
-    name: "الألومنيوم بجميع أنواعه وسبائكه",
-    gradient: "from-slate-300 to-slate-500",
-  },
-  {
-    icon: Layers,
-    name: "الرصاص - الزنك - الكوارتز",
-    gradient: "from-indigo-400 to-purple-600",
-  },
-];
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function Minerals() {
+  const { t } = useTranslation();
+
+  const minerals = [
+    {
+      icon: Gem,
+      name: t("mineral1"),
+      gradient: "from-yellow-500 to-amber-600",
+    },
+    {
+      icon: Disc,
+      name: t("mineral2"),
+      gradient: "from-orange-600 to-red-700",
+    },
+    {
+      icon: Flame,
+      name: t("mineral3"),
+      gradient: "from-gray-400 to-gray-600",
+    },
+    {
+      icon: Diamond,
+      name: t("mineral4"),
+      gradient: "from-cyan-400 to-blue-500",
+    },
+    {
+      icon: Box,
+      name: t("mineral5"),
+      gradient: "from-slate-300 to-slate-500",
+    },
+    {
+      icon: Layers,
+      name: t("mineral6"),
+      gradient: "from-indigo-400 to-purple-600",
+    },
+  ];
+
   return (
     <section
       id="minerals"
@@ -43,11 +46,11 @@ export function Minerals() {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-mh-cream mb-4">
-            المعادن <span className="text-mh-gold">المطلوبة</span>
+            {t("mineralsTitle")} <span className="text-mh-gold">{t("mineralsTitleHighlight")}</span>
           </h2>
           <div className="gold-line w-24 mx-auto mb-6" />
           <p className="text-xl text-mh-cream/60 max-w-2xl mx-auto">
-            نبحث عن موردين جادين لتوريد وتصدير المعادن التالية المطابقة للمواصفات الدولية
+            {t("mineralsSubtitle")}
           </p>
         </div>
 
@@ -69,7 +72,6 @@ export function Minerals() {
                   </h3>
                 </div>
               </div>
-              {/* Gold accent line */}
               <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-mh-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}
@@ -79,7 +81,7 @@ export function Minerals() {
         <div className="mt-12 text-center">
           <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl border border-mh-gold/20 bg-mh-gold/5">
             <span className="text-mh-cream/70">
-              وجميع المعادن الثمينة والاستراتيجية الأخرى
+              {t("mineralExtra")}
             </span>
           </div>
         </div>

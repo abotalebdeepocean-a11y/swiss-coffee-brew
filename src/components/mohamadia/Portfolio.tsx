@@ -1,29 +1,32 @@
 import { Building2, Globe2, Truck, Briefcase } from "lucide-react";
-
-const portfolioItems = [
-  {
-    icon: Building2,
-    title: "مشاريع مقاولات عامة",
-    description: "تنفيذ مشاريع بناء وتشييد وفق أعلى المعايير",
-  },
-  {
-    icon: Truck,
-    title: "توريدات حكومية وتجارية",
-    description: "توريد المواد والمعدات للقطاعين العام والخاص",
-  },
-  {
-    icon: Globe2,
-    title: "شركات تجارية دولية",
-    description: "روابط تجارية مع شركاء في أسواق عالمية",
-  },
-  {
-    icon: Briefcase,
-    title: "استشارات تجارية",
-    description: "حلول استشارية للمشاريع الاستراتيجية",
-  },
-];
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function Portfolio() {
+  const { t } = useTranslation();
+
+  const portfolioItems = [
+    {
+      icon: Building2,
+      title: t("portfolio1"),
+      description: t("portfolio1Desc"),
+    },
+    {
+      icon: Truck,
+      title: t("portfolio2"),
+      description: t("portfolio2Desc"),
+    },
+    {
+      icon: Globe2,
+      title: t("portfolio3"),
+      description: t("portfolio3Desc"),
+    },
+    {
+      icon: Briefcase,
+      title: t("portfolio4"),
+      description: t("portfolio4Desc"),
+    },
+  ];
+
   return (
     <section id="portfolio" className="py-24 bg-mh-black relative">
       {/* Background */}
@@ -33,7 +36,7 @@ export function Portfolio() {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-mh-cream mb-4">
-            سابقة <span className="text-mh-gold">أعمال مختارة</span>
+            {t("portfolioTitle")} <span className="text-mh-gold">{t("portfolioTitleHighlight")}</span>
           </h2>
           <div className="gold-line w-24 mx-auto" />
         </div>
@@ -60,7 +63,6 @@ export function Portfolio() {
                   </div>
                 </div>
               </div>
-              {/* Decorative element */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-mh-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
             </div>
           ))}

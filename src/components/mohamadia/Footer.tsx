@@ -1,9 +1,20 @@
 import { Phone, Mail, MapPin, ArrowUp } from "lucide-react";
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function Footer() {
+  const { t, locale } = useTranslation();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const navLinks = [
+    { label: t("home"), href: "#hero" },
+    { label: t("whyUs"), href: "#why-us" },
+    { label: t("minerals"), href: "#minerals" },
+    { label: t("portfolio"), href: "#portfolio" },
+    { label: t("contact"), href: "#contact" },
+  ];
 
   return (
     <footer className="bg-mh-charcoal border-t border-mh-gold/20">
@@ -28,50 +39,36 @@ export function Footer() {
                 <rect x="15" y="65" width="50" height="4" fill="url(#goldGradientFooter)" />
               </svg>
               <div>
-                <h3 className="text-xl font-bold text-mh-gold">المحمدية</h3>
-                <p className="text-sm text-mh-cream/60">للمقاولات العامة والتوريدات العمومية</p>
+                <h3 className="text-xl font-bold text-mh-gold">
+                  {locale === "ar" ? "المحمدية" : "Al Muhamadia"}
+                </h3>
+                <p className="text-sm text-mh-cream/60">
+                  {locale === "ar" ? "للمقاولات العامة والتوريدات العمومية" : "General Contracting & Supplies"}
+                </p>
               </div>
             </div>
             <p className="text-mh-cream/60 leading-relaxed mb-6 max-w-md">
-              شركة استراتيجية في المقاولات والتوريدات والتجارة الدولية، متخصصون في توريد وتصدير المعادن الثمينة والاستراتيجية وفق أعلى المعايير العالمية.
+              {t("footerDesc")}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="text-lg font-bold text-mh-gold mb-6">روابط سريعة</h4>
+            <h4 className="text-lg font-bold text-mh-gold mb-6">{t("quickLinks")}</h4>
             <ul className="space-y-3">
-              <li>
-                <a href="#hero" className="text-mh-cream/60 hover:text-mh-gold transition-colors">
-                  الرئيسية
-                </a>
-              </li>
-              <li>
-                <a href="#why-us" className="text-mh-cream/60 hover:text-mh-gold transition-colors">
-                  لماذا المحمدية
-                </a>
-              </li>
-              <li>
-                <a href="#minerals" className="text-mh-cream/60 hover:text-mh-gold transition-colors">
-                  المعادن المطلوبة
-                </a>
-              </li>
-              <li>
-                <a href="#portfolio" className="text-mh-cream/60 hover:text-mh-gold transition-colors">
-                  سابقة الأعمال
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-mh-cream/60 hover:text-mh-gold transition-colors">
-                  تواصل معنا
-                </a>
-              </li>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-mh-cream/60 hover:text-mh-gold transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact info */}
           <div>
-            <h4 className="text-lg font-bold text-mh-gold mb-6">تواصل معنا</h4>
+            <h4 className="text-lg font-bold text-mh-gold mb-6">{t("contactInfoFooter")}</h4>
             <div className="space-y-4">
               <a
                 href="tel:+201060991949"
@@ -89,7 +86,7 @@ export function Footer() {
               </a>
               <div className="flex items-start gap-3 text-mh-cream/60">
                 <MapPin className="w-5 h-5 shrink-0 mt-0.5" />
-                <span>13 شارع أبو بكر الصديق - مدينة نصر أول - القاهرة</span>
+                <span>{t("address")}</span>
               </div>
             </div>
           </div>
@@ -100,13 +97,13 @@ export function Footer() {
       <div className="border-t border-mh-gold/10">
         <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-mh-cream/40 text-sm">
-            © {new Date().getFullYear()} شركة المحمدية للمقاولات العامة والتوريدات العمومية. جميع الحقوق محفوظة.
+            © {new Date().getFullYear()} {locale === "ar" ? "شركة المحمدية للمقاولات العامة والتوريدات العمومية" : "Al Muhamadia for General Contracting & General Supplies"}. {t("copyright")}
           </p>
           <button
             onClick={scrollToTop}
             className="flex items-center gap-2 text-mh-cream/40 hover:text-mh-gold transition-colors"
           >
-            <span className="text-sm">العودة للأعلى</span>
+            <span className="text-sm">{t("backToTop")}</span>
             <ArrowUp className="w-4 h-4" />
           </button>
         </div>

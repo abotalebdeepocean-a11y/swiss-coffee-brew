@@ -1,29 +1,32 @@
 import { Shield, Globe, Search, CreditCard } from "lucide-react";
-
-const features = [
-  {
-    icon: CreditCard,
-    title: "حلول دفع مرنة",
-    description: "SBLC - LC - تحويلات بنكية وفق متطلبات الصفقة.",
-  },
-  {
-    icon: Shield,
-    title: "عقود دولية موثقة",
-    description: "إجراءات احترافية تضمن حقوق جميع الأطراف.",
-  },
-  {
-    icon: Globe,
-    title: "شبكة أعمال دولية",
-    description: "علاقات مع موردين وشركاء في عدة أسواق عالمية.",
-  },
-  {
-    icon: Search,
-    title: "فحص ومطابقة",
-    description: "التأكد من الجودة والمواصفات قبل الشحن.",
-  },
-];
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function WhyUs() {
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      icon: CreditCard,
+      title: t("feature1Title"),
+      description: t("feature1Desc"),
+    },
+    {
+      icon: Shield,
+      title: t("feature2Title"),
+      description: t("feature2Desc"),
+    },
+    {
+      icon: Globe,
+      title: t("feature3Title"),
+      description: t("feature3Desc"),
+    },
+    {
+      icon: Search,
+      title: t("feature4Title"),
+      description: t("feature4Desc"),
+    },
+  ];
+
   return (
     <section id="why-us" className="py-24 bg-mh-black relative overflow-hidden">
       {/* Background accent */}
@@ -33,11 +36,11 @@ export function WhyUs() {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-mh-cream mb-4">
-            لماذا <span className="text-mh-gold">المحمدية</span>؟
+            {t("whyUsTitle")} <span className="text-mh-gold">{t("whyUsTitleHighlight")}</span>?
           </h2>
           <div className="gold-line w-24 mx-auto mb-6" />
           <p className="text-xl text-mh-cream/60 max-w-2xl mx-auto">
-            نقدم حلولاً تجارية متكاملة تجمع بين الخبرة التنفيذية والشبكات الدولية والالتزام الكامل بمعايير الجودة والموثوقية.
+            {t("whyUsSubtitle")}
           </p>
         </div>
 

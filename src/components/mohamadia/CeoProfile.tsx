@@ -1,15 +1,18 @@
 import { Award, Users, Target, Shield, Lightbulb, TrendingUp } from "lucide-react";
-
-const leadershipPoints = [
-  { icon: TrendingUp, text: "خبرة عملية منذ 1995" },
-  { icon: Users, text: "فريق متناعد الجنسيات والثقافات" },
-  { icon: Target, text: "اختيار الكفاءات بعناية فائقة" },
-  { icon: Lightbulb, text: "حلول تمويلية مبتكرة للمشاريع" },
-  { icon: Shield, text: "الالتزام بال אמנatively والضغوط" },
-  { icon: Award, text: "قيادة قائمة على الذكاء والتقاني" },
-];
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function CeoProfile() {
+  const { t } = useTranslation();
+
+  const leadershipPoints = [
+    { icon: TrendingUp, text: t("highlight1") },
+    { icon: Users, text: t("highlight2") },
+    { icon: Target, text: t("highlight3") },
+    { icon: Lightbulb, text: t("highlight4") },
+    { icon: Shield, text: t("highlight5") },
+    { icon: Award, text: t("highlight6") },
+  ];
+
   return (
     <section className="py-24 bg-gradient-to-b from-mh-charcoal to-mh-black relative overflow-hidden">
       {/* Background glow */}
@@ -22,7 +25,7 @@ export function CeoProfile() {
             {/* Section header */}
             <div className="mb-8">
               <h2 className="text-4xl md:text-5xl font-bold text-mh-cream mb-4">
-                كلمة رئيس مجلس الإدارة
+                {t("ceoTitle")}
               </h2>
               <div className="gold-line w-24" />
             </div>
@@ -30,48 +33,41 @@ export function CeoProfile() {
             {/* Name and title */}
             <div className="mb-8">
               <h3 className="text-3xl font-bold text-mh-gold mb-2">
-                /م. خليفة حامد نجار الأحمر
+                {t("ceoName")}
               </h3>
-              <p className="text-xl text-mh-cream/70">المدير التنفيذي</p>
+              <p className="text-xl text-mh-cream/70">{t("ceoRole")}</p>
             </div>
 
             {/* Bio */}
             <div className="text-mh-cream/70 leading-relaxed space-y-4 mb-8">
-              <p>
-                قيادة تنفيذية بخبرة في إدارة العقود والتوريدات والتعاون الدولي وتطوير الشركات الاستراتيجية في قطاعات المعادن والمقاولات والتجارة العامة.
-              </p>
-              <p>
-                كلمة رئيس مجلس الإدارة السيد / خليفة حامد نجار:
-              </p>
+              <p>{t("ceoBio1")}</p>
+              <p>{t("ceoBio2")}</p>
               <p className="text-mh-gold/90">
-                نحن فريق عمل من جميع جنسيات العالم بكل لغاتهم وثقافاتهم، فعال مدار سنوات وأنا أглав هذا الفريق منذ سنة <span className="font-bold">1995</span>
+                {t("ceoBio3")} <span className="font-bold">1995</span>
               </p>
-              <p>
-                ولقد شكلنا من خبرة أفضل شباب العالم في الذكاء والتقاني في العمل والمناظرة وتحملهم الضغوط وال␣تقاني سواء في فريق أو مجموعه، اخترناهم بعناية فائقة من أفضل الدكاترة والمهندسين والاستشاريين المتخصصين في إيجاد الحلول التمويلية للمشاريع في شتى المجالات.
-              </p>
+              <p>{t("ceoBio4")}</p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center p-4 rounded-xl border border-mh-gold/20 bg-mh-gold/5">
                 <div className="text-3xl font-bold text-mh-gold">+30</div>
-                <div className="text-sm text-mh-cream/60">سنة خبرة</div>
+                <div className="text-sm text-mh-cream/60">{t("ceoExp")}</div>
               </div>
               <div className="text-center p-4 rounded-xl border border-mh-gold/20 bg-mh-gold/5">
                 <div className="text-3xl font-bold text-mh-gold">2013</div>
-                <div className="text-sm text-mh-cream/60">سنة التأسيس</div>
+                <div className="text-sm text-mh-cream/60">{t("ceoFounded")}</div>
               </div>
               <div className="text-center p-4 rounded-xl border border-mh-gold/20 bg-mh-gold/5">
                 <div className="text-3xl font-bold text-mh-gold">∞</div>
-                <div className="text-sm text-mh-cream/60">الطموح</div>
+                <div className="text-sm text-mh-cream/60">{t("ceoAmbition")}</div>
               </div>
             </div>
           </div>
 
-          {/* Profile image area with decorative elements */}
+          {/* Profile card */}
           <div className="relative">
             <div className="relative z-10">
-              {/* Profile card */}
               <div className="bg-mh-charcoal rounded-3xl border border-mh-gold/20 p-8">
                 {/* Initials avatar */}
                 <div className="w-48 h-48 mx-auto rounded-full border-4 border-mh-gold bg-mh-dark flex items-center justify-center mb-8">
@@ -81,7 +77,7 @@ export function CeoProfile() {
                 {/* Leadership points */}
                 <div className="space-y-4">
                   <h4 className="text-xl font-bold text-mh-gold text-center mb-6">
-                    ما يميز قيادتنا
+                    {t("ceoHighlights")}
                   </h4>
                   {leadershipPoints.map((point, index) => (
                     <div

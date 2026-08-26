@@ -1,16 +1,23 @@
 import { useState } from "react";
-import { Phone, Mail, MapPin, Menu, X } from "lucide-react";
-
-const navLinks = [
-  { label: "الرئيسية", href: "#hero" },
-  { label: "لماذا المحمدية", href: "#why-us" },
-  { label: "المعادن المطلوبة", href: "#minerals" },
-  { label: "سابقة الأعمال", href: "#portfolio" },
-  { label: "تواصل معنا", href: "#contact" },
-];
+import { Phone, Mail, MapPin, Menu, X, Globe } from "lucide-react";
+import { useTranslation } from "@/lib/I18nProvider";
+import type { Locale } from "@/lib/i18n";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { locale, setLocale, t } = useTranslation();
+
+  const toggleLocale = () => {
+    setLocale(locale === "ar" ? "en" : "ar");
+  };
+
+  const navLinks = [
+    { label: t("home"), href: "#hero" },
+    { label: t("whyUs"), href: "#why-us" },
+    { label: t("minerals"), href: "#minerals" },
+    { label: t("portfolio"), href: "#portfolio" },
+    { label: t("contact"), href: "#contact" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -28,7 +35,7 @@ export function Header() {
             </a>
             <span className="flex items-center gap-2 hidden md:flex">
               <MapPin className="w-3.5 h-3.5" />
-              <span>13 شارع أبو بكر الصديق - مدينة نصر أول - القاهرة</span>
+              <span>{t("address")}</span>
             </span>
           </div>
         </div>
@@ -40,7 +47,6 @@ export function Header() {
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-4">
             <div className="relative">
-              {/* Logo icon - pyramid/arch shape */}
               <svg viewBox="0 0 80 80" className="w-14 h-14" fill="none">
                 <defs>
                   <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -49,19 +55,16 @@ export function Header() {
                     <stop offset="100%" stopColor="#a67c2e" />
                   </linearGradient>
                 </defs>
-                {/* Main pyramid structure */}
                 <path d="M40 8 L60 60 L52 60 L40 25 L28 60 L20 60 Z" fill="url(#goldGradient)" />
                 <path d="M40 15 L52 55 L48 55 L40 30 L32 55 L28 55 Z" fill="#0a0a0a" />
-                {/* Side columns */}
                 <path d="M15 55 L25 55 L23 65 L17 65 Z" fill="url(#goldGradient)" />
                 <path d="M55 55 L65 55 L63 65 L57 65 Z" fill="url(#goldGradient)" />
-                {/* Base */}
                 <rect x="15" y="65" width="50" height="4" fill="url(#goldGradient)" />
               </svg>
             </div>
             <div className="text-right">
-              <h1 className="text-xl font-bold text-mh-gold">المحمدية</h1>
-              <p className="text-xs text-mh-cream/60">للمقاولات العامة والتوريدات العمومية</p>
+              <h1 className="text-xl font-bold text-mh-gold">{locale === "ar" ? "المحمدية" : "Al Muhamadia"}</h1>
+              <p className="text-xs text-mh-cream/60">{locale === "ar" ? "للمقاولات العامة والتوريدات العمومية" : "General Contracting & Supplies"}</p>
             </div>
           </a>
 
@@ -78,14 +81,26 @@ export function Header() {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <a
-            href="tel:+201060991949"
-            className="hidden lg:flex items-center gap-2 bg-mh-gold text-mh-black px-6 py-3 rounded-lg font-bold hover:bg-mh-gold-soft transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            تواصل الآن
-          </a>
+          {/* Actions */}
+          <div className="flex items-center gap-4">
+            {/* Language Switcher */}
+            <button
+              onClick={toggleLocale}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-mh-gold/30 text-mh-gold hover:bg-mh-gold/10 transition-colors"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="font-medium">{locale === "ar" ? "EN" : "عربي"}</span>
+            </button>
+
+            {/* CTA Button */}
+            <a
+              href="tel:+201060991949"
+              className="hidden lg:flex items-center gap-2 bg-mh-gold text-mh-black px-6 py-3 rounded-lg font-bold hover:bg-mh-gold-soft transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              {t("callNow")}
+            </a>
+          </div>
 
           {/* Mobile menu button */}
           <button
@@ -115,7 +130,7 @@ export function Header() {
                 className="flex items-center justify-center gap-2 bg-mh-gold text-mh-black px-6 py-3 rounded-lg font-bold"
               >
                 <Phone className="w-4 h-4" />
-                تواصل الآن
+                {t("callNow")}
               </a>
             </nav>
           </div>

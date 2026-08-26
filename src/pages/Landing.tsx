@@ -1,53 +1,37 @@
 import { useEffect } from "react";
-import { Header } from "@/components/rovento/Header";
-import { BannerSlider } from "@/components/rovento/BannerSlider";
-import { Hero } from "@/components/rovento/Hero";
-import { SignatureCollection } from "@/components/rovento/SignatureCollection";
-import { OfferSection } from "@/components/rovento/OfferSection";
-import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
-import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
-import { WhyRovento } from "@/components/rovento/WhyRovento";
-import { Testimonials } from "@/components/rovento/Testimonials";
-import { TrustBar } from "@/components/rovento/TrustBar";
-import { FAQ } from "@/components/rovento/FAQ";
-import { Newsletter } from "@/components/rovento/Newsletter";
-import { Footer } from "@/components/rovento/Footer";
-import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
-import { BrikkaStickyBar } from "@/components/rovento/BrikkaStickyBar";
-import { CartDrawer } from "@/components/rovento/CartDrawer";
-import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
-import { LoadingScreen } from "@/components/rovento/LoadingScreen";
-import { FadeIn } from "@/components/rovento/FadeIn";
-import { ProductsGrid } from "@/components/rovento/ProductsGrid";
+import { Header } from "@/components/mohamadia/Header";
+import { Hero } from "@/components/mohamadia/Hero";
+import { WhyUs } from "@/components/mohamadia/WhyUs";
+import { Minerals } from "@/components/mohamadia/Minerals";
+import { Portfolio } from "@/components/mohamadia/Portfolio";
+import { CeoProfile } from "@/components/mohamadia/CeoProfile";
+import { Contact } from "@/components/mohamadia/Contact";
+import { Footer } from "@/components/mohamadia/Footer";
+import { useTranslation } from "@/lib/I18nProvider";
 
 export default function Landing() {
+  const { locale } = useTranslation();
+
   useEffect(() => {
-    document.title = "ROVENTO | روفينتو — قهوة مختصة مصرية";
-  }, []);
+    document.title = locale === "ar"
+      ? "المحمدية للمقاولات العامة والتوريدات العمومية"
+      : "Al Muhamadia for General Contracting & Supplies";
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-coffee-950 text-stone-100 antialiased">
-      <LoadingScreen />
+    <div dir={locale === "ar" ? "rtl" : "ltr"} className={`min-h-screen bg-mh-black text-stone-100 antialiased ${locale === "ar" ? "font-sans" : "font-sans"}`}>
       <Header />
       <main>
-        <BannerSlider />
         <Hero />
-        <FadeIn><SignatureCollection /></FadeIn>
-        <FadeIn><ProductsGrid /></FadeIn>
-        <FadeIn><OfferSection /></FadeIn>
-        <FadeIn><MokaSpotlight /></FadeIn>
-        <FadeIn><CustomBlendStudio /></FadeIn>
-        <FadeIn><WhyRovento /></FadeIn>
-        <FadeIn><Testimonials /></FadeIn>
-        <FadeIn><TrustBar /></FadeIn>
-        <FadeIn><FAQ /></FadeIn>
-        <FadeIn><Newsletter /></FadeIn>
+        <WhyUs />
+        <Minerals />
+        <Portfolio />
+        <CeoProfile />
+        <Contact />
       </main>
       <Footer />
-      <CartDrawer />
-      <WhatsAppFloat />
-      <BrikkaStickyBar />
-      <ExitIntentPopup />
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { useTranslation } from "@/lib/I18nProvider";
 
 export function Contact() {
+  const { t } = useTranslation();
+
   return (
     <section id="contact" className="py-24 bg-mh-black relative">
       {/* Background */}
@@ -12,11 +15,11 @@ export function Contact() {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-mh-cream mb-4">
-            تواصل <span className="text-mh-gold">معنا</span>
+            {t("contactTitle")} <span className="text-mh-gold">{t("contactTitleHighlight")}</span>
           </h2>
           <div className="gold-line w-24 mx-auto mb-6" />
           <p className="text-xl text-mh-cream/60 max-w-2xl mx-auto">
-            نحن على استعداد للتعاون معكم في مشاريعكم القادمة
+            {t("contactSubtitle")}
           </p>
         </div>
 
@@ -25,7 +28,7 @@ export function Contact() {
           <div className="space-y-6">
             <div className="card-dark-editorial rounded-2xl p-8">
               <h3 className="text-2xl font-bold text-mh-gold mb-6">
-                بيانات التواصل
+                {t("contactInfo")}
               </h3>
 
               <div className="space-y-6">
@@ -37,7 +40,7 @@ export function Contact() {
                     <Phone className="w-6 h-6 text-mh-gold" />
                   </div>
                   <div>
-                    <div className="text-sm text-mh-cream/50 mb-1">الهاتف</div>
+                    <div className="text-sm text-mh-cream/50 mb-1">{t("contactPhone")}</div>
                     <div className="text-xl text-mh-cream font-medium" dir="ltr">
                       +20 106 099 1949
                     </div>
@@ -52,7 +55,7 @@ export function Contact() {
                     <Mail className="w-6 h-6 text-mh-gold" />
                   </div>
                   <div>
-                    <div className="text-sm text-mh-cream/50 mb-1">البريد الإلكتروني</div>
+                    <div className="text-sm text-mh-cream/50 mb-1">{t("contactEmail")}</div>
                     <div className="text-lg text-mh-cream font-medium">
                       elmohamadya2030@gmail.com
                     </div>
@@ -64,9 +67,9 @@ export function Contact() {
                     <MapPin className="w-6 h-6 text-mh-gold" />
                   </div>
                   <div>
-                    <div className="text-sm text-mh-cream/50 mb-1">العنوان</div>
+                    <div className="text-sm text-mh-cream/50 mb-1">{t("contactAddress")}</div>
                     <div className="text-lg text-mh-cream font-medium">
-                      13 شارع أبو بكر الصديق - مدينة الأمل - مدينة نصر أول - القاهرة
+                      {t("contactAddressFull")}
                     </div>
                   </div>
                 </div>
@@ -74,35 +77,35 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Contact form placeholder */}
+          {/* Contact form */}
           <div className="card-dark-editorial rounded-2xl p-8">
             <h3 className="text-2xl font-bold text-mh-gold mb-6">
-              أرسل لنا رسالة
+              {t("contactFormTitle")}
             </h3>
 
             <form className="space-y-4">
               <div>
-                <label className="block text-sm text-mh-cream/60 mb-2">الاسم</label>
+                <label className="block text-sm text-mh-cream/60 mb-2">{t("nameLabel")}</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 rounded-xl bg-mh-dark border border-mh-gold/20 text-mh-cream focus:border-mh-gold focus:outline-none transition-colors"
-                  placeholder="أدخل اسمك"
+                  placeholder={t("namePlaceholder")}
                 />
               </div>
               <div>
-                <label className="block text-sm text-mh-cream/60 mb-2">البريد الإلكتروني</label>
+                <label className="block text-sm text-mh-cream/60 mb-2">{t("emailLabel")}</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 rounded-xl bg-mh-dark border border-mh-gold/20 text-mh-cream focus:border-mh-gold focus:outline-none transition-colors"
-                  placeholder="أدخل بريدك الإلكتروني"
+                  placeholder={t("emailPlaceholder")}
                 />
               </div>
               <div>
-                <label className="block text-sm text-mh-cream/60 mb-2">الرسالة</label>
+                <label className="block text-sm text-mh-cream/60 mb-2">{t("messageLabel")}</label>
                 <textarea
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl bg-mh-dark border border-mh-gold/20 text-mh-cream focus:border-mh-gold focus:outline-none transition-colors resize-none"
-                  placeholder="اكتب رسالتك هنا..."
+                  placeholder={t("messagePlaceholder")}
                 />
               </div>
               <button
@@ -110,7 +113,7 @@ export function Contact() {
                 className="w-full flex items-center justify-center gap-2 bg-mh-gold text-mh-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-mh-gold-soft transition-colors"
               >
                 <Send className="w-5 h-5" />
-                إرسال الرسالة
+                {t("sendButton")}
               </button>
             </form>
           </div>

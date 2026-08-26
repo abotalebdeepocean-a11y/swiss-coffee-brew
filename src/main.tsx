@@ -8,6 +8,7 @@ import React, { StrictMode, useEffect, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import { CartProvider } from "@/lib/store";
+import { I18nProvider } from "@/lib/I18nProvider";
 import "./index.css";
 
 // Lazy load route components for better code splitting
@@ -134,8 +135,9 @@ createRoot(document.getElementById("root")!).render(
         <VlyToolbar />
       </ToolbarErrorBoundary>
       <ConvexAuthProvider client={convex}>
-        <CartProvider>
-          <BrowserRouter>
+        <I18nProvider>
+          <CartProvider>
+            <BrowserRouter>
             <RouteSyncer />
             <ScrollManager />
             <Suspense fallback={<RouteLoading />}>
@@ -158,9 +160,10 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
-          </BrowserRouter>
-          <Toaster />
-        </CartProvider>
+            </BrowserRouter>
+            <Toaster />
+          </CartProvider>
+        </I18nProvider>
       </ConvexAuthProvider>
     </RootErrorBoundary>
   </StrictMode>,
