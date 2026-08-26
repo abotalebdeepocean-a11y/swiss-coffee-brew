@@ -24,20 +24,11 @@ export function Footer() {
           {/* Company info */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-4 mb-6">
-              <svg viewBox="0 0 80 80" className="w-12 h-12" fill="none">
-                <defs>
-                  <linearGradient id="goldGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#c8943e" />
-                    <stop offset="50%" stopColor="#d4af37" />
-                    <stop offset="100%" stopColor="#a67c2e" />
-                  </linearGradient>
-                </defs>
-                <path d="M40 8 L60 60 L52 60 L40 25 L28 60 L20 60 Z" fill="url(#goldGradientFooter)" />
-                <path d="M40 15 L52 55 L48 55 L40 30 L32 55 L28 55 Z" fill="#1a1a1a" />
-                <path d="M15 55 L25 55 L23 65 L17 65 Z" fill="url(#goldGradientFooter)" />
-                <path d="M55 55 L65 55 L63 65 L57 65 Z" fill="url(#goldGradientFooter)" />
-                <rect x="15" y="65" width="50" height="4" fill="url(#goldGradientFooter)" />
-              </svg>
+              <img
+                src="/images/mohamadia/company-profile.png"
+                alt="Al Muhamadia Logo"
+                className="w-12 h-12 object-contain"
+              />
               <div>
                 <h3 className="text-xl font-bold text-mh-gold">
                   {locale === "ar" ? "المحمدية" : "Al Muhamadia"}
