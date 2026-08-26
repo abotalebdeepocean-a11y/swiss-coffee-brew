@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { motion } from "framer-motion";
 import {
   FlaskConical,
@@ -33,9 +33,9 @@ const ROASTS = [
 
 /** الصور الرئيسية الثلاثة للسلايدر */
 const ROAST_IMAGES = [
-  { id: "light" as const, label: "فاتح", desc: "حموضة مشرقة", sub: "Light Roast", image: IMAGES.roastLevels.light, compare: IMAGES.roastCompare.mediumLight, color: "#c4956a" },
+  { id: "light" as const, label: "فاتح", desc: "حموضة مشرقة", sub: "Light Roast", image: IMAGES.roastLevels.light, compare: IMAGES.roastCompare.lightDark, color: "#c4956a" },
   { id: "medium" as const, label: "متوسط", desc: "التوازن المثالي", sub: "Medium Roast", image: IMAGES.roastLevels.medium, compare: IMAGES.roastCompare.mediumLight, color: "#8B5E3C" },
-  { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, compare: IMAGES.roastCompare.lightDark, color: "#3D1F0D" },
+  { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, compare: IMAGES.roastCompare.darkMedium, color: "#3D1F0D" },
 ] as const;
 
 /** السلايدر الدائري لدرجات التحميص */
@@ -52,6 +52,12 @@ function RoastCarousel({
     const idx = ROAST_IMAGES.findIndex((r) => r.id === selected);
     return idx >= 0 ? idx : 1;
   });
+
+  /* Sync with parent when selected prop changes (e.g. suggested roast updates) */
+  useEffect(() => {
+    const idx = ROAST_IMAGES.findIndex((r) => r.id === selected);
+    if (idx >= 0 && idx !== activeIdx) setActiveIdx(idx);
+  }, [selected]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const active = ROAST_IMAGES[activeIdx];
 
