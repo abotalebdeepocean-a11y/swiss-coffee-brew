@@ -1,37 +1,50 @@
 import { useEffect } from "react";
-import { Header } from "@/components/mohamadia/Header";
-import { Hero } from "@/components/mohamadia/Hero";
-import { WhyUs } from "@/components/mohamadia/WhyUs";
-import { CeoProfile } from "@/components/mohamadia/CeoProfile";
-import { Minerals } from "@/components/mohamadia/Minerals";
-import { Portfolio } from "@/components/mohamadia/Portfolio";
-import { Contact } from "@/components/mohamadia/Contact";
-import { Footer } from "@/components/mohamadia/Footer";
-import { useTranslation } from "@/lib/I18nProvider";
+import { Header } from "@/components/rovento/Header";
+import { Hero } from "@/components/rovento/Hero";
+import { BannerSlider } from "@/components/rovento/BannerSlider";
+import { SignatureCollection } from "@/components/rovento/SignatureCollection";
+import { ProductsGrid } from "@/components/rovento/ProductsGrid";
+import { OfferSection } from "@/components/rovento/OfferSection";
+import { MokaSpotlight } from "@/components/rovento/MokaSpotlight";
+import { CustomBlendStudio } from "@/components/rovento/CustomBlendStudio";
+import { WhyRovento } from "@/components/rovento/WhyRovento";
+import { Testimonials } from "@/components/rovento/Testimonials";
+import { TrustBar } from "@/components/rovento/TrustBar";
+import { FAQ } from "@/components/rovento/FAQ";
+import { Newsletter } from "@/components/rovento/Newsletter";
+import { Footer } from "@/components/rovento/Footer";
+import { CartDrawer } from "@/components/rovento/CartDrawer";
+import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
+import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 
 export default function Landing() {
-  const { locale } = useTranslation();
-
   useEffect(() => {
-    document.title = locale === "ar"
-      ? "المحمدية للمقاولات العامة والتوريدات العمومية"
-      : "Al Muhamadia for General Contracting & Supplies";
-    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = locale;
-  }, [locale]);
+    document.title = "ROVENTO — القهوة المختصة... بطابع إيطالي | Specialty Coffee, Italian Soul";
+    document.documentElement.dir = "rtl";
+    document.documentElement.lang = "ar";
+  }, []);
 
   return (
-    <div dir={locale === "ar" ? "rtl" : "ltr"} className={`min-h-screen bg-mh-black text-stone-100 antialiased ${locale === "ar" ? "font-sans" : "font-sans"}`}>
+    <div dir="rtl" className="min-h-screen bg-[#0A0A0A] text-stone-100 antialiased font-sans">
       <Header />
       <main>
+        <BannerSlider />
         <Hero />
-        <WhyUs />
-        <CeoProfile />
-        <Minerals />
-        <Portfolio />
-        <Contact />
+        <SignatureCollection />
+        <ProductsGrid />
+        <OfferSection />
+        <MokaSpotlight />
+        <CustomBlendStudio />
+        <WhyRovento />
+        <Testimonials />
+        <TrustBar />
+        <FAQ />
+        <Newsletter />
       </main>
       <Footer />
+      <CartDrawer />
+      <WhatsAppFloat />
+      <ExitIntentPopup />
     </div>
   );
 }
