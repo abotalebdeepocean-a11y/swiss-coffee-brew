@@ -68,10 +68,22 @@ export const IMAGES = {
   priceList: "/images/price-list",
   /** شعار ROVENTO الحقيقي */
   logo: "/images/rovento-logo",
-  /** حبوب خام لقسم خلطتك الخاصة — اختياري: ضع صورة حبوب أرابيكا/روبوستا */
+  /** حبوب خام لقسم خلطتك الخاصة */
   beans: {
     arabica: "/images/bean-arabica",
     robusta: "/images/bean-robusta",
+  },
+  /** درجات التحميص — صور حبوب بن حقيقية */
+  roastLevels: {
+    light: "/images/bean-light",
+    medium: "/images/bean-medium",
+    dark: "/images/bean-dark",
+  },
+  /** صور مقارنة درجات التحميص */
+  roastCompare: {
+    lightDark: "/images/roast-compare-light-dark",
+    mediumLight: "/images/roast-compare-medium-light",
+    darkMedium: "/images/roast-compare-dark-medium",
   },
   /** ماكينات القهوة — صور حقيقية (Wikimedia Commons) */
   machines: {

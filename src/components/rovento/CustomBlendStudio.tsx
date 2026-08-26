@@ -24,12 +24,201 @@ const ARABICA_GOLD = "#c9a227";
 const ROBUSTA_BROWN = "#4a2c1a";
 
 const ROASTS = [
-  { id: "light", label: "فاتح", desc: "حموضة مشرقة", emoji: "☀️" },
-  { id: "medium", label: "متوسط", desc: "التوازن المثالي", emoji: "⚖️" },
-  { id: "med-dark", label: "متوسط-غامق", desc: "كريما غنية", emoji: "🌗" },
-  { id: "dark", label: "غامق", desc: "كاكاو وجسم قوي", emoji: "🌑" },
-  { id: "italian", label: "إيطالي", desc: "جريء ومكثف", emoji: "🇮🇹" },
+  { id: "light", label: "فاتح", desc: "حموضة مشرقة", emoji: "☀️", image: IMAGES.roastLevels.light, color: "#c4956a" },
+  { id: "medium", label: "متوسط", desc: "التوازن المثالي", emoji: "⚖️", image: IMAGES.roastLevels.medium, color: "#8B5E3C" },
+  { id: "med-dark", label: "متوسط-غامق", desc: "كريما غنية", emoji: "🌗", image: IMAGES.roastLevels.medium, color: "#6B3A20" },
+  { id: "dark", label: "غامق", desc: "كاكاو وجسم قوي", emoji: "🌑", image: IMAGES.roastLevels.dark, color: "#3D1F0D" },
+  { id: "italian", label: "إيطالي", desc: "جريء ومكثف", emoji: "🇮🇹", image: IMAGES.roastLevels.dark, color: "#1A0E05" },
 ] as const;
+
+/** الصور الرئيسية الثلاثة للسلايدر */
+const ROAST_IMAGES = [
+  { id: "light" as const, label: "فاتح", desc: "حموضة مشرقة", sub: "Light Roast", image: IMAGES.roastLevels.light, compare: IMAGES.roastCompare.mediumLight, color: "#c4956a" },
+  { id: "medium" as const, label: "متوسط", desc: "التوازن المثالي", sub: "Medium Roast", image: IMAGES.roastLevels.medium, compare: IMAGES.roastCompare.mediumLight, color: "#8B5E3C" },
+  { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, compare: IMAGES.roastCompare.lightDark, color: "#3D1F0D" },
+] as const;
+
+/** السلايدر الدائري لدرجات التحميص */
+function RoastCarousel({
+  selected,
+  onSelect,
+  suggested,
+}: {
+  selected: RoastId;
+  onSelect: (id: RoastId) => void;
+  suggested: RoastId;
+}) {
+  const [activeIdx, setActiveIdx] = useState(() => {
+    const idx = ROAST_IMAGES.findIndex((r) => r.id === selected);
+    return idx >= 0 ? idx : 1;
+  });
+
+  const active = ROAST_IMAGES[activeIdx];
+
+  function prev() {
+    const next = (activeIdx - 1 + ROAST_IMAGES.length) % ROAST_IMAGES.length;
+    setActiveIdx(next);
+    onSelect(ROAST_IMAGES[next].id);
+  }
+
+  function next() {
+    const next = (activeIdx + 1) % ROAST_IMAGES.length;
+    setActiveIdx(next);
+    onSelect(ROAST_IMAGES[next].id);
+  }
+
+  function handleSelect(idx: number) {
+    setActiveIdx(idx);
+    onSelect(ROAST_IMAGES[idx].id);
+  }
+
+  return (
+    <div className="relative">
+      {/* صورة المقارنة — تتغير مع السلايدر */}
+      <div className="relative mx-auto mb-6 overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ maxWidth: 360 }}>
+        <motion.div
+          key={active.compare}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="aspect-[4/5] w-full"
+        >
+          <img
+            src={active.compare}
+            alt={`مقارنة درجات التحميص — ${active.label}`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        </motion.div>
+        {/* اسم الدرجة النشطة */}
+        <motion.div
+          key={`label-${active.id}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.15 }}
+          className="absolute bottom-4 left-0 right-0 text-center"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 backdrop-blur-md">
+            <span className="text-lg">{ROASTS.find((r) => r.id === active.id)?.emoji}</span>
+            <span className="text-sm font-black text-white">{active.label}</span>
+            <span className="text-[10px] text-stone-400">{active.sub}</span>
+          </span>
+        </motion.div>
+      </div>
+
+      {/* الدوائر + الأسهم */}
+      <div className="flex items-center justify-center gap-4">
+        {/* سهم يسار */}
+        <button
+          type="button"
+          onClick={prev}
+          className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-stone-400 transition-all hover:border-rv-gold/50 hover:text-rv-gold"
+          aria-label="الدرجة السابقة"
+        >
+          <svg className="size-5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+
+        {/* الدوائر الثلاثة */}
+        <div className="flex items-center gap-3">
+          {ROAST_IMAGES.map((r, idx) => {
+            const isActive = idx === activeIdx;
+            const isSuggested = suggested === r.id;
+            return (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => handleSelect(idx)}
+                className="group relative flex flex-col items-center gap-2"
+              >
+                {/* الدائرة */}
+                <motion.div
+                  animate={{
+                    scale: isActive ? 1.15 : 0.85,
+                    opacity: isActive ? 1 : 0.5,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className={cn(
+                    "relative flex items-center justify-center rounded-full transition-shadow duration-500",
+                    isActive
+                      ? "shadow-[0_0_30px_rgba(201,162,39,0.4)]"
+                      : "shadow-none hover:shadow-[0_0_15px_rgba(201,162,39,0.15)]",
+                  )}
+                  style={{
+                    width: isActive ? 80 : 60,
+                    height: isActive ? 80 : 60,
+                    border: isActive ? `3px solid ${ARABICA_GOLD}` : '2px solid rgba(255,255,255,0.15)',
+                    background: `radial-gradient(circle, ${r.color}33, ${r.color}11)`,
+                  }}
+                >
+                  <img
+                    src={r.image}
+                    alt={r.label}
+                    className="rounded-full object-cover"
+                    style={{ width: isActive ? 70 : 50, height: isActive ? 70 : 50 }}
+                    loading="lazy"
+                  />
+                  {/* نقطة متوهجة */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="roast-glow"
+                      className="absolute -inset-1 rounded-full border-2 border-rv-gold/40"
+                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    />
+                  )}
+                </motion.div>
+
+                {/* الاسم */}
+                <motion.span
+                  animate={{ opacity: isActive ? 1 : 0.4 }}
+                  className={cn(
+                    "text-xs font-bold transition-colors",
+                    isActive ? "text-rv-gold" : "text-stone-500",
+                  )}
+                >
+                  {r.label}
+                </motion.span>
+
+                {/* badge اقترح */}
+                {isSuggested && !isActive && (
+                  <span className="absolute -top-1 -right-1 flex items-center gap-0.5 rounded-full bg-rv-gold/20 px-1.5 py-0.5 text-[8px] font-bold text-rv-gold">
+                    <Sparkles className="size-2" />
+                    مقترح
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* سهم يمين */}
+        <button
+          type="button"
+          onClick={next}
+          className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-stone-400 transition-all hover:border-rv-gold/50 hover:text-rv-gold"
+          aria-label="الدرجة التالية"
+        >
+          <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+
+      {/* Dot indicators */}
+      <div className="mt-3 flex items-center justify-center gap-1.5">
+        {ROAST_IMAGES.map((r, idx) => (
+          <button
+            key={r.id}
+            type="button"
+            onClick={() => handleSelect(idx)}
+            className={cn(
+              "rounded-full transition-all duration-300",
+              idx === activeIdx ? "h-2 w-6 bg-rv-gold" : "size-2 bg-white/20 hover:bg-white/40",
+            )}
+            aria-label={r.label}
+          />))}
+      </div>
+    </div>
+  );
+}
 
 type RoastId = (typeof ROASTS)[number]["id"];
 
@@ -390,25 +579,35 @@ export function CustomBlendStudio() {
                   نوصي بـ {suggestedLabel}
                 </span>
               </div>
-              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
-                {ROASTS.map((r) => (
+
+              {/* السلايدر الدائري لدرجات التحميص */}
+              <div className="mt-4">
+                <RoastCarousel
+                  selected={roastId}
+                  onSelect={setRoastId}
+                  suggested={suggestedRoast}
+                />
+              </div>
+
+              {/* أزرار الدرجات الإضافية (متوسط-غامق + إيطالي) */}
+              <div className="mt-4 flex items-center justify-center gap-2">
+                {ROASTS.filter((r) => r.id === 'med-dark' || r.id === 'italian').map((r) => (
                   <button
                     key={r.id}
                     type="button"
                     onClick={() => setRoastId(r.id)}
                     className={cn(
-                      "rounded-xl border p-3 text-center transition-all",
+                      "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-bold transition-all",
                       roastId === r.id
-                        ? "border-rv-gold bg-rv-gold/15 text-rv-gold"
-                        : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25",
+                        ? "border-rv-gold/60 bg-rv-gold/15 text-rv-gold"
+                        : "border-white/10 bg-white/[0.03] text-stone-400 hover:border-white/25",
                     )}
                   >
-                    <span className="block text-lg">{r.emoji}</span>
-                    <span className="mt-1 block text-sm font-black">{r.label}</span>
-                    <span className="mt-0.5 block text-[10px] text-muted-foreground">{r.desc}</span>
+                    <span>{r.emoji}</span>
+                    <span>{r.label}</span>
                     {suggestedRoast === r.id && roastId !== r.id && (
-                      <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-rv-gold/15 px-1.5 py-0.5 text-[9px] font-bold text-rv-gold">
-                        <Sparkles className="size-2.5" />
+                      <span className="flex items-center gap-0.5 text-[9px] text-rv-gold">
+                        <Sparkles className="size-2" />
                         مقترح
                       </span>
                     )}
