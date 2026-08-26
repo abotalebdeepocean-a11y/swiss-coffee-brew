@@ -75,15 +75,15 @@ export const IMAGES = {
   },
   /** درجات التحميص — صور حبوب بن حقيقية */
   roastLevels: {
-    light: "/images/bean-light",
-    medium: "/images/bean-medium",
-    dark: "/images/bean-dark",
+    light: "/images/bean-light.webp",
+    medium: "/images/bean-medium.webp",
+    dark: "/images/bean-dark.webp",
   },
   /** صور مقارنة درجات التحميص */
   roastCompare: {
-    lightDark: "/images/roast-compare-light-dark",
-    mediumLight: "/images/roast-compare-medium-light",
-    darkMedium: "/images/roast-compare-dark-medium",
+    lightDark: "/images/roast-compare-light-dark.webp",
+    mediumLight: "/images/roast-compare-medium-light.webp",
+    darkMedium: "/images/roast-compare-dark-medium.webp",
   },
   /** ماكينات القهوة — صور حقيقية (Wikimedia Commons) */
   machines: {
