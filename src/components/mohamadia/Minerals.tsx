@@ -10,36 +10,42 @@ export function Minerals() {
       name: t("mineral1"),
       gradient: "from-yellow-500 to-amber-600",
       bgColor: "bg-yellow-500/10",
+      image: "/images/mohamadia/minerals/precious-metals.jpg",
     },
     {
       icon: Disc,
       name: t("mineral2"),
       gradient: "from-orange-600 to-red-700",
       bgColor: "bg-orange-500/10",
+      image: "/images/mohamadia/minerals/nickel-chrome.jpg",
     },
     {
       icon: Flame,
       name: t("mineral3"),
       gradient: "from-gray-400 to-gray-600",
       bgColor: "bg-gray-500/10",
+      image: "/images/mohamadia/minerals/nickel-chrome.jpg",
     },
     {
       icon: Diamond,
       name: t("mineral4"),
       gradient: "from-cyan-400 to-blue-500",
       bgColor: "bg-cyan-500/10",
+      image: "/images/mohamadia/minerals/precious-metals.jpg",
     },
     {
       icon: Box,
       name: t("mineral5"),
       gradient: "from-slate-300 to-slate-500",
       bgColor: "bg-slate-500/10",
+      image: "/images/mohamadia/minerals/metals-overview.webp",
     },
     {
       icon: Layers,
       name: t("mineral6"),
       gradient: "from-indigo-400 to-purple-600",
       bgColor: "bg-indigo-500/10",
+      image: "/images/mohamadia/minerals/metals-overview.webp",
     },
   ];
 
@@ -71,17 +77,30 @@ export function Minerals() {
               key={index}
               className="group relative overflow-hidden rounded-2xl border border-mh-gold/20 bg-mh-dark/50 hover:border-mh-gold/40 transition-all hover:scale-105"
             >
-              <div className="absolute inset-0 bg-gradient-to-br opacity-5 group-hover:opacity-10 transition-opacity ${mineral.gradient}" />
-              <div className="relative p-8 flex items-center gap-6">
-                <div className={`w-20 h-20 rounded-2xl ${mineral.bgColor} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
-                  <mineral.icon className={`w-10 h-10 bg-gradient-to-br ${mineral.gradient} bg-clip-text`} style={{ color: 'transparent', backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))` }} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-mh-cream group-hover:text-mh-gold transition-colors">
-                    {mineral.name}
-                  </h3>
+              {/* Mineral Image */}
+              <div className="relative h-32 overflow-hidden">
+                <img
+                  src={mineral.image}
+                  alt={mineral.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-mh-dark via-mh-dark/50 to-transparent" />
+              </div>
+
+              {/* Content */}
+              <div className="relative p-6">
+                <div className="flex items-center gap-4">
+                  <div className={`w-16 h-16 rounded-2xl ${mineral.bgColor} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
+                    <mineral.icon className="w-8 h-8 text-mh-gold" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-mh-cream group-hover:text-mh-gold transition-colors">
+                      {mineral.name}
+                    </h3>
+                  </div>
                 </div>
               </div>
+
               {/* Gold accent line */}
               <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-mh-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
