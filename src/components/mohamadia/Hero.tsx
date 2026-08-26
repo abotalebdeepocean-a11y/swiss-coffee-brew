@@ -9,14 +9,18 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background - Clean professional design without bad image */}
+      {/* Background with new banner image */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-mh-black via-mh-charcoal to-mh-black" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/mohamadia/banner-image.jpg')" }}
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-mh-black/85 via-mh-black/75 to-mh-black/90" />
         {/* Decorative grid pattern */}
         <div className="absolute inset-0 opacity-10 grid-editorial" />
         {/* Gold accent glows */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-mh-gold/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-mh-gold/5 rounded-full blur-[100px]" />
         {/* Decorative lines */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-mh-gold/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-mh-gold/30 to-transparent" />
@@ -40,7 +44,7 @@ export function Hero() {
         </h2>
 
         {/* Description */}
-        <p className="text-xl md:text-2xl text-mh-cream/70 max-w-4xl mx-auto mb-12 leading-relaxed">
+        <p className="text-xl md:text-2xl text-mh-cream/70 max-w-4xl mx-auto mb-12 leading-relaxed backdrop-blur-sm bg-mh-black/40 p-4 rounded-xl">
           {t("heroDesc")}
           <span className="text-mh-gold font-semibold">{t("heroDescHighlight")}</span>
           {t("heroDescEnd")}
