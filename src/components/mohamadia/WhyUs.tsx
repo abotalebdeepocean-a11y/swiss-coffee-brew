@@ -9,21 +9,25 @@ export function WhyUs() {
       icon: CreditCard,
       title: t("feature1Title"),
       description: t("feature1Desc"),
+      image: "/images/mohamadia/business-meeting.jpg",
     },
     {
       icon: Shield,
       title: t("feature2Title"),
       description: t("feature2Desc"),
+      image: "/images/mohamadia/construction-1.jpg",
     },
     {
       icon: Globe,
       title: t("feature3Title"),
       description: t("feature3Desc"),
+      image: "/images/mohamadia/construction-2.jpg",
     },
     {
       icon: Search,
       title: t("feature4Title"),
       description: t("feature4Desc"),
+      image: "/images/mohamadia/construction-3.jpg",
     },
   ];
 
@@ -49,13 +53,26 @@ export function WhyUs() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="card-dark-editorial rounded-2xl p-8 group"
+              className="card-dark-editorial rounded-2xl overflow-hidden group"
             >
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-mh-gold/10 flex items-center justify-center mb-6 group-hover:bg-mh-gold/20 transition-colors">
-                  <feature.icon className="w-8 h-8 text-mh-gold" />
+              {/* Feature image */}
+              <div className="relative h-40 overflow-hidden">
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-mh-black/80 via-mh-black/40 to-transparent" />
+                <div className="absolute bottom-4 left-4">
+                  <div className="w-12 h-12 rounded-full bg-mh-gold/20 backdrop-blur-sm flex items-center justify-center">
+                    <feature.icon className="w-6 h-6 text-mh-gold" />
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-mh-gold mb-3">
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-mh-gold mb-2">
                   {feature.title}
                 </h3>
                 <p className="text-mh-cream/60 leading-relaxed">

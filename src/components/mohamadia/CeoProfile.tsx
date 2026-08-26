@@ -65,13 +65,19 @@ export function CeoProfile() {
             </div>
           </div>
 
-          {/* Profile card */}
+          {/* Profile card with CEO image */}
           <div className="relative">
             <div className="relative z-10">
-              <div className="bg-mh-charcoal rounded-3xl border border-mh-gold/20 p-8">
-                {/* Initials avatar */}
-                <div className="w-48 h-48 mx-auto rounded-full border-4 border-mh-gold bg-mh-dark flex items-center justify-center mb-8">
-                  <span className="text-5xl font-bold text-mh-gold">KH</span>
+              <div className="bg-mh-charcoal rounded-3xl border border-mh-gold/20 p-8 overflow-hidden">
+                {/* CEO Profile Image */}
+                <div className="relative w-64 h-64 mx-auto mb-8 rounded-2xl overflow-hidden border-4 border-mh-gold shadow-2xl">
+                  <img
+                    src="/images/mohamadia/ceo-profile.png"
+                    alt="م. خليفة حامد نجار الأحمر"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Gold overlay effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-mh-gold/20 to-transparent" />
                 </div>
 
                 {/* Leadership points */}
