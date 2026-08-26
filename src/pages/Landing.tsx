@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Header } from "@/components/mohamadia/Header";
 import { Hero } from "@/components/mohamadia/Hero";
-import { CeoProfile } from "@/components/mohamadia/CeoProfile";
 import { WhyUs } from "@/components/mohamadia/WhyUs";
+import { CeoProfile } from "@/components/mohamadia/CeoProfile";
 import { Minerals } from "@/components/mohamadia/Minerals";
 import { Portfolio } from "@/components/mohamadia/Portfolio";
 import { Contact } from "@/components/mohamadia/Contact";
@@ -25,8 +25,8 @@ export default function Landing() {
       <Header />
       <main>
         <Hero />
-        <CeoProfile />
         <WhyUs />
+        <CeoProfile />
         <Minerals />
         <Portfolio />
         <Contact />
