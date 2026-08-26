@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Header } from "@/components/mohamadia/Header";
 import { Hero } from "@/components/mohamadia/Hero";
+import { CeoProfile } from "@/components/mohamadia/CeoProfile";
 import { WhyUs } from "@/components/mohamadia/WhyUs";
 import { Minerals } from "@/components/mohamadia/Minerals";
 import { Portfolio } from "@/components/mohamadia/Portfolio";
-import { CeoProfile } from "@/components/mohamadia/CeoProfile";
 import { Contact } from "@/components/mohamadia/Contact";
 import { Footer } from "@/components/mohamadia/Footer";
 import { useTranslation } from "@/lib/I18nProvider";
@@ -25,10 +25,10 @@ export default function Landing() {
       <Header />
       <main>
         <Hero />
+        <CeoProfile />
         <WhyUs />
         <Minerals />
         <Portfolio />
-        <CeoProfile />
         <Contact />
       </main>
       <Footer />
