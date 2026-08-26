@@ -9,25 +9,25 @@ export function Portfolio() {
       icon: Building2,
       title: t("portfolio1"),
       description: t("portfolio1Desc"),
-      image: "/images/mohamadia/سابق. الاعمال/construction-1.jpg",
+      image: "/images/mohamadia/Projects/construction-project-1.jpg",
     },
     {
       icon: Truck,
       title: t("portfolio2"),
       description: t("portfolio2Desc"),
-      image: "/images/mohamadia/سابق. الاعمال/mining-project.jpg",
+      image: "/images/mohamadia/Projects/modular-building.jpg",
     },
     {
       icon: Globe2,
       title: t("portfolio3"),
       description: t("portfolio3Desc"),
-      image: "/images/mohamadia/سابق. الاعمال/trading-project.jpg",
+      image: "/images/mohamadia/Projects/office-buildings.webp",
     },
     {
       icon: Briefcase,
       title: t("portfolio4"),
       description: t("portfolio4Desc"),
-      image: "/images/mohamadia/سابق. الاعمال/precious-metals.jpg",
+      image: "/images/mohamadia/Projects/construction-project-2.jpg",
     },
   ];
 
@@ -83,10 +83,10 @@ export function Portfolio() {
         </div>
 
         {/* Additional images gallery */}
-        <div className="mt-12 grid grid-cols-3 gap-4">
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="relative h-40 rounded-xl overflow-hidden group">
             <img
-              src="/images/mohamadia/سابق. الاعمال/construction-2.jpg"
+              src="/images/mohamadia/Projects/construction-project-1.jpg"
               alt="مشاريعنا"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
@@ -94,7 +94,7 @@ export function Portfolio() {
           </div>
           <div className="relative h-40 rounded-xl overflow-hidden group">
             <img
-              src="/images/mohamadia/سابق. الاعمال/construction-3.jpg"
+              src="/images/mohamadia/Projects/construction-project-2.jpg"
               alt="مشاريعنا"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
@@ -102,7 +102,15 @@ export function Portfolio() {
           </div>
           <div className="relative h-40 rounded-xl overflow-hidden group">
             <img
-              src="/images/mohamadia/سابق. الاعمال/rhodium-sample.jpg"
+              src="/images/mohamadia/Projects/modular-building.jpg"
+              alt="مشاريعنا"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-mh-gold/0 group-hover:bg-mh-gold/20 transition-colors" />
+          </div>
+          <div className="relative h-40 rounded-xl overflow-hidden group">
+            <img
+              src="/images/mohamadia/Projects/office-buildings.webp"
               alt="مشاريعنا"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
