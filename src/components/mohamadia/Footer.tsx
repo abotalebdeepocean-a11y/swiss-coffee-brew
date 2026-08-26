@@ -25,18 +25,10 @@ export function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-4 mb-6">
               <img
-                src="/images/mohamadia/company-profile.png"
+                src="/images/mohamadia/logo.png"
                 alt="Al Muhamadia Logo"
-                className="w-12 h-12 object-contain"
+                className="h-16 w-auto object-contain"
               />
-              <div>
-                <h3 className="text-xl font-bold text-mh-gold">
-                  {locale === "ar" ? "المحمدية" : "Al Muhamadia"}
-                </h3>
-                <p className="text-sm text-mh-cream/60">
-                  {locale === "ar" ? "للمقاولات العامة والتوريدات العمومية" : "General Contracting & Supplies"}
-                </p>
-              </div>
             </div>
             <p className="text-mh-cream/60 leading-relaxed mb-6 max-w-md">
               {t("footerDesc")}

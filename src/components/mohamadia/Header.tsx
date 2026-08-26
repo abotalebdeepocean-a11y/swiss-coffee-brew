@@ -43,23 +43,13 @@ export function Header() {
       {/* Main header */}
       <div className="bg-mh-black/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          {/* Logo - Using actual logo image */}
-          <a href="#hero" className="flex items-center gap-4">
-            <div className="relative">
-              <img
-                src="/images/mohamadia/company-profile.png"
-                alt="Al Muhamadia Logo"
-                className="w-14 h-14 object-contain"
-              />
-            </div>
-            <div className="text-right">
-              <h1 className="text-xl font-bold text-mh-gold">
-                {locale === "ar" ? "المحمدية" : "Al Muhamadia"}
-              </h1>
-              <p className="text-xs text-mh-cream/60">
-                {locale === "ar" ? "للمقاولات العامة والتوريدات العمومية" : "General Contracting & Supplies"}
-              </p>
-            </div>
+          {/* Logo - Using the correct logo */}
+          <a href="#hero" className="flex items-center gap-3">
+            <img
+              src="/images/mohamadia/logo.png"
+              alt="Al Muhamadia Logo"
+              className="h-12 w-auto object-contain"
+            />
           </a>
 
           {/* Desktop Navigation */}
