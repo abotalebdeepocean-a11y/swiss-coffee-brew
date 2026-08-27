@@ -38,6 +38,90 @@ const ROAST_IMAGES = [
   { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, compare: IMAGES.roastCompare.darkMedium, color: "#3D1F0D" },
 ] as const;
 
+/** خريطة تحويل الدرجات الفرعية للدرجة البصرية */
+function visualIndex(roastId: RoastId): number {
+  if (roastId === "light") return 0;
+  if (roastId === "medium" || roastId === "med-dark") return 1;
+  return 2; // dark or italian
+}
+
+/** صورة مقارنة درجات التحميص — تتحمل بـ fallback */
+function RoastCompareImage({
+  compareSrc,
+  label,
+  active,
+}: {
+  compareSrc: string;
+  label: string;
+  active: { id: string; label: string; sub: string };
+}) {
+  const { src, onError } = useImageCandidates(compareSrc);
+  return (
+    <div className="relative mx-auto mb-6 overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ maxWidth: 360 }}>
+      <motion.div
+        key={compareSrc}
+        initial={{ opacity: 0, scale: 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="relative aspect-[4/5] w-full"
+      >
+        {src ? (
+          <img
+            src={src}
+            onError={onError}
+            alt={`مقارنة درجات التحميص — ${label}`}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-amber-900/30 to-stone-900/50">
+            <Coffee className="size-12 text-rv-gold/30" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        {/* اسم الدرجة النشطة */}
+        <motion.div
+          key={`label-${active.id}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.15 }}
+          className="absolute bottom-4 left-0 right-0 text-center"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 backdrop-blur-md">
+            <span className="text-lg">{ROASTS.find((r) => r.id === active.id)?.emoji}</span>
+            <span className="text-sm font-black text-white">{active.label}</span>
+            <span className="text-[10px] text-stone-400">{active.sub}</span>
+          </span>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+/** صورة حبة بن في الدائرة — تتحمل بـ fallback */
+function RoastBeanImage({ src, label, isActive }: { src: string; label: string; isActive: boolean }) {
+  const { src: imgSrc, onError } = useImageCandidates(src);
+  return (
+    <>
+      {imgSrc ? (
+        <img
+          src={imgSrc}
+          onError={onError}
+          alt={label}
+          className="rounded-full object-cover"
+          style={{ width: isActive ? 70 : 50, height: isActive ? 70 : 50 }}
+        />
+      ) : (
+        <div
+          className="flex items-center justify-center rounded-full bg-amber-900/30"
+          style={{ width: isActive ? 70 : 50, height: isActive ? 70 : 50 }}
+        >
+          <Coffee className="text-rv-gold/40" style={{ width: isActive ? 28 : 20, height: isActive ? 28 : 20 }} />
+        </div>
+      )}
+    </>
+  );
+}
+
 /** السلايدر الدائري لدرجات التحميص */
 function RoastCarousel({
   selected,
@@ -48,15 +132,12 @@ function RoastCarousel({
   onSelect: (id: RoastId) => void;
   suggested: RoastId;
 }) {
-  const [activeIdx, setActiveIdx] = useState(() => {
-    const idx = ROAST_IMAGES.findIndex((r) => r.id === selected);
-    return idx >= 0 ? idx : 1;
-  });
+  const [activeIdx, setActiveIdx] = useState(() => visualIndex(selected));
 
-  /* Sync with parent when selected prop changes (e.g. suggested roast updates) */
+  /* Sync with parent when selected prop changes (e.g. suggested roast updates or buttons below) */
   useEffect(() => {
-    const idx = ROAST_IMAGES.findIndex((r) => r.id === selected);
-    if (idx >= 0 && idx !== activeIdx) setActiveIdx(idx);
+    const idx = visualIndex(selected);
+    if (idx !== activeIdx) setActiveIdx(idx);
   }, [selected]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const active = ROAST_IMAGES[activeIdx];
@@ -81,37 +162,7 @@ function RoastCarousel({
   return (
     <div className="relative">
       {/* صورة المقارنة — تتغير مع السلايدر */}
-      <div className="relative mx-auto mb-6 overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ maxWidth: 360 }}>
-        <motion.div
-          key={active.compare}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="aspect-[4/5] w-full"
-        >
-          <img
-            src={active.compare}
-            alt={`مقارنة درجات التحميص — ${active.label}`}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        </motion.div>
-        {/* اسم الدرجة النشطة */}
-        <motion.div
-          key={`label-${active.id}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
-          className="absolute bottom-4 left-0 right-0 text-center"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 backdrop-blur-md">
-            <span className="text-lg">{ROASTS.find((r) => r.id === active.id)?.emoji}</span>
-            <span className="text-sm font-black text-white">{active.label}</span>
-            <span className="text-[10px] text-stone-400">{active.sub}</span>
-          </span>
-        </motion.div>
-      </div>
+      <RoastCompareImage compareSrc={active.compare} label={active.label} active={active} />
 
       {/* الدوائر + الأسهم */}
       <div className="flex items-center justify-center gap-4">
@@ -157,13 +208,7 @@ function RoastCarousel({
                     background: `radial-gradient(circle, ${r.color}33, ${r.color}11)`,
                   }}
                 >
-                  <img
-                    src={r.image}
-                    alt={r.label}
-                    className="rounded-full object-cover"
-                    style={{ width: isActive ? 70 : 50, height: isActive ? 70 : 50 }}
-                    loading="lazy"
-                  />
+                  <RoastBeanImage src={r.image} label={r.label} isActive={isActive} />
                   {/* نقطة متوهجة */}
                   {isActive && (
                     <motion.div
