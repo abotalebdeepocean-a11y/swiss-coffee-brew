@@ -18,6 +18,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
 const Shop = lazy(() => import("./pages/Shop.tsx"));
 const Product = lazy(() => import("./pages/Product.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const InvoiceDownload = lazy(() => import("./pages/InvoiceDownload.tsx"));
 
 // Simple loading fallback for route transitions
 function RouteLoading() {
@@ -157,6 +158,7 @@ createRoot(document.getElementById("root")!).render(
                     </RequireAuth>
                   }
                 />
+                <Route path="/invoice" element={<InvoiceDownload />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
