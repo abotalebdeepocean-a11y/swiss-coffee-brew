@@ -45,6 +45,16 @@ export default function Landing() {
       <CartDrawer />
       <WhatsAppFloat />
       <ExitIntentPopup />
+
+      {/* Floating Invoice Download Button */}
+      <a
+        href="/rovento-invoice-A5.doc"
+        download="rovento-invoice-A5.doc"
+        className="fixed bottom-20 left-4 z-50 flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89728] px-4 py-3 font-bold text-black shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        تحميل فاتورة Word
+      </a>
     </div>
   );
 }
