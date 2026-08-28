@@ -4,15 +4,16 @@ import { ShoppingBag, Flame, Clock, Percent } from "lucide-react";
 import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 
-const DEAL_PRICE = 2400; // 2 × بريميم 1200 (1 كجم)
-const DEAL_OLD = 2800; // 2 × 1400 سعر الباقة قبل الخصم
+const DEAL_PRICE = 1400; // 2 × كلاسيك 750 — خصم 100 ج.م
+const DEAL_OLD = 1500; // 2 × 750 بدون الخصم
 const SAVE = DEAL_OLD - DEAL_PRICE;
 
 /** عداد تنازلي حي حتى نهاية الأسبوع */
 function useCountdown() {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
-    const t = setInterval(() => setNow(Date.now()), 1000);
+    // Update every 60 seconds — no ticking seconds
+    const t = setInterval(() => setNow(Date.now()), 60_000);
     return () => clearInterval(t);
   }, []);
 
@@ -31,7 +32,6 @@ function useCountdown() {
     days: pad(Math.floor(diff / 86_400_000)),
     hours: pad(Math.floor((diff % 86_400_000) / 3_600_000)),
     minutes: pad(Math.floor((diff % 3_600_000) / 60_000)),
-    seconds: pad(Math.floor((diff % 60_000) / 1000)),
   };
 }
 
@@ -92,7 +92,7 @@ export function OfferSection() {
           transition={{ duration: 0.55, delay: 0.1 }}
           className="mx-auto mb-6 max-w-2xl text-sm text-stone-300 md:text-lg"
         >
-          على كيسين من بريميم 70٪ أرابيكا (1 كجم) — لفترة محدودة، مع شحن مجاني
+          على كيسين من بلندات روفينتو (1 كجم) — لفترة محدودة، مع شحن مجاني
           لأي محافظة في مصر.
         </motion.p>
 
@@ -132,7 +132,7 @@ export function OfferSection() {
 
         {/* CTA الرئيسي */}
         <button
-          onClick={() => add("rovento-premium", 2)}
+          onClick={() => add("rovento-classic", 2)}
           className="btn-gold inline-flex items-center gap-3 rounded-2xl px-8 py-4 text-base font-black shadow-2xl transition hover:scale-105 sm:px-10 sm:py-5 sm:text-lg"
         >
           <ShoppingBag className="size-5 sm:size-6" />
