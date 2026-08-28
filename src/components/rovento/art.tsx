@@ -231,25 +231,106 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Brand logo — uses the real Rovento logo image                       */
+/* Brand logo — circular with rotating neon golden ring                */
 /* ------------------------------------------------------------------ */
+
+/** Rotating conic-gradient mask for the neon ring */
+const neonRingKeyframes = `@keyframes rovento-neon-spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes rovento-neon-pulse {
+  0%, 100% { opacity: 1; filter: blur(0px); }
+  50%      { opacity: 0.7; filter: blur(1px); }
+}
+@keyframes rovento-inner-glow {
+  0%, 100% { box-shadow: 0 0 8px 2px rgba(201,162,39,0.4), inset 0 0 6px 1px rgba(201,162,39,0.15); }
+  50%      { box-shadow: 0 0 16px 4px rgba(201,162,39,0.6), inset 0 0 10px 2px rgba(201,162,39,0.25); }
+}`;
+
+let neonStylesInjected = false;
+
+function ensureNeonStyles() {
+  if (typeof document === "undefined" || neonStylesInjected) return;
+  const existing = document.getElementById("rovento-neon-logo-styles");
+  if (existing) { neonStylesInjected = true; return; }
+  const style = document.createElement("style");
+  style.id = "rovento-neon-logo-styles";
+  style.textContent = neonRingKeyframes;
+  document.head.appendChild(style);
+  neonStylesInjected = true;
+}
+
 export function Logo({ className, size = "default" }: { className?: string; size?: "small" | "default" | "large" }) {
-  const sizeClasses = {
+  ensureNeonStyles();
+
+  const dim = {
+    small: { outer: 56, inner: 48, ring: 3 },
+    default: { outer: 72, inner: 62, ring: 4 },
+    large: { outer: 96, inner: 84, ring: 4 },
+  }[size];
+
+  const imgClass = {
     small: "h-10 md:h-12",
     default: "h-14 md:h-16",
     large: "h-20 md:h-24",
-  };
+  }[size];
 
   return (
-    <div className={cn("flex items-center gap-3", className)}>
+    <div className={cn("relative flex items-center", className)}>
+      {/* Outer spinning ring container */}
+      <div
+        className="relative"
+        style={{
+          width: dim.outer,
+          height: dim.outer,
+          borderRadius: "50%",
+          padding: dim.ring,
+          background: `conic-gradient(
+            from 0deg,
+            #C9A227,
+            #FFD700,
+            #C9A227,
+            #8B6914,
+            #C9A227,
+            #FFD700,
+            #C9A227
+          )`,
+          animation: "rovento-neon-spin 3s linear infinite",
+          boxShadow: "0 0 12px 3px rgba(201,162,39,0.35), 0 0 24px 6px rgba(201,162,39,0.15)",
+        }}
+      >
+        {/* Inner dark circle to create ring illusion */}
+        <div
+          className="overflow-hidden rounded-full"
+          style={{
+            width: dim.inner,
+            height: dim.inner,
+            background: "#0d0b09",
+          }}
+        >
+          <img
+            src="/images/rovento-logo-final.jpg"
+            alt="ROVENTO Coffee Logo"
+            className="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+      {/* Soft pulsing glow aura behind the ring */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-full"
+        style={{
+          boxShadow: "0 0 20px 6px rgba(201,162,39,0.25), 0 0 40px 12px rgba(201,162,39,0.1)",
+          animation: "rovento-neon-pulse 2.5s ease-in-out infinite",
+        }}
+      />
+      {/* Hidden img for non-visual fallback / OG */}
       <img
-        src="/images/rovento-logo-new.jpg"
-        alt="ROVENTO Coffee Logo"
-        className={cn(
-          "w-auto rounded-md object-contain drop-shadow-lg",
-          sizeClasses[size],
-        )}
-        loading="eager"
+        src="/images/rovento-logo-final.jpg"
+        alt="ROVENTO"
+        className="sr-only"
+        aria-hidden="true"
       />
     </div>
   );

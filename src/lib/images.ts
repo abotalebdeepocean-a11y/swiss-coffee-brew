@@ -67,7 +67,7 @@ export const IMAGES = {
   /** قائمة أسعار البن الرسمية */
   priceList: "/images/price-list",
   /** شعار ROVENTO الحقيقي */
-  logo: "/images/rovento-logo-new",
+  logo: "/images/rovento-logo-final",
   /** حبوب خام لقسم خلطتك الخاصة */
   beans: {
     arabica: "/images/bean-arabica",
