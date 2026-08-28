@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { motion } from "framer-motion";
 import {
   FlaskConical,
@@ -7,7 +7,6 @@ import {
   Truck,
   Zap,
   Coffee,
-  Check,
 } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { useCart, whatsappLink } from "@/lib/store";
@@ -17,267 +16,25 @@ import { WhatsAppIcon } from "./art";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   خلطتك الخاصة — ROVENTO BLEND LAB
+   مختبر روفينتو — صمّم خلطتك الخاصة
    ============================================================ */
 
 const ARABICA_GOLD = "#c9a227";
 const ROBUSTA_BROWN = "#4a2c1a";
 
-const ROASTS = [
-  { id: "light", label: "فاتح", desc: "حموضة مشرقة", emoji: "☀️", image: IMAGES.roastLevels.light, color: "#c4956a" },
-  { id: "medium", label: "متوسط", desc: "التوازن المثالي", emoji: "⚖️", image: IMAGES.roastLevels.medium, color: "#8B5E3C" },
-  { id: "med-dark", label: "متوسط-غامق", desc: "كريما غنية", emoji: "🌗", image: IMAGES.roastLevels.medium, color: "#6B3A20" },
-  { id: "dark", label: "غامق", desc: "كاكاو وجسم قوي", emoji: "🌑", image: IMAGES.roastLevels.dark, color: "#3D1F0D" },
-  { id: "italian", label: "إيطالي", desc: "جريء ومكثف", emoji: "🇮🇹", image: IMAGES.roastLevels.dark, color: "#1A0E05" },
-] as const;
+type RoastId = "light" | "medium" | "dark";
 
-/** الصور الرئيسية الثلاثة للسلايدر */
-const ROAST_IMAGES = [
-  { id: "light" as const, label: "فاتح", desc: "حموضة مشرقة", sub: "Light Roast", image: IMAGES.roastLevels.light, color: "#c4956a" },
-  { id: "medium" as const, label: "متوسط", desc: "التوازن المثالي", sub: "Medium Roast", image: IMAGES.roastLevels.medium, color: "#8B5E3C" },
-  { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, color: "#3D1F0D" },
-] as const;
-
-/** خريطة تحويل الدرجات الفرعية للدرجة البصرية */
-function visualIndex(roastId: RoastId): number {
-  if (roastId === "light") return 0;
-  if (roastId === "medium" || roastId === "med-dark") return 1;
-  return 2; // dark or italian
-}
-
-/** صورة درجة التحميص — صورة واحدة فقط (بدون مقارنة) */
-function RoastCompareImage({
-  imageSrc,
-  label,
-  active,
-}: {
-  imageSrc: string;
-  label: string;
-  active: { id: string; label: string; sub: string };
-}) {
-  const { src, onError } = useImageCandidates(imageSrc);
-  return (
-    <div className="relative mx-auto mb-6 overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ maxWidth: 360 }}>
-      <motion.div
-        key={imageSrc}
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative aspect-[4/5] w-full"
-      >
-        {src ? (
-          <img
-            src={src}
-            onError={onError}
-            alt={`درجة التحميص — ${label}`}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-amber-900/30 to-stone-900/50">
-            <Coffee className="size-12 text-rv-gold/30" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        {/* اسم الدرجة النشطة */}
-        <motion.div
-          key={`label-${active.id}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
-          className="absolute bottom-4 left-0 right-0 text-center"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 backdrop-blur-md">
-            <span className="text-lg">{ROASTS.find((r) => r.id === active.id)?.emoji}</span>
-            <span className="text-sm font-black text-white">{active.label}</span>
-            <span className="text-[10px] text-stone-400">{active.sub}</span>
-          </span>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
-/** صورة حبة بن في الدائرة — تتحمل بـ fallback */
-function RoastBeanImage({ src, label, isActive }: { src: string; label: string; isActive: boolean }) {
-  const { src: imgSrc, onError } = useImageCandidates(src);
-  return (
-    <>
-      {imgSrc ? (
-        <img
-          src={imgSrc}
-          onError={onError}
-          alt={label}
-          className="rounded-full object-cover"
-          style={{ width: isActive ? 70 : 50, height: isActive ? 70 : 50 }}
-        />
-      ) : (
-        <div
-          className="flex items-center justify-center rounded-full bg-amber-900/30"
-          style={{ width: isActive ? 70 : 50, height: isActive ? 70 : 50 }}
-        >
-          <Coffee className="text-rv-gold/40" style={{ width: isActive ? 28 : 20, height: isActive ? 28 : 20 }} />
-        </div>
-      )}
-    </>
-  );
-}
-
-/** السلايدر الدائري لدرجات التحميص */
-function RoastCarousel({
-  selected,
-  onSelect,
-  suggested,
-}: {
-  selected: RoastId;
-  onSelect: (id: RoastId) => void;
-  suggested: RoastId;
-}) {
-  const [activeIdx, setActiveIdx] = useState(() => visualIndex(selected));
-
-  /* Sync with parent when selected prop changes (e.g. suggested roast updates or buttons below) */
-  useEffect(() => {
-    const idx = visualIndex(selected);
-    if (idx !== activeIdx) setActiveIdx(idx);
-  }, [selected]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const active = ROAST_IMAGES[activeIdx];
-
-  function prev() {
-    const next = (activeIdx - 1 + ROAST_IMAGES.length) % ROAST_IMAGES.length;
-    setActiveIdx(next);
-    onSelect(ROAST_IMAGES[next].id);
-  }
-
-  function next() {
-    const next = (activeIdx + 1) % ROAST_IMAGES.length;
-    setActiveIdx(next);
-    onSelect(ROAST_IMAGES[next].id);
-  }
-
-  function handleSelect(idx: number) {
-    setActiveIdx(idx);
-    onSelect(ROAST_IMAGES[idx].id);
-  }
-
-  return (
-    <div className="relative">
-      {/* صورة درجة التحميص — تتغير مع السلايدر */}
-      <RoastCompareImage imageSrc={active.image} label={active.label} active={active} />
-
-      {/* الدوائر + الأسهم */}
-      <div className="flex items-center justify-center gap-4">
-        {/* سهم يسار */}
-        <button
-          type="button"
-          onClick={prev}
-          className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-stone-400 transition-all hover:border-rv-gold/50 hover:text-rv-gold"
-          aria-label="الدرجة السابقة"
-        >
-          <svg className="size-5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-
-        {/* الدوائر الثلاثة */}
-        <div className="flex items-center gap-3">
-          {ROAST_IMAGES.map((r, idx) => {
-            const isActive = idx === activeIdx;
-            const isSuggested = suggested === r.id;
-            return (
-              <button
-                key={r.id}
-                type="button"
-                onClick={() => handleSelect(idx)}
-                className="group relative flex flex-col items-center gap-2"
-              >
-                {/* الدائرة */}
-                <motion.div
-                  animate={{
-                    scale: isActive ? 1.15 : 0.85,
-                    opacity: isActive ? 1 : 0.5,
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className={cn(
-                    "relative flex items-center justify-center rounded-full transition-shadow duration-500",
-                    isActive
-                      ? "shadow-[0_0_30px_rgba(201,162,39,0.4)]"
-                      : "shadow-none hover:shadow-[0_0_15px_rgba(201,162,39,0.15)]",
-                  )}
-                  style={{
-                    width: isActive ? 80 : 60,
-                    height: isActive ? 80 : 60,
-                    border: isActive ? `3px solid ${ARABICA_GOLD}` : '2px solid rgba(255,255,255,0.15)',
-                    background: `radial-gradient(circle, ${r.color}33, ${r.color}11)`,
-                  }}
-                >
-                  <RoastBeanImage src={r.image} label={r.label} isActive={isActive} />
-                  {/* نقطة متوهجة */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="roast-glow"
-                      className="absolute -inset-1 rounded-full border-2 border-rv-gold/40"
-                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                    />
-                  )}
-                </motion.div>
-
-                {/* الاسم */}
-                <motion.span
-                  animate={{ opacity: isActive ? 1 : 0.4 }}
-                  className={cn(
-                    "text-xs font-bold transition-colors",
-                    isActive ? "text-rv-gold" : "text-stone-500",
-                  )}
-                >
-                  {r.label}
-                </motion.span>
-
-                {/* badge اقترح */}
-                {isSuggested && !isActive && (
-                  <span className="absolute -top-1 -right-1 flex items-center gap-0.5 rounded-full bg-rv-gold/20 px-1.5 py-0.5 text-[8px] font-bold text-rv-gold">
-                    <Sparkles className="size-2" />
-                    مقترح
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* سهم يمين */}
-        <button
-          type="button"
-          onClick={next}
-          className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-stone-400 transition-all hover:border-rv-gold/50 hover:text-rv-gold"
-          aria-label="الدرجة التالية"
-        >
-          <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-      </div>
-
-      {/* Dot indicators */}
-      <div className="mt-3 flex items-center justify-center gap-1.5">
-        {ROAST_IMAGES.map((r, idx) => (
-          <button
-            key={r.id}
-            type="button"
-            onClick={() => handleSelect(idx)}
-            className={cn(
-              "rounded-full transition-all duration-300",
-              idx === activeIdx ? "h-2 w-6 bg-rv-gold" : "size-2 bg-white/20 hover:bg-white/40",
-            )}
-            aria-label={r.label}
-          />))}
-      </div>
-    </div>
-  );
-}
-
-type RoastId = (typeof ROASTS)[number]["id"];
+const ROASTS: { id: RoastId; label: string; emoji: string; image: string; desc: string }[] = [
+  { id: "light", label: "فاتح", emoji: "☀️", image: IMAGES.roastLevels.light, desc: "حموضة مشرقة" },
+  { id: "medium", label: "متوسط", emoji: "🔥", image: IMAGES.roastLevels.medium, desc: "التوازن المثالي" },
+  { id: "dark", label: "غامق", emoji: "🌑", image: IMAGES.roastLevels.dark, desc: "كاكاو وجسم قوي" },
+];
 
 const GRINDS = [
-  { id: "whole", label: "حبوب كاملة", emoji: "🫘" },
-  { id: "espresso", label: "إسبريسو", emoji: "☕" },
-  { id: "filter", label: "V60 / فلتر", emoji: "Filter" },
-  { id: "turkish", label: "تركي", emoji: "🫖" },
+  { id: "turkish", label: "تركي", desc: "ناعم جدًا" },
+  { id: "filter", label: "فلتر / V60", desc: "متوسط الخشونة" },
+  { id: "espresso", label: "إسبريسو", desc: "ناعم للماكينات" },
+  { id: "whole", label: "حبوب كاملة", desc: "للمطحنة المنزلية" },
 ] as const;
 
 const WEIGHTS = [
@@ -286,12 +43,11 @@ const WEIGHTS = [
   { id: "1kg", label: "1 كجم", mult: 1 },
 ] as const;
 
-/** وصفات جاهزة سريعة */
 const PRESETS = [
-  { a: 70, label: "بريميم 70/30", desc: "same as Premium", star: true },
-  { a: 50, label: "كلاسيك 50/50", desc: "same as Classic", star: false },
-  { a: 30, label: "إنتنسو 30/70", desc: "same as Intenso", star: false },
-  { a: 100, label: "أرابيكا 100%", desc: "specialty pure", star: false },
+  { a: 100, label: "أرابيكا 100%", sub: "فاتح/متوسط", star: true },
+  { a: 70, label: "بريميوم 70/30", sub: "متوسط-داكن", star: false },
+  { a: 50, label: "كلاسيك 50/50", sub: "متوسط", star: false },
+  { a: 30, label: "إنتينسو 30/70", sub: "داكن", star: false },
 ] as const;
 
 const round5 = (n: number) => Math.round(n / 5) * 5;
@@ -308,197 +64,65 @@ function blendNotes(a: number, roastId: RoastId): string {
     return roastId === "dark"
       ? "توازن فاخر: حلاوة الأرابيكا مع كريما غنية وجسم مخملي."
       : "كوب متوازن حلو المذاق غني بالكريما — الخيار المميز الآمن.";
-  if (a >= 40)
-    return "جسم أقوى وكافيين أعلى مع كريما كثيفة — قهوة يومية بطابع إسبريسو.";
+  if (a >= 40) return "جسم أقوى وكافيين أعلى مع كريما كثيفة — قهوة يومية بطابع إسبريسو.";
   return "قوة وكافيين وكريما كثيفة جدًا — لعشاق الإسبريسو الجريء.";
 }
 
-/** حبة بن SVG */
-function BeanSvg({
-  color,
-  className,
-  style,
-}: {
-  color: string;
-  className?: string;
-  style?: CSSProperties;
-}) {
+/* --- حبة بن SVG --- */
+function BeanSvg({ color, className, style }: { color: string; className?: string; style?: CSSProperties }) {
   return (
     <svg viewBox="0 0 48 48" className={className} style={style} aria-hidden="true">
       <ellipse cx="24" cy="24" rx="15" ry="20" fill={color} />
       <ellipse cx="24" cy="24" rx="15" ry="20" fill="none" stroke="rgba(0,0,0,0.28)" strokeWidth="1.5" />
       <path d="M24 4 C 18 13, 18 35, 24 44" stroke="rgba(0,0,0,0.4)" strokeWidth="2.6" fill="none" strokeLinecap="round" />
-      <path d="M20 12 C 23 16, 25 20, 27 24" stroke="rgba(0,0,0,0.18)" strokeWidth="1.4" fill="none" strokeLinecap="round" />
     </svg>
   );
 }
 
-/** بطاقة حبة */
-function BeanTile({
-  base,
-  label,
-  pct,
-  hint,
-  tone,
-}: {
-  base: string;
-  label: string;
-  pct: number;
-  hint: string;
-  tone: "gold" | "dark";
-}) {
-  const { src, onError } = useImageCandidates(base);
-  const gold = tone === "gold";
-  return (
-    <div
-      className={cn(
-        "relative flex flex-col items-center gap-2 rounded-xl border p-3 text-center transition-all",
-        gold
-          ? "border-rv-gold/40 bg-rv-gold/[0.08]"
-          : "border-stone-600/40 bg-stone-800/40",
-      )}
-    >
-      <div
-        className={cn(
-          "grid size-14 place-items-center overflow-hidden rounded-full",
-          gold ? "bg-rv-gold/10" : "bg-black/30",
-        )}
-      >
-        {src ? (
-          <img src={src} onError={onError} alt={label} className="size-full object-cover" />
-        ) : (
-          <BeanSvg
-            color={gold ? ARABICA_GOLD : ROBUSTA_BROWN}
-            className="size-10 drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]"
-          />
-        )}
-      </div>
-      <div>
-        <p className={cn("font-mono text-xl font-black leading-none", gold ? "text-rv-gold" : "text-stone-200")}>
-          {pct}%
-        </p>
-        <p className="mt-1 text-xs font-bold">{label}</p>
-        <p className="mt-0.5 text-[10px] leading-snug text-muted-foreground">{hint}</p>
-      </div>
+/* --- صورة حبة في دائرة --- */
+function RoastBeanImage({ src, label, isActive }: { src: string; label: string; isActive: boolean }) {
+  const { src: imgSrc, onError } = useImageCandidates(src);
+  const sz = isActive ? 64 : 48;
+  return imgSrc ? (
+    <img src={imgSrc} onError={onError} alt={label} className="rounded-full object-cover" style={{ width: sz, height: sz }} />
+  ) : (
+    <div className="grid place-items-center rounded-full bg-amber-900/30" style={{ width: sz, height: sz }}>
+      <Coffee className="text-rv-gold/40" style={{ width: sz * 0.4, height: sz * 0.4 }} />
     </div>
   );
 }
 
+/* --- بار النكهة --- */
 function FlavorBar({ label, value, accent }: { label: string; value: number; accent: string }) {
   return (
     <div>
       <div className="flex items-center justify-between text-[11px]">
         <span className="font-bold">{label}</span>
-        <span className="font-mono text-muted-foreground">{value}/10</span>
+        <span className="font-mono text-stone-500">{value}/10</span>
       </div>
       <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-white/10">
-        <div
-          className="h-full rounded-full transition-all duration-500 ease-out"
-          style={{ width: `${value * 10}%`, background: accent }}
+        <motion.div
+          className="h-full rounded-full"
+          initial={false}
+          animate={{ width: `${value * 10}%` }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          style={{ background: accent }}
         />
       </div>
     </div>
   );
 }
 
-/* ============ البانر المخصص للخدمة ============ */
-
-function StudioBanner() {
-  const { src, onError } = useImageCandidates(IMAGES.banners.customBlend);
-
-  return (
-    <div className="relative overflow-hidden border-b border-white/10 bg-coffee-950">
-      {src ? (
-        <>
-          <img src={src} alt="" onError={onError} className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/60" />
-        </>
-      ) : (
-        <>
-          <div className="absolute inset-0 grid-editorial opacity-50" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: "radial-gradient(ellipse 75% 65% at 50% -10%, rgba(212,175,55,0.28), transparent 62%)",
-            }}
-          />
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-coffee-950 to-transparent" />
-        </>
-      )}
-
-      <div className="relative mx-auto w-full max-w-[1200px] px-4 py-12 text-center md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="inline-flex items-center gap-2 rounded-full border border-rv-gold/40 bg-black/40 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.4em] text-rv-gold backdrop-blur-sm">
-            <FlaskConical className="size-3.5" />
-            ROVENTO · Blend Lab
-          </p>
-
-          <h2 className="mx-auto mt-5 max-w-3xl text-2xl font-black leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            خلطتك الخاصة…
-            <span className="gold-gradient-text block">بنسب إنت تحددها</span>
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-stone-300 md:text-base">
-            حدد نسبة الأرابيكا والروبوستا، اختار التحميص والطحن والوزن — واحنا
-            نحمّص طازجًا وندمج ونغلّف خلطتك يدويًا ونتوصّلها لكل محافظات مصر خلال 24-72 ساعة.
-          </p>
-
-          <button
-            type="button"
-            onClick={() => document.getElementById("blend-studio")?.scrollIntoView({ behavior: "smooth" })}
-            className="btn-gold mt-6 inline-flex h-12 items-center gap-2 rounded-full px-8 text-sm font-black shadow-lg"
-          >
-            <Zap className="size-4" />
-            ابدأ الخلط دلوقتي
-          </button>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-/* ============ خطوات الخدمة ============ */
-
-const STEPS = [
-  { icon: Coffee, title: "حدد نسبك", desc: "اسحب المؤشر واختار التحميص والطحن" },
-  { icon: Zap, title: "نحمّصها طازج", desc: "على دفعات صغيرة في نفس يوم الطلب" },
-  { icon: FlaskConical, title: "ندمجها بدقة", desc: "خلط يدوي بالنسب المطلوبة بالضبط" },
-  { icon: Truck, title: "نوصلها ليك", desc: "تغليف + شحن لكل مصر 24-72 ساعة" },
-];
-
-function StudioSteps() {
-  return (
-    <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
-      {STEPS.map((s, i) => (
-        <div
-          key={s.title}
-          className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-3 transition-colors hover:border-rv-gold/40 md:p-4"
-        >
-          <div className="flex items-center justify-between">
-            <s.icon className="size-4 text-rv-gold" />
-            <span className="font-mono text-[10px] tracking-widest text-stone-500">0{i + 1}</span>
-          </div>
-          <p className="mt-2 text-sm font-black md:text-base">{s.title}</p>
-          <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{s.desc}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ============ الاستوديو التفاعلي ============ */
+/* ============================================================
+   المكون الرئيسي
+   ============================================================ */
 
 export function CustomBlendStudio() {
   const { add } = useCart();
   const [arabica, setArabica] = useState(70);
   const [roastId, setRoastId] = useState<RoastId>("medium");
-  const [grindId, setGrindId] = useState<(typeof GRINDS)[number]["id"]>("espresso");
-  const [weightId, setWeightId] = useState<(typeof WEIGHTS)[number]["id"]>("1kg");
+  const [grindId, setGrindId] = useState<string>("espresso");
+  const [weightId, setWeightId] = useState<string>("1kg");
 
   const robusta = 100 - arabica;
   const roast = ROASTS.find((r) => r.id === roastId)!;
@@ -506,15 +130,14 @@ export function CustomBlendStudio() {
   const grind = GRINDS.find((g) => g.id === grindId)!;
 
   const price = useMemo(() => round10(kgPrice(arabica) * weight.mult), [arabica, weight.mult]);
-  const oldPrice = useMemo(() => round10(price / 0.85), [price]);
   const closestPreset = PRESETS.find((p) => p.a === arabica);
 
   const profile = useMemo(() => {
-    const roastIntensity = { light: -1, medium: 0, "med-dark": 0.5, dark: 1, italian: 1.5 }[roastId] ?? 0;
-    const acid = roastIntensity < 0 ? 2 : roastIntensity < 0.5 ? 1 : roastIntensity < 1 ? 0.5 : -0.5;
-    const sweet = roastIntensity < 0 ? 1 : roastIntensity < 0.5 ? 1.5 : roastIntensity < 1 ? 1 : 0.5;
-    const body = roastIntensity < 0 ? -1 : roastIntensity < 0.5 ? 0.5 : roastIntensity < 1 ? 1 : 1.5;
-    const crema = roastIntensity < 0 ? -1 : roastIntensity < 0.5 ? 0 : roastIntensity < 1 ? 0.5 : 1;
+    const ri = { light: -1, medium: 0, dark: 1 }[roastId] ?? 0;
+    const acid = ri < 0 ? 2 : ri < 1 ? 0.5 : -0.5;
+    const sweet = ri < 0 ? 1 : ri < 1 ? 1.5 : 0.5;
+    const body = ri < 0 ? -1 : ri < 1 ? 0.5 : 1.5;
+    const crema = ri < 0 ? -1 : ri < 1 ? 0 : 1;
     return [
       { label: "الحموضة", value: clamp10(arabica / 10 + acid), accent: "#f59e0b" },
       { label: "الحلاوة", value: clamp10(arabica / 12 + sweet), accent: "#d4af37" },
@@ -525,22 +148,15 @@ export function CustomBlendStudio() {
   }, [arabica, robusta, roastId]);
 
   const intensity = useMemo(
-    () => Math.min(5, Math.max(1, Math.round(1 + robusta / 30 + ({ light: 0, medium: 0.5, "med-dark": 1, dark: 1.5, italian: 2 }[roastId] ?? 0)))),
+    () => Math.min(5, Math.max(1, Math.round(1 + robusta / 30 + ({ light: 0, medium: 0.5, dark: 1.5 }[roastId] ?? 0)))),
     [robusta, roastId],
   );
 
-  /** اقتراح ذكي لدرجة التحميص */
-  const suggestedRoast = useMemo(() => {
+  const suggestedRoast = useMemo<RoastId>(() => {
     if (arabica >= 80) return "medium";
-    if (arabica >= 55) return "med-dark";
-    if (arabica >= 35) return "dark";
-    return "italian";
+    if (arabica >= 45) return "dark";
+    return "dark";
   }, [arabica]);
-
-  const suggestedLabel = useMemo(() => {
-    const r = ROASTS.find((x) => x.id === suggestedRoast);
-    return r ? r.label : "";
-  }, [suggestedRoast]);
 
   const recipeKey = `cb-${arabica}-${roastId}-${grindId}-${weightId}`;
   const spec = {
@@ -559,26 +175,103 @@ export function CustomBlendStudio() {
   );
 
   return (
-    <section id="blend-lab" aria-label="خلطتك الخاصة — استوديو خلط القهوة" className="border-b border-white/10 bg-coffee-950">
-      <StudioBanner />
+    <section id="blend-lab" aria-label="مختبر روفينتو — صمّم خلطتك الخاصة" className="border-b border-white/10 bg-coffee-950">
+      {/* === البانر === */}
+      <div className="relative overflow-hidden border-b border-white/5 bg-gradient-to-b from-[#0d0b09] via-coffee-950 to-[#0d0b09]">
+        {/* توهج ذهبي خفيف */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/6 blur-[120px]" />
 
-      <div className="mx-auto w-full max-w-[1200px] px-4 py-12 md:px-6 md:py-16">
-        <StudioSteps />
+        <div className="relative mx-auto w-full max-w-[1200px] px-4 py-12 text-center md:py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="inline-flex items-center gap-2 rounded-full border border-rv-gold/30 bg-black/40 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.4em] text-rv-gold backdrop-blur-sm">
+              <FlaskConical className="size-3.5" />
+              ROVENTO · Blend Lab
+            </p>
 
-        {/* ===== الاستوديو ===== */}
-        <div id="blend-studio" className="mt-10 grid scroll-mt-28 gap-6 lg:grid-cols-[1fr_400px]">
-          {/* عمود التحكم */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] md:p-6">
-            {/* 01 — النسب */}
+            <h2 className="mx-auto mt-5 max-w-3xl text-2xl font-black leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
+              🧪 مختبر روفينتو —{" "}
+              <span className="gold-gradient-text">صمّم خلطتك الخاصة</span>
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-stone-300 md:text-base">
+              حدد نسب الأرابيكا والروبوستا، اختار التحميص والطحن — واحنا نحمّصها طازج ونوصلها لك
+            </p>
+
+            <button
+              type="button"
+              onClick={() => document.getElementById("blend-studio")?.scrollIntoView({ behavior: "smooth" })}
+              className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-gradient-to-r from-rv-gold to-[#b89728] px-8 text-sm font-black text-black shadow-lg shadow-rv-gold/20 transition hover:-translate-y-0.5 hover:shadow-rv-gold/40"
+            >
+              <Zap className="size-4" />
+              ابدأ الخلط دلوقتي
+            </button>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* === خطوات الخدمة === */}
+      <div className="mx-auto w-full max-w-[1200px] px-4 py-8 md:px-6">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          {[
+            { icon: Coffee, title: "حدد نسبك", desc: "اسحب المؤشر واختار التحميص والطحن" },
+            { icon: Zap, title: "نحمّصها طازج", desc: "على دفعات صغيرة في نفس يوم الطلب" },
+            { icon: FlaskConical, title: "ندمجها بدقة", desc: "خلط يدوي بالنسب المطلوبة بالضبط" },
+            { icon: Truck, title: "نوصلها ليك", desc: "تغليف + شحن لكل مصر 24-72 ساعة" },
+          ].map((s, i) => (
+            <div key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 transition-colors hover:border-rv-gold/30 md:p-4">
+              <div className="flex items-center justify-between">
+                <s.icon className="size-4 text-rv-gold" />
+                <span className="font-mono text-[10px] tracking-widest text-stone-600">0{i + 1}</span>
+              </div>
+              <p className="mt-2 text-sm font-black">{s.title}</p>
+              <p className="mt-1 text-[11px] leading-relaxed text-stone-500">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* === الاستوديو التفاعلي === */}
+      <div id="blend-studio" className="mx-auto w-full max-w-[1200px] scroll-mt-28 px-4 pb-12 md:px-6">
+        <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+          {/* === عمود التحكم === */}
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] md:p-6">
+
+            {/* --- 01: النسب --- */}
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">01 · النسب</p>
               <h3 className="mt-1 text-lg font-black md:text-xl">
                 أرابيكا × روبوستا — <span className="text-rv-gold">{arabica}/{robusta}</span>
               </h3>
 
+              {/* بطاقتا الحبوب */}
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <BeanTile base={IMAGES.beans.arabica} label="أرابيكا" pct={arabica} hint="حلاوة، حموضة، نكهات راقية" tone="gold" />
-                <BeanTile base={IMAGES.beans.robusta} label="روبوستا" pct={robusta} hint="كريما كثيفة، قوة، كافيين" tone="dark" />
+                {/* أرابيكا */}
+                <div className="relative flex flex-col items-center gap-2 rounded-xl border border-rv-gold/40 bg-rv-gold/[0.06] p-3 text-center">
+                  <div className="grid size-16 place-items-center overflow-hidden rounded-full bg-rv-gold/10">
+                    <BeanSvg color={ARABICA_GOLD} className="size-11 drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]" />
+                  </div>
+                  <div>
+                    <p className="font-mono text-2xl font-black leading-none text-rv-gold">{arabica}%</p>
+                    <p className="mt-1 text-xs font-bold text-stone-200">أرابيكا</p>
+                    <p className="mt-0.5 text-[10px] text-stone-500">حلاوة، حموضة، نكهات راقية</p>
+                  </div>
+                </div>
+                {/* روبوستا */}
+                <div className="relative flex flex-col items-center gap-2 rounded-xl border border-stone-600/40 bg-stone-800/30 p-3 text-center">
+                  <div className="grid size-16 place-items-center overflow-hidden rounded-full bg-black/30">
+                    <BeanSvg color={ROBUSTA_BROWN} className="size-11 drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]" />
+                  </div>
+                  <div>
+                    <p className="font-mono text-2xl font-black leading-none text-stone-200">{robusta}%</p>
+                    <p className="mt-1 text-xs font-bold text-stone-300">روبوستا</p>
+                    <p className="mt-0.5 text-[10px] text-stone-500">كريما كثيفة، قوة، كافيين</p>
+                  </div>
+                </div>
               </div>
 
               {/* السلايدر */}
@@ -595,12 +288,12 @@ export function CustomBlendStudio() {
                 />
                 <div className="mt-2 flex items-center justify-between text-[11px] font-bold">
                   <span className="text-stone-400">روبوستا</span>
-                  <span className="font-mono text-[10px] tracking-widest text-stone-500">0% ← أرابيكا → 100%</span>
+                  <span className="font-mono text-[10px] tracking-widest text-stone-600">0% ← أرابيكا → 100%</span>
                   <span className="text-rv-gold">أرابيكا</span>
                 </div>
               </div>
 
-              {/* وصفات جاهزة — بسيطة */}
+              {/* وصفات جاهزة */}
               <div className="mt-4 flex flex-wrap gap-2">
                 {PRESETS.map((p) => (
                   <button
@@ -616,109 +309,148 @@ export function CustomBlendStudio() {
                   >
                     {p.star && <Sparkles className="size-3 text-rv-gold" />}
                     {p.label}
+                    <span className="text-[10px] text-stone-500">({p.sub})</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 02 — التحميص */}
+            {/* --- 02: التحميص --- */}
             <div className="mt-6 border-t border-white/5 pt-5">
               <div className="flex items-center justify-between">
                 <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">02 · التحميص</p>
-                <span className="flex items-center gap-1.5 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-2.5 py-1 text-[10px] font-bold text-rv-gold">
-                  <Sparkles className="size-3" />
-                  نوصي بـ {suggestedLabel}
-                </span>
-              </div>
-
-              {/* السلايدر الدائري لدرجات التحميص */}
-              <div className="mt-4">
-                <RoastCarousel
-                  selected={roastId}
-                  onSelect={setRoastId}
-                  suggested={suggestedRoast}
-                />
-              </div>
-
-              {/* أزرار الدرجات الإضافية (متوسط-غامق + إيطالي) */}
-              <div className="mt-4 flex items-center justify-center gap-2">
-                {ROASTS.filter((r) => r.id === 'med-dark' || r.id === 'italian').map((r) => (
+                {suggestedRoast !== roastId && (
                   <button
-                    key={r.id}
                     type="button"
-                    onClick={() => setRoastId(r.id)}
-                    className={cn(
-                      "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-bold transition-all",
-                      roastId === r.id
-                        ? "border-rv-gold/60 bg-rv-gold/15 text-rv-gold"
-                        : "border-white/10 bg-white/[0.03] text-stone-400 hover:border-white/25",
-                    )}
+                    onClick={() => setRoastId(suggestedRoast)}
+                    className="flex items-center gap-1 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-2.5 py-1 text-[10px] font-bold text-rv-gold transition hover:bg-rv-gold/20"
                   >
-                    <span>{r.emoji}</span>
-                    <span>{r.label}</span>
-                    {suggestedRoast === r.id && roastId !== r.id && (
-                      <span className="flex items-center gap-0.5 text-[9px] text-rv-gold">
-                        <Sparkles className="size-2" />
-                        مقترح
-                      </span>
-                    )}
+                    <Sparkles className="size-2.5" />
+                    نوصي بـ {ROASTS.find((r) => r.id === suggestedRoast)?.label}
                   </button>
-                ))}
+                )}
+              </div>
+
+              {/* 3 أزرار التحميص مع صور */}
+              <div className="mt-4 grid grid-cols-3 gap-3">
+                {ROASTS.map((r) => {
+                  const isActive = roastId === r.id;
+                  const isSuggested = suggestedRoast === r.id;
+                  return (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => setRoastId(r.id)}
+                      className={cn(
+                        "group relative flex flex-col items-center gap-2 rounded-xl border p-3 text-center transition-all",
+                        isActive
+                          ? "border-rv-gold bg-rv-gold/10 shadow-[0_0_20px_rgba(201,162,39,0.15)]"
+                          : "border-white/10 bg-white/[0.02] hover:border-white/25",
+                      )}
+                    >
+                      {/* الدائرة */}
+                      <div
+                        className={cn(
+                          "relative flex items-center justify-center rounded-full transition-all duration-300",
+                          isActive ? "scale-110" : "scale-100",
+                        )}
+                        style={{
+                          width: isActive ? 72 : 56,
+                          height: isActive ? 72 : 56,
+                          border: isActive ? `3px solid ${ARABICA_GOLD}` : "2px solid rgba(255,255,255,0.12)",
+                          background: `radial-gradient(circle, ${r.id === "light" ? "#c4956a" : r.id === "medium" ? "#8B5E3C" : "#3D1F0D"}22, transparent)`,
+                        }}
+                      >
+                        <RoastBeanImage src={r.image} label={r.label} isActive={isActive} />
+                        {isActive && (
+                          <motion.div
+                            layoutId="roast-ring"
+                            className="absolute -inset-1 rounded-full border-2 border-rv-gold/40"
+                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                          />
+                        )}
+                      </div>
+
+                      <div>
+                        <span className="text-lg">{r.emoji}</span>
+                        <p className={cn("text-sm font-black", isActive ? "text-rv-gold" : "text-stone-300")}>
+                          {r.label}
+                        </p>
+                        <p className="text-[10px] text-stone-500">{r.desc}</p>
+                      </div>
+
+                      {isSuggested && !isActive && (
+                        <span className="absolute top-2 left-2 flex items-center gap-0.5 rounded-full bg-rv-gold/20 px-1.5 py-0.5 text-[8px] font-bold text-rv-gold">
+                          <Sparkles className="size-2" />
+                          مقترح
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* 03 — الطحن */}
+            {/* --- 03: الطحن --- */}
             <div className="mt-6 border-t border-white/5 pt-5">
               <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">03 · الطحن</p>
               <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {GRINDS.map((g) => (
-                  <button
-                    key={g.id}
-                    type="button"
-                    onClick={() => setGrindId(g.id)}
-                    className={cn(
-                      "rounded-xl border p-3 text-center transition-all",
-                      grindId === g.id
-                        ? "border-rv-gold bg-rv-gold/15 text-rv-gold"
-                        : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25",
-                    )}
-                  >
-                    <span className="block text-xs font-black">{g.label}</span>
-                  </button>
-                ))}
+                {GRINDS.map((g) => {
+                  const isActive = grindId === g.id;
+                  return (
+                    <button
+                      key={g.id}
+                      type="button"
+                      onClick={() => setGrindId(g.id)}
+                      className={cn(
+                        "rounded-xl border p-3 text-center transition-all",
+                        isActive
+                          ? "border-rv-gold bg-rv-gold/15 text-rv-gold"
+                          : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25",
+                      )}
+                    >
+                      <span className="block text-sm font-black">{g.label}</span>
+                      <span className="mt-0.5 block text-[10px] text-stone-500">{g.desc}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* 04 — الوزن */}
+            {/* --- 04: الوزن --- */}
             <div className="mt-6 border-t border-white/5 pt-5">
               <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">04 · الوزن</p>
               <div className="mt-3 grid grid-cols-3 gap-2">
-                {WEIGHTS.map((w) => (
-                  <button
-                    key={w.id}
-                    type="button"
-                    onClick={() => setWeightId(w.id)}
-                    className={cn(
-                      "rounded-xl border p-3 text-center transition-all",
-                      weightId === w.id
-                        ? "border-rv-gold bg-rv-gold/15 text-rv-gold"
-                        : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25",
-                    )}
-                  >
-                    <span className="block text-sm font-black">{w.label}</span>
-                    <span className="mt-1 block font-mono text-[11px] font-bold text-muted-foreground">
-                      {formatPrice(round10(kgPrice(arabica) * w.mult))}
-                    </span>
-                  </button>
-                ))}
+                {WEIGHTS.map((w) => {
+                  const isActive = weightId === w.id;
+                  const wPrice = round10(kgPrice(arabica) * w.mult);
+                  return (
+                    <button
+                      key={w.id}
+                      type="button"
+                      onClick={() => setWeightId(w.id)}
+                      className={cn(
+                        "rounded-xl border p-3 text-center transition-all",
+                        isActive
+                          ? "border-rv-gold bg-rv-gold/15 text-rv-gold"
+                          : "border-white/10 bg-white/[0.03] text-stone-300 hover:border-white/25",
+                      )}
+                    >
+                      <span className="block text-sm font-black">{w.label}</span>
+                      <span className="mt-1 block font-mono text-[11px] font-bold text-stone-500">
+                        {formatPrice(wPrice)}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          {/* عمود المعاينة */}
+          {/* === عمود المعاينة === */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <div className="overflow-hidden rounded-3xl border border-rv-gold/25 bg-gradient-to-b from-coffee-800/60 to-coffee-950/80 shadow-[0_0_50px_rgba(212,175,55,0.12)] backdrop-blur-xl">
-              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5 sm:py-4">
+            <div className="overflow-hidden rounded-3xl border border-rv-gold/20 bg-gradient-to-b from-coffee-800/50 to-coffee-950/80 shadow-[0_0_50px_rgba(212,175,55,0.08)] backdrop-blur-xl">
+              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5">
                 <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">خليطتك الحية</p>
                 <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold text-emerald-400">
                   <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
@@ -728,13 +460,14 @@ export function CustomBlendStudio() {
 
               <div className="p-4 sm:p-5 md:p-6">
                 {/* قرص النسب */}
-                <div className="mx-auto grid size-40 place-items-center rounded-full transition-all duration-500 sm:size-44 md:size-52"
+                <div
+                  className="mx-auto grid size-40 place-items-center rounded-full sm:size-44 md:size-48"
                   style={{
                     background: `conic-gradient(${ARABICA_GOLD} 0deg ${arabica * 3.6}deg, ${ROBUSTA_BROWN} ${arabica * 3.6}deg 360deg)`,
-                    boxShadow: "0 0 45px rgba(212,175,55,0.18)",
+                    boxShadow: "0 0 40px rgba(212,175,55,0.15)",
                   }}
                 >
-                  <div className="grid size-32 place-items-center rounded-full border border-white/15 bg-coffee-950/90 text-center md:size-40">
+                  <div className="grid size-32 place-items-center rounded-full border border-white/15 bg-coffee-950/90 text-center md:size-36">
                     <div>
                       <p className="font-mono text-2xl font-black text-rv-gold sm:text-3xl">{arabica}/{robusta}</p>
                       <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.3em] text-stone-400">أرابيكا/روبوستا</p>
@@ -749,7 +482,7 @@ export function CustomBlendStudio() {
                   ))}
                 </div>
 
-                {/* شدة الاستخلاص */}
+                {/* شدة القهوة */}
                 <div className="mt-4 flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-4 py-3">
                   <span className="text-xs font-bold">شدة القهوة</span>
                   <div className="flex gap-1.5" aria-label={`شدة ${intensity} من 5`}>
@@ -772,21 +505,17 @@ export function CustomBlendStudio() {
                   </p>
                 )}
 
-                {/* السعر + الإضافة للسلة */}
+                {/* السعر + الأزرار */}
                 <div className="mt-5 border-t border-white/10 pt-4">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="text-[11px] text-muted-foreground">سعر {weight.label}</p>
+                      <p className="text-[11px] text-stone-500">سعر {weight.label}</p>
                       <p className="mt-0.5 text-2xl font-black text-rv-gold sm:text-3xl">{formatPrice(price)}</p>
-                      <p className="mt-1 text-[11px]">
-                        <span className="text-stone-500 line-through">{formatPrice(oldPrice)}</span>
-                        <span className="ms-2 rounded bg-red-600/20 px-1.5 py-0.5 font-bold text-red-400">خصم أول طلب 15%</span>
-                      </p>
+                      <p className="mt-1 font-mono text-[10px] text-stone-500">{formatPrice(kgPrice(arabica))} / كجم</p>
                     </div>
-                    <p className="pb-1 font-mono text-[10px] text-stone-500">{formatPrice(kgPrice(arabica))} / كجم</p>
                   </div>
 
-                  <button type="button" onClick={handleAdd} className="btn-gold mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-black">
+                  <button type="button" onClick={handleAdd} className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rv-gold to-[#b89728] text-sm font-black text-black transition hover:brightness-110">
                     <ShoppingCart className="size-4.5" />
                     ضيف خلطتك للسلة
                   </button>
