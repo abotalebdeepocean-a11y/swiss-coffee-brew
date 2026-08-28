@@ -196,6 +196,7 @@ export function CartDrawer() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    phone2: "",
     address: "",
     city: "",
     governorate: "",
@@ -208,6 +209,7 @@ export function CartDrawer() {
     setFormData({
       name: "",
       phone: "",
+      phone2: "",
       address: "",
       city: "",
       governorate: "",
@@ -264,6 +266,7 @@ export function CartDrawer() {
       `👤 *بيانات الشحن:*`,
       `الاسم: ${formData.name}`,
       `الهاتف: ${formData.phone}`,
+      formData.phone2 ? `هاتف إضافي: ${formData.phone2}` : ``,
       `العنوان: ${formData.address}`,
       `المدينة: ${formData.city}`,
       `المحافظة: ${formData.governorate}`,
@@ -531,7 +534,7 @@ export function CartDrawer() {
                         setFormData({ ...formData, name: e.target.value })
                       }
                       placeholder="محمد أحمد"
-                      className="w-full rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2.5 text-sm text-white placeholder-stone-600 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                      className="w-full rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black placeholder-stone-400 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
                     />
                   </div>
 
@@ -552,7 +555,29 @@ export function CartDrawer() {
                           setFormData({ ...formData, phone: e.target.value })
                         }
                         placeholder="01XXXXXXXXX"
-                        className="flex-1 rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2.5 text-sm text-white placeholder-stone-600 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                        className="flex-1 rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black placeholder-stone-400 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Phone 2 (optional) */}
+                  <div>
+                    <label className="mb-1.5 flex items-center gap-1.5 text-[11px] font-bold text-stone-400">
+                      <Phone className="size-3" />
+                      رقم هاتف إضافي (اختياري)
+                    </label>
+                    <div className="flex gap-2">
+                      <span className="flex items-center rounded-lg border border-white/10 bg-white/[0.05] px-3 text-sm text-stone-500">
+                        +20
+                      </span>
+                      <input
+                        type="tel"
+                        value={formData.phone2}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone2: e.target.value })
+                        }
+                        placeholder="اختياري"
+                        className="flex-1 rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black placeholder-stone-400 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
                       />
                     </div>
                   </div>
@@ -572,13 +597,13 @@ export function CartDrawer() {
                             governorate: e.target.value,
                           })
                         }
-                        className="w-full appearance-none rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2.5 text-sm text-white outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                        className="w-full appearance-none rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
                       >
-                        <option value="" className="bg-stone-900">
+                        <option value="" className="bg-white text-black">
                           اختر المحافظة
                         </option>
                         {GOVERNORATES.map((g) => (
-                          <option key={g} value={g} className="bg-stone-900">
+                          <option key={g} value={g} className="bg-white text-black">
                             {g}
                           </option>
                         ))}
@@ -600,7 +625,7 @@ export function CartDrawer() {
                         setFormData({ ...formData, city: e.target.value })
                       }
                       placeholder="مثال: مدينة نصر، المعادي، التجمع الخامس"
-                      className="w-full rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2.5 text-sm text-white placeholder-stone-600 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                      className="w-full rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black placeholder-stone-400 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
                     />
                   </div>
 
@@ -617,7 +642,7 @@ export function CartDrawer() {
                       }
                       placeholder="الشارع، رقم المبنى، العمارة، الدور، الشقة"
                       rows={2}
-                      className="w-full resize-none rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2.5 text-sm text-white placeholder-stone-600 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                      className="w-full resize-none rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black placeholder-stone-400 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
                     />
                   </div>
 
@@ -667,7 +692,7 @@ export function CartDrawer() {
                         setFormData({ ...formData, notes: e.target.value })
                       }
                       placeholder="وقت التوصيل المفضل، علامة مميزة..."
-                      className="w-full rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2.5 text-sm text-white placeholder-stone-600 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
+                      className="w-full rounded-lg border border-white/10 bg-white px-3 py-2.5 text-sm text-black placeholder-stone-400 outline-none focus:border-rv-gold/50 focus:ring-1 focus:ring-rv-gold/30"
                     />
                   </div>
                 </div>
