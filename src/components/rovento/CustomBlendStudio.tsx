@@ -33,9 +33,9 @@ const ROASTS = [
 
 /** الصور الرئيسية الثلاثة للسلايدر */
 const ROAST_IMAGES = [
-  { id: "light" as const, label: "فاتح", desc: "حموضة مشرقة", sub: "Light Roast", image: IMAGES.roastLevels.light, compare: IMAGES.roastCompare.lightDark, color: "#c4956a" },
-  { id: "medium" as const, label: "متوسط", desc: "التوازن المثالي", sub: "Medium Roast", image: IMAGES.roastLevels.medium, compare: IMAGES.roastCompare.mediumLight, color: "#8B5E3C" },
-  { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, compare: IMAGES.roastCompare.darkMedium, color: "#3D1F0D" },
+  { id: "light" as const, label: "فاتح", desc: "حموضة مشرقة", sub: "Light Roast", image: IMAGES.roastLevels.light, color: "#c4956a" },
+  { id: "medium" as const, label: "متوسط", desc: "التوازن المثالي", sub: "Medium Roast", image: IMAGES.roastLevels.medium, color: "#8B5E3C" },
+  { id: "dark" as const, label: "غامق", desc: "كاكاو وجسم قوي", sub: "Dark Roast", image: IMAGES.roastLevels.dark, color: "#3D1F0D" },
 ] as const;
 
 /** خريطة تحويل الدرجات الفرعية للدرجة البصرية */
@@ -45,21 +45,21 @@ function visualIndex(roastId: RoastId): number {
   return 2; // dark or italian
 }
 
-/** صورة مقارنة درجات التحميص — تتحمل بـ fallback */
+/** صورة درجة التحميص — صورة واحدة فقط (بدون مقارنة) */
 function RoastCompareImage({
-  compareSrc,
+  imageSrc,
   label,
   active,
 }: {
-  compareSrc: string;
+  imageSrc: string;
   label: string;
   active: { id: string; label: string; sub: string };
 }) {
-  const { src, onError } = useImageCandidates(compareSrc);
+  const { src, onError } = useImageCandidates(imageSrc);
   return (
     <div className="relative mx-auto mb-6 overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ maxWidth: 360 }}>
       <motion.div
-        key={compareSrc}
+        key={imageSrc}
         initial={{ opacity: 0, scale: 1.05 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -69,7 +69,7 @@ function RoastCompareImage({
           <img
             src={src}
             onError={onError}
-            alt={`مقارنة درجات التحميص — ${label}`}
+            alt={`درجة التحميص — ${label}`}
             className="h-full w-full object-cover"
           />
         ) : (
@@ -161,8 +161,8 @@ function RoastCarousel({
 
   return (
     <div className="relative">
-      {/* صورة المقارنة — تتغير مع السلايدر */}
-      <RoastCompareImage compareSrc={active.compare} label={active.label} active={active} />
+      {/* صورة درجة التحميص — تتغير مع السلايدر */}
+      <RoastCompareImage imageSrc={active.image} label={active.label} active={active} />
 
       {/* الدوائر + الأسهم */}
       <div className="flex items-center justify-center gap-4">
