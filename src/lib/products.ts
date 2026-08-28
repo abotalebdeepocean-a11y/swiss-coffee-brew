@@ -61,12 +61,12 @@ export interface Product {
   testimonials?: { name: string; text: string; rating: number; date: string }[];
 }
 
-export const CATEGORIES: Category[] = [
-  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب مختارة من أجود المزارع، محمصة طازجة أسبوعيًا.", accent: "#c9a227", count: 3 },
-  { id: "espresso", name: "حبوب الإسبريسو", nameEn: "Espresso Beans", blurb: "بلندات مصممة خصيصًا لاستخلاص إسبريسو متكامل بالكريما.", accent: "#d03b1e", count: 2 },
-  { id: "capsules", name: "كبسولات", nameEn: "Capsules", blurb: "نفس الجودة في كبسولة جاهزة لكل لحظة.", accent: "#d03b1e", count: 1 },
-  { id: "machines", name: "ماكينات القهوة", nameEn: "Coffee Machines", blurb: "ماكينات إسبريسو واحترافية — من الموكا بوت إلى الأوتوماتيك بالكامل.", accent: "#c9a227", count: 6 },
-  { id: "accessories", name: "إكسسوارات وأدوات", nameEn: "Accessories", blurb: "مطاحن، موازين، أكواب وكل ما يحتاجه الباريستا المنزلي.", accent: "#002fa7", count: 7 },
+const CATEGORIES_RAW: Omit<Category, "count">[] = [
+  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب مختارة من أجود المزارع، محمصة طازجة أسبوعيًا.", accent: "#c9a227" },
+  { id: "espresso", name: "حبوب الإسبريسو", nameEn: "Espresso Beans", blurb: "بلندات مصممة خصيصًا لاستخلاص إسبريسو متكامل بالكريما.", accent: "#d03b1e" },
+  { id: "capsules", name: "كبسولات", nameEn: "Capsules", blurb: "نفس الجودة في كبسولة جاهزة لكل لحظة.", accent: "#d03b1e" },
+  { id: "machines", name: "ماكينات القهوة", nameEn: "Coffee Machines", blurb: "ماكينات إسبريسو واحترافية — من الموكا بوت إلى الأوتوماتيك بالكامل.", accent: "#c9a227" },
+  { id: "accessories", name: "إكسسوارات وأدوات", nameEn: "Accessories", blurb: "مطاحن، موازين، أكواب وكل ما يحتاجه الباريستا المنزلي.", accent: "#002fa7" },
 ];
 
 export const PRODUCTS: Product[] = [
@@ -463,6 +463,15 @@ export const PRODUCTS: Product[] = [
     isNew: true,
   },
 ];
+
+/** الفئات مع العدد الفعلي للمنتجات — محسوبة ديناميكيًا */
+export const CATEGORIES: Category[] = CATEGORIES_RAW.map((c) => ({
+  ...c,
+  count: PRODUCTS.filter((p) => p.category === c.id).length,
+}));
+
+/** الفئات التي بها منتجات فعلًا — تُستخدم في الفلاتر والتنقل */
+export const ACTIVE_CATEGORIES: Category[] = CATEGORIES.filter((c) => c.count > 0);
 
 export const CATEGORY_MAP: Record<CategoryId, Category> = Object.fromEntries(
   CATEGORIES.map((c) => [c.id, c]),
