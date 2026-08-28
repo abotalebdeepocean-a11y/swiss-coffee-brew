@@ -316,53 +316,159 @@ function BlendSummaryText({ arabica, robusta, roast, grind }: { arabica: number;
   );
 }
 
-/* --- زر حفظ الخلطة --- */
-function SaveBlendButton({ recipeKey, spec }: { recipeKey: string; spec: { label: string; detail: string } }) {
-  const [saved, setSaved] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-
-  const handleSave = useCallback(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem("rovento-saved-blends") || "[]") as { key: string; label: string; detail: string; date: string }[];
-      if (!saved.find((s) => s.key === recipeKey)) {
-        saved.unshift({ key: recipeKey, label: spec.label, detail: spec.detail, date: new Date().toISOString() });
-        localStorage.setItem("rovento-saved-blends", JSON.stringify(saved.slice(0, 10)));
-      }
-      setSaved(true);
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setSaved(false), 2000);
-    } catch { /* تجاهل */ }
-  }, [recipeKey, spec]);
-
-  const handleShare = useCallback(async () => {
-    const url = `${window.location.origin}/#blend-lab?blend=${recipeKey}`;
-    if (navigator.share) {
-      try { await navigator.share({ title: spec.label, text: spec.detail, url }); } catch { /* تجاهل */ }
-    } else {
-      try { await navigator.clipboard.writeText(url); setCopied(true); clearTimeout(timeoutRef.current); timeoutRef.current = setTimeout(() => setCopied(false), 2000); } catch { /* تجاهل */ }
+/* --- QR Code SVG for Blend Cards --- */
+function QRCodeSvg({ blendKey, size = 80 }: { blendKey: string; size?: number }) {
+  const matrix = useMemo(() => {
+    const s = 21;
+    const m: boolean[][] = Array.from({ length: s }, () => Array(s).fill(false));
+    const set = (r: number, c: number, v = true) => { if (r >= 0 && r < s && c >= 0 && c < s) m[r][c] = v; };
+    // Finders
+    for (let i = 0; i < 7; i++) { set(0, i); set(6, i); set(i, 0); set(i, 6); set(0, s - 1 - i); set(6, s - 1 - i); set(s - 7, i); set(s - 1, i); }
+    for (let i = 0; i < 5; i++) { set(2, i + 2); set(4, i + 2); set(i + 2, 2); set(i + 2, 4); set(2, s - 3 - i); set(4, s - 3 - i); set(s - 3, i + 2); set(s - 1, i + 2); }
+    // Data from hash
+    let h = 0;
+    for (let i = 0; i < blendKey.length; i++) { h = ((h << 5) - h + blendKey.charCodeAt(i)) | 0; }
+    let seed = Math.abs(h) || 1;
+    const rng = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+    for (let r = 0; r < s; r++) for (let c = 0; c < s; c++) {
+      if (r < 9 && c < 9) continue;
+      if (r < 9 && c > s - 9) continue;
+      if (r > s - 9 && c < 9) continue;
+      if ((r === 6) || (c === 6)) { m[r][c] = (r + c) % 2 === 0; continue; }
+      m[r][c] = rng() > 0.5;
     }
-  }, [recipeKey, spec]);
+    return m;
+  }, [blendKey]);
+  const s = 21;
+  const cell = size / s;
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} width={size} height={size} aria-label="QR Code">
+      <rect width={size} height={size} fill="white" rx="4" />
+      {matrix.flatMap((row, r) => row.map((v, c) => v ? (
+        <rect key={`${r}-${c}`} x={c * cell} y={r * cell} width={cell} height={cell} fill="#0d0b09" rx={cell * 0.12} />
+      ) : null))}
+      <rect x={size * 0.38} y={size * 0.38} width={size * 0.24} height={size * 0.24} fill="#C9A227" rx="3" />
+      <text x={size * 0.5} y={size * 0.53} textAnchor="middle" fill="white" fontSize="7" fontWeight="900" fontFamily="sans-serif">R</text>
+    </svg>
+  );
+}
+
+/* --- نموذج حفظ الخلطة --- */
+interface SavedBlend { id: string; name: string; description: string; maker: string; arabica: number; robusta: number; roastId: RoastId; grindId: string; weightId: string; date: string; price: number; }
+
+function SaveBlendModal({ open, onClose, onSave, blendKey, arabica, robusta, roastId, grindId, weightId, price }: {
+  open: boolean; onClose: () => void; onSave: (blend: SavedBlend) => void;
+  blendKey: string; arabica: number; robusta: number; roastId: RoastId; grindId: string; weightId: string; price: number;
+}) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [maker, setMaker] = useState("");
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-md rounded-3xl border border-rv-gold/30 bg-[#0d0b09] p-6 shadow-2xl">
+        <div className="mb-5 flex items-center gap-2">
+          <Bookmark className="size-5 text-rv-gold" />
+          <h3 className="text-lg font-black">احفظ خلطتك</h3>
+        </div>
+        <div className="space-y-3">
+          <div>
+            <label className="mb-1 block text-xs font-bold text-stone-400">اسم الخلطة *</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="مثال: خلطة الصباحية"
+              className="h-11 w-full rounded-xl border border-white/10 bg-white/[0.05] px-3 text-sm text-white placeholder:text-stone-600 focus:border-rv-gold focus:outline-none" />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-bold text-stone-400">وصف قصير (اختياري)</label>
+            <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="وصف للخلطة..."
+              className="h-11 w-full rounded-xl border border-white/10 bg-white/[0.05] px-3 text-sm text-white placeholder:text-stone-600 focus:border-rv-gold focus:outline-none" />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-bold text-stone-400">اسم صانع الخلطة *</label>
+            <input type="text" value={maker} onChange={(e) => setMaker(e.target.value)} placeholder="اسمك..."
+              className="h-11 w-full rounded-xl border border-white/10 bg-white/[0.05] px-3 text-sm text-white placeholder:text-stone-600 focus:border-rv-gold focus:outline-none" />
+          </div>
+        </div>
+        <div className="mt-5 flex gap-2">
+          <button onClick={onClose} className="flex-1 rounded-xl border border-white/10 py-2.5 text-sm font-bold text-stone-400 transition hover:text-white">إلغاء</button>
+          <button onClick={() => { if (name.trim() && maker.trim()) { onSave({ id: blendKey, name: name.trim(), description: description.trim(), maker: maker.trim(), arabica, robusta, roastId, grindId, weightId, date: new Date().toISOString(), price }); onClose(); } }}
+            className="flex-1 rounded-xl bg-gradient-to-r from-rv-gold to-[#b89728] py-2.5 text-sm font-black text-black transition hover:brightness-110">احفظ ✓</button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* --- كرت الخلطة --- */
+function BlendCard({ blend, onClose }: { blend: SavedBlend; onClose: () => void }) {
+  const roast = ROASTS.find((r) => r.id === blend.roastId)!;
+  const grind = GRINDS.find((g) => g.id === blend.grindId)!;
+  const flavors = prominentFlavors(blend.arabica, blend.roastId);
+  const shareUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/#blend-lab?blend=${blend.id}`;
+
+  async function handleDownload() {
+    const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600">
+      <rect width="400" height="600" rx="24" fill="#0d0b09"/>
+      <rect x="1" y="1" width="398" height="598" rx="23" fill="none" stroke="#C9A227" stroke-width="2"/>
+      <text x="200" y="50" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="900" fill="#C9A227">ROVENTO</text>
+      <text x="200" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a8a29e">BLEND LAB</text>
+      <line x1="40" y1="88" x2="360" y2="88" stroke="#C9A227" stroke-width="1" opacity="0.3"/>
+      <text x="200" y="125" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="900" fill="white">${blend.name}</text>
+      <text x="200" y="148" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#a8a29e">${blend.description || "خلطة مخصصة"}</text>
+      <text x="200" y="172" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#C9A227">صانع الخلطة: ${blend.maker}</text>
+      <rect x="30" y="195" width="340" height="60" rx="12" fill="rgba(201,162,39,0.08)" stroke="rgba(201,162,39,0.2)"/>
+      <text x="115" y="218" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="900" fill="#C9A227">${blend.arabica}%</text>
+      <text x="115" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a8a29e">أرابيكا</text>
+      <text x="285" y="218" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="900" fill="#a8a29e">${blend.robusta}%</text>
+      <text x="285" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a8a29e">روبوستا</text>
+      <text x="200" y="218" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="900" fill="white">×</text>
+      <text x="200" y="290" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">${roast.emoji} تحميص ${roast.label}  ·  ⚙️ طحن ${grind.label}</text>
+      <text x="200" y="310" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a8a29e">النكهات: ${flavors.join(" · ")}</text>
+      <text x="200" y="370" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a8a29e">${new Date(blend.date).toLocaleDateString("ar-EG")}</text>
+      <text x="200" y="565" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#a8a29e">rovento.site</text>
+    </svg>`;
+    const blob = new Blob([svgStr], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 800; canvas.height = 1200;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, 800, 1200);
+      URL.revokeObjectURL(url);
+      canvas.toBlob((b) => { if (b) { const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `${blend.name}.png`; a.click(); URL.revokeObjectURL(a.href); } }, "image/png");
+    };
+    img.src = url;
+  }
 
   return (
-    <div className="flex gap-2">
-      <button
-        type="button"
-        onClick={handleSave}
-        className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition-all hover:border-rv-gold/40 hover:text-rv-gold"
-      >
-        {saved ? <Check className="size-3.5 text-emerald-400" /> : <Bookmark className="size-3.5" />}
-        {saved ? "تم الحفظ ✓" : "احفظ خلطتي"}
-      </button>
-      <button
-        type="button"
-        onClick={handleShare}
-        className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition-all hover:border-rv-gold/40 hover:text-rv-gold"
-      >
-        {copied ? <Check className="size-3.5 text-emerald-400" /> : <Copy className="size-3.5" />}
-        {copied ? "تم النسخ ✓" : "نسخ رابط"}
-      </button>
-    </div>
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="rounded-3xl border border-rv-gold/25 bg-[#0d0b09] p-5 shadow-2xl">
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-rv-gold">كرت الخلطة</p>
+        <button onClick={onClose} className="text-xs text-stone-500 hover:text-white">✕</button>
+      </div>
+      <div className="mt-4 text-center">
+        <p className="text-lg font-black text-white">{blend.name}</p>
+        {blend.description && <p className="mt-1 text-xs text-stone-400">{blend.description}</p>}
+        <p className="mt-1 text-[11px] text-rv-gold">صانع الخلطة: {blend.maker}</p>
+      </div>
+      <div className="mt-4 flex items-center gap-4 rounded-xl border border-rv-gold/15 bg-rv-gold/[0.05] p-3">
+        <div className="flex-1 text-center"><p className="text-xl font-black text-rv-gold">{blend.arabica}%</p><p className="text-[10px] text-stone-400">أرابيكا</p></div>
+        <span className="text-lg text-stone-600">×</span>
+        <div className="flex-1 text-center"><p className="text-xl font-black text-stone-300">{blend.robusta}%</p><p className="text-[10px] text-stone-400">روبوستا</p></div>
+      </div>
+      <p className="mt-3 text-center text-xs text-stone-300">{roast.emoji} تحميص {roast.label} · ⚙️ طحن {grind.label}</p>
+      <div className="mt-3 flex flex-wrap justify-center gap-1.5">{flavors.map((f) => (
+        <span key={f} className="rounded-full border border-rv-gold/20 bg-rv-gold/[0.06] px-2.5 py-0.5 text-[10px] font-bold text-rv-gold/80">{f}</span>
+      ))}</div>
+      <div className="mt-4 flex justify-center"><QRCodeSvg blendKey={blend.id} size={80} /></div>
+      <div className="mt-4 flex gap-2">
+        <button onClick={async () => { await navigator.clipboard.writeText(shareUrl); }} className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition hover:border-rv-gold/40 hover:text-rv-gold"><Copy className="size-3" />نسخ رابط</button>
+        <a href={whatsappLink(`خلطة ${blend.name}: ${blend.arabica}% أرابيكا · تحميص ${roast.label} · طحن ${grind.label}\n${shareUrl}`)} target="_blank" rel="noopener noreferrer" className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-emerald-500/30 py-2.5 text-[11px] font-bold text-emerald-400 transition hover:bg-emerald-500/10"><WhatsAppIcon className="size-3" />مشاركة واتساب</a>
+        <button onClick={handleDownload} className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition hover:border-rv-gold/40 hover:text-rv-gold"><Sparkles className="size-3" />تحميل صورة</button>
+      </div>
+    </motion.div>
   );
 }
 
@@ -376,6 +482,8 @@ export function CustomBlendStudio() {
   const [roastId, setRoastId] = useState<RoastId>("medium");
   const [grindId, setGrindId] = useState<string>("espresso");
   const [weightId, setWeightId] = useState<string>("1kg");
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [savedBlend, setSavedBlend] = useState<SavedBlend | null>(null);
 
   const robusta = 100 - arabica;
   const roast = ROASTS.find((r) => r.id === roastId)!;
@@ -778,8 +886,24 @@ export function CustomBlendStudio() {
                     </div>
                   </div>
 
-                  {/* حفظ + نسخ رابط */}
-                  <SaveBlendButton recipeKey={recipeKey} spec={spec} />
+                  {/* حفظ + مشاركة */}
+                  <div className="flex gap-2">
+                    <button type="button" onClick={() => setShowSaveModal(true)} className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition-all hover:border-rv-gold/40 hover:text-rv-gold">
+                      <Bookmark className="size-3.5" />
+                      احفظ خلطتي
+                    </button>
+                    <button type="button" onClick={async () => { await navigator.clipboard.writeText(`${window.location.origin}/#blend-lab?blend=${recipeKey}`); }} className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition-all hover:border-rv-gold/40 hover:text-rv-gold">
+                      <Copy className="size-3.5" />
+                      نسخ رابط
+                    </button>
+                  </div>
+
+                  {/* كرت الخلطة المحفوظة */}
+                  {savedBlend && (
+                    <div className="mt-3">
+                      <BlendCard blend={savedBlend} onClose={() => setSavedBlend(null)} />
+                    </div>
+                  )}
 
                   <button type="button" onClick={handleAdd} className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rv-gold to-[#b89728] text-sm font-black text-black transition hover:brightness-110">
                     <ShoppingCart className="size-4.5" />
@@ -800,6 +924,28 @@ export function CustomBlendStudio() {
           </div>
         </div>
       </div>
+
+      {/* نموذج حفظ الخلطة */}
+      <SaveBlendModal
+        open={showSaveModal}
+        onClose={() => setShowSaveModal(false)}
+        onSave={(blend) => {
+          setSavedBlend(blend);
+          try {
+            const saved = JSON.parse(localStorage.getItem("rovento-saved-blends") || "[]") as SavedBlend[];
+            const exists = saved.findIndex((s) => s.id === blend.id);
+            if (exists >= 0) saved[exists] = blend; else saved.unshift(blend);
+            localStorage.setItem("rovento-saved-blends", JSON.stringify(saved.slice(0, 20)));
+          } catch { /* تجاهل */ }
+        }}
+        blendKey={recipeKey}
+        arabica={arabica}
+        robusta={robusta}
+        roastId={roastId}
+        grindId={grindId}
+        weightId={weightId}
+        price={price}
+      />
     </section>
   );
 }
