@@ -71,18 +71,24 @@ export function Hero() {
 
           {/* الشعار الرئيسي */}
           <h1 className="font-display text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            <span className="text-rv-cream">القهوة المختصة...</span>
+            <span className="text-rv-cream">دلوقتي هتعرف تختار</span>
             <br />
-            <span className="gold-gradient-text">بطابع إيطالي.</span>
+            <span className="gold-gradient-text">حبوب قهوة متحمصة</span>
+            <br />
+            <span className="text-rv-cream">بالطريقة الي تناسبك</span>
           </h1>
           <p className="mt-1 font-display text-sm italic tracking-wider text-rv-gold/70">
-            Specialty Coffee... Italian Soul
+            افضل جودة تحميص بمعايير عالمية
           </p>
 
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-300 md:text-lg lg:mx-0">
-            5 بلندات فاخرة — من البار انتينسو القوي للكولومبيا الأصيلة.
+          <p className="mx-auto max-w-2xl text-xs leading-relaxed text-stone-400 md:text-sm lg:mx-0">
+            5 خلطات فاخرة — هنضملك الحصول على قهوة نقية باعلى معايير الجودة.
             <br className="hidden md:block" />
-            <span className="text-rv-gold">تحميص طازج يومياً في مصر. شحن مجاني لكل المحافظات.</span>
+            تحميص طازج يومياً في مصر. شحن مجاني لكل المحافظات.
+          </p>
+
+          <p className="mx-auto max-w-2xl text-xs leading-relaxed text-stone-400 md:text-sm lg:mx-0 italic">
+            ما تنساش تقولنا رايك بعد ما تفتح الكيس وتشم ريحة القهوة !!
           </p>
 
           {/* أبرز المزايا — 3 نقاط سريعة */}
@@ -159,20 +165,45 @@ export function Hero() {
               />
             </div>
 
-            {/* بادجات أسفل الكيسين */}
+            {/* منتجين طائرين — بريميوم + كولومبيا */}
             <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
-              <div className="flex items-center gap-2 rounded-full border border-rv-gold/30 bg-coffee-900/90 px-5 py-2.5 backdrop-blur-sm">
-                <Crown className="size-4 text-rv-gold" />
-                <span className="text-sm font-black text-white">PREMIUM</span>
-                <span className="text-xs text-stone-400">100% أرابيكا</span>
-                <span className="text-sm font-black text-rv-gold">850 ج.م</span>
-              </div>
-              <div className="flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-900/80 px-5 py-2.5 backdrop-blur-sm">
-                <Star className="size-3.5 fill-emerald-400 text-emerald-400" />
-                <span className="text-sm font-black text-emerald-100">CLASSIC</span>
-                <span className="text-xs text-emerald-300">70% أرابيكا</span>
-                <span className="text-sm font-black text-emerald-200">750 ج.م</span>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex items-center gap-2 rounded-xl border border-rv-gold/30 bg-coffee-900/90 px-4 py-3 backdrop-blur-sm hover:border-rv-gold/60 hover:bg-coffee-900/95 transition-all cursor-pointer"
+              >
+                <BagVisual
+                  image={IMAGES.bags.premium}
+                  variant="premium"
+                  alt="كيس روفينتو بريميوم"
+                  className="h-14 w-auto object-contain"
+                />
+                <div className="text-start">
+                  <span className="text-sm font-black text-white">PREMIUM</span>
+                  <p className="text-[10px] text-stone-400">النسر الأخضر</p>
+                  <span className="text-sm font-black text-rv-gold">850 ج.م</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.55 }}
+                className="flex items-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-900/80 px-4 py-3 backdrop-blur-sm hover:border-emerald-400/60 hover:bg-emerald-900/95 transition-all cursor-pointer"
+              >
+                <BagVisual
+                  image={IMAGES.bags.colombia}
+                  variant="colombia"
+                  alt="كيس روفينتو كولومبيا"
+                  className="h-14 w-auto object-contain"
+                />
+                <div className="text-start">
+                  <span className="text-sm font-black text-emerald-100">COLOMBIA</span>
+                  <p className="text-[10px] text-emerald-300">سингل أوريجن</p>
+                  <span className="text-sm font-black text-emerald-200">900 ج.م</span>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
