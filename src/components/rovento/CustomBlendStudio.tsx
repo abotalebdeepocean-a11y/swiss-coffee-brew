@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { motion } from "framer-motion";
 import {
   FlaskConical,
@@ -7,6 +7,10 @@ import {
   Truck,
   Zap,
   Coffee,
+  Bookmark,
+  Share2,
+  Check,
+  Copy,
 } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { useCart, whatsappLink } from "@/lib/store";
@@ -228,6 +232,138 @@ function prominentFlavors(a: number, roastId: RoastId): string[] {
   }
   if (roastId === "dark") flavors.push("نُكَة مُحمّصة");
   return flavors;
+}
+
+/* --- وعاء الحبوب الدائري --- */
+function BeanBowl({ arabica, robusta, roastId }: { arabica: number; robusta: number; roastId: RoastId }) {
+  // لون الحبوب يتدرج حسب النسبة والتحميص
+  const roastDark = { light: 0.3, medium: 0.6, dark: 1 }[roastId] ?? 0.5;
+  const arabicaColor = `rgb(${Math.round(180 - roastDark * 120)}, ${Math.round(130 - roastDark * 80)}, ${Math.round(60 - roastDark * 40)})`;
+  const robustaColor = `rgb(${Math.round(74 - roastDark * 40)}, ${Math.round(44 - roastDark * 25)}, ${Math.round(26 - roastDark * 15)})`;
+  const bowlBg = `rgb(${Math.round(30 - roastDark * 15)}, ${Math.round(20 - roastDark * 10)}, ${Math.round(15 - roastDark * 8)})`;
+
+  // عدد الحبوب في كل قسم
+  const totalBeans = 24;
+  const arabicaCount = Math.round((arabica / 100) * totalBeans);
+  const robustaCount = totalBeans - arabicaCount;
+
+  // توزيع عشوائي لكن ثابت
+  const beans = useMemo(() => {
+    const arr: { x: number; y: number; color: string; size: number; rot: number }[] = [];
+    for (let i = 0; i < totalBeans; i++) {
+      const angle = (i / totalBeans) * Math.PI * 2 + (i % 3) * 0.15;
+      const r = 28 + (i % 4) * 12;
+      arr.push({
+        x: 75 + r * Math.cos(angle),
+        y: 75 + r * Math.sin(angle),
+        color: i < arabicaCount ? arabicaColor : robustaColor,
+        size: 6 + (i % 3) * 1.5,
+        rot: (i * 37) % 360,
+      });
+    }
+    return arr;
+  }, [arabicaCount, arabicaColor, robustaColor]);
+
+  return (
+    <div className="relative">
+      <svg viewBox="0 0 150 150" className="w-full" aria-label="وعاء الحبوب">
+        {/* خلفية الوعاء */}
+        <circle cx="75" cy="75" r="68" fill={bowlBg} stroke="rgba(201,162,39,0.3)" strokeWidth="1.5" />
+        {/* توهج داخلي */}
+        <circle cx="75" cy="75" r="60" fill="none" stroke="rgba(201,162,39,0.08)" strokeWidth="0.5" />
+        {/* الحبوب */}
+        {beans.map((b, i) => (
+          <ellipse
+            key={i}
+            cx={b.x}
+            cy={b.y}
+            rx={b.size * 0.6}
+            ry={b.size}
+            fill={b.color}
+            transform={`rotate(${b.rot} ${b.x} ${b.y})`}
+            opacity={0.85}
+          />
+        ))}
+        {/* حافة الوعاء */}
+        <circle cx="75" cy="75" r="68" fill="none" stroke="rgba(201,162,39,0.2)" strokeWidth="2" />
+      </svg>
+      {/* صمام أحادي */}
+      <div className="absolute top-2 right-2 flex items-center gap-1 rounded-full border border-stone-600/50 bg-stone-900/80 px-2 py-1 backdrop-blur-sm">
+        <svg viewBox="0 0 16 16" className="size-3" aria-label="صمام أحادي">
+          <circle cx="8" cy="8" r="6" fill="none" stroke="#C9A227" strokeWidth="1.5" />
+          <path d="M6 5 L10 8 L6 11" fill="none" stroke="#C9A227" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <span className="text-[8px] font-bold text-stone-400">صمام أحادي</span>
+      </div>
+    </div>
+  );
+}
+
+/* --- نص الخلطة المتحرك --- */
+function BlendSummaryText({ arabica, robusta, roast, grind }: { arabica: number; robusta: number; roast: string; grind: string }) {
+  return (
+    <motion.p
+      key={`${arabica}-${roast}-${grind}`}
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+      className="text-center text-xs leading-relaxed text-stone-300"
+    >
+      خلطتك: <span className="font-black text-rv-gold">{arabica}% أرابيكا</span> —
+      تحميص <span className="font-black text-rv-gold">{roast}</span> —
+      طحن <span className="font-black text-rv-gold">{grind}</span>
+    </motion.p>
+  );
+}
+
+/* --- زر حفظ الخلطة --- */
+function SaveBlendButton({ recipeKey, spec }: { recipeKey: string; spec: { label: string; detail: string } }) {
+  const [saved, setSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const handleSave = useCallback(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("rovento-saved-blends") || "[]") as { key: string; label: string; detail: string; date: string }[];
+      if (!saved.find((s) => s.key === recipeKey)) {
+        saved.unshift({ key: recipeKey, label: spec.label, detail: spec.detail, date: new Date().toISOString() });
+        localStorage.setItem("rovento-saved-blends", JSON.stringify(saved.slice(0, 10)));
+      }
+      setSaved(true);
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setSaved(false), 2000);
+    } catch { /* تجاهل */ }
+  }, [recipeKey, spec]);
+
+  const handleShare = useCallback(async () => {
+    const url = `${window.location.origin}/#blend-lab?blend=${recipeKey}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: spec.label, text: spec.detail, url }); } catch { /* تجاهل */ }
+    } else {
+      try { await navigator.clipboard.writeText(url); setCopied(true); clearTimeout(timeoutRef.current); timeoutRef.current = setTimeout(() => setCopied(false), 2000); } catch { /* تجاهل */ }
+    }
+  }, [recipeKey, spec]);
+
+  return (
+    <div className="flex gap-2">
+      <button
+        type="button"
+        onClick={handleSave}
+        className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition-all hover:border-rv-gold/40 hover:text-rv-gold"
+      >
+        {saved ? <Check className="size-3.5 text-emerald-400" /> : <Bookmark className="size-3.5" />}
+        {saved ? "تم الحفظ ✓" : "احفظ خلطتي"}
+      </button>
+      <button
+        type="button"
+        onClick={handleShare}
+        className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-[11px] font-bold text-stone-300 transition-all hover:border-rv-gold/40 hover:text-rv-gold"
+      >
+        {copied ? <Check className="size-3.5 text-emerald-400" /> : <Copy className="size-3.5" />}
+        {copied ? "تم النسخ ✓" : "نسخ رابط"}
+      </button>
+    </div>
+  );
 }
 
 /* ============================================================
@@ -573,20 +709,19 @@ export function CustomBlendStudio() {
               </div>
 
               <div className="p-4 sm:p-5 md:p-6">
-                {/* قرص النسب */}
-                <div
-                  className="mx-auto grid size-40 place-items-center rounded-full sm:size-44 md:size-48"
-                  style={{
-                    background: `conic-gradient(${ARABICA_GOLD} 0deg ${arabica * 3.6}deg, ${ROBUSTA_BROWN} ${arabica * 3.6}deg 360deg)`,
-                    boxShadow: "0 0 40px rgba(212,175,55,0.15)",
-                  }}
-                >
-                  <div className="grid size-32 place-items-center rounded-full border border-white/15 bg-coffee-950/90 text-center md:size-36">
-                    <div>
-                      <p className="font-mono text-2xl font-black text-rv-gold sm:text-3xl">{arabica}/{robusta}</p>
-                      <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.3em] text-stone-400">أرابيكا/روبوستا</p>
-                    </div>
+                {/* وعاء الحبوب + النسب */}
+                <div className="relative mx-auto w-full max-w-[220px]">
+                  <BeanBowl arabica={arabica} robusta={robusta} roastId={roastId} />
+                  {/* النسب في المركز */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <p className="font-mono text-2xl font-black text-rv-gold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-3xl">{arabica}/{robusta}</p>
+                    <p className="font-mono text-[8px] uppercase tracking-[0.3em] text-stone-400 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">أرابيكا/روبوستا</p>
                   </div>
+                </div>
+
+                {/* نص الخلطة المتحرك */}
+                <div className="mt-4">
+                  <BlendSummaryText arabica={arabica} robusta={robusta} roast={roast.label} grind={grind.label} />
                 </div>
 
                 {/* رادار الملف التذوقي */}
@@ -642,6 +777,9 @@ export function CustomBlendStudio() {
                       <p className="mt-1 font-mono text-[10px] text-stone-500">{formatPrice(kgPrice(arabica))} / كجم</p>
                     </div>
                   </div>
+
+                  {/* حفظ + نسخ رابط */}
+                  <SaveBlendButton recipeKey={recipeKey} spec={spec} />
 
                   <button type="button" onClick={handleAdd} className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rv-gold to-[#b89728] text-sm font-black text-black transition hover:brightness-110">
                     <ShoppingCart className="size-4.5" />
