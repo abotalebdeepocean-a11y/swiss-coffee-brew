@@ -92,25 +92,142 @@ function RoastBeanImage({ src, label, isActive }: { src: string; label: string; 
   );
 }
 
-/* --- بار النكهة --- */
-function FlavorBar({ label, value, accent }: { label: string; value: number; accent: string }) {
+/* --- رادار 6 محاور SVG --- */
+const RADAR_AXES = [
+  { key: "acidity", label: "الحموضة", angle: -90 },
+  { key: "sweetness", label: "الحلاوة", angle: -30 },
+  { key: "body", label: "الجسم", angle: 30 },
+  { key: "crema", label: "الكريما", angle: 90 },
+  { key: "caffeine", label: "الكافيين", angle: 150 },
+  { key: "bitterness", label: "المرارة", angle: 210 },
+] as const;
+
+function FlavorRadar({ values }: { values: Record<string, number> }) {
+  const cx = 140, cy = 140, maxR = 110;
+  const levels = [2, 4, 6, 8, 10];
+
+  function polarToXY(angleDeg: number, r: number) {
+    const rad = (angleDeg * Math.PI) / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
+
+  function polygonPoints(scale: number) {
+    return RADAR_AXES
+      .map((axis) => {
+        const pt = polarToXY(axis.angle, (scale / 10) * maxR);
+        return `${pt.x},${pt.y}`;
+      })
+      .join(" ");
+  }
+
+  // Data polygon
+  const dataPoints = RADAR_AXES.map((axis) => {
+    const val = values[axis.key] ?? 5;
+    return polarToXY(axis.angle, (val / 10) * maxR);
+  });
+  const dataPath = dataPoints.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + "Z";
+
   return (
-    <div>
-      <div className="flex items-center justify-between text-[11px]">
-        <span className="font-bold">{label}</span>
-        <span className="font-mono text-stone-500">{value}/10</span>
-      </div>
-      <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-white/10">
-        <motion.div
-          className="h-full rounded-full"
-          initial={false}
-          animate={{ width: `${value * 10}%` }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          style={{ background: accent }}
+    <svg viewBox="0 0 280 280" className="w-full" aria-label="رادار النكهة">
+      {/* خلفية الدوائر */}
+      {levels.map((lv) => (
+        <polygon
+          key={lv}
+          points={polygonPoints(lv)}
+          fill="none"
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth="1"
         />
-      </div>
-    </div>
+      ))}
+
+      {/* المحاور */}
+      {RADAR_AXES.map((axis) => {
+        const end = polarToXY(axis.angle, maxR);
+        return (
+          <line
+            key={axis.key}
+            x1={cx}
+            y1={cy}
+            x2={end.x}
+            y2={end.y}
+            stroke="rgba(255,255,255,0.08)"
+            strokeWidth="1"
+          />
+        );
+      })}
+
+      {/* المنطقة الملونة */}
+      <motion.path
+        d={dataPath}
+        fill="rgba(201,162,39,0.2)"
+        stroke="#C9A227"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
+        initial={false}
+        animate={{ d: dataPath }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      />
+
+      {/* النقاط + التسميات */}
+      {RADAR_AXES.map((axis) => {
+        const val = values[axis.key] ?? 5;
+        const pt = polarToXY(axis.angle, (val / 10) * maxR);
+        const labelPt = polarToXY(axis.angle, maxR + 18);
+        return (
+          <g key={axis.key}>
+            <circle cx={pt.x} cy={pt.y} r="4" fill="#C9A227" stroke="#0d0b09" strokeWidth="2" />
+            <text
+              x={labelPt.x}
+              y={labelPt.y}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill="#a8a29e"
+              fontSize="10"
+              fontWeight="700"
+              fontFamily="Cairo, sans-serif"
+            >
+              {axis.label}
+            </text>
+            <text
+              x={pt.x}
+              y={pt.y - 10}
+              textAnchor="middle"
+              fill="#C9A227"
+              fontSize="9"
+              fontWeight="900"
+              fontFamily="monospace"
+            >
+              {val}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
   );
+}
+
+/* --- النكهات البارزة --- */
+function prominentFlavors(a: number, roastId: RoastId): string[] {
+  const flavors: string[] = [];
+  if (a >= 80) {
+    flavors.push("فواكه") ;
+    if (roastId === "light") flavors.push("زهور", "حموضة مشرقة");
+    else flavors.push("كراميل", "شوكولاتة خفيفة");
+  } else if (a >= 60) {
+    flavors.push("كراميل", "شوكولاتة");
+    if (roastId === "light") flavors.push("فواكه مجففة");
+    else flavors.push("جوز", "توت");
+  } else if (a >= 40) {
+    flavors.push("كاكاو", "قهوة مركزة");
+    if (roastId === "dark") flavors.push("مُرّ خفيف", "توابل");
+    else flavors.push("كراميل مُحمّص");
+  } else {
+    flavors.push("كاكاو مركّز", "قهوة قوية");
+    if (roastId === "dark") flavors.push("فحم معتدل", "شوكولاتة داكنة");
+    else flavors.push("توابل خفيفة");
+  }
+  if (roastId === "dark") flavors.push("نُكَة مُحمّصة");
+  return flavors;
 }
 
 /* ============================================================
@@ -132,19 +249,16 @@ export function CustomBlendStudio() {
   const price = useMemo(() => round10(kgPrice(arabica) * weight.mult), [arabica, weight.mult]);
   const closestPreset = PRESETS.find((p) => p.a === arabica);
 
-  const profile = useMemo(() => {
+  const radarValues = useMemo(() => {
     const ri = { light: -1, medium: 0, dark: 1 }[roastId] ?? 0;
-    const acid = ri < 0 ? 2 : ri < 1 ? 0.5 : -0.5;
-    const sweet = ri < 0 ? 1 : ri < 1 ? 1.5 : 0.5;
-    const body = ri < 0 ? -1 : ri < 1 ? 0.5 : 1.5;
-    const crema = ri < 0 ? -1 : ri < 1 ? 0 : 1;
-    return [
-      { label: "الحموضة", value: clamp10(arabica / 10 + acid), accent: "#f59e0b" },
-      { label: "الحلاوة", value: clamp10(arabica / 12 + sweet), accent: "#d4af37" },
-      { label: "الجسم", value: clamp10(robusta / 10 + body), accent: "#a16207" },
-      { label: "الكريما", value: clamp10(robusta / 6 + crema), accent: "#b45309" },
-      { label: "الكافيين", value: clamp10(robusta / 7), accent: "#78350f" },
-    ];
+    return {
+      acidity: clamp10(arabica / 10 + (ri < 0 ? 2 : ri < 1 ? 0.5 : -0.5)),
+      sweetness: clamp10(arabica / 12 + (ri < 0 ? 1 : ri < 1 ? 1.5 : 0.5)),
+      body: clamp10(robusta / 10 + (ri < 0 ? -1 : ri < 1 ? 0.5 : 1.5)),
+      crema: clamp10(robusta / 6 + (ri < 0 ? -1 : ri < 1 ? 0 : 1)),
+      caffeine: clamp10(robusta / 7),
+      bitterness: clamp10(robusta / 8 + (ri < 0 ? -0.5 : ri < 1 ? 0.5 : 1.5)),
+    };
   }, [arabica, robusta, roastId]);
 
   const intensity = useMemo(
@@ -475,11 +589,25 @@ export function CustomBlendStudio() {
                   </div>
                 </div>
 
-                {/* ملف النكهة */}
-                <div className="mt-5 space-y-2.5">
-                  {profile.map((f) => (
-                    <FlavorBar key={f.label} {...f} />
-                  ))}
+                {/* رادار الملف التذوقي */}
+                <div className="mt-5">
+                  <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-widest text-stone-500">الملف التذوقي</p>
+                  <FlavorRadar values={radarValues} />
+                </div>
+
+                {/* النكهات البارزة */}
+                <div className="mt-4">
+                  <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-widest text-stone-500">النكهات البارزة</p>
+                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                    {prominentFlavors(arabica, roastId).map((f) => (
+                      <span
+                        key={f}
+                        className="rounded-full border border-rv-gold/25 bg-rv-gold/[0.08] px-3 py-1 text-[11px] font-bold text-rv-gold/80"
+                      >
+                        {f}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* شدة القهوة */}
