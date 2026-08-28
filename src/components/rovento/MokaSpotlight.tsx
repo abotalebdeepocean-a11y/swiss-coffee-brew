@@ -21,8 +21,8 @@ import { WhatsAppIcon } from "./art";
 
 /** مقارنة القيمة — المكنة لوحدها vs الباقة */
 const VALUE_COMPARISON = [
-  { item: "موكا بوت Brikka الأصلية",单独: 1800 },
-  { item: "كيس ROVENTO Premium 1 كجم",单独: 1200 },
+  { item: "موكا بوت Brikka الأصلية", soloPrice: 1800 },
+  { item: "كيس ROVENTO Premium 1 كجم", soloPrice: 1200 },
 ];
 
 /** لماذا بريكا — 4 نقاط قوية */
@@ -41,7 +41,7 @@ const WHY_BRIKKA = [
   {
     icon: ShieldCheck,
     title: "إيطالي أصلي 100%",
-    desc: "Bialetti من 1933 — الجودة الإيطالية الأصيلة اللي بي.conf她全世界.",
+    desc: "Bialetti من 1933 — الجودة الإيطالية الأصيلة اللي ثقتها أكتر من 100 مليون عميل حول العالم.",
   },
   {
     icon: Flame,
@@ -62,7 +62,7 @@ export function MokaSpotlight() {
 
   const BUNDLE_PRICE = 2999;
   const ORIGINAL_PRICE =
-    VALUE_COMPARISON.reduce((s, v) => s + v.单独, 0);
+    VALUE_COMPARISON.reduce((s, v) => s + v.soloPrice, 0);
   const SAVINGS = ORIGINAL_PRICE - BUNDLE_PRICE;
 
   return (
@@ -177,7 +177,7 @@ export function MokaSpotlight() {
                       {v.item}
                     </span>
                     <span className="font-mono text-stone-400">
-                      {formatPrice(v.单独)}
+                      {formatPrice(v.soloPrice)}
                     </span>
                   </div>
                 ))}
