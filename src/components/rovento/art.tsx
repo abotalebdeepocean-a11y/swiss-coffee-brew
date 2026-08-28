@@ -235,9 +235,9 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 /* ------------------------------------------------------------------ */
 export function Logo({ className, size = "default" }: { className?: string; size?: "small" | "default" | "large" }) {
   const sizeClasses = {
-    small: "h-8 md:h-9",
-    default: "h-10 md:h-12",
-    large: "h-14 md:h-18",
+    small: "h-8 md:h-10",
+    default: "h-12 md:h-14",
+    large: "h-16 md:h-20",
   };
 
   return (

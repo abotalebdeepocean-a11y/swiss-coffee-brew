@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
 import { Hero } from "@/components/rovento/Hero";
-import { BannerSlider } from "@/components/rovento/BannerSlider";
 import { SignatureCollection } from "@/components/rovento/SignatureCollection";
 import { ProductsGrid } from "@/components/rovento/ProductsGrid";
 import { OfferSection } from "@/components/rovento/OfferSection";
@@ -19,16 +18,15 @@ import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 
 export default function Landing() {
   useEffect(() => {
-    document.title = "ROVENTO — القهوة المختصة... بطابع إيطالي | Specialty Coffee, Italian Soul";
+    document.title = "ROVENTO — محمصة قهوة مختصة في مصر | Specialty Coffee, Made in Egypt";
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-[#0A0A0A] text-stone-100 antialiased font-sans">
+    <div dir="rtl" className="min-h-screen bg-[#0d0b09] text-stone-100 antialiased font-sans">
       <Header />
       <main>
-        <BannerSlider />
         <Hero />
         <SignatureCollection />
         <ProductsGrid />
