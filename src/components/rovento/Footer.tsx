@@ -105,15 +105,7 @@ export function Footer() {
             </p>
             <p className="flex items-center gap-2">
               <Phone className="size-3.5 text-rv-gold" />
-              <span dir="ltr">01013181967</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <Phone className="size-3.5 text-rv-gold" />
-              <span dir="ltr">01013181967</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <Phone className="size-3.5 text-rv-gold" />
-              
+              <span dir="ltr">+201013181967</span>
             </p>
             <p className="flex items-center gap-2">
               <Mail className="size-3.5 text-rv-gold" />

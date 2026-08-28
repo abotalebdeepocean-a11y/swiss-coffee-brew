@@ -70,7 +70,7 @@ export function Header() {
 
       {/* شريط التنقل */}
       <div className="border-b border-stone-800 bg-coffee-900/90 backdrop-blur-md">
-        <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4 md:h-20 md:px-6">
+        <div className="mx-auto flex h-20 w-full max-w-[1200px] items-center justify-between gap-4 px-4 md:h-24 md:px-6">
           <Link to="/" aria-label="روڤينتو — الرئيسية">
             <Logo size="large" />
           </Link>
