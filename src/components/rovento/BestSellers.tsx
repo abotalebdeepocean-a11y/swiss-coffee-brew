@@ -88,7 +88,7 @@ export function BestSellers() {
         <div className="mt-8 text-center">
           <Link
             to="/shop"
-            className="inline-flex h-12 items-center gap-2 rounded-xl border border-rv-gold/40 px-6 text-sm font-bold text-rv-gold transition-colors hover:bg-rv-gold hover:text-black"
+            className="btn-gold inline-flex h-12 items-center gap-2 rounded-[10px] px-8 text-sm font-bold transition-all"
           >
             عرض كل المنتجات
             <ArrowLeft className="size-4" />

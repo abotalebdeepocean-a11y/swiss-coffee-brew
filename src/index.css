@@ -278,11 +278,17 @@
     background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
     color: #0c0a09;
     font-weight: 900;
-    transition: all 0.2s ease;
+    border-radius: 10px;
+    padding: 12px 28px;
+    transition: all 0.25s ease;
   }
   .btn-gold:hover {
     background: linear-gradient(135deg, #e5c24a 0%, #d4af37 100%);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 6px 24px rgba(201, 162, 39, 0.35);
+    transform: translateY(-2px);
+  }
+  .btn-gold:active {
+    transform: translateY(0);
   }
 
   /* Hide scrollbar for horizontal carousels */

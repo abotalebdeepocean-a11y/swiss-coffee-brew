@@ -250,10 +250,10 @@ export function ProductsGrid() {
                 <div className="p-4 pt-3">
                   <button
                     onClick={() => handleAdd(product.slug)}
-                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold transition-all duration-300 ${
+                    className={`flex w-full items-center justify-center gap-2 py-3 text-sm font-bold transition-all duration-300 ${
                       isAdded
-                        ? "bg-rv-gold/20 text-rv-gold border border-rv-gold/30"
-                        : "bg-gradient-to-r from-rv-gold to-[#d4b96a] text-black hover:from-[#d4b96a] hover:to-rv-gold hover:shadow-[0_6px_24px_rgba(201,169,97,0.3)] hover:-translate-y-0.5"
+                        ? "rounded-[10px] bg-rv-gold/20 text-rv-gold border border-rv-gold/30"
+                        : "rounded-[10px] bg-gradient-to-r from-rv-gold to-[#d4b96a] text-black hover:from-[#d4b96a] hover:to-rv-gold hover:shadow-[0_8px_30px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 hover:scale-[1.02]"
                     }`}
                   >
                     {isAdded ? (
@@ -285,7 +285,7 @@ export function ProductsGrid() {
         >
           <Link
             to="/shop"
-            className="inline-flex items-center gap-2 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-10 py-3.5 text-sm font-bold text-rv-gold transition-all hover:bg-rv-gold/20 hover:shadow-[0_0_40px_rgba(201,169,97,0.15)]"
+            className="btn-gold inline-flex items-center gap-2 rounded-[10px] px-10 py-3.5 text-sm font-bold transition-all"
           >
             عرض كل المنتجات ←
           </Link>
