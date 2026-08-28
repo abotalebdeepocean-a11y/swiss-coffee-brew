@@ -10,7 +10,7 @@ import {
 import { PRODUCTS, getProduct, variantOf, formatPrice } from "./products";
 
 /** ⚠️ ضع رقم واتساب المتجر هنا بصيغة دولية بدون + أو أصفار بادئة */
-export const WHATSAPP_NUMBER = "201013181967";
+export const WHATSAPP_NUMBER = "201033012381";
 
 export interface CartItem {
   slug: string;

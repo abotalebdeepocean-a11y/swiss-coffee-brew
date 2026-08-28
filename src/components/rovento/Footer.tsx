@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Check, MapPin, MessageCircle, Phone, Mail } from "lucide-react";
+import { Check, MapPin, MessageCircle, Phone, Mail, Globe } from "lucide-react";
 import { Logo, WhatsAppIcon } from "./art";
 import { whatsappLink } from "@/lib/store";
+
+const PHONE_NUMBERS = [
+  { number: "01033012381", label: "خط رئيسي" },
+  { number: "01042324842", label: "خط ثانوي" },
+  { number: "01042320848", label: "خط ثالث" },
+];
 
 const PAYMENTS = [
   { label: "Visa", cls: "text-blue-400" },
@@ -100,21 +106,75 @@ export function Footer() {
           </p>
           <div className="space-y-2 text-xs">
             <p className="flex items-center gap-2">
-              <MapPin className="size-3.5 text-rv-gold" />
+              <MapPin className="size-3.5 shrink-0 text-rv-gold" />
               القاهرة، مصر
             </p>
-            <p className="flex items-center gap-2">
-              <Phone className="size-3.5 text-rv-gold" />
-              <span dir="ltr">+201013181967</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <Mail className="size-3.5 text-rv-gold" />
+            {PHONE_NUMBERS.map((p) => (
+              <a
+                key={p.number}
+                href={`tel:+20${p.number}`}
+                className="flex items-center gap-2 transition-colors hover:text-rv-gold"
+              >
+                <Phone className="size-3.5 shrink-0 text-rv-gold" />
+                <span dir="ltr">{p.number}</span>
+                <span className="text-stone-600">({p.label})</span>
+              </a>
+            ))}
+            <a
+              href="mailto:info@rovento.site"
+              className="flex items-center gap-2 transition-colors hover:text-rv-gold"
+            >
+              <Mail className="size-3.5 shrink-0 text-rv-gold" />
               info@rovento.site
-            </p>
-            <p className="flex items-center gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="size-3.5 text-rv-gold" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </a>
+            <a
+              href="https://www.rovento.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-colors hover:text-rv-gold"
+            >
+              <Globe className="size-3.5 shrink-0 text-rv-gold" />
               <span dir="ltr">www.rovento.site</span>
-            </p>
+            </a>
+          </div>
+
+          {/* QR Code للموقع */}
+          <div className="mt-3 flex items-center gap-3 rounded-xl border border-stone-800 bg-coffee-900 p-3">
+            <div className="shrink-0">
+              <svg viewBox="0 0 100 100" className="size-16" aria-label="QR Code لـ www.rovento.site">
+                {/* QR Code pattern for rovento.site */}
+                <rect width="100" height="100" fill="white" rx="8" />
+                {/* Top-left finder */}
+                <rect x="8" y="8" width="24" height="24" fill="#0d0b09" rx="2" />
+                <rect x="12" y="12" width="16" height="16" fill="white" rx="1" />
+                <rect x="15" y="15" width="10" height="10" fill="#0d0b09" rx="1" />
+                {/* Top-right finder */}
+                <rect x="68" y="8" width="24" height="24" fill="#0d0b09" rx="2" />
+                <rect x="72" y="12" width="16" height="16" fill="white" rx="1" />
+                <rect x="75" y="15" width="10" height="10" fill="#0d0b09" rx="1" />
+                {/* Bottom-left finder */}
+                <rect x="8" y="68" width="24" height="24" fill="#0d0b09" rx="2" />
+                <rect x="12" y="72" width="16" height="16" fill="white" rx="1" />
+                <rect x="15" y="75" width="10" height="10" fill="#0d0b09" rx="1" />
+                {/* Data pattern */}
+                {[38,42,46,50,54,58].map(x => [38,42,46,50].map(y => (
+                  <rect key={`${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0d0b09" opacity={((x+y) % 6 < 3) ? 1 : 0.3} />
+                )))}
+                {[38,42,46].map(x => [8,12,16].map(y => (
+                  <rect key={`t-${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0d0b09" opacity={((x*y) % 5 < 3) ? 1 : 0.3} />
+                )))}
+                {[8,12,16].map(x => [38,42,46,50].map(y => (
+                  <rect key={`l-${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0d0b09" opacity={((x+y) % 4 < 2) ? 1 : 0.3} />
+                )))}
+                {/* Gold center accent */}
+                <circle cx="50" cy="50" r="6" fill="#C9A227" />
+                <circle cx="50" cy="50" r="3" fill="white" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-[11px] font-bold text-stone-300">امسح الكود للزيارة</p>
+              <p className="text-[10px] text-stone-500" dir="ltr">www.rovento.site</p>
+            </div>
           </div>
 
           {/* سوشيال ميديا */}
@@ -218,7 +278,7 @@ export function Footer() {
           </span>
           <div>
             <p className="font-bold text-white">اطلب مباشرة عبر واتساب</p>
-            <p className="text-xs text-stone-400">رد سريع من ٩ صباحًا حتى ١١ مساءً</p>
+            <p className="text-xs text-stone-400">رد سريع من ٩ صباحًا حتى ١١ مساءً — <span dir="ltr">01033012381</span></p>
           </div>
         </div>
         <a
