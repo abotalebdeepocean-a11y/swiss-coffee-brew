@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROVENTO — تحميل الفاتورة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #1a1410;
+    color: #f5f0e8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: linear-gradient(135deg, #2c2218, #1a1410);
+    border: 1px solid rgba(212,175,55,.3);
+    border-radius: 16px;
+    padding: 40px 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+  }
+  .logo {
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, #d4af37, #b89728);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #1a1410;
+    margin: 0 auto 16px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+  h1 span { color: #d4af37; }
+  .subtitle {
+    font-size: 13px;
+    color: #8a7a6a;
+    margin-bottom: 28px;
+  }
+  .file-info {
+    background: rgba(212,175,55,.08);
+    border: 1px solid rgba(212,175,55,.15);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .file-info strong { color: #d4af37; }
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #d4af37, #b89728);
+    color: #1a1410;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 36px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s;
+    box-shadow: 0 4px 16px rgba(212,175,55,.3);
+  }
+  .dl-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212,175,55,.45);
+  }
+  .dl-btn svg { width: 22px; height: 22px; }
+  .tip {
+    margin-top: 18px;
+    font-size: 11px;
+    color: #8a7a6a;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">R</div>
+    <h1>فاتورة <span>روڤينتو</span></h1>
+    <p class="subtitle">ROVENTO — Sales Invoice A5</p>
+
+    <div class="file-info">
+      <strong>📄 rovento-invoice-A5.doc</strong><br>
+      مقاس A5 • جاهز للطباعة • قابل للتعديل
+    </div>
+
+    <a href="/rovento-invoice-A5.doc" download class="dl-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      تحميل ملف Word
+    </a>
+
+    <p class="tip">
+      اضغط الزر ثم افتح الملف بـ Microsoft Word<br>
+      يمكنك تعديل أي بند مباشرة في الوورد
+    </p>
+  </div>
+</body>
+</html>
