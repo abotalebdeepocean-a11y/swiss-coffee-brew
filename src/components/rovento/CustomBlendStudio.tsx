@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FlaskConical,
   ShoppingCart,
@@ -210,27 +210,69 @@ function FlavorRadar({ values }: { values: Record<string, number> }) {
   );
 }
 
-/* --- النكهات البارزة --- */
-function prominentFlavors(a: number, roastId: RoastId): string[] {
-  const flavors: string[] = [];
-  if (a >= 80) {
-    flavors.push("فواكه") ;
-    if (roastId === "light") flavors.push("زهور", "حموضة مشرقة");
-    else flavors.push("كراميل", "شوكولاتة خفيفة");
-  } else if (a >= 60) {
-    flavors.push("كراميل", "شوكولاتة");
-    if (roastId === "light") flavors.push("فواكه مجففة");
-    else flavors.push("جوز", "توت");
+/* --- النكهات البارزة مع إيموجي --- */
+function prominentFlavors(a: number, roastId: RoastId): { label: string; emoji: string }[] {
+  const flavors: { label: string; emoji: string }[] = [];
+  if (a >= 90) {
+    if (roastId === "light") {
+      flavors.push({ label: "ليمون", emoji: "🍋" });
+      flavors.push({ label: "عسل", emoji: "🍯" });
+      flavors.push({ label: "زهور بيضاء", emoji: "🌸" });
+      flavors.push({ label: "توت", emoji: "🫐" });
+      flavors.push({ label: "حموضة مشرقة", emoji: "✨" });
+    } else if (roastId === "medium") {
+      flavors.push({ label: "شوكولاتة", emoji: "🍫" });
+      flavors.push({ label: "كراميل", emoji: "🍬" });
+      flavors.push({ label: "فواكه مجففة", emoji: "🍑" });
+      flavors.push({ label: "زهور", emoji: "🌸" });
+    } else {
+      flavors.push({ label: "شوكولاتة غنية", emoji: "🍫" });
+      flavors.push({ label: "مكسرات محمصة", emoji: "🥜" });
+      flavors.push({ label: "كراميل داكن", emoji: "🍮" });
+      flavors.push({ label: "نُكَة مُحمّصة", emoji: "🔥" });
+    }
+  } else if (a >= 65) {
+    if (roastId === "light") {
+      flavors.push({ label: "كراميل", emoji: "🍬" });
+      flavors.push({ label: "شوكولاتة خفيفة", emoji: "🍫" });
+      flavors.push({ label: "فواكه", emoji: "🍑" });
+      flavors.push({ label: "حموضة", emoji: "🍋" });
+    } else if (roastId === "medium") {
+      flavors.push({ label: "شوكولاتة", emoji: "🍫" });
+      flavors.push({ label: "كراميل", emoji: "🍬" });
+      flavors.push({ label: "جوز", emoji: "🥜" });
+      flavors.push({ label: "توت", emoji: "🫐" });
+    } else {
+      flavors.push({ label: "شوكولاتة داكنة", emoji: "🍫" });
+      flavors.push({ label: "مكسرات", emoji: "🥜" });
+      flavors.push({ label: "جسم كثيف", emoji: "💪" });
+      flavors.push({ label: "نُكَة مُحمّصة", emoji: "🔥" });
+    }
   } else if (a >= 40) {
-    flavors.push("كاكاو", "قهوة مركزة");
-    if (roastId === "dark") flavors.push("مُرّ خفيف", "توابل");
-    else flavors.push("كراميل مُحمّص");
+    if (roastId === "dark") {
+      flavors.push({ label: "كاكاو", emoji: "🍫" });
+      flavors.push({ label: "مُرّ خفيف", emoji: "🌿" });
+      flavors.push({ label: "توابل", emoji: "🌶️" });
+      flavors.push({ label: "كراميل مُحمّص", emoji: "🍮" });
+    } else {
+      flavors.push({ label: "كاكاو", emoji: "🍫" });
+      flavors.push({ label: "قهوة مركزة", emoji: "☕" });
+      flavors.push({ label: "كراميل", emoji: "🍬" });
+      flavors.push({ label: "توابل", emoji: "🌶️" });
+    }
   } else {
-    flavors.push("كاكاو مركّز", "قهوة قوية");
-    if (roastId === "dark") flavors.push("فحم معتدل", "شوكولاتة داكنة");
-    else flavors.push("توابل خفيفة");
+    if (roastId === "dark") {
+      flavors.push({ label: "كاكاو مركّز", emoji: "🍫" });
+      flavors.push({ label: "شوكولاتة داكنة", emoji: "🍫" });
+      flavors.push({ label: "فحم معتدل", emoji: "🔥" });
+      flavors.push({ label: "قوة عالية", emoji: "💪" });
+    } else {
+      flavors.push({ label: "كاكاو", emoji: "🍫" });
+      flavors.push({ label: "قهوة قوية", emoji: "☕" });
+      flavors.push({ label: "توابل خفيفة", emoji: "🌶️" });
+      flavors.push({ label: "كراميل مُحمّص", emoji: "🍮" });
+    }
   }
-  if (roastId === "dark") flavors.push("نُكَة مُحمّصة");
   return flavors;
 }
 
@@ -460,7 +502,7 @@ function BlendCard({ blend, onClose }: { blend: SavedBlend; onClose: () => void 
       </div>
       <p className="mt-3 text-center text-xs text-stone-300">{roast.emoji} تحميص {roast.label} · ⚙️ طحن {grind.label}</p>
       <div className="mt-3 flex flex-wrap justify-center gap-1.5">{flavors.map((f) => (
-        <span key={f} className="rounded-full border border-rv-gold/20 bg-rv-gold/[0.06] px-2.5 py-0.5 text-[10px] font-bold text-rv-gold/80">{f}</span>
+        <span key={f.label} className="inline-flex items-center gap-1 rounded-full border border-rv-gold/20 bg-rv-gold/[0.06] px-2.5 py-0.5 text-[10px] font-bold text-rv-gold/80"><span>{f.emoji}</span>{f.label}</span>
       ))}</div>
       <div className="mt-4 flex justify-center"><QRCodeSvg blendKey={blend.id} size={80} /></div>
       <div className="mt-4 flex gap-2">
@@ -838,18 +880,25 @@ export function CustomBlendStudio() {
                   <FlavorRadar values={radarValues} />
                 </div>
 
-                {/* النكهات البارزة */}
+                {/* النكهات البارزة مع إيموجي وحركة */}
                 <div className="mt-4">
                   <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-widest text-stone-500">النكهات البارزة</p>
                   <div className="flex flex-wrap items-center justify-center gap-1.5">
-                    {prominentFlavors(arabica, roastId).map((f) => (
-                      <span
-                        key={f}
-                        className="rounded-full border border-rv-gold/25 bg-rv-gold/[0.08] px-3 py-1 text-[11px] font-bold text-rv-gold/80"
-                      >
-                        {f}
-                      </span>
-                    ))}
+                    <AnimatePresence mode="popLayout">
+                      {prominentFlavors(arabica, roastId).map((f, i) => (
+                        <motion.span
+                          key={`${f.label}-${roastId}`}
+                          initial={{ opacity: 0, scale: 0.8, y: 8 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.8, y: -8 }}
+                          transition={{ duration: 0.3, delay: i * 0.05 }}
+                          className="inline-flex items-center gap-1 rounded-full border border-rv-gold/25 bg-rv-gold/[0.08] px-3 py-1 text-[11px] font-bold text-rv-gold/80"
+                        >
+                          <span className="text-xs">{f.emoji}</span>
+                          {f.label}
+                        </motion.span>
+                      ))}
+                    </AnimatePresence>
                   </div>
                 </div>
 
