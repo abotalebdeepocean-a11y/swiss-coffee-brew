@@ -89,7 +89,7 @@ export function BannerSlider() {
       onMouseLeave={() => setPaused(false)}
     >
       {/* أبعاد مسؤولة: أعلى على الموبايل، أوسع على الشاشات الكبيرة */}
-      <div className="relative aspect-[3/2] w-full sm:aspect-[16/9] md:aspect-[21/9]">
+      <div className="relative aspect-[3/2] w-full sm:aspect-[16/9] md:aspect-[16/7]">
         <AnimatePresence initial={false}>
           <motion.div
             key={index}

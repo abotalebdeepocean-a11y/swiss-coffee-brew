@@ -45,9 +45,9 @@ const MAIN_PRODUCTS = [
     feature2Ar: "تحميص متوسط-غامق",
     feature3: "Balanced Body",
     feature3Ar: "قوة متوازنة",
-    glow: "rgba(22,101,52,0.3)",
-    borderColor: "border-emerald-500/20",
-    accentLine: "from-emerald-600 to-emerald-400",
+    glow: "rgba(201,162,39,0.25)",
+    borderColor: "border-rv-gold/20",
+    accentLine: "from-rv-gold to-amber-500",
   },
   {
     slug: "rovento-premium",
@@ -87,9 +87,9 @@ const MAIN_PRODUCTS = [
     feature2Ar: "تحميص متوسط",
     feature3: "Smooth Body",
     feature3Ar: "قوام ناعم",
-    glow: "rgba(126,34,206,0.25)",
-    borderColor: "border-purple-500/20",
-    accentLine: "from-purple-600 to-purple-400",
+    glow: "rgba(201,162,39,0.25)",
+    borderColor: "border-rv-gold/20",
+    accentLine: "from-rv-gold to-amber-500",
   },
   {
     slug: "rovento-colombia",
@@ -108,9 +108,9 @@ const MAIN_PRODUCTS = [
     feature2Ar: "تحميص متوسط",
     feature3: "Chocolate Notes",
     feature3Ar: "نكهة شوكولاتة",
-    glow: "rgba(161,98,7,0.25)",
-    borderColor: "border-amber-600/20",
-    accentLine: "from-amber-700 to-amber-500",
+    glow: "rgba(201,162,39,0.25)",
+    borderColor: "border-rv-gold/20",
+    accentLine: "from-rv-gold to-amber-500",
   },
 ];
 
@@ -139,7 +139,7 @@ export function ProductsGrid() {
           className="mx-auto mb-16 max-w-3xl text-center"
         >
           <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-rv-gold/70">
-            ✦ Premium Espresso Blends & Single Origin ✦
+            ✦ بلندات إسبريسو فاخرة وسنجل أوريجن ✦
           </span>
           <h2 className="mt-5 text-3xl font-black sm:text-4xl md:text-5xl">
             <span className="gold-gradient-text">قائمة أسعار حبوب الإسبريسو</span>
@@ -252,7 +252,7 @@ export function ProductsGrid() {
                     onClick={() => handleAdd(product.slug)}
                     className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold transition-all duration-300 ${
                       isAdded
-                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                        ? "bg-rv-gold/20 text-rv-gold border border-rv-gold/30"
                         : "bg-gradient-to-r from-rv-gold to-[#d4b96a] text-black hover:from-[#d4b96a] hover:to-rv-gold hover:shadow-[0_6px_24px_rgba(201,169,97,0.3)] hover:-translate-y-0.5"
                     }`}
                   >

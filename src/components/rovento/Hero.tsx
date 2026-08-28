@@ -18,7 +18,7 @@ import { Stars } from "./art";
 const TRUST_STRIP = [
   { icon: Truck, label: "شحن سريع داخل مصر" },
   { icon: Flame, label: "تحميص طازج أسبوعياً" },
-  { icon: Users, label: "+5000 عميل سعيد" },
+  { icon: Users, label: "+500 عميل سعيد" },
   { icon: ShieldCheck, label: "ضمان استرجاع ذهبي" },
 ];
 
@@ -102,7 +102,7 @@ export function Hero() {
               شحن لكل مصر
             </span>
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="size-4 text-emerald-400" />
+              <ShieldCheck className="size-4 text-rv-gold" />
               ضمان ذهبي
             </span>
           </div>
@@ -119,9 +119,9 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="inline-flex items-center gap-3 rounded-xl bg-amber-500 px-8 py-4 text-lg font-black text-stone-950 shadow-xl shadow-amber-500/20 transition hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-amber-500/30"
+              className="inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-rv-gold to-[#b89728] px-8 py-4 text-lg font-black text-black shadow-xl shadow-rv-gold/20 transition hover:-translate-y-0.5 hover:shadow-rv-gold/40"
             >
-              اطلب الآن ☕
+              اطلب الآن — توصيل مجاني
               <Crown className="size-5" />
             </Link>
             <Link
@@ -134,10 +134,10 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="inline-flex items-center gap-3 rounded-xl border border-stone-700 bg-stone-900 px-8 py-4 text-lg font-bold text-stone-200 transition hover:border-rv-gold hover:bg-stone-800 hover:text-rv-gold"
+              className="inline-flex items-center gap-3 rounded-xl border-2 border-rv-gold/50 bg-transparent px-8 py-4 text-lg font-bold text-rv-gold transition hover:border-rv-gold hover:bg-rv-gold/10"
             >
               <Eye className="size-5 text-rv-gold" />
-              صمّم خلطتك الخاصة ⚡
+              تصفح المنتجات
             </Link>
           </div>
         </motion.div>
@@ -190,18 +190,18 @@ export function Hero() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.55 }}
-                className="flex items-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-900/80 px-4 py-3 backdrop-blur-sm hover:border-emerald-400/60 hover:bg-emerald-900/95 transition-all cursor-pointer"
+                className="flex items-center gap-2 rounded-xl border border-rv-gold/30 bg-coffee-900/90 px-4 py-3 backdrop-blur-sm hover:border-rv-gold/60 hover:bg-coffee-900/95 transition-all cursor-pointer"
               >
                 <BagVisual
                   image={IMAGES.bags.colombia}
-                  variant="colombia"
+                  variant="premium"
                   alt="كيس روفينتو كولومبيا"
                   className="h-14 w-auto object-contain"
                 />
                 <div className="text-start">
-                  <span className="text-sm font-black text-emerald-100">COLOMBIA</span>
-                  <p className="text-[10px] text-emerald-300">سингل أوريجن</p>
-                  <span className="text-sm font-black text-emerald-200">900 ج.م</span>
+                  <span className="text-sm font-black text-stone-100">COLOMBIA</span>
+                  <p className="text-[10px] text-stone-400">سنجل أوريجن</p>
+                  <span className="text-sm font-black text-rv-gold">900 ج.م</span>
                 </div>
               </motion.div>
             </div>

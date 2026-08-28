@@ -50,7 +50,7 @@ function TimeBox({ value, unit }: { value: string; unit: string }) {
 
 export function OfferSection() {
   const { add } = useCart();
-  const { days, hours, minutes, seconds } = useCountdown();
+  const { days, hours, minutes } = useCountdown();
 
   return (
     <section
@@ -127,8 +127,6 @@ export function OfferSection() {
             <TimeBox value={hours} unit="ساعة" />
             <span className="text-2xl font-bold text-rv-gold sm:text-3xl">:</span>
             <TimeBox value={minutes} unit="دقيقة" />
-            <span className="text-2xl font-bold text-rv-gold sm:text-3xl">:</span>
-            <TimeBox value={seconds} unit="ثانية" />
           </div>
         </div>
 
