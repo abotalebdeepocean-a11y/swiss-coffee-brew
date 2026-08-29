@@ -45,38 +45,7 @@ const SLIDES = [
     icon: Flame,
     cta: { label: "جرّب دلوقتي", href: "#featured" },
   },
-  {
-    src: "/images/story-slider/05-ad.webp",
-    alt: "إعلان روفينتو",
-    title: "من المحمصة لبيتك",
-    subtitle: "شحن مجاني لكل المحافظات — خلال 24 لـ 72 ساعة",
-    icon: ShoppingBag,
-    cta: { label: "اطلب الآن", href: "#featured" },
-  },
-  {
-    src: "/images/story-slider/06-slider-vavet.webp",
-    alt: "باقة روفينتو الكاملة",
-    title: "الباقة الكاملة",
-    subtitle: "اختار الكيسين اللي يناسبك واحصل على خصم 400 ج.م",
-    icon: Star,
-    cta: { label: "العرض الساري", href: "#offer" },
-  },
-  {
-    src: "/images/story-slider/07-slider-main.webp",
-    alt: "روفينتو — صمّم خلطتك",
-    title: "صمّم خلطتك",
-    subtitle: "مختبر روفينتو — حدّد النسب والتحميص والطحن",
-    icon: Coffee,
-    cta: { label: "ادخل المختبر", href: "#blend-lab" },
-  },
-  {
-    src: "/images/story-slider/08-slider-order.webp",
-    alt: "اطلب من روفينتو",
-    title: "اطلب دلوقتي",
-    subtitle: "الدفع عند الاستلام · واتساب · فودافون كاش",
-    icon: ShoppingBag,
-    cta: { label: "اطلب عبر واتساب", href: "https://wa.me/201033012381" },
-  },
+
 ];
 
 const INTERVAL = 5000; // 5 ثواني لكل شريحة
