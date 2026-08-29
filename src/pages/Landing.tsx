@@ -15,6 +15,7 @@ import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
+import { StorySlider } from "@/components/rovento/StorySlider";
 
 export default function Landing() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function Landing() {
       <Header />
       <main>
         <Hero />
+        <StorySlider />
         <SignatureCollection />
         <ProductsGrid />
         <OfferSection />
