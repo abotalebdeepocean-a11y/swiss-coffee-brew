@@ -310,7 +310,7 @@ export function Logo({ className, size = "default" }: { className?: string; size
           }}
         >
           <img
-            src="/images/rovento-logo-final.jpg"
+            src="/images/rovento-logo-final.webp"
             alt="ROVENTO Coffee Logo"
             className="h-full w-full object-cover"
             loading="eager"
@@ -327,7 +327,7 @@ export function Logo({ className, size = "default" }: { className?: string; size
       />
       {/* Hidden img for non-visual fallback / OG */}
       <img
-        src="/images/rovento-logo-final.jpg"
+        src="/images/rovento-logo-final.webp"
         alt="ROVENTO"
         className="sr-only"
         aria-hidden="true"

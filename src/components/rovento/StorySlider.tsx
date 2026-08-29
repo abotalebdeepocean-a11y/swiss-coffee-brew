@@ -14,7 +14,7 @@ import {
 /* ── الصور + القصة ─────────────────────────────────── */
 const SLIDES = [
   {
-    src: "/images/story-slider/01-choose-packages.png",
+    src: "/images/story-slider/01-choose-packages.webp",
     alt: "اختار كيس روفينتو",
     title: "اختار كيسك",
     subtitle: "5 بلندات فاخرة — كل واحد ليه شخصيته",
@@ -22,7 +22,7 @@ const SLIDES = [
     cta: { label: "تصفح المنتجات", href: "#featured" },
   },
   {
-    src: "/images/story-slider/02-hero-1.jpeg",
+    src: "/images/story-slider/02-hero-1.webp",
     alt: "روفينتو — قهوة محمصة طازج",
     title: "روفينتو اتولدت",
     subtitle: "من شغف بالقهوة لمحمصة في قلب القاهرة",
@@ -30,7 +30,7 @@ const SLIDES = [
     cta: { label: "اكتشف القصة", href: "#why" },
   },
   {
-    src: "/images/story-slider/03-hero-2.jpeg",
+    src: "/images/story-slider/03-hero-2.webp",
     alt: "حبوب القهوة الأصلية",
     title: "حبوب من أفضل المزارع",
     subtitle: "كولومبيا · إثيوبيا · البرازيل — أجود الحبوب عالمياً",
@@ -38,7 +38,7 @@ const SLIDES = [
     cta: { label: "شف المزيج", href: "#blend-lab" },
   },
   {
-    src: "/images/story-slider/04-hero-3.jpeg",
+    src: "/images/story-slider/04-hero-3.webp",
     alt: "عملية التحميص",
     title: "تحميص طازج يومياً",
     subtitle: "كل كيس بيتحمص في نفس يوم الشحن — طعمه غير أي حاجة جربتها",
@@ -46,7 +46,7 @@ const SLIDES = [
     cta: { label: "جرّب دلوقتي", href: "#featured" },
   },
   {
-    src: "/images/story-slider/05-ad.jpeg",
+    src: "/images/story-slider/05-ad.webp",
     alt: "إعلان روفينتو",
     title: "من المحمصة لبيتك",
     subtitle: "شحن مجاني لكل المحافظات — خلال 24 لـ 72 ساعة",
@@ -54,7 +54,7 @@ const SLIDES = [
     cta: { label: "اطلب الآن", href: "#featured" },
   },
   {
-    src: "/images/story-slider/06-slider-vavet.png",
+    src: "/images/story-slider/06-slider-vavet.webp",
     alt: "باقة روفينتو الكاملة",
     title: "الباقة الكاملة",
     subtitle: "اختار الكيسين اللي يناسبك واحصل على خصم 400 ج.م",
@@ -62,7 +62,7 @@ const SLIDES = [
     cta: { label: "العرض الساري", href: "#offer" },
   },
   {
-    src: "/images/story-slider/07-slider-main.png",
+    src: "/images/story-slider/07-slider-main.webp",
     alt: "روفينتو — صمّم خلطتك",
     title: "صمّم خلطتك",
     subtitle: "مختبر روفينتو — حدّد النسب والتحميص والطحن",
@@ -70,7 +70,7 @@ const SLIDES = [
     cta: { label: "ادخل المختبر", href: "#blend-lab" },
   },
   {
-    src: "/images/story-slider/08-slider-order.png",
+    src: "/images/story-slider/08-slider-order.webp",
     alt: "اطلب من روفينتو",
     title: "اطلب دلوقتي",
     subtitle: "الدفع عند الاستلام · واتساب · فودافون كاش",
