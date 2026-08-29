@@ -22,7 +22,7 @@ const SLIDES = [
     cta: { label: "تصفح المنتجات", href: "#featured" },
   },
   {
-    src: "/images/story-slider/02-hero-1.webp",
+    src: "/images/story-slider/04-hero-3.webp",
     alt: "روفينتو — قهوة محمصة طازج",
     title: "روفينتو اتولدت",
     subtitle: "من شغف بالقهوة لمحمصة في قلب القاهرة",
@@ -38,7 +38,7 @@ const SLIDES = [
     cta: { label: "شف المزيج", href: "#blend-lab" },
   },
   {
-    src: "/images/story-slider/04-hero-3.webp",
+    src: "/images/story-slider/02-hero-1.webp",
     alt: "عملية التحميص",
     title: "تحميص طازج يومياً",
     subtitle: "كل كيس بيتحمص في نفس يوم الشحن — طعمه غير أي حاجة جربتها",
