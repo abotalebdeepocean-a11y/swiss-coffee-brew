@@ -6,21 +6,12 @@ import {
   Pause,
   Play,
   Coffee,
-  ShoppingBag,
   Star,
   Flame,
 } from "lucide-react";
 
 /* ── الصور + القصة ─────────────────────────────────── */
 const SLIDES = [
-  {
-    src: "/images/story-slider/01-choose-packages.webp",
-    alt: "اختار كيس روفينتو",
-    title: "اختار كيسك",
-    subtitle: "5 بلندات فاخرة — كل واحد ليه شخصيته",
-    icon: ShoppingBag,
-    cta: { label: "تصفح المنتجات", href: "#featured" },
-  },
   {
     src: "/images/story-slider/04-hero-3.webp",
     alt: "روفينتو — قهوة محمصة طازج",
