@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import { SlidersHorizontal, Tag, Grid3X3, LayoutList } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { Header } from "@/components/rovento/Header";
 import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ProductCard } from "@/components/rovento/ProductCard";
-import { IMAGES } from "@/lib/images";
-import { useImageCandidates } from "@/components/rovento/BagVisual";
+
 import {
   PRODUCTS,
   CATEGORIES,
@@ -33,35 +32,6 @@ const CATEGORY_ICONS: Record<string, string> = {
   machines: "⚙️",
   accessories: "🔧",
 };
-
-/** قائمة أسعار البن الرسمية */
-function PriceListSection() {
-  const { src, onError } = useImageCandidates(IMAGES.priceList);
-  if (!src) return null;
-
-  return (
-    <section className="mx-auto w-full max-w-[1200px] px-4 pt-8 md:px-6 md:pt-10">
-      <div className="overflow-hidden rounded-2xl border border-stone-800 bg-coffee-900">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-800 px-5 py-4">
-          <div className="flex items-center gap-2.5">
-            <Tag className="size-4 text-rv-gold" />
-            <h2 className="text-base font-black text-white">قائمة أسعار البن الرسمية</h2>
-          </div>
-          <p className="text-xs text-muted-foreground">أسعار الكيلو بجميع أنواع البن — محدثة باستمرار</p>
-        </div>
-        <div className="bg-white p-4 sm:p-6">
-          <img
-            src={src}
-            onError={onError}
-            alt="قائمة أسعار قهوة روفينتو بأنواع البن المختلفة"
-            loading="lazy"
-            className="mx-auto h-auto w-full max-w-3xl rounded-lg object-contain shadow-sm"
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export default function Shop() {
   const [params, setParams] = useSearchParams();
@@ -124,8 +94,7 @@ export default function Shop() {
           </div>
         </section>
 
-        {/* قائمة الأسعار */}
-        <PriceListSection />
+
 
         <section className="mx-auto w-full max-w-[1200px] px-4 py-8 md:px-6 md:py-10">
           {/* فلاتر الفئات — أقراص بسيطة */}

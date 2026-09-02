@@ -8,45 +8,45 @@ import { IMAGES } from "@/lib/images";
 
 const BAGS = [
   {
-    slug: "rovento-classic" as const,
-    image: IMAGES.products.classic,
-    nameEn: "CLASSIC",
-    nameAr: "كلاسيك",
-    tagline: "التوليفة الذهبية — توازن مثالي بين القوة والنكهة",
-    price: 750,
+    slug: "rovento-bar-intenso-1kg" as const,
+    image: IMAGES.products.barIntenso,
+    nameEn: "BAR INTENSO",
+    nameAr: "بار انتينسو",
+    tagline: "قوي وجريء — تحميص غامق، كريمة غنية، قوة عالية",
+    price: 700,
     weight: "1 كجم",
     accent: "from-blue-900/40 to-blue-950/0",
-    glow: "rgba(59,130,246,0.12)",
+    glow: "rgba(30,58,95,0.18)",
     borderColor: "border-blue-500/20",
     badgeColor: "bg-blue-500 text-white",
-    rating: 4.8,
-    reviews: 203,
+    rating: 4.9,
+    reviews: 187,
     animDelay: "0s",
   },
   {
-    slug: "rovento-arabica" as const,
-    image: IMAGES.products.arabica,
-    nameEn: "ARABICA",
-    nameAr: "أرابيكا",
-    tagline: "100% أرابيكا — نكهة فاكهية وحموضة متوسطة",
-    price: 950,
+    slug: "rovento-premium-1kg" as const,
+    image: IMAGES.products.premium,
+    nameEn: "PREMIUM",
+    nameAr: "بريميوم",
+    tagline: "100% أرابيكا — كريمة غنية، تحميص متوسط، قوة متوازنة",
+    price: 890,
     weight: "1 كجم",
     accent: "from-teal-900/40 to-teal-950/0",
-    glow: "rgba(108,52,131,0.18)",
-    borderColor: "border-purple-500/20",
-    badgeColor: "bg-purple-500 text-white",
-    rating: 4.8,
-    reviews: 96,
+    glow: "rgba(201,169,97,0.18)",
+    borderColor: "border-rv-gold/30",
+    badgeColor: "bg-rv-gold text-black",
+    rating: 4.9,
+    reviews: 214,
     animDelay: "0.5s",
   },
 ];
 
 const COMPARE_FEATURES = [
-  { label: "نسبة الأرابيكا", arabica: "100%", classic: "70%" },
-  { label: "درجة التحميص", arabica: "متوسط", classic: "متوسط-غامق" },
-  { label: "النكهات", arabica: "نكهة فاكهية", classic: "توازن مثالي" },
-  { label: "الأفضل لـ", arabica: "فلتر وV60", classic: "إسبريسو والكابتشينو" },
-  { label: "الكريما", arabica: "خفيفة", classic: "متوازنة (Balanced Crema)" },
+  { label: "نسبة الأرابيكا", intenso: "30%", premium: "100%" },
+  { label: "درجة التحميص", intenso: "غامق", premium: "متوسط" },
+  { label: "النكهات", intenso: "كريمة غنية", premium: "نكهة غنية فاخرة" },
+  { label: "الأفضل لـ", intenso: "كورتوادو وإسبريسو قوي", premium: "لاتيه وكابتشينو" },
+  { label: "الكريما", intenso: "غنية جدًا (Rich Crema)", premium: "غنية (Rich Crema)" },
 ];
 
 export function SignatureCollection() {
@@ -109,7 +109,7 @@ export function SignatureCollection() {
                 <span
                   className={`absolute -top-2 right-6 z-10 rounded-full px-3 py-1 text-[11px] font-bold tracking-wide shadow-lg ${bag.badgeColor}`}
                 >
-                  {i === 0 ? "الأكثر مبيعًا" : "الأفضل قيمة"}
+                  {i === 0 ? "قوي وجريء" : "الأكثر مبيعًا"}
                 </span>
 
                 {/* Floating bag area */}
@@ -249,11 +249,11 @@ export function SignatureCollection() {
                   <th className="px-3 py-3 text-xs font-bold text-stone-500 sm:px-4">
                     الميزة
                   </th>
-                  <th className="px-3 py-3 text-center text-xs font-bold text-purple-400 sm:px-4">
-                    ARABICA
-                  </th>
                   <th className="px-3 py-3 text-center text-xs font-bold text-blue-400 sm:px-4">
-                    CLASSIC
+                    BAR INTENSO
+                  </th>
+                  <th className="px-3 py-3 text-center text-xs font-bold text-rv-gold sm:px-4">
+                    PREMIUM
                   </th>
                 </tr>
               </thead>
@@ -264,23 +264,23 @@ export function SignatureCollection() {
                       {row.label}
                     </td>
                     <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
-                      {row.arabica}
+                      {row.intenso}
                     </td>
                     <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
-                      {row.classic}
+                      {row.premium}
                     </td>
                   </tr>
                 ))}
                 {/* Price row highlighted */}
                 <tr className="bg-rv-gold/5">
                   <td className="px-3 py-3.5 font-bold text-stone-300 sm:px-4">
-                    السعر
-                  </td>
-                  <td className="px-3 py-3.5 text-center font-black text-purple-400 sm:px-4">
-                    ٩٥٠ ج.م
+                    السعر (1 كجم)
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
-                    ٧٥٠ ج.م
+                    ٧٠٠ ج.م
+                  </td>
+                  <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
+                    ٨٩٠ ج.م
                   </td>
                 </tr>
               </tbody>
@@ -288,7 +288,7 @@ export function SignatureCollection() {
           </div>
 
           <p className="mt-4 text-center text-[10px] text-stone-600">
-            * كلا المنتجين 1 كجم — يُشحن مطحون أو حبوب كاملة حسب اختياراتك
+            * كلا المنتجين متوفر في مقاس 1 كجم و 500 جم — يُشحن مطحون أو حبوب كاملة حسب اختياراتك
           </p>
         </motion.div>
 
@@ -300,7 +300,7 @@ export function SignatureCollection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-12 text-center text-xs tracking-wider text-stone-600"
         >
-          ✦ Sourced from the finest coffee beans from Brazil & Colombia ✦
+          ✦ Sourced from the finest coffee beans — Roasted fresh in Egypt ✦
         </motion.p>
       </div>
     </section>

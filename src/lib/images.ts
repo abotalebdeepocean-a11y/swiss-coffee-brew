@@ -64,8 +64,6 @@ export const IMAGES = {
     /** بانر الكيس CLASSIC 1 كجم */
     classic1kg: "/images/bag-classic-1kg-real",
   },
-  /** قائمة أسعار البن الرسمية */
-  priceList: "/images/price-list",
   /** شعار ROVENTO الحقيقي */
   logo: "/images/rovento-logo-final",
   /** حبوب خام لقسم خلطتك الخاصة */

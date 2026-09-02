@@ -5,14 +5,14 @@ import { ShoppingCart, Star, Check, Coffee, Flame, Droplets } from "lucide-react
 import { useCart } from "@/lib/store";
 import { IMAGES } from "@/lib/images";
 
-/** المنتجات الرئيسية الخمسة من القائمة الرسمية */
+/** المنتجات الأربعة فقط — بار انتينسو + بريميوم (كيلو ونص كيلو) */
 const MAIN_PRODUCTS = [
   {
-    slug: "rovento-bar-intenso",
+    slug: "rovento-bar-intenso-1kg",
     image: IMAGES.products.barIntenso,
     nameEn: "BAR INTENSO",
-    nameAr: "بار انتينسو",
-    price: 650,
+    nameAr: "بار انتينسو — ١ كجم",
+    price: 700,
     weight: "1 كجم",
     rating: 4.9,
     reviews: 187,
@@ -29,67 +29,67 @@ const MAIN_PRODUCTS = [
     accentLine: "from-blue-600 to-blue-400",
   },
   {
-    slug: "rovento-classic",
-    image: IMAGES.products.classic,
-    nameEn: "CLASSIC",
-    nameAr: "كلاسيك",
-    price: 750,
+    slug: "rovento-premium-1kg",
+    image: IMAGES.products.premium,
+    nameEn: "PREMIUM",
+    nameAr: "بريميوم — ١ كجم",
+    price: 890,
     weight: "1 كجم",
-    rating: 4.8,
-    reviews: 203,
-    badge: "التوليفة الذهبية",
-    roast: "تحميص متوسط-غامق",
-    feature1: "Balanced Crema",
-    feature1Ar: "كريمة متوازنة",
-    feature2: "Medium-Dark Roast",
-    feature2Ar: "تحميص متوسط-غامق",
-    feature3: "Balanced Body",
-    feature3Ar: "قوة متوازنة",
-    glow: "rgba(201,162,39,0.25)",
-    borderColor: "border-rv-gold/20",
-    accentLine: "from-rv-gold to-amber-500",
-  },
-  {
-    slug: "rovento-arabica",
-    image: IMAGES.products.arabica,
-    nameEn: "ARABICA",
-    nameAr: "أرابيكا",
-    price: 950,
-    weight: "1 كجم",
-    rating: 4.8,
-    reviews: 96,
-    badge: "100% أرابيكا",
+    rating: 4.9,
+    reviews: 214,
+    badge: "الأكثر مبيعًا",
     roast: "تحميص متوسط",
-    feature1: "Fruity Notes",
-    feature1Ar: "نكهة فاكهية",
+    feature1: "Rich Crema",
+    feature1Ar: "كريمة غنية",
     feature2: "Medium Roast",
     feature2Ar: "تحميص متوسط",
     feature3: "Smooth Body",
-    feature3Ar: "قوام ناعم",
-    glow: "rgba(201,162,39,0.25)",
-    borderColor: "border-rv-gold/20",
-    accentLine: "from-rv-gold to-amber-500",
+    feature3Ar: "قوة متوازنة",
+    glow: "rgba(201,169,97,0.25)",
+    borderColor: "border-rv-gold/30",
+    accentLine: "from-rv-gold to-amber-400",
   },
   {
-    slug: "rovento-colombia",
-    image: IMAGES.products.colombia,
-    nameEn: "COLOMBIA",
-    nameAr: "كولومبيا",
-    price: 950,
-    weight: "1 كجم",
-    rating: 4.8,
-    reviews: 74,
-    badge: "أصل واحد",
+    slug: "rovento-bar-intenso-500g",
+    image: IMAGES.products.barIntenso,
+    nameEn: "BAR INTENSO",
+    nameAr: "بار انتينسو — نص كيلو",
+    price: 400,
+    weight: "500 جم",
+    rating: 4.9,
+    reviews: 187,
+    badge: "حجم مثالي للتجربة",
+    roast: "تحميص غامق",
+    feature1: "Rich Crema",
+    feature1Ar: "كريمة غنية",
+    feature2: "Dark Roast",
+    feature2Ar: "تحميص غامق",
+    feature3: "Full Body",
+    feature3Ar: "قوة عالية",
+    glow: "rgba(30,58,95,0.3)",
+    borderColor: "border-blue-500/20",
+    accentLine: "from-blue-600 to-blue-400",
+  },
+  {
+    slug: "rovento-premium-500g",
+    image: IMAGES.products.premium,
+    nameEn: "PREMIUM",
+    nameAr: "بريميوم — نص كيلو",
+    price: 500,
+    weight: "500 جم",
+    rating: 4.9,
+    reviews: 214,
+    badge: "الأكثر مبيعًا",
     roast: "تحميص متوسط",
-    feature1: "Medium Acidity",
-    feature1Ar: "حموضة معتدلة",
+    feature1: "Rich Crema",
+    feature1Ar: "كريمة غنية",
     feature2: "Medium Roast",
     feature2Ar: "تحميص متوسط",
-    feature3: "Chocolate Notes",
-    feature3Ar: "نكهة شوكولاتة",
-    glow: "rgba(201,162,39,0.25)",
-    borderColor: "border-rv-gold/20",
-    accentLine: "from-rv-gold to-amber-500",
+    feature3: "Smooth Body",
+    feature3Ar: "قوة متوازنة",
+    glow: "rgba(201,169,97,0.25)",
+    borderColor: "border-rv-gold/30",
+    accentLine: "from-rv-gold to-amber-400",
   },
 ];
 
@@ -118,18 +118,18 @@ export function ProductsGrid() {
           className="mx-auto mb-16 max-w-3xl text-center"
         >
           <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-rv-gold/70">
-            ✦ بلندات إسبريسو فاخرة وسنجل أوريجن ✦
+            ✦ بلندات إسبريسو فاخرة ✦
           </span>
           <h2 className="mt-5 text-3xl font-black sm:text-4xl md:text-5xl">
-            <span className="gold-gradient-text">قائمة أسعار حبوب الإسبريسو</span>
+            <span className="gold-gradient-text">قائمة الأسعار</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm text-stone-400 md:text-base">
-            للبيع بالجملة — أربعة بلندات مميزة من روفينتو
+            أربعة خيارات — بار انتينسو أو بريميوم، كيلو أو نص كيلو
           </p>
           <div className="mx-auto mt-6 h-px w-32 bg-gradient-to-r from-transparent via-rv-gold/40 to-transparent" />
         </motion.div>
 
-        {/* Products grid — catalog-inspired cards */}
+        {/* Products grid — 2x2 */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {MAIN_PRODUCTS.map((product, i) => {
             const isAdded = addedSlug === product.slug;
@@ -253,22 +253,6 @@ export function ProductsGrid() {
             );
           })}
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12 text-center"
-        >
-          <Link
-            to="/shop"
-            className="btn-gold inline-flex items-center gap-2 rounded-[10px] px-10 py-3.5 text-sm font-bold transition-all"
-          >
-            عرض كل المنتجات ←
-          </Link>
-        </motion.div>
       </div>
     </section>
   );
