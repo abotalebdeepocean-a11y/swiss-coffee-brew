@@ -73,7 +73,7 @@ export const PRODUCTS: Product[] = [
   // ====== حبوب الإسبريسو — المنتجات الأربعة فقط ======
   {
     slug: "rovento-bar-intenso-1kg",
-    name: "ROVENTO بار انتينسو — ١ كجم",
+    name: "ROVENTO بار انتينسو — 1 كجم",
     nameEn: "ROVENTO Bar Intenso 1kg",
     category: "beans",
     price: 700,
@@ -105,7 +105,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "rovento-premium-1kg",
-    name: "ROVENTO بريميوم — ١ كجم",
+    name: "ROVENTO بريميوم — 1 كجم",
     nameEn: "ROVENTO Premium 1kg",
     category: "beans",
     price: 890,

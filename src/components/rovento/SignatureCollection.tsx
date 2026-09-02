@@ -277,10 +277,10 @@ export function SignatureCollection() {
                     السعر (1 كجم)
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
-                    ٧٠٠ ج.م
+                    700 ج.م
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
-                    ٨٩٠ ج.م
+                    890 ج.م
                   </td>
                 </tr>
               </tbody>

@@ -216,7 +216,7 @@ export function Footer() {
                   تواصل معنا عبر واتساب
                 </a>
               </li>
-              <li className="text-stone-500">متاحون يوميًا ٩ صباحًا — ١١ مساءً</li>
+              <li className="text-stone-500">متاحون يوميًا 9 صباحًا — 11 مساءً</li>
             </ul>
           </div>
         </div>
@@ -278,7 +278,7 @@ export function Footer() {
           </span>
           <div>
             <p className="font-bold text-white">اطلب مباشرة عبر واتساب</p>
-            <p className="text-xs text-stone-400">رد سريع من ٩ صباحًا حتى ١١ مساءً — <span dir="ltr">01033012381</span></p>
+            <p className="text-xs text-stone-400">رد سريع من 9 صباحًا حتى 11 مساءً — <span dir="ltr">01033012381</span></p>
           </div>
         </div>
         <a

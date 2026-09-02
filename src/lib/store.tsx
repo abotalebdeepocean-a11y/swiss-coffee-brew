@@ -23,7 +23,7 @@ export interface CartItem {
 
 /** مواصفات خلطة مخصصة محفوظة في السلة بسعرها النهائي */
 export interface CustomBlendSpec {
-  /** اسم مختصر: "خلطة مخصصة ٧٠/٣٠ — 1 كجم" */
+  /** اسم مختصر: "خلطة مخصصة 70/30 — 1 كجم" */
   label: string;
   /** تفاصيل الوصفة: النسب + التحميص + الطحن */
   detail: string;
@@ -271,8 +271,8 @@ export function orderViaWhatsApp(items: CartItem[]): void {
 
 /** باقة الاشتراك الشهري — عرض تقديمي فقط في النسخة الأولى */
 export const SUBSCRIPTION_PLANS = [
-  { id: "1kg", label: "كيس ١ كجم", price: 1100, perMonth: "شهريًا", highlight: false },
-  { id: "2kg", label: "كيسان ١ كجم", price: 2100, perMonth: "شهريًا", highlight: true },
+  { id: "1kg", label: "كيس 1 كجم", price: 1100, perMonth: "شهريًا", highlight: false },
+  { id: "2kg", label: "كيسان 1 كجم", price: 2100, perMonth: "شهريًا", highlight: true },
   { id: "5kg", label: "خمسة أكياس", price: 5000, perMonth: "شهريًا", highlight: false },
 ];
 
