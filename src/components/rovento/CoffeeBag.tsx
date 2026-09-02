@@ -73,7 +73,6 @@ const BLEND_META: Record<
 export const BAG_VIEWBOX = "0 0 480 700";
 
 const BLEND_BY_SLUG: Record<string, BlendVariant> = {
-  "rovento-premium": "premium",
   "rovento-bar-intenso": "intenso",
   "rovento-classic": "classic",
 };

@@ -70,7 +70,7 @@ const PAYMENT_METHODS = [
   { id: "cod", label: "الدفع عند الاستلام", icon: Truck },
   { id: "vodafone", label: "فودافون كاش", icon: CreditCard },
   { id: "instapay", label: "إنستاباي", icon: CreditCard },
-  { id: "fawry", label: "فوري", icon: CreditCard },
+  { id: "prepay", label: "دفعة مسبقة (-5%)", icon: CreditCard },
 ];
 
 /* ─── Quantity Controls ─── */
@@ -191,7 +191,7 @@ function TrustBadges() {
 type CheckoutStep = "cart" | "checkout" | "confirmation";
 
 export function CartDrawer() {
-  const { items, count, subtotal, isOpen, closeCart, clear } = useCart();
+  const { items, count, subtotal, totalWeightKg, weightDiscountRate, weightDiscount, isOpen, closeCart, clear } = useCart();
   const [step, setStep] = useState<CheckoutStep>("cart");
   const [formData, setFormData] = useState({
     name: "",
@@ -235,7 +235,9 @@ export function CartDrawer() {
     formData.governorate.trim();
 
   const shippingCost = subtotal >= 1500 ? 0 : 60;
-  const total = subtotal + shippingCost;
+  const afterWeightDiscount = subtotal - weightDiscount;
+  const prepayDiscount = formData.paymentMethod === "prepay" ? Math.round(afterWeightDiscount * 0.05) : 0;
+  const total = afterWeightDiscount - prepayDiscount + shippingCost;
 
   const handleConfirmOrder = () => {
     const paymentLabel =
@@ -260,6 +262,8 @@ export function CartDrawer() {
       orderDetails,
       ``,
       `━━━━━━━━━━━━━━━━━━`,
+      weightDiscount > 0 ? `📦 خصم الكمية: -${formatPrice(weightDiscount)} (${Math.round(weightDiscountRate * 100)}%)` : ``,
+      prepayDiscount > 0 ? `💳 خصم الدفع المسبق: -${formatPrice(prepayDiscount)} (5%)` : ``,
       `📦 الشحن: ${shippingCost === 0 ? "مجاني ✅" : formatPrice(shippingCost)}`,
       `💰 الإجمالي: *${formatPrice(total)}*`,
       ``,
@@ -432,6 +436,21 @@ export function CartDrawer() {
                         {formatPrice(subtotal)}
                       </span>
                     </div>
+                    {weightDiscount > 0 && (
+                      <div className="mt-1 flex items-center justify-between">
+                        <span className="text-[11px] text-emerald-400">
+                          🎉 خصم {Math.round(weightDiscountRate * 100)}% ({totalWeightKg} كجم)
+                        </span>
+                        <span className="text-sm font-bold text-emerald-400">
+                          -{formatPrice(weightDiscount)}
+                        </span>
+                      </div>
+                    )}
+                    {weightDiscount === 0 && totalWeightKg >= 1 && (
+                      <p className="mt-1 text-[10px] text-emerald-400">
+                        أضف {2 - (totalWeightKg % 2)} كجم إضافيين للحصول على خصم 5%
+                      </p>
+                    )}
                     {subtotal < 1500 && (
                       <p className="mt-1 text-[10px] text-emerald-400">
                         أضف {formatPrice(1500 - subtotal)} للحصول على شحن مجاني
@@ -700,17 +719,34 @@ export function CartDrawer() {
 
               {/* Checkout Footer */}
               <div className="border-t border-white/10 px-5 py-4">
-                <div className="mb-2 flex items-center justify-between text-xs">
-                  <span className="text-stone-400">الإجمالي</span>
-                  <div className="text-left">
-                    <span className="font-black text-rv-gold">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-stone-400">المنتجات</span>
+                    <span className="text-stone-300">{formatPrice(subtotal)}</span>
+                  </div>
+                  {weightDiscount > 0 && (
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-emerald-400">🎉 خصم الكمية ({Math.round(weightDiscountRate * 100)}%)</span>
+                      <span className="font-bold text-emerald-400">-{formatPrice(weightDiscount)}</span>
+                    </div>
+                  )}
+                  {formData.paymentMethod === "prepay" && (
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-emerald-400">💳 خصم الدفع المسبق (5%)</span>
+                      <span className="font-bold text-emerald-400">-{formatPrice(Math.round((subtotal - weightDiscount) * 0.05))}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-stone-400">الشحن</span>
+                    <span className={shippingCost === 0 ? "text-emerald-400 font-bold" : "text-stone-300"}>
+                      {shippingCost === 0 ? "مجاني ✅" : formatPrice(shippingCost)}
+                    </span>
+                  </div>
+                  <div className="border-t border-white/10 pt-1 flex items-center justify-between">
+                    <span className="text-sm font-bold text-stone-300">الإجمالي النهائي</span>
+                    <span className="text-xl font-black text-rv-gold">
                       {formatPrice(total)}
                     </span>
-                    {shippingCost === 0 && (
-                      <span className="mr-2 text-[10px] text-emerald-400">
-                        شحن مجاني
-                      </span>
-                    )}
                   </div>
                 </div>
                 <Button

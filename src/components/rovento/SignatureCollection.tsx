@@ -8,22 +8,6 @@ import { IMAGES } from "@/lib/images";
 
 const BAGS = [
   {
-    slug: "rovento-premium" as const,
-    image: IMAGES.products.premium,
-    nameEn: "PREMIUM",
-    nameAr: "بريميوم",
-    tagline: "100% أرابيكا — كريمة غنية، تحميص متوسط، قوة متوازنة",
-    price: 850,
-    weight: "1 كجم",
-    accent: "from-teal-900/40 to-teal-950/0",
-    glow: "rgba(201,169,97,0.18)",
-    borderColor: "border-rv-gold/30",
-    badgeColor: "bg-rv-gold text-black",
-    rating: 4.9,
-    reviews: 214,
-    animDelay: "0s",
-  },
-  {
     slug: "rovento-classic" as const,
     image: IMAGES.products.classic,
     nameEn: "CLASSIC",
@@ -37,16 +21,32 @@ const BAGS = [
     badgeColor: "bg-blue-500 text-white",
     rating: 4.8,
     reviews: 203,
+    animDelay: "0s",
+  },
+  {
+    slug: "rovento-arabica" as const,
+    image: IMAGES.products.arabica,
+    nameEn: "ARABICA",
+    nameAr: "أرابيكا",
+    tagline: "100% أرابيكا — نكهة فاكهية وحموضة متوسطة",
+    price: 950,
+    weight: "1 كجم",
+    accent: "from-teal-900/40 to-teal-950/0",
+    glow: "rgba(108,52,131,0.18)",
+    borderColor: "border-purple-500/20",
+    badgeColor: "bg-purple-500 text-white",
+    rating: 4.8,
+    reviews: 96,
     animDelay: "0.5s",
   },
 ];
 
 const COMPARE_FEATURES = [
-  { label: "نسبة الأرابيكا", premium: "100%", classic: "70%" },
-  { label: "درجة التحميص", premium: "متوسط", classic: "متوسط-غامق" },
-  { label: "النكهات", premium: "نكهة غنية فاخرة", classic: "توازن مثالي" },
-  { label: "الأفضل لـ", premium: "إسبريسو فاخر", classic: "إسبريسو والكابتشينو" },
-  { label: "الكريما", premium: "غنية (Rich Crema)", classic: "متوازنة (Balanced Crema)" },
+  { label: "نسبة الأرابيكا", arabica: "100%", classic: "70%" },
+  { label: "درجة التحميص", arabica: "متوسط", classic: "متوسط-غامق" },
+  { label: "النكهات", arabica: "نكهة فاكهية", classic: "توازن مثالي" },
+  { label: "الأفضل لـ", arabica: "فلتر وV60", classic: "إسبريسو والكابتشينو" },
+  { label: "الكريما", arabica: "خفيفة", classic: "متوازنة (Balanced Crema)" },
 ];
 
 export function SignatureCollection() {
@@ -249,8 +249,8 @@ export function SignatureCollection() {
                   <th className="px-3 py-3 text-xs font-bold text-stone-500 sm:px-4">
                     الميزة
                   </th>
-                  <th className="px-3 py-3 text-center text-xs font-bold text-rv-gold sm:px-4">
-                    PREMIUM
+                  <th className="px-3 py-3 text-center text-xs font-bold text-purple-400 sm:px-4">
+                    ARABICA
                   </th>
                   <th className="px-3 py-3 text-center text-xs font-bold text-blue-400 sm:px-4">
                     CLASSIC
@@ -264,7 +264,7 @@ export function SignatureCollection() {
                       {row.label}
                     </td>
                     <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
-                      {row.premium}
+                      {row.arabica}
                     </td>
                     <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
                       {row.classic}
@@ -276,8 +276,8 @@ export function SignatureCollection() {
                   <td className="px-3 py-3.5 font-bold text-stone-300 sm:px-4">
                     السعر
                   </td>
-                  <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
-                    ٨٥٠ ج.م
+                  <td className="px-3 py-3.5 text-center font-black text-purple-400 sm:px-4">
+                    ٩٥٠ ج.م
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
                     ٧٥٠ ج.م

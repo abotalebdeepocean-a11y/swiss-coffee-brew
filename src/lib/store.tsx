@@ -75,6 +75,12 @@ interface CartContextValue {
   items: CartItem[];
   count: number;
   subtotal: number;
+  /** الوزن الإجمالي بالكجم */
+  totalWeightKg: number;
+  /** نسبة خصم الوزن (0, 0.05, 0.10, ...) */
+  weightDiscountRate: number;
+  /** مبلغ خصم الوزن */
+  weightDiscount: number;
   add: (
     slug: string,
     qty?: number,
@@ -169,11 +175,40 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [items],
   );
 
+  /** حساب الوزن الإجمالي بالكيلوجرام — كل منتج /beans أو /espresso كيسه 1 كجم */
+  const totalWeightKg = useMemo(
+    () =>
+      items.reduce((s, i) => {
+        const line = cartLine(i);
+        if (!line) return s;
+        if (line.custom) return s + (i.qty * 0.5); // خلطة مخصصة = 0.5 كجم افتراضي
+        const cat = line.product.category;
+        if (cat === "beans" || cat === "espresso") return s + i.qty;
+        return s;
+      }, 0),
+    [items],
+  );
+
+  /** خصم 5% لكل 2 كيلوجرام من الحبوب */
+  const weightDiscountRate = useMemo(
+    () => Math.floor(totalWeightKg / 2) * 0.05,
+    [totalWeightKg],
+  );
+
+  /** الخصم على الوزن */
+  const weightDiscount = useMemo(
+    () => Math.round(subtotal * weightDiscountRate),
+    [subtotal, weightDiscountRate],
+  );
+
   const value = useMemo(
     () => ({
       items,
       count,
       subtotal,
+      totalWeightKg,
+      weightDiscountRate,
+      weightDiscount,
       add,
       remove,
       setQty,
@@ -182,7 +217,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       openCart,
       closeCart,
     }),
-    [items, count, subtotal, add, remove, setQty, clear, isOpen, openCart, closeCart],
+    [items, count, subtotal, totalWeightKg, weightDiscountRate, weightDiscount, add, remove, setQty, clear, isOpen, openCart, closeCart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

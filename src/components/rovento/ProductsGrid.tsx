@@ -50,27 +50,6 @@ const MAIN_PRODUCTS = [
     accentLine: "from-rv-gold to-amber-500",
   },
   {
-    slug: "rovento-premium",
-    image: IMAGES.products.premium,
-    nameEn: "PREMIUM",
-    nameAr: "بريميوم",
-    price: 850,
-    weight: "1 كجم",
-    rating: 4.9,
-    reviews: 214,
-    badge: "الأكثر مبيعًا",
-    roast: "تحميص متوسط",
-    feature1: "Rich Crema",
-    feature1Ar: "كريمة غنية",
-    feature2: "Medium Roast",
-    feature2Ar: "تحميص متوسط",
-    feature3: "Smooth Body",
-    feature3Ar: "قوة متوازنة",
-    glow: "rgba(201,169,97,0.25)",
-    borderColor: "border-rv-gold/30",
-    accentLine: "from-rv-gold to-amber-400",
-  },
-  {
     slug: "rovento-arabica",
     image: IMAGES.products.arabica,
     nameEn: "ARABICA",
@@ -145,13 +124,13 @@ export function ProductsGrid() {
             <span className="gold-gradient-text">قائمة أسعار حبوب الإسبريسو</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm text-stone-400 md:text-base">
-            للبيع بالجملة فقط — خمسة بلندات مميزة من روفينتو
+            للبيع بالجملة — أربعة بلندات مميزة من روفينتو
           </p>
           <div className="mx-auto mt-6 h-px w-32 bg-gradient-to-r from-transparent via-rv-gold/40 to-transparent" />
         </motion.div>
 
         {/* Products grid — catalog-inspired cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {MAIN_PRODUCTS.map((product, i) => {
             const isAdded = addedSlug === product.slug;
             return (

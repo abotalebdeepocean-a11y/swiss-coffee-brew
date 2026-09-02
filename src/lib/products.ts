@@ -138,40 +138,6 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    slug: "rovento-premium",
-    name: "ROVENTO بريميوم — نكهة غنية فاخرة",
-    nameEn: "ROVENTO Premium Blend",
-    category: "beans",
-    price: 850,
-    weight: "1 كجم",
-    rating: 4.9,
-    reviews: 214,
-    badge: "الأكثر مبيعًا",
-    accent: "#c9a227",
-    image: IMAGES.bags.premium,
-    roast: "تحميص متوسط",
-    arabica: 100,
-    robusta: 0,
-    intensity: 4,
-    notes: ["نكهة غنية فاخرة", "كريمة غنية", "تجربة قيّمة"],
-    description:
-      "نكهة غنية فاخرة — تجربة قيّمة لعشاق الإسبريسو. كريمة غنية (Rich Crema)، تحميص متوسط (Medium Roast)، قوة متوازنة (Smooth Body). 100% أرابيكا مختارة بعناية.",
-    brewing: ["إسبريسو", "لاتيه", "كابتشينو", "فلتر"],
-    bestseller: true,
-    gallery: [
-      IMAGES.products.premium,
-      IMAGES.bags.premium,
-      IMAGES.bags.special,
-      IMAGES.bags.twoPackages,
-      IMAGES.bags.macro,
-    ],
-    testimonials: [
-      { name: "أحمد م.", text: "أحلى كريما جربتها في مصر! البريميوم بجد فرق عن أي قهوة تانية. بقالي 3 شهور بطلبها.", rating: 5, date: "2026-08-10" },
-      { name: "سارة ك.", text: "الطعم متوازن وحلو من غير سكر. بستخدمها في اللاتيه كل صبح. أنصح بيها جدًا.", rating: 5, date: "2026-08-05" },
-      { name: "نور ه.", text: "هديتها لأبويا وقال أحلى قهوة جربها. التغليف فخم والتوصيل سريع. 10/10", rating: 5, date: "2026-07-20" },
-    ],
-  },
-  {
     slug: "rovento-arabica",
     name: "ROVENTO أرابيكا — 100% أرابيكا نقي",
     nameEn: "ROVENTO Arabica 100%",
@@ -477,7 +443,7 @@ export const CATEGORY_MAP: Record<CategoryId, Category> = Object.fromEntries(
   CATEGORIES.map((c) => [c.id, c]),
 ) as Record<CategoryId, Category>;
 
-export const SIGNATURE_BLENDS = ["rovento-premium", "rovento-classic", "rovento-bar-intenso"];
+export const SIGNATURE_BLENDS = ["rovento-classic", "rovento-bar-intenso"];
 
 export function getProduct(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
