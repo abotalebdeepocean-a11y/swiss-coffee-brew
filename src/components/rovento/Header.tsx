@@ -36,15 +36,18 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-7 md:flex">
             <Link to="/" className="text-sm font-bold text-rv-smoke transition-colors hover:text-rv-gold">
               الرئيسية
             </Link>
-            <a href="#featured" className="text-sm font-bold text-rv-smoke transition-colors hover:text-rv-gold">
+            <a href="#products" className="text-sm font-bold text-rv-smoke transition-colors hover:text-rv-gold">
               المنتجات
             </a>
-            <a href="#story" className="text-sm font-bold text-rv-smoke transition-colors hover:text-rv-gold">
-              قصتنا
+            <a href="#features" className="text-sm font-bold text-rv-smoke transition-colors hover:text-rv-gold">
+              المميزات
+            </a>
+            <a href="#offer" className="text-sm font-bold text-rv-gold transition-colors hover:text-rv-gold-light">
+              عرض محدود
             </a>
           </nav>
 
@@ -91,11 +94,14 @@ export function Header() {
             <Link to="/" onClick={() => setOpen(false)} className="text-lg font-bold text-white">
               الرئيسية
             </Link>
-            <a href="#featured" onClick={() => setOpen(false)} className="text-lg font-bold text-rv-smoke">
+            <a href="#products" onClick={() => setOpen(false)} className="text-lg font-bold text-rv-smoke">
               المنتجات
             </a>
-            <a href="#story" onClick={() => setOpen(false)} className="text-lg font-bold text-rv-smoke">
-              قصتنا
+            <a href="#features" onClick={() => setOpen(false)} className="text-lg font-bold text-rv-smoke">
+              المميزات
+            </a>
+            <a href="#offer" onClick={() => setOpen(false)} className="text-lg font-bold text-rv-gold">
+              عرض محدود
             </a>
             <a
               href={whatsappLink("مرحباً، عايز أعرف أكتر عن منتجات روفينتو")}
