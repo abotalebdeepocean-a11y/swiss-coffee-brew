@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Crown,
   Eye,
@@ -19,6 +19,60 @@ const TRUST_SIGNALS = [
   "توصيل 24-72 ساعة",
   "ضمان استرجاع 30 يوم",
 ];
+
+/** عداد تنازلي صغير — 29 يوم */
+function HeroCountdown() {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 60_000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Target = 29 days from now (static per page load)
+  const target = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 29);
+    d.setHours(23, 59, 59, 0);
+    return d.getTime();
+  }, []);
+
+  const diff = Math.max(0, target - now);
+  const days = Math.floor(diff / 86_400_000);
+  const hours = Math.floor((diff % 86_400_000) / 3_600_000);
+  const mins = Math.floor((diff % 3_600_000) / 60_000);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.6 }}
+      className="flex items-center justify-center gap-3 lg:justify-start"
+    >
+      <span className="text-xs font-bold text-stone-500">التوصيل المجاني ينتهي خلال</span>
+      <div className="flex items-center gap-1.5">
+        {/* Days — مميز */}
+        <div className="relative flex items-center justify-center overflow-hidden rounded-lg border border-rv-red/40 bg-rv-red/10 px-3 py-1.5">
+          <span className="relative z-10 font-mono text-lg font-black text-rv-red">{days}</span>
+          <span className="relative z-10 ms-1 text-[10px] font-bold text-rv-red/70">يوم</span>
+          {/* توهج خلف الرقم */}
+          <div className="absolute inset-0 bg-rv-red/5 blur-sm" />
+        </div>
+        <span className="text-sm font-bold text-rv-red">:</span>
+        {/* Hours */}
+        <div className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5">
+          <span className="font-mono text-sm font-bold text-white">{String(hours).padStart(2, "0")}</span>
+          <span className="ms-1 text-[9px] text-stone-500">ساعة</span>
+        </div>
+        <span className="text-sm font-bold text-rv-red">:</span>
+        {/* Minutes */}
+        <div className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5">
+          <span className="font-mono text-sm font-bold text-white">{String(mins).padStart(2, "0")}</span>
+          <span className="ms-1 text-[9px] text-stone-500">دقيقة</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -120,8 +174,11 @@ export function Hero() {
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg lg:mx-0">
             من الحبوب إلى الكوب — تجربة إسبريسو احترافية في بيتك.
             <br className="hidden md:block" />
-            تحميص طازج يومياً في القاهرة. شحن مجاني لكل المحافظات.
+            تحميص طازج يومياً في القاهرة. شحن لكل محافظات مصر مجاناً.
           </p>
+
+          {/* Countdown timer */}
+          <HeroCountdown />
 
           {/* Features */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-400 lg:justify-start">
