@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ShoppingCart, ShieldCheck, Truck, CreditCard } from "lucide-react";
+import { ShoppingCart, Truck, CreditCard } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { GoldParticles } from "./GoldParticles";
 
@@ -68,7 +68,6 @@ export function LuxuryHero() {
           {[
             { icon: CreditCard, text: "الدفع عند الاستلام" },
             { icon: Truck, text: "توصيل 24-72 ساعة" },
-            { icon: ShieldCheck, text: "ضمان 30 يوم استرجاع" },
           ].map((s) => (
             <span key={s.text} className="flex items-center gap-2 text-[11px] font-bold tracking-wider text-rv-smoke uppercase md:text-xs">
               <s.icon className="size-3.5 text-rv-gold" />

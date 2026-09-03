@@ -78,7 +78,7 @@ export function LandingHero() {
 
           {/* شريط ثقة صغير */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-bold text-white/45 md:justify-start">
-            {["الدفع عند الاستلام", "توصيل 24-72 ساعة", "ضمان 30 يوم"].map((t) => (
+            {["الدفع عند الاستلام", "توصيل 24-72 ساعة"].map((t) => (
               <span key={t} className="inline-flex items-center gap-1.5">
                 <span className="text-rv-gold">✓</span>
                 {t}
