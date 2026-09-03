@@ -111,16 +111,16 @@ export function Hero() {
 
           {/* Main heading */}
           <h1 className="font-display text-4xl font-black leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className="text-white">قهوتك المختصة</span>
+            <span className="text-white">بنقدملك القهوة الإسبريسو</span>
             <br />
-            <span className="gold-gradient-text">محمصة في مصر</span>
+            <span className="gold-gradient-text">على أصولها</span>
           </h1>
 
           {/* Subtitle */}
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg lg:mx-0">
-            تحميص طازج يومياً في القاهرة.
+            من الحبوب إلى الكوب — تجربة إسبريسو احترافية في بيتك.
             <br className="hidden md:block" />
-            شحن مجاني لكل المحافظات.
+            تحميص طازج يومياً في القاهرة. شحن مجاني لكل المحافظات.
           </p>
 
           {/* Features */}
