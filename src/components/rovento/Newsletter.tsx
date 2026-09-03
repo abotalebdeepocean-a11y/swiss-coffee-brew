@@ -31,8 +31,7 @@ export function Newsletter() {
           </div>
 
           <h2 className="text-xl font-black md:text-2xl">
-            اشترك واحصل على{" "}
-            <span className="text-rv-gold">10% خصم</span> أول طلب 🎁
+            اشترك في نشرتنا البريدية
           </h2>
           <p className="mt-2 text-sm text-rv-brown/60">
             انضم لعائلة روفينتو وتوصلك أحدث العروض والخلطات الحصرية قبل الجميع.

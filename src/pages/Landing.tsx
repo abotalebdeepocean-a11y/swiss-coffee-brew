@@ -64,7 +64,7 @@ export default function Landing() {
           <TrustBar />
           <ShippingReturnsBanner />
           <FAQ />
-          <Newsletter />
+          {/* Newsletter — temporarily hidden */}
         </main>
         <Footer />
       </div>

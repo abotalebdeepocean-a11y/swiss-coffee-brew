@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router";
-import { Check, MapPin, MessageCircle, Phone, Mail, Globe } from "lucide-react";
+import { MapPin, MessageCircle, Phone, Mail, Globe } from "lucide-react";
 import { Logo, WhatsAppIcon } from "./art";
 import { whatsappLink } from "@/lib/store";
 
@@ -51,45 +50,7 @@ const SOCIALS = [
   },
 ];
 
-function NewsletterForm() {
-  const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
 
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (email.trim()) setDone(true);
-      }}
-      className="mt-4"
-    >
-      {done ? (
-        <p className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-bold text-emerald-400">
-          <Check className="size-4" />
-          تم الاشتراك! كوبون خصمك في الطريق
-        </p>
-      ) : (
-        <div className="flex gap-2">
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="اكتب بريدك الإلكتروني"
-            dir="ltr"
-            className="h-11 min-w-0 flex-1 rounded-xl border border-rv-cream/10 bg-rv-darkBrown/80 px-3 text-sm text-rv-cream placeholder:text-rv-cream/30 focus:border-rv-gold focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="h-11 shrink-0 rounded-xl bg-rv-gold px-4 text-sm font-black text-white transition hover:bg-rv-darkGold"
-          >
-            اشترك
-          </button>
-        </div>
-      )}
-    </form>
-  );
-}
 
 export function Footer() {
   return (
@@ -188,14 +149,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Newsletter */}
+        {/* خدمة العملاء */}
         <div>
-          <h4 className="mb-1 font-bold text-rv-cream">اشترك في نشرتنا البريدية</h4>
-          <p className="text-xs text-rv-cream/40">
-            احصل على عروض وخصومات حصرية + كود خصم أول طلب.
-          </p>
-          <NewsletterForm />
-          <div className="mt-5">
+          <div>
             <h5 className="mb-2 text-xs font-bold text-rv-cream">خدمة العملاء</h5>
             <ul className="space-y-1.5 text-xs">
               <li>
