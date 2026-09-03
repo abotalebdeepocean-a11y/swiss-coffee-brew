@@ -9,11 +9,16 @@ import { GoldParticles } from "./GoldParticles";
  */
 export function LandingHero() {
   return (
-    <section className="relative overflow-hidden bg-[#1a0f0a]">
+    <section className="relative overflow-hidden bg-[#1a0f0a] rv-corners">
       {/* تدرج بني غامق سينمائي */}
       <div className="absolute inset-0 bg-gradient-to-bl from-[#2d1810] via-[#1a0f0a] to-[#050505]" />
       {/* نويز خفيف */}
       <div className="rv-noise pointer-events-none absolute inset-0" />
+      {/* حدود ذهبية زخرفية على الحواف */}
+      <div className="pointer-events-none absolute inset-x-4 inset-y-4 rounded-xl border border-rv-gold/[0.08]" />
+      {/* زخرفة علوية مزدوجة */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rv-gold/30 to-transparent" />
+      <div className="pointer-events-none absolute top-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rv-gold/15 to-transparent" />
 
       {/* حركة إضاءة ذهبية عائمة في الخلفية */}
       <motion.div
@@ -40,7 +45,9 @@ export function LandingHero() {
             ☕ ROVENTO — محمصة إسبريسو مصرية
           </span>
 
-          <h1 className="mt-6 text-[2.6rem] font-black leading-[1.15] text-white sm:text-6xl lg:text-[4.1rem] lg:leading-[1.1]">
+          {/* فاصل زخرفي فوق العنوان */}
+          <div className="rv-divider mb-5 mt-6 text-rv-gold/40">◆</div>
+          <h1 className="text-[2.6rem] font-black leading-[1.15] text-white sm:text-6xl lg:text-[4.1rem] lg:leading-[1.1]">
             <span className="gold-gradient-text-light">اكتشف مذاق</span>
             <br />
             <span className="text-rv-cream">الفخامة </span>
@@ -76,6 +83,8 @@ export function LandingHero() {
             </a>
           </div>
 
+          {/* فاصل زخرفي تحت النصوص */}
+          <div className="rv-divider mt-8 text-rv-gold/30">◆</div>
           {/* شريط ثقة صغير */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-bold text-white/45 md:justify-start">
             {["الدفع عند الاستلام", "توصيل 24-72 ساعة"].map((t) => (
@@ -94,9 +103,11 @@ export function LandingHero() {
           transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
           className="relative mx-auto h-[330px] w-full max-w-[430px] sm:h-[420px] lg:h-[470px]"
         >
-          {/* هالة ذهبية + حلقة */}
-          <div className="absolute left-1/2 top-1/2 size-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,165,116,0.22)_0%,transparent_62%)] blur-2xl" />
-          <div className="absolute left-1/2 top-1/2 size-[94%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-rv-gold/15 animate-spin-slow" />
+          {/* هالة ذهبية + حلقة + دخان */}
+          <div className="absolute left-1/2 top-1/2 size-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,165,116,0.25)_0%,transparent_62%)] blur-2xl" />
+          <div className="absolute left-1/2 top-1/2 size-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,165,116,0.06)_0%,transparent_50%)] blur-3xl" />
+          <div className="absolute left-1/2 top-[55%] h-20 w-[80%] -translate-x-1/2 rounded-full bg-rv-gold/[0.04] blur-2xl animate-smoke" />
+          <div className="absolute left-1/2 top-1/2 size-[94%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-rv-gold/12 animate-spin-slow" />
 
           {/* المنتج طافٍ */}
           <motion.div

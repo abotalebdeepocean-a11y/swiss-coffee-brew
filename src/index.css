@@ -228,6 +228,126 @@
   }
 }
 
+/* ═══ Ornamental / Luxe Decor ═══ */
+
+/* لحاف ذهبي مزخرف حول أي عنصر */
+.rv-gold-frame {
+  position: relative;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 10px;
+}
+.rv-gold-frame::before,
+.rv-gold-frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(201, 168, 76, 0.55);
+}
+.rv-gold-frame::before {
+  top: -4px;
+  right: -4px;
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 0 6px 0 0;
+}
+.rv-gold-frame::after {
+  bottom: -4px;
+  left: -4px;
+  border-right: 0;
+  border-top: 0;
+  border-radius: 0 0 0 6px;
+}
+
+/* زخارف ذهبية في الأركان */
+.rv-corners {
+  position: relative;
+}
+.rv-corners::before,
+.rv-corners::after {
+  content: "◆";
+  position: absolute;
+  color: rgba(201, 168, 76, 0.35);
+  font-size: 10px;
+  line-height: 1;
+}
+.rv-corners::before {
+  top: 12px;
+  right: 16px;
+}
+.rv-corners::after {
+  bottom: 12px;
+  left: 16px;
+}
+
+/* فاصل زخرفي ذهبي */
+.rv-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 20px;
+}
+.rv-divider::before,
+.rv-divider::after {
+  content: "";
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.4), transparent);
+}
+
+/* أعمدة كلاسيكية للأعمدة */
+.rv-pillar {
+  position: relative;
+  border-left: 2px solid rgba(201, 168, 76, 0.18);
+  border-right: 2px solid rgba(201, 168, 76, 0.18);
+  padding: 36px 20px 28px;
+  text-align: center;
+}
+.rv-pillar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8px;
+  right: -8px;
+  height: 6px;
+  background: linear-gradient(90deg, transparent 5%, rgba(201, 168, 76, 0.2) 20%, rgba(201, 168, 76, 0.35) 50%, rgba(201, 168, 76, 0.2) 80%, transparent 95%);
+  border-radius: 0 0 3px 3px;
+}
+.rv-pillar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -10px;
+  right: -10px;
+  height: 5px;
+  background: linear-gradient(90deg, transparent 2%, rgba(201, 168, 76, 0.2) 15%, rgba(201, 168, 76, 0.3) 50%, rgba(201, 168, 76, 0.2) 85%, transparent 98%);
+  border-radius: 3px 3px 0 0;
+}
+
+/* حبات بن مبعثرة */
+.rv-beans::before,
+.rv-beans::after {
+  content: ".";
+  position: absolute;
+  font-size: 28px;
+  color: rgba(160, 128, 48, 0.08);
+  line-height: 1;
+  pointer-events: none;
+}
+.rv-beans::before {
+  top: 20px;
+  left: 24px;
+  transform: rotate(-25deg);
+}
+.rv-beans::after {
+  bottom: 30px;
+  right: 20px;
+  transform: rotate(15deg);
+}
+
 /* ═══ Landing FX — ripple + film-grain noise ═══ */
 @keyframes rv-ripple {
   to {

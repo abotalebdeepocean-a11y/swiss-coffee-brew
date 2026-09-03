@@ -66,7 +66,7 @@ export function FreeShippingCountdown() {
   const urgent = diff > 0 && diff < 86_400_000; // أقل من 24 ساعة => أحمر
 
   return (
-    <section id="offer" className="relative scroll-mt-20 overflow-hidden border-y border-rv-gold/10 bg-gradient-to-b from-[#160d07] to-[#0a0705] py-20 md:py-24">
+    <section id="offer" className="relative scroll-mt-20 overflow-hidden border-y border-rv-gold/10 bg-gradient-to-b from-[#160d07] to-[#0a0705] py-20 md:py-24 rv-corners">
       <div className="rv-noise pointer-events-none absolute inset-0" />
       {/* توهجات */}
       <motion.div
@@ -82,6 +82,7 @@ export function FreeShippingCountdown() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
         >
+          <div className="rv-divider mb-4 text-rv-gold/40">🔥</div>
           <span className="inline-flex items-center gap-2 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-4 py-1.5 text-xs font-black text-rv-gold">
             <Flame className="size-3.5" />
             عرض محدود الوقت فقط
@@ -114,6 +115,7 @@ export function FreeShippingCountdown() {
             <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
           </a>
 
+          <div className="rv-divider mt-6 text-rv-gold/25">◆</div>
           {/* طرق الدفع */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-2">
             {["الدفع عند الاستلام", "فودافون كاش", "إنستاباي"].map((m) => (

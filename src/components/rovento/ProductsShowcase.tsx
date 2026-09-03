@@ -43,7 +43,7 @@ export function ProductsShowcase() {
   const { add } = useCart();
 
   return (
-    <section id="products" className="relative scroll-mt-20 overflow-hidden bg-rv-black py-20 md:py-28">
+    <section id="products" className="relative scroll-mt-20 overflow-hidden bg-rv-black py-20 md:py-28 rv-beans">
       {/* توهج ذهبي خفيف */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-px w-full max-w-[900px] -translate-x-1/2 bg-gradient-to-r from-transparent via-rv-gold/30 to-transparent" />
       <div className="pointer-events-none absolute right-[-120px] top-40 size-[320px] rounded-full bg-rv-gold/[0.04] blur-[110px]" />
@@ -84,16 +84,23 @@ export function ProductsShowcase() {
                   {c.badge}
                 </span>
 
-                {/* صورة الكيس */}
-                <div className="relative mx-auto flex h-64 w-full items-center justify-center md:h-80">
+                {/* صورة الكيس — إطار ذهبي مزخرف */}
+                <div className="relative mx-auto mb-4 flex h-64 w-full items-center justify-center md:h-80">
+                  {/* لمعة خلف المنتج */}
                   <div className="absolute size-[70%] rounded-full bg-[radial-gradient(circle,rgba(212,165,116,0.16),transparent_65%)] blur-xl" />
-                  <img
-                    src={c.img}
-                    alt={`ROVENTO ${c.nameEn} — كيس 1 كجم`}
-                    loading="lazy"
-                    className="relative h-full w-full object-contain drop-shadow-[0_24px_38px_rgba(0,0,0,0.55)] transition-transform duration-500 group-hover:scale-[1.05]"
-                    draggable={false}
-                  />
+                  {/* الإطار الذهبي المزخرف */}
+                  <div className="rv-gold-frame relative flex h-[85%] w-[82%] items-center justify-center overflow-hidden rounded-lg border border-rv-gold/25 bg-black/30 p-4">
+                    {/* أركان ذهبية إضافية */}
+                    <div className="absolute top-1 right-1 size-2 rotate-45 border-t border-r border-rv-gold/40" />
+                    <div className="absolute bottom-1 left-1 size-2 rotate-45 border-b border-l border-rv-gold/40" />
+                    <img
+                      src={c.img}
+                      alt={`ROVENTO ${c.nameEn} — كيس 1 كجم`}
+                      loading="lazy"
+                      className="h-full w-full object-contain drop-shadow-[0_24px_38px_rgba(0,0,0,0.55)] transition-transform duration-500 group-hover:scale-[1.04]"
+                      draggable={false}
+                    />
+                  </div>
                 </div>
 
                 {/* البيانات */}
@@ -106,7 +113,7 @@ export function ProductsShowcase() {
                       1 كجم
                     </span>
                   </div>
-                  <p className="mt-1 text-xs font-bold text-rv-gold">{c.tag}</p>
+                  <p className="mt-1 text-[11px] font-black tracking-wide text-rv-gold/80 uppercase">{c.tag}</p>
 
                   <p className="mt-3 text-sm leading-relaxed text-white/55 md:text-[15px]">
                     {c.desc}

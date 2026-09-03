@@ -23,9 +23,11 @@ export function FinalCallToAction() {
   const { add } = useCart();
 
   return (
-    <section className="relative overflow-hidden bg-[#050505] py-20 md:py-28">
+    <section className="relative overflow-hidden bg-[#050505] py-20 md:py-28 rv-corners">
       {/* توهج ذهبي خلفي */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/[0.05] blur-[140px]" />
+      {/* حدود زخرفية */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rv-gold/20 to-transparent" />
       <GoldParticles count={16} />
 
       <div className="relative z-10 mx-auto w-full max-w-[900px] px-4 text-center md:px-6">
@@ -35,6 +37,7 @@ export function FinalCallToAction() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8 }}
         >
+          <div className="rv-divider mb-4 text-rv-gold/40">◆</div>
           <h2 className="text-4xl font-black text-white sm:text-5xl md:text-6xl">
             جاهز <span className="gold-gradient-text">لِلبدء؟</span>
           </h2>
@@ -67,6 +70,7 @@ export function FinalCallToAction() {
           ))}
         </motion.div>
 
+        <div className="rv-divider mt-8 text-rv-gold/30">◆</div>
         {/* الثقة */}
         <motion.p
           initial={{ opacity: 0 }}
