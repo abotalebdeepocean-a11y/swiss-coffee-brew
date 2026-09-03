@@ -13,7 +13,7 @@ const PHONE_NUMBERS = [
 const PAYMENTS = [
   { label: "Visa", cls: "text-blue-400" },
   { label: "Mastercard", cls: "text-orange-400" },
-  { label: "ميزة (Meeza)", cls: "text-rv-gold" },
+  { label: "ميزة (Meeza)", cls: "text-rv-red" },
   { label: "فودافون كاش", cls: "text-red-400" },
   { label: "Instapay", cls: "text-purple-400" },
   { label: "COD", cls: "text-emerald-400" },
@@ -30,8 +30,6 @@ const LINKS = [
   { label: "المتجر", to: "/shop" },
   { label: "خلطات روفينتو", to: "/#featured" },
   { label: "عرض الأسبوع", to: "/#deal" },
-  { label: "لماذا بريكا؟", to: "/#brikka" },
-  { label: "خلطتك الخاصة", to: "/#blend-lab" },
   { label: "تجارب العملاء", to: "/#reviews" },
 ];
 
@@ -68,7 +66,7 @@ function NewsletterForm() {
       {done ? (
         <p className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-bold text-emerald-400">
           <Check className="size-4" />
-          تم الاشتراك! كوبون خصمك في الطريق 🎉
+          تم الاشتراك! كوبون خصمك في الطريق
         </p>
       ) : (
         <div className="flex gap-2">
@@ -79,11 +77,11 @@ function NewsletterForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="اكتب بريدك الإلكتروني"
             dir="ltr"
-            className="h-11 min-w-0 flex-1 rounded-xl border border-stone-800 bg-coffee-900 px-3 text-sm text-stone-200 placeholder:text-stone-500 focus:border-rv-gold focus:outline-none"
+            className="h-11 min-w-0 flex-1 rounded-xl border border-white/10 bg-[#111] px-3 text-sm text-stone-200 placeholder:text-stone-500 focus:border-rv-red focus:outline-none"
           />
           <button
             type="submit"
-            className="h-11 shrink-0 rounded-xl bg-rv-red px-4 text-sm font-black text-white transition hover:brightness-110"
+            className="h-11 shrink-0 rounded-xl bg-rv-red px-4 text-sm font-black text-white transition hover:bg-rv-red-light"
           >
             اشترك
           </button>
@@ -95,79 +93,73 @@ function NewsletterForm() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-stone-800 bg-coffee-950 pb-10 pt-14 text-sm text-stone-400">
+    <footer className="border-t border-white/5 bg-[#0a0a0a] pb-10 pt-14 text-sm text-stone-400">
       <div className="mx-auto grid w-full max-w-[1200px] gap-8 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-4 lg:gap-10">
-        {/* العلامة */}
+        {/* Brand */}
         <div className="space-y-4">
           <Logo />
-          <p className="text-xs leading-relaxed text-stone-400">
+          <p className="text-xs leading-relaxed text-stone-500">
             عصارة قهوة خالصة لتجربة فريدة — علامة مصرية رائدة في تحميص وإنتاج
             قهوة الإسبريسو الفاخرة بأعلى معايير الجودة العالمية في قلب القاهرة.
           </p>
           <div className="space-y-2 text-xs">
             <p className="flex items-center gap-2">
-              <MapPin className="size-3.5 shrink-0 text-rv-gold" />
+              <MapPin className="size-3.5 shrink-0 text-rv-red" />
               القاهرة، مصر
             </p>
             {PHONE_NUMBERS.map((p) => (
               <a
                 key={p.number}
                 href={`tel:+20${p.number}`}
-                className="flex items-center gap-2 transition-colors hover:text-rv-gold"
+                className="flex items-center gap-2 transition-colors hover:text-rv-red"
               >
-                <Phone className="size-3.5 shrink-0 text-rv-gold" />
+                <Phone className="size-3.5 shrink-0 text-rv-red" />
                 <span dir="ltr">{p.number}</span>
                 <span className="text-stone-600">({p.label})</span>
               </a>
             ))}
             <a
               href="mailto:info@rovento.site"
-              className="flex items-center gap-2 transition-colors hover:text-rv-gold"
+              className="flex items-center gap-2 transition-colors hover:text-rv-red"
             >
-              <Mail className="size-3.5 shrink-0 text-rv-gold" />
+              <Mail className="size-3.5 shrink-0 text-rv-red" />
               info@rovento.site
             </a>
             <a
               href="https://www.rovento.site"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 transition-colors hover:text-rv-gold"
+              className="flex items-center gap-2 transition-colors hover:text-rv-red"
             >
-              <Globe className="size-3.5 shrink-0 text-rv-gold" />
+              <Globe className="size-3.5 shrink-0 text-rv-red" />
               <span dir="ltr">www.rovento.site</span>
             </a>
           </div>
 
-          {/* QR Code للموقع */}
-          <div className="mt-3 flex items-center gap-3 rounded-xl border border-stone-800 bg-coffee-900 p-3">
+          {/* QR Code */}
+          <div className="mt-3 flex items-center gap-3 rounded-xl border border-white/5 bg-[#111] p-3">
             <div className="shrink-0">
               <svg viewBox="0 0 100 100" className="size-16" aria-label="QR Code لـ www.rovento.site">
-                {/* QR Code pattern for rovento.site */}
                 <rect width="100" height="100" fill="white" rx="8" />
-                {/* Top-left finder */}
-                <rect x="8" y="8" width="24" height="24" fill="#0d0b09" rx="2" />
+                <rect x="8" y="8" width="24" height="24" fill="#0a0a0a" rx="2" />
                 <rect x="12" y="12" width="16" height="16" fill="white" rx="1" />
-                <rect x="15" y="15" width="10" height="10" fill="#0d0b09" rx="1" />
-                {/* Top-right finder */}
-                <rect x="68" y="8" width="24" height="24" fill="#0d0b09" rx="2" />
+                <rect x="15" y="15" width="10" height="10" fill="#0a0a0a" rx="1" />
+                <rect x="68" y="8" width="24" height="24" fill="#0a0a0a" rx="2" />
                 <rect x="72" y="12" width="16" height="16" fill="white" rx="1" />
-                <rect x="75" y="15" width="10" height="10" fill="#0d0b09" rx="1" />
-                {/* Bottom-left finder */}
-                <rect x="8" y="68" width="24" height="24" fill="#0d0b09" rx="2" />
+                <rect x="75" y="15" width="10" height="10" fill="#0a0a0a" rx="1" />
+                <rect x="8" y="68" width="24" height="24" fill="#0a0a0a" rx="2" />
                 <rect x="12" y="72" width="16" height="16" fill="white" rx="1" />
-                <rect x="15" y="75" width="10" height="10" fill="#0d0b09" rx="1" />
-                {/* Data pattern */}
+                <rect x="15" y="75" width="10" height="10" fill="#0a0a0a" rx="1" />
                 {[38,42,46,50,54,58].map(x => [38,42,46,50].map(y => (
-                  <rect key={`${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0d0b09" opacity={((x+y) % 6 < 3) ? 1 : 0.3} />
+                  <rect key={`${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0a0a0a" opacity={((x+y) % 6 < 3) ? 1 : 0.3} />
                 )))}
                 {[38,42,46].map(x => [8,12,16].map(y => (
-                  <rect key={`t-${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0d0b09" opacity={((x*y) % 5 < 3) ? 1 : 0.3} />
+                  <rect key={`t-${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0a0a0a" opacity={((x*y) % 5 < 3) ? 1 : 0.3} />
                 )))}
                 {[8,12,16].map(x => [38,42,46,50].map(y => (
-                  <rect key={`l-${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0d0b09" opacity={((x+y) % 4 < 2) ? 1 : 0.3} />
+                  <rect key={`l-${x}-${y}`} x={x} y={y} width="3" height="3" fill="#0a0a0a" opacity={((x+y) % 4 < 2) ? 1 : 0.3} />
                 )))}
-                {/* Gold center accent */}
-                <circle cx="50" cy="50" r="6" fill="#C9A227" />
+                <circle cx="50" cy="50" r="6" fill="#d03b1e" />
                 <circle cx="50" cy="50" r="3" fill="white" />
               </svg>
             </div>
@@ -177,7 +169,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* سوشيال ميديا */}
+          {/* Socials */}
           <div className="flex items-center gap-2 pt-1">
             {SOCIALS.map((s) => (
               <a
@@ -186,7 +178,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="grid size-9 place-items-center rounded-full border border-stone-800 bg-coffee-900 text-stone-300 transition hover:border-rv-gold hover:text-rv-gold"
+                className="grid size-9 place-items-center rounded-full border border-white/10 bg-[#111] text-stone-400 transition hover:border-rv-red hover:text-rv-red"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
                   <path d={s.d} />
@@ -196,10 +188,10 @@ export function Footer() {
           </div>
         </div>
 
-        {/* النشرة البريدية */}
+        {/* Newsletter */}
         <div>
           <h4 className="mb-1 font-bold text-white">اشترك في نشرتنا البريدية</h4>
-          <p className="text-xs text-stone-400">
+          <p className="text-xs text-stone-500">
             احصل على عروض وخصومات حصرية + كود خصم أول طلب.
           </p>
           <NewsletterForm />
@@ -211,7 +203,7 @@ export function Footer() {
                   href={whatsappLink("مرحبًا ROVENTO 👋 لدي استفسار.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-rv-gold"
+                  className="transition-colors hover:text-rv-red"
                 >
                   تواصل معنا عبر واتساب
                 </a>
@@ -221,13 +213,13 @@ export function Footer() {
           </div>
         </div>
 
-        {/* روابط سريعة */}
+        {/* Quick links */}
         <div>
           <h4 className="mb-4 font-bold text-white">روابط سريعة</h4>
           <ul className="space-y-2 text-xs">
             {LINKS.map((l) => (
               <li key={l.to + l.label}>
-                <Link to={l.to} className="transition-colors hover:text-rv-gold">
+                <Link to={l.to} className="transition-colors hover:text-rv-red">
                   {l.label}
                 </Link>
               </li>
@@ -235,7 +227,7 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* وسائل الدفع + الشحن */}
+        {/* Payments + Shipping */}
         <div className="space-y-5">
           <div>
             <h4 className="mb-3 font-bold text-white">وسائل الدفع</h4>
@@ -243,7 +235,7 @@ export function Footer() {
               {PAYMENTS.map((p) => (
                 <span
                   key={p.label}
-                  className={`rounded-lg border border-stone-800 bg-coffee-900 px-2.5 py-1.5 text-[11px] font-bold ${p.cls}`}
+                  className={`rounded-lg border border-white/5 bg-[#111] px-2.5 py-1.5 text-[11px] font-bold ${p.cls}`}
                 >
                   {p.label}
                 </span>
@@ -257,7 +249,7 @@ export function Footer() {
                 <span
                   key={s.label}
                   dir="ltr"
-                  className={`rounded-lg border border-stone-800 bg-coffee-900 px-2.5 py-1.5 text-[11px] font-bold ${s.cls}`}
+                  className={`rounded-lg border border-white/5 bg-[#111] px-2.5 py-1.5 text-[11px] font-bold ${s.cls}`}
                 >
                   {s.label}
                 </span>
@@ -270,29 +262,29 @@ export function Footer() {
         </div>
       </div>
 
-      {/* شريط واتساب */}
-      <div className="mx-auto mt-10 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-stone-800 px-4 pt-8 md:px-6">
+      {/* WhatsApp strip */}
+      <div className="mx-auto mt-10 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-white/5 px-4 pt-8 md:px-6">
         <div className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-full bg-emerald-500 text-white">
+          <span className="grid size-10 place-items-center rounded-full bg-[#25D366] text-white">
             <WhatsAppIcon className="size-5" />
           </span>
           <div>
             <p className="font-bold text-white">اطلب مباشرة عبر واتساب</p>
-            <p className="text-xs text-stone-400">رد سريع من 9 صباحًا حتى 11 مساءً — <span dir="ltr">01033012381</span></p>
+            <p className="text-xs text-stone-500">رد سريع من 9 صباحًا حتى 11 مساءً — <span dir="ltr">01033012381</span></p>
           </div>
         </div>
         <a
           href={whatsappLink("مرحبًا ROVENTO 👋 أريد الطلب الآن.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-11 items-center gap-2 rounded-xl bg-emerald-500 px-6 text-sm font-black text-white transition hover:bg-emerald-600"
+          className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#25D366] px-6 text-sm font-black text-white transition hover:bg-[#20bd5a]"
         >
           <MessageCircle className="size-4" />
           راسلنا الآن
         </a>
       </div>
 
-      <div className="mx-auto mt-8 w-full max-w-[1200px] border-t border-stone-900 px-4 pt-8 text-center text-xs text-stone-500 md:px-6">
+      <div className="mx-auto mt-8 w-full max-w-[1200px] border-t border-white/5 px-4 pt-8 text-center text-xs text-stone-600 md:px-6">
         <p>جميع الحقوق محفوظة © {new Date().getFullYear()} روفينتو للقهوة • صنع بكل فخر في مصر 🇪🇬</p>
       </div>
     </footer>

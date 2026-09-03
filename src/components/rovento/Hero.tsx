@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import {
   Crown,
   Eye,
@@ -8,48 +9,62 @@ import {
   CheckCircle2,
   ShoppingCart,
   ArrowLeft,
+  Flame,
 } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { BagVisual } from "./BagVisual";
 
-/** شريط الثقة المتحرك فوق الهيرو */
 const TRUST_SIGNALS = [
-  "✓ الدفع عند الاستلام",
-  "✓ توصيل 24-72 ساعة",
-  "✓ ضمان استرجاع 30 يوم",
+  "الدفع عند الاستلام",
+  "توصيل 24-72 ساعة",
+  "ضمان استرجاع 30 يوم",
 ];
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
     <section
+      ref={ref}
       id="hero"
-      className="relative overflow-hidden border-b border-stone-800"
+      className="relative overflow-hidden"
     >
-      {/* خلفية — صورة حبوب قهوة محمصة داكنة + تدرج ذهبي */}
+      {/* Background */}
       <div className="absolute inset-0 z-0">
-        {/* صورة حبوب القهوة كخلفية */}
-        <div
+        <motion.div
+          style={{ y }}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${IMAGES.bags.macro})`,
-            filter: "brightness(0.25) saturate(0.7)",
-          }}
-        />
-        {/* تدرج ذهبي خفيف من الأعلى والأسفل */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0b09]/90 via-[#0d0b09]/60 to-[#0d0b09]/95" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0b09]/80 via-transparent to-[#0d0b09]/80" />
-        {/* توهج ذهبي خفيف في الوسط */}
-        <div className="pointer-events-none absolute left-1/2 top-1/3 size-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/8 blur-[150px]" />
-        <div className="pointer-events-none absolute bottom-0 right-1/4 size-[400px] rounded-full bg-amber-900/10 blur-[120px]" />
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${IMAGES.bags.macro})`,
+              filter: "brightness(0.15) saturate(0.4)",
+            }}
+          />
+        </motion.div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/95 via-[#0a0a0a]/80 to-[#0a0a0a]" />
+        {/* Red glow */}
+        <div className="pointer-events-none absolute left-1/2 top-1/3 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-red/5 blur-[200px]" />
+        <div className="pointer-events-none absolute bottom-0 right-1/4 size-[400px] rounded-full bg-rv-red/3 blur-[150px]" />
+        {/* Minimalist grid lines */}
+        <div className="absolute inset-0 grid-editorial opacity-30" />
       </div>
 
-      {/* شريط Trust Signals المتحرك — فوق الهيرو */}
-      <div className="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-sm">
+      {/* Trust Signals bar */}
+      <div className="relative z-10 border-b border-white/5 bg-black/60 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mx-auto flex w-full max-w-[1200px] items-center justify-center gap-2 px-4 py-2.5 md:gap-4 md:px-6"
+          className="mx-auto flex w-full max-w-[1200px] items-center justify-center gap-3 px-4 py-3 md:gap-6 md:px-6"
         >
           {TRUST_SIGNALS.map((signal, i) => (
             <motion.span
@@ -57,74 +72,71 @@ export function Hero() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.2 + i * 0.15 }}
-              className="flex items-center gap-1 text-[11px] font-bold tracking-wide text-stone-300 md:text-xs"
+              className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-stone-400 uppercase md:text-xs"
             >
-              <CheckCircle2 className="size-3.5 text-rv-gold" />
-              {signal.replace("✓ ", "")}
+              <CheckCircle2 className="size-3.5 text-rv-red" />
+              {signal}
               {i < TRUST_SIGNALS.length - 1 && (
-                <span className="ms-2 hidden text-stone-600 md:inline">|</span>
+                <span className="ms-2 text-stone-700 md:inline">|</span>
               )}
             </motion.span>
           ))}
         </motion.div>
       </div>
 
-      {/* المحتوى الرئيسي */}
-      <div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-8 px-4 pb-14 pt-10 md:gap-12 md:px-6 md:pt-16 lg:grid-cols-12">
-        {/* النص */}
+      {/* Main content */}
+      <motion.div
+        style={{ opacity }}
+        className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-8 px-4 pb-16 pt-12 md:gap-12 md:px-6 md:pt-20 lg:grid-cols-12"
+      >
+        {/* Text */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="space-y-6 text-center lg:col-span-7 lg:text-start"
         >
-          {/* شارة السعر + عدد العملاء */}
-          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-rv-gold to-[#b89728] px-5 py-2 shadow-lg shadow-rv-gold/20"
-            >
-              <ShoppingCart className="size-4 text-black" />
-              <span className="text-sm font-black text-black">
-                يبدأ من 650 ج.م / كجم
-              </span>
-            </motion.div>
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold text-stone-300">
-              +500 عميل سعيد
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="inline-flex items-center gap-2 rounded-full border border-rv-red/30 bg-rv-red/10 px-5 py-2"
+          >
+            <Flame className="size-4 text-rv-red" />
+            <span className="text-sm font-bold text-rv-red">
+              يبدأ من 700 ج.م / كجم
             </span>
-          </div>
+          </motion.div>
 
-          {/* العنوان الرئيسي */}
-          <h1 className="font-display text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            <span className="text-rv-cream">قهوتك المختصة...</span>
+          {/* Main heading */}
+          <h1 className="font-display text-4xl font-black leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            <span className="text-white">قهوتك المختصة</span>
             <br />
             <span className="gold-gradient-text">محمصة في مصر</span>
           </h1>
 
-          {/* العنوان الفرعي */}
-          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-stone-400 md:text-base lg:mx-0">
-            5 بلندات فاخرة — تحميص طازج يومياً في القاهرة.
+          {/* Subtitle */}
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg lg:mx-0">
+            تحميص طازج يومياً في القاهرة.
             <br className="hidden md:block" />
             شحن مجاني لكل المحافظات.
           </p>
 
-          {/* أبرز المزايا — 3 نقاط سريعة */}
+          {/* Features */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-400 lg:justify-start">
             <span className="flex items-center gap-1.5">
-              <Truck className="size-4 text-rv-gold" />
+              <Truck className="size-4 text-rv-red" />
               شحن لكل مصر
             </span>
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="size-4 text-rv-gold" />
+              <ShieldCheck className="size-4 text-rv-red" />
               ضمان ذهبي
             </span>
           </div>
 
-          {/* الأزرار */}
+          {/* CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
-            {/* الزر الرئيسي — ذهبي كبير */}
             <Link
               to="/#featured"
               onClick={(e) => {
@@ -135,14 +147,13 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-rv-gold to-[#b89728] px-8 py-4 text-lg font-black text-black shadow-xl shadow-rv-gold/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(201,169,97,0.4)]"
+              className="group inline-flex items-center gap-3 rounded-xl bg-rv-red px-8 py-4 text-lg font-black text-white shadow-xl shadow-rv-red/25 transition-all duration-300 hover:-translate-y-1 hover:bg-rv-red-light hover:shadow-[0_12px_40px_rgba(208,59,30,0.4)]"
             >
               <ShoppingCart className="size-5" />
               اطلب الآن — توصيل مجاني
               <ArrowLeft className="size-5 transition-transform group-hover:-translate-x-1" />
             </Link>
 
-            {/* الزر الثانوي — outline ذهبي */}
             <Link
               to="/#featured"
               onClick={(e) => {
@@ -153,7 +164,7 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="inline-flex items-center gap-3 rounded-xl border-2 border-rv-gold/50 bg-transparent px-8 py-4 text-lg font-bold text-rv-gold transition-all duration-300 hover:border-rv-gold hover:bg-rv-gold/10 hover:shadow-[0_0_20px_rgba(201,169,97,0.15)]"
+              className="inline-flex items-center gap-3 rounded-xl border-2 border-white/20 bg-transparent px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:border-rv-red/50 hover:bg-rv-red/10 hover:text-rv-red"
             >
               <Eye className="size-5" />
               تصفح المنتجات
@@ -161,36 +172,34 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* الكيس الرئيسي */}
+        {/* Coffee bag visual */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
           className="relative flex justify-center lg:col-span-5"
         >
           <div className="relative w-full max-w-xl">
-            {/* توهج ذهبي واسع خلف الكيس */}
-            <div className="absolute -inset-12 rounded-full bg-rv-gold/12 blur-[80px]" />
-            <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-rv-gold/20 to-amber-800/15 blur-[60px]" />
+            {/* Red glow behind bag */}
+            <div className="absolute -inset-16 rounded-full bg-rv-red/8 blur-[100px]" />
 
-            {/* كيس البريميوم */}
             <div className="relative">
               <BagVisual
                 image={IMAGES.bags.premium}
                 variant="premium"
                 eager
                 alt="كيس روفينتو بريميوم — 100% أرابيكا فاخر"
-                className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(212,175,55,0.3)] sm:h-[380px] md:h-[460px]"
+                className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(208,59,30,0.2)] sm:h-[380px] md:h-[460px]"
               />
             </div>
 
-            {/* بطاقتين صغيرتين — بريميوم + كولومبيا */}
+            {/* Small product cards */}
             <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex items-center gap-2 rounded-xl border border-rv-gold/30 bg-coffee-900/90 px-4 py-3 backdrop-blur-sm transition-all hover:border-rv-gold/60 hover:bg-coffee-900/95 cursor-pointer"
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#111] px-4 py-3 backdrop-blur-sm transition-all hover:border-rv-red/40 cursor-pointer"
               >
                 <BagVisual
                   image={IMAGES.bags.premium}
@@ -200,50 +209,53 @@ export function Hero() {
                 />
                 <div className="text-start">
                   <span className="text-sm font-black text-white">PREMIUM</span>
-                  <p className="text-[10px] text-stone-400">100% أرابيكا</p>
-                  <span className="text-sm font-black text-rv-gold">850 ج.م</span>
+                  <p className="text-[10px] text-stone-500">100% أرابيكا</p>
+                  <span className="text-sm font-black text-rv-red">890 ج.م</span>
                 </div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.55 }}
-                className="flex items-center gap-2 rounded-xl border border-rv-gold/30 bg-coffee-900/90 px-4 py-3 backdrop-blur-sm transition-all hover:border-rv-gold/60 hover:bg-coffee-900/95 cursor-pointer"
+                transition={{ duration: 0.5, delay: 0.65 }}
+                className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#111] px-4 py-3 backdrop-blur-sm transition-all hover:border-rv-red/40 cursor-pointer"
               >
                 <BagVisual
-                  image={IMAGES.bags.colombia}
-                  variant="premium"
-                  alt="كيس روفينتو كولومبيا"
+                  image={IMAGES.bags.intenso}
+                  variant="intenso"
+                  alt="كيس روفينتو بار انتينسو"
                   className="h-14 w-auto object-contain"
                 />
                 <div className="text-start">
-                  <span className="text-sm font-black text-stone-100">COLOMBIA</span>
-                  <p className="text-[10px] text-stone-400">سنجل أوريجن</p>
-                  <span className="text-sm font-black text-rv-gold">950 ج.م</span>
+                  <span className="text-sm font-black text-white">BAR INTENSO</span>
+                  <p className="text-[10px] text-stone-500">تحميص داكن</p>
+                  <span className="text-sm font-black text-rv-red">700 ج.م</span>
                 </div>
               </motion.div>
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* شريط الثقة السفلي — 4 عناصر */}
-      <div className="relative z-10 border-t border-white/5 bg-black/30 backdrop-blur-sm">
+      {/* Bottom trust strip */}
+      <div className="relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-md">
         <div className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-5 px-4 py-5 md:grid-cols-4 md:px-6">
           {[
             { icon: ShieldCheck, label: "ضمان استرجاع 30 يوم" },
             { icon: Truck, label: "شحن مجاني لكل مصر" },
             { icon: ShoppingCart, label: "الدفع عند الاستلام" },
             { icon: Crown, label: "+500 عميل سعيد" },
-          ].map((t) => (
-            <div
+          ].map((t, i) => (
+            <motion.div
               key={t.label}
-              className="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-300"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 + i * 0.1 }}
+              className="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-400"
             >
-              <t.icon className="size-5 shrink-0 text-rv-gold" />
+              <t.icon className="size-5 shrink-0 text-rv-red" />
               {t.label}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

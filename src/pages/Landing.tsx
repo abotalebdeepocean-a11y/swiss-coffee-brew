@@ -14,6 +14,7 @@ import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 import { StorySlider } from "@/components/rovento/StorySlider";
+import { FloatingCoffeeBeans } from "@/components/rovento/FloatingCoffeeBeans";
 
 export default function Landing() {
   useEffect(() => {
@@ -23,43 +24,48 @@ export default function Landing() {
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-[#0d0b09] text-stone-100 antialiased font-sans">
-      <Header />
-      <main>
-        <Hero />
-        {/* شريط إشعار التوصيل المجاني */}
-        <div className="relative z-20 -mt-1 overflow-hidden bg-gradient-to-r from-rv-gold/20 via-rv-gold/10 to-rv-gold/20 py-3 border-y border-rv-gold/30">
-          <div className="animate-[marquee_20s_linear_infinite] whitespace-nowrap">
-            <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-gold">
-              🚚 التوصيل مجاني لكل المحافظات لمدة شهر كامل
-              <span className="mx-4 text-rv-gold/40">✦</span>
-              اطلب الآن واستمتع بالتوصيل المجاني
-              <span className="mx-4 text-rv-gold/40">✦</span>
-              التوصيل مجاني لكل المحافظات — العرض ساري لفترة محدودة
-              <span className="mx-4 text-rv-gold/40">✦</span>
-            </span>
-            <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-gold">
-              🚚 التوصيل مجاني لكل المحافظات لمدة شهر كامل
-              <span className="mx-4 text-rv-gold/40">✦</span>
-              اطلب الآن واستمتع بالتوصيل المجاني
-              <span className="mx-4 text-rv-gold/40">✦</span>
-              التوصيل مجاني لكل المحافظات — العرض ساري لفترة محدودة
-              <span className="mx-4 text-rv-gold/40">✦</span>
-            </span>
+    <div dir="rtl" className="relative min-h-screen bg-[#0a0a0a] text-white antialiased font-sans overflow-hidden">
+      {/* Floating coffee beans — interactive background */}
+      <FloatingCoffeeBeans />
+
+      <div className="relative z-10">
+        <Header />
+        <main>
+          <Hero />
+          {/* Free delivery marquee */}
+          <div className="relative z-20 overflow-hidden border-y border-rv-red/20 bg-rv-red/5 py-3">
+            <div className="animate-[marquee_20s_linear_infinite] whitespace-nowrap">
+              <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-red">
+                التوصيل مجاني لكل المحافظات لمدة شهر كامل
+                <span className="mx-4 text-rv-red/30">✦</span>
+                اطلب الآن واستمتع بالتوصيل المجاني
+                <span className="mx-4 text-rv-red/30">✦</span>
+                التوصيل مجاني لكل المحافظات — العرض ساري لفترة محدودة
+                <span className="mx-4 text-rv-red/30">✦</span>
+              </span>
+              <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-red">
+                التوصيل مجاني لكل المحافظات لمدة شهر كامل
+                <span className="mx-4 text-rv-red/30">✦</span>
+                اطلب الآن واستمتع بالتوصيل المجاني
+                <span className="mx-4 text-rv-red/30">✦</span>
+                التوصيل مجاني لكل المحافظات — العرض ساري لفترة محدودة
+                <span className="mx-4 text-rv-red/30">✦</span>
+              </span>
+            </div>
           </div>
-        </div>
-        <StorySlider />
-        <SignatureCollection />
-        <ProductsGrid />
-        <OfferSection />
-        {/* CustomBlendStudio — مخفي مؤقتاً */}
-        <WhyRovento />
-        <Testimonials />
-        <TrustBar />
-        <FAQ />
-        <Newsletter />
-      </main>
-      <Footer />
+          <StorySlider />
+          <SignatureCollection />
+          <ProductsGrid />
+          <OfferSection />
+          {/* CustomBlendStudio — temporarily hidden */}
+          <WhyRovento />
+          <Testimonials />
+          <TrustBar />
+          <FAQ />
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
       <CartDrawer />
       <WhatsAppFloat />
       <ExitIntentPopup />

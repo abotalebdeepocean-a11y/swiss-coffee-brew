@@ -1,258 +1,137 @@
-import { useState } from "react";
-import { Link } from "react-router";
-import { motion } from "framer-motion";
-import { ShoppingCart, Star, Check, Coffee, Flame, Droplets } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { ShoppingCart, Star, ArrowLeft } from "lucide-react";
+import { PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/store";
-import { IMAGES } from "@/lib/images";
-
-/** المنتجات الأربعة فقط — بار انتينسو + بريميوم (كيلو ونص كيلو) */
-const MAIN_PRODUCTS = [
-  {
-    slug: "rovento-bar-intenso-1kg",
-    image: IMAGES.products.barIntenso,
-    nameEn: "BAR INTENSO",
-    nameAr: "بار انتينسو — 1 كجم",
-    price: 700,
-    weight: "1 كجم",
-    rating: 4.9,
-    reviews: 187,
-    badge: "قوي وجريء",
-    roast: "تحميص غامق",
-    feature1: "Rich Crema",
-    feature1Ar: "كريمة غنية",
-    feature2: "Dark Roast",
-    feature2Ar: "تحميص غامق",
-    feature3: "Full Body",
-    feature3Ar: "قوة عالية",
-    glow: "rgba(30,58,95,0.3)",
-    borderColor: "border-blue-500/20",
-    accentLine: "from-blue-600 to-blue-400",
-  },
-  {
-    slug: "rovento-premium-1kg",
-    image: IMAGES.products.premium,
-    nameEn: "PREMIUM",
-    nameAr: "بريميوم — 1 كجم",
-    price: 890,
-    weight: "1 كجم",
-    rating: 4.9,
-    reviews: 214,
-    badge: "الأكثر مبيعًا",
-    roast: "تحميص متوسط",
-    feature1: "Rich Crema",
-    feature1Ar: "كريمة غنية",
-    feature2: "Medium Roast",
-    feature2Ar: "تحميص متوسط",
-    feature3: "Smooth Body",
-    feature3Ar: "قوة متوازنة",
-    glow: "rgba(201,169,97,0.25)",
-    borderColor: "border-rv-gold/30",
-    accentLine: "from-rv-gold to-amber-400",
-  },
-  {
-    slug: "rovento-bar-intenso-500g",
-    image: IMAGES.products.barIntenso,
-    nameEn: "BAR INTENSO",
-    nameAr: "بار انتينسو — نص كيلو",
-    price: 400,
-    weight: "500 جم",
-    rating: 4.9,
-    reviews: 187,
-    badge: "حجم مثالي للتجربة",
-    roast: "تحميص غامق",
-    feature1: "Rich Crema",
-    feature1Ar: "كريمة غنية",
-    feature2: "Dark Roast",
-    feature2Ar: "تحميص غامق",
-    feature3: "Full Body",
-    feature3Ar: "قوة عالية",
-    glow: "rgba(30,58,95,0.3)",
-    borderColor: "border-blue-500/20",
-    accentLine: "from-blue-600 to-blue-400",
-  },
-  {
-    slug: "rovento-premium-500g",
-    image: IMAGES.products.premium,
-    nameEn: "PREMIUM",
-    nameAr: "بريميوم — نص كيلو",
-    price: 500,
-    weight: "500 جم",
-    rating: 4.9,
-    reviews: 214,
-    badge: "الأكثر مبيعًا",
-    roast: "تحميص متوسط",
-    feature1: "Rich Crema",
-    feature1Ar: "كريمة غنية",
-    feature2: "Medium Roast",
-    feature2Ar: "تحميص متوسط",
-    feature3: "Smooth Body",
-    feature3Ar: "قوة متوازنة",
-    glow: "rgba(201,169,97,0.25)",
-    borderColor: "border-rv-gold/30",
-    accentLine: "from-rv-gold to-amber-400",
-  },
-];
+import { CoffeeBag, blendVariantFor } from "./CoffeeBag";
 
 export function ProductsGrid() {
-  const cart = useCart();
-  const [addedSlug, setAddedSlug] = useState<string | null>(null);
-
-  const handleAdd = (slug: string) => {
-    cart.add(slug, 1);
-    setAddedSlug(slug);
-    setTimeout(() => setAddedSlug(null), 1800);
-  };
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { add } = useCart();
 
   return (
-    <section className="relative overflow-hidden bg-[#0a0a0a] py-20 md:py-28">
-      {/* Top gold line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rv-gold/20 to-transparent" />
-
-      <div className="relative mx-auto w-full max-w-[1200px] px-4 md:px-6">
-        {/* Section header — catalog style */}
+    <section id="featured" className="relative py-20 md:py-28">
+      {/* Section heading */}
+      <div className="mx-auto max-w-[1200px] px-4 md:px-6">
         <motion.div
+          ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mx-auto mb-16 max-w-3xl text-center"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="mb-12 text-center"
         >
-          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-rv-gold/70">
-            ✦ بلندات إسبريسو فاخرة ✦
+          <span className="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-rv-red">
+            Our Collection
           </span>
-          <h2 className="mt-5 text-3xl font-black sm:text-4xl md:text-5xl">
-            <span className="gold-gradient-text">قائمة الأسعار</span>
+          <h2 className="font-display text-3xl font-black text-white md:text-5xl">
+            منتجاتنا
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-stone-400 md:text-base">
-            أربعة خيارات — بار انتينسو أو بريميوم، كيلو أو نص كيلو
-          </p>
-          <div className="mx-auto mt-6 h-px w-32 bg-gradient-to-r from-transparent via-rv-gold/40 to-transparent" />
+          <div className="mx-auto mt-4 h-[2px] w-16 bg-rv-red" />
         </motion.div>
 
         {/* Products grid — 2x2 */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {MAIN_PRODUCTS.map((product, i) => {
-            const isAdded = addedSlug === product.slug;
-            return (
-              <motion.div
-                key={product.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`group relative flex flex-col rounded-2xl border ${product.borderColor} bg-stone-900/20 backdrop-blur-sm transition-all duration-500 hover:bg-stone-900/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 overflow-hidden`}
-              >
-                {/* Top accent line */}
-                <div className={`h-[2px] w-full bg-gradient-to-r ${product.accentLine}`} />
-
-                {/* Badge */}
-                <span className="absolute top-4 right-3 z-10 rounded-full bg-rv-gold/90 px-2.5 py-0.5 text-[10px] font-black text-black shadow-lg">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
+          {PRODUCTS.map((product, i) => (
+            <motion.div
+              key={product.slug}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.15 }}
+              className="group relative overflow-hidden rounded-2xl border border-white/5 bg-[#111] p-6 transition-all duration-500 hover:border-rv-red/30 hover:shadow-[0_20px_60px_rgba(208,59,30,0.08)]"
+            >
+              {/* Badge */}
+              {product.badge && (
+                <div className="absolute left-4 top-4 z-10 rounded-full bg-rv-red px-3 py-1 text-xs font-bold text-white">
                   {product.badge}
-                </span>
-
-                {/* Bag image — clean, centered */}
-                <div className="relative mx-auto flex h-[220px] w-full items-center justify-center overflow-hidden px-4 pt-6">
-                  {/* Subtle glow behind bag */}
-                  <div
-                    className="absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-80"
-                    style={{
-                      background: `radial-gradient(160px 140px at 50% 55%, ${product.glow}, transparent 65%)`,
-                    }}
-                  />
-                  <Link to={`/product/${product.slug}`} className="relative z-10">
-                    <motion.img
-                      src={`${product.image}.webp`}
-                      alt={product.nameAr}
-                      className="h-[180px] w-auto object-contain drop-shadow-[0_15px_40px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-110"
-                      whileHover={{ y: -8 }}
-                    />
-                  </Link>
                 </div>
+              )}
 
-                {/* Product name — bilingual */}
-                <div className="px-4 text-center">
-                  <h3 className="text-lg font-black tracking-wider text-white">
-                    {product.nameEn}
+              {/* Bag visual */}
+              <div className="relative mx-auto mb-6 flex h-[240px] items-center justify-center">
+                <CoffeeBag variant={blendVariantFor(product.slug)} className="h-full w-auto" />
+              </div>
+
+              {/* Product info */}
+              <div className="space-y-3">
+                <div>
+                  <h3 className="text-lg font-black text-white">
+                    {product.name}
                   </h3>
-                  <p className="mt-0.5 text-sm text-stone-400">{product.nameAr}</p>
-                </div>
-
-                {/* Features — catalog style */}
-                <div className="mx-auto mt-3 flex flex-col gap-1.5 px-4">
-                  <div className="flex items-center justify-center gap-2 text-[11px] text-stone-300">
-                    <Coffee className="h-3 w-3 text-rv-gold/70" />
-                    <span>{product.feature1Ar}</span>
-                    <span className="text-stone-600">|</span>
-                    <span className="text-stone-500">{product.feature1}</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-[11px] text-stone-300">
-                    <Flame className="h-3 w-3 text-rv-gold/70" />
-                    <span>{product.feature2Ar}</span>
-                    <span className="text-stone-600">|</span>
-                    <span className="text-stone-500">{product.feature2}</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-[11px] text-stone-300">
-                    <Droplets className="h-3 w-3 text-rv-gold/70" />
-                    <span>{product.feature3Ar}</span>
-                    <span className="text-stone-600">|</span>
-                    <span className="text-stone-500">{product.feature3}</span>
-                  </div>
+                  <p className="text-xs text-stone-500">{product.nameEn}</p>
                 </div>
 
                 {/* Rating */}
-                <div className="mt-3 flex items-center justify-center gap-0.5">
-                  {[...Array(5)].map((_, s) => (
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, j) => (
                     <Star
-                      key={s}
-                      className={`h-3 w-3 ${
-                        s < Math.round(product.rating)
-                          ? "fill-rv-gold text-rv-gold"
+                      key={j}
+                      className={`size-3.5 ${
+                        j < Math.floor(product.rating)
+                          ? "fill-rv-red text-rv-red"
                           : "text-stone-700"
                       }`}
                     />
                   ))}
-                  <span className="mr-1 text-[10px] text-stone-500">
-                    {product.rating} ({product.reviews})
+                  <span className="text-xs text-stone-500">
+                    ({product.reviews})
                   </span>
                 </div>
 
-                {/* Price — prominent */}
-                <div className="mt-4 border-t border-white/5 pt-4 text-center">
-                  <p className="text-[10px] uppercase tracking-wider text-stone-500">السعر</p>
-                  <p className="mt-1 text-2xl font-black text-rv-gold">
-                    {product.price.toLocaleString("en-US")}
-                  </p>
-                  <p className="text-xs text-stone-500">جنيه / {product.weight}</p>
+                {/* Notes */}
+                <div className="flex flex-wrap gap-1.5">
+                  {product.notes.map((n) => (
+                    <span
+                      key={n}
+                      className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-bold text-stone-400"
+                    >
+                      {n}
+                    </span>
+                  ))}
                 </div>
 
-                {/* Add to cart */}
-                <div className="p-4 pt-3">
-                  <button
-                    onClick={() => handleAdd(product.slug)}
-                    className={`flex w-full items-center justify-center gap-2 py-3 text-sm font-bold transition-all duration-300 ${
-                      isAdded
-                        ? "rounded-[10px] bg-rv-gold/20 text-rv-gold border border-rv-gold/30"
-                        : "rounded-[10px] bg-gradient-to-r from-rv-gold to-[#d4b96a] text-black hover:from-[#d4b96a] hover:to-rv-gold hover:shadow-[0_8px_30px_rgba(201,162,39,0.35)] hover:-translate-y-0.5 hover:scale-[1.02]"
-                    }`}
-                  >
-                    {isAdded ? (
-                      <>
-                        <Check className="h-4 w-4" />
-                        تمت الإضافة ✓
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingCart className="h-4 w-4" />
-                        أضف للسلة
-                      </>
+                {/* Price + CTA */}
+                <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                  <div>
+                    <span className="text-2xl font-black text-white">
+                      {product.price.toLocaleString("en-EG")}
+                    </span>
+                    <span className="text-xs text-stone-500"> ج.م</span>
+                    {product.oldPrice && (
+                      <span className="mr-2 text-xs text-stone-600 line-through">
+                        {product.oldPrice.toLocaleString("en-EG")}
+                      </span>
                     )}
+                  </div>
+
+                  <button
+                    onClick={() => add(product.slug)}
+                    className="flex items-center gap-2 rounded-xl bg-rv-red px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-rv-red-light hover:shadow-[0_8px_24px_rgba(208,59,30,0.3)]"
+                  >
+                    <ShoppingCart className="size-4" />
+                    أضف للسلة
                   </button>
-                  <p className="mt-2 text-center text-[10px] text-stone-600">🚚 شحن مجاني لكل مصر</p>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* View all */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-10 text-center"
+        >
+          <a
+            href="/shop"
+            className="group inline-flex items-center gap-2 border-b-2 border-rv-red/30 pb-1 text-sm font-bold text-stone-400 transition-colors hover:border-rv-red hover:text-rv-red"
+          >
+            عرض جميع المنتجات
+            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+          </a>
+        </motion.div>
       </div>
     </section>
   );
