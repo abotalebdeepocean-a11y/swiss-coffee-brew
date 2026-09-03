@@ -20,8 +20,8 @@ export const IMAGES = {
     classic: "/images/bag-classic-real",
     /** كيس CLASSIC 1 كجم */
     classic1kg: "/images/bag-classic-1kg-real",
-    /** كيس BAR INTENSO — الغامق القوي */
-    intenso: "/images/bag-intenso-new",
+    /** كيس BAR INTENSO — الصورة الحقيقية (الغلاف الأمامي) */
+    intenso: "/images/product-hero/bar-intenso-front",
     /** كيس ARABICA — الأرابيكا النقي */
     arabica: "/images/bag-arabica-new",
     /** كيس COLOMBIA SINGLE ORIGIN */
@@ -39,7 +39,7 @@ export const IMAGES = {
   },
   /** صور المنتجات الخمسة — من جوجل درايف (بانرات المنتجات) */
   products: {
-    barIntenso: "/images/product-bar-intenso",
+    barIntenso: "/images/product-hero/bar-intenso-front",
     classic: "/images/product-classic",
     premium: "/images/product-premium",
     arabica: "/images/product-arabica",
