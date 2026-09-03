@@ -1,26 +1,16 @@
+import { MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/lib/store";
-import { WhatsAppIcon } from "./art";
 
 export function WhatsAppFloat() {
   return (
-    <div className="fixed bottom-20 right-4 z-40 flex flex-row-reverse items-center gap-3 sm:bottom-6 sm:right-6">
-      {/* Welcome bubble */}
-      <div className="hidden rounded-2xl border border-[#25D366]/30 bg-white px-4 py-2 text-xs font-bold text-rv-darkBrown shadow-xl sm:block">
-        محتاج ترشيح نوع القهوة المناسب ليك؟
-        <br />
-        <span className="text-[#25D366]">تواصل معنا الآن على واتساب!</span>
-      </div>
-      <a
-        href={whatsappLink(
-          "مرحبًا ROVENTO 👋 محتاج ترشيح نوع القهوة المناسب ليا. تقدر تساعدني؟",
-        )}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="اطلب عبر واتساب"
-        className="grid size-14 place-items-center rounded-[10px] bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/20 transition duration-300 hover:scale-110 hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(37,211,102,0.4)]"
-      >
-        <WhatsAppIcon className="size-7" />
-      </a>
-    </div>
+    <a
+      href={whatsappLink("مرحباً، عايز أعرف أكتر عن منتجات روفينتو")}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-6 left-6 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-110 hover:shadow-green-500/40 animate-pulse-wa"
+      aria-label="تواصل واتساب"
+    >
+      <MessageCircle className="size-6" />
+    </a>
   );
 }
