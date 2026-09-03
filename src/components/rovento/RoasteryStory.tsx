@@ -11,70 +11,82 @@ export function RoasteryStory() {
     offset: ["start end", "end start"],
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.3, 1, 1, 0.3]);
 
   return (
-    <section ref={sectionRef} className="relative h-[70vh] min-h-[500px] overflow-hidden">
-      {/* Parallax background — blurred building from bag artwork */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0"
-      >
-        <div className="absolute inset-0 bg-cover bg-center blur-sm scale-110" style={{ backgroundImage: "url(/images/intenso-bar-real.webp)" }} />
+    <section ref={sectionRef} className="relative overflow-hidden py-20 md:py-32">
+      {/* Parallax background */}
+      <motion.div style={{ y: bgY }} className="absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+          style={{ backgroundImage: "url(/images/intenso-bar-real.webp)" }}
+        />
         <div className="absolute inset-0 bg-rv-black/80" />
         <div className="absolute inset-0 bg-gradient-to-b from-rv-black via-transparent to-rv-black" />
       </motion.div>
 
       {/* Content */}
-      <motion.div
+      <div
         ref={textRef}
-        style={{ opacity }}
-        className="relative z-10 flex h-full items-center justify-center px-4"
+        className="relative z-10 mx-auto grid max-w-[1200px] items-center gap-12 px-4 md:grid-cols-2 md:px-6"
       >
-        <div className="mx-auto max-w-[800px] text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1 }}
-          >
-            <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.3em] text-rv-gold/60">
-              Our Roastery
-            </span>
-            <h2 className="font-display text-3xl font-black text-white md:text-5xl lg:text-6xl">
-              من <span className="gold-gradient-text">المحمصة</span> لبيتك
-            </h2>
-            <div className="mx-auto my-6 h-[1px] w-20 bg-gradient-to-r from-transparent via-rv-gold to-transparent" />
-            <p className="mx-auto max-w-xl text-sm leading-relaxed text-rv-smoke md:text-base">
-              كل كيس بيتحمص في نفس يوم الشحن مباشرة — مش مخزّن من زمان.
-              <br />
-              من أجود المزارع في كولومبيا وإثيوبيا والبرازيل —
-              <br />
-              لحد ما يوصلك الكيس طازج في بيتك.
-            </p>
-          </motion.div>
+        {/* Text side */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.3em] text-rv-gold/60">
+            Our Roastery
+          </span>
+          <h2 className="font-display text-3xl font-black text-white md:text-5xl">
+            من <span className="gold-gradient-text">المحمصة</span> لبيتك
+          </h2>
+          <div className="my-6 h-[1px] w-20 bg-gradient-to-r from-rv-gold to-transparent" />
+          <p className="max-w-md text-sm leading-relaxed text-rv-smoke md:text-base">
+            كل كيس بيتحمص في نفس يوم الشحن مباشرة — مش مخزّن من زمان. من
+            أجود المزارع في كولومبيا وإثيوبيا والبرازيل — لحد ما يوصلك الكيس
+            طازج في بيتك.
+          </p>
 
           {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-12 grid grid-cols-3 gap-6"
-          >
+          <div className="mt-10 grid grid-cols-3 gap-4">
             {[
               { val: "+500", label: "عميل سعيد" },
               { val: "24-72", label: "ساعة توصيل" },
               { val: "100%", label: "تحميص طازج" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="font-condensed text-3xl font-bold text-rv-gold md:text-4xl">
+                <div className="font-condensed text-2xl font-bold text-rv-gold md:text-3xl">
                   {stat.val}
                 </div>
-                <div className="mt-1 text-xs text-rv-smoke">{stat.label}</div>
+                <div className="mt-1 text-[10px] text-rv-smoke md:text-xs">
+                  {stat.label}
+                </div>
               </div>
             ))}
-          </motion.div>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Fresh beans image */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex justify-center"
+        >
+          <div className="relative">
+            <div className="absolute -inset-8 rounded-full bg-rv-gold/[0.06] blur-[60px]" />
+            <img
+              src="/images/fresh-beans.webp"
+              alt="Freshly roasted coffee beans"
+              className="relative w-[260px] rounded-2xl sm:w-[300px] md:w-[360px]"
+            />
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-rv-gold/30 bg-rv-black px-4 py-2 text-xs font-bold text-rv-gold">
+              Fresh Roasted Daily
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
