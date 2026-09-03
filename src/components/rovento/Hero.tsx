@@ -20,7 +20,7 @@ const TRUST_SIGNALS = [
   "ضمان استرجاع 30 يوم",
 ];
 
-/** عداد تنازلي صغير — 29 يوم */
+/** عداد تنازلي حقيقي حتى 1 أكتوبر 2026 (بتوقيت مصر UTC+2) */
 function HeroCountdown() {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
@@ -28,12 +28,13 @@ function HeroCountdown() {
     return () => clearInterval(t);
   }, []);
 
-  // Target = 29 days from now (static per page load)
+  // Target = 1 October 2026 23:59:59 Egypt time (UTC+2)
   const target = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 29);
-    d.setHours(23, 59, 59, 0);
-    return d.getTime();
+    // Create date in Egypt timezone: 1 Oct 2026 23:59:59
+    const egyptOffset = 2 * 60; // UTC+2 in minutes
+    const utc = new Date(Date.UTC(2026, 9, 1, 23, 59, 59)); // Month is 0-indexed
+    const egyptTime = new Date(utc.getTime() - egyptOffset * 60_000);
+    return egyptTime.getTime();
   }, []);
 
   const diff = Math.max(0, target - now);
@@ -49,6 +50,7 @@ function HeroCountdown() {
       className="flex items-center justify-center gap-3 lg:justify-start"
     >
       <span className="text-xs font-bold text-stone-500">التوصيل المجاني ينتهي خلال</span>
+      <span className="text-[10px] text-stone-600">1 Oct 2026</span>
       <div className="flex items-center gap-1.5">
         {/* Days — مميز */}
         <div className="relative flex items-center justify-center overflow-hidden rounded-lg border border-rv-red/40 bg-rv-red/10 px-3 py-1.5">
@@ -174,7 +176,9 @@ export function Hero() {
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg lg:mx-0">
             من الحبوب إلى الكوب — تجربة إسبريسو احترافية في بيتك.
             <br className="hidden md:block" />
-            تحميص طازج يومياً في القاهرة. شحن لكل محافظات مصر مجاناً.
+            تحميص طازج يومياً في القاهرة.
+            <br />
+            شحن مجاني لكل محافظات مصر لفترة محدودة.
           </p>
 
           {/* Countdown timer */}
@@ -184,7 +188,7 @@ export function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-400 lg:justify-start">
             <span className="flex items-center gap-1.5">
               <Truck className="size-4 text-rv-red" />
-              شحن لكل مصر
+              شحن مجاني لكل مصر
             </span>
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="size-4 text-rv-red" />
