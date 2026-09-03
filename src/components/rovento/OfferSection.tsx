@@ -159,7 +159,7 @@ export function OfferSection() {
           className="mb-5 inline-flex items-center gap-2 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-5 py-1.5 text-sm font-bold uppercase tracking-wider text-rv-gold"
         >
           <Flame className="size-4" />
-          عرض الأسبوع
+          عرض محدود
         </motion.div>
 
         {/* Title */}
@@ -180,7 +180,7 @@ export function OfferSection() {
           transition={{ duration: 0.55, delay: 0.1 }}
           className="mx-auto mb-6 max-w-2xl text-lg font-bold text-rv-gold sm:text-2xl"
         >
-          واحصل على خصم 5%
+          واحصل على خصم إضافي 5%
         </motion.p>
 
         {/* Savings badge */}

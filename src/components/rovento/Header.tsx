@@ -7,7 +7,7 @@ import { useCart, whatsappLink } from "@/lib/store";
 const NAV: { label: string; to: string; hot?: boolean; badge?: string }[] = [
   { label: "الرئيسية", to: "/#hero" },
   { label: "المنتجات", to: "/#featured" },
-  { label: "عرض الأسبوع", to: "/#deal", hot: true },
+  { label: "عرض محدود", to: "/#deal", hot: true },
   { label: "لماذا روفينتو؟", to: "/#why-rovento" },
   { label: "آراء العملاء", to: "/#reviews" },
 ];

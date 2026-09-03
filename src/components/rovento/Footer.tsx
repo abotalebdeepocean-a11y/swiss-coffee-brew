@@ -29,7 +29,7 @@ const LINKS = [
   { label: "الرئيسية", to: "/" },
   { label: "المتجر", to: "/shop" },
   { label: "خلطات روفينتو", to: "/#featured" },
-  { label: "عرض الأسبوع", to: "/#deal" },
+  { label: "عرض محدود", to: "/#deal" },
   { label: "تجارب العملاء", to: "/#reviews" },
 ];
 
