@@ -43,13 +43,13 @@ export function IdentityProof() {
               title: "الشريط الذهبي",
               titleEn: "Gold Seal",
               desc: "نفس ختم الجودة الذهبي في الأعلى — علامة المصداقية",
-              img: "/images/premium-eagle-real.webp",
+              img: "/images/premium-bag.webp",
             },
             {
-              title: "QR Code",
-              titleEn: "Authenticity",
-              desc: "نفس رمز QR على الكيسين للتحقق من الأصالة",
-              img: "/images/intenso-bar-real.webp",
+              title: "تحميص يومي طازج",
+              titleEn: "Fresh Roasted Daily",
+              desc: "حبوب البن بتتحمص طازة كل يوم قبل الشحن مباشرة — عشان توصلك بأعلى نكهة وريحة",
+              img: "/images/fresh-beans.webp",
             },
           ].map((item, i) => (
             <motion.div

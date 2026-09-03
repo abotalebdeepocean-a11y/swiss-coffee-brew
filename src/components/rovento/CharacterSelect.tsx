@@ -7,7 +7,7 @@ const BAGS = [
   {
     id: "intenso",
     slug: "rovento-bar-intenso-1kg",
-    image: "/images/intenso-bar-real.webp",
+    image: "/images/intenso-bag.webp",
     title: "BAR INTENSO",
     color: "from-blue-900/20 to-blue-950/10",
     accentColor: "#2563eb",
@@ -20,7 +20,7 @@ const BAGS = [
   {
     id: "premium",
     slug: "rovento-premium-1kg",
-    image: "/images/premium-eagle-real.webp",
+    image: "/images/premium-bag.webp",
     title: "PREMIUM",
     color: "from-emerald-900/20 to-emerald-950/10",
     accentColor: "#059669",

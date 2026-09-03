@@ -10,23 +10,23 @@
  * الاحتياطي لو الصورة مش موجودة. راجع `public/images/README.txt`.
  */
 export const IMAGES = {
-  /** كيس الهيرو — صورة البريميوم (النسر) */
-  heroBag: "/images/premium-eagle-real",
-  /** حقائب ROVENTO الحقيقية */
+  /** كيس الهيرو — صورة البريميوم (النسر) — مقاس موحد */
+  heroBag: "/images/premium-bag",
+  /** حقائب ROVENTO الحقيقية — مقاس موحد (760×1000) عشان الكيسين يظهروا بنفس الحجم */
   bags: {
-    /** كيس BAR INTENSO — الصورة الحقيقية من Google Drive */
-    intenso: "/images/intenso-bar-real",
+    /** كيس BAR INTENSO — مقصوص على محتوى الكيس نفسه */
+    intenso: "/images/intenso-bag",
     /** كيس PREMIUM BLEND — النسر الأخضر الفاخر */
-    premium: "/images/premium-eagle-real",
-    /** صورة ماكرو — نفس صورة البار انتينسو */
+    premium: "/images/premium-bag",
+    /** صورة ماكرو — النسخة الأصلية كاملة الإطار للخلفيات */
     macro: "/images/intenso-bar-real",
-    /** صورة الكيسين معاً */
-    twoPackages: "/images/intenso-bar-real",
+    /** صورة الكيسين معاً — مقاس موحد */
+    twoPackages: "/images/intenso-bag",
   },
-  /** صور المنتجات — صورتين فقط من Google Drive */
+  /** صور المنتجات — صورتين فقط من Google Drive (مقاس موحد) */
   products: {
-    barIntenso: "/images/intenso-bar-real",
-    premium: "/images/premium-eagle-real",
+    barIntenso: "/images/intenso-bag",
+    premium: "/images/premium-bag",
   },
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {

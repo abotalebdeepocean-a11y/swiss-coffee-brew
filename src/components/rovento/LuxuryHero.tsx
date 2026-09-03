@@ -116,7 +116,7 @@ export function LuxuryHero() {
             <div className="animate-levitate">
               <div className="h-[200px] w-[160px] sm:h-[260px] sm:w-[200px] md:h-[340px] md:w-[260px]">
                 <img
-                  src="/images/intenso-bar-real.webp"
+                  src="/images/intenso-bag.webp"
                   alt="ROVENTO Bar Intenso"
                   className="h-full w-full object-contain bag-shadow"
                 />
@@ -150,7 +150,7 @@ export function LuxuryHero() {
             <div className="animate-levitate-reverse">
               <div className="h-[200px] w-[160px] sm:h-[260px] sm:w-[200px] md:h-[340px] md:w-[260px]">
                 <img
-                  src="/images/premium-eagle-real.webp"
+                  src="/images/premium-bag.webp"
                   alt="ROVENTO Premium"
                   className="h-full w-full object-contain bag-shadow"
                 />
