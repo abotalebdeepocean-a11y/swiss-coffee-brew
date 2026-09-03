@@ -1,12 +1,5 @@
-import { useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-  useInView,
-} from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   ShoppingCart,
   Star,
@@ -14,7 +7,6 @@ import {
   Droplets,
   Zap,
   Coffee,
-  RotateCcw,
 } from "lucide-react";
 import { useCart } from "@/lib/store";
 
@@ -29,44 +21,8 @@ const FLAVOR_NOTES = ["كريمة غنية", "عمق في النكهة", "تأث
 
 export function FloatingProductHero() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, margin: "-20%" });
+  const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
   const { add } = useCart();
-  const [isHovered, setIsHovered] = useState(false);
-  const [autoRotating, setAutoRotating] = useState(true);
-
-  // ── Scroll-driven rotation ──
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Smooth rotation: 0 → 360 as user scrolls through section
-  const rawRotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const rotateY = useSpring(rawRotateY, { stiffness: 60, damping: 30 });
-
-  // Vertical float driven by scroll
-  const rawY = useTransform(scrollYProgress, [0, 0.5, 1], [40, -20, 40]);
-  const y = useSpring(rawY, { stiffness: 80, damping: 25 });
-
-  // Horizontal wobble
-  const rawX = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 10, -10]);
-  const x = useSpring(rawX, { stiffness: 60, damping: 20 });
-
-  // Auto-rotation angle (when not scroll-driven)
-  const autoRotate = useMotionValue(0);
-
-  // Handle hover to pause scroll rotation
-  const handleHoverStart = () => {
-    setIsHovered(true);
-    setAutoRotating(false);
-  };
-  const handleHoverEnd = () => {
-    setIsHovered(false);
-    setTimeout(() => setAutoRotating(true), 300);
-  };
-
-  const currentRotateY = autoRotating ? rotateY : autoRotate;
 
   return (
     <section
@@ -99,103 +55,43 @@ export function FloatingProductHero() {
 
       {/* Main content */}
       <div className="relative z-10 mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-2 md:gap-12 md:px-6">
-        {/* ── 3D Floating Bag ── */}
+        {/* ── Floating Bag ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={
-            isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
-          }
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="flex items-center justify-center"
-          style={{ perspective: 1200 }}
         >
           <motion.div
-            ref={cardRef}
-            onHoverStart={handleHoverStart}
-            onHoverEnd={handleHoverEnd}
-            style={{
-              rotateY: currentRotateY,
-              y,
-              x,
-              transformStyle: "preserve-3d",
+            animate={{ y: [-6, 6, -6] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="relative cursor-pointer"
+            className="relative"
           >
+            {/* Gold glow behind bag */}
+            <div className="absolute -inset-16 rounded-full bg-rv-gold/8 blur-[100px]" />
+
             {/* Shadow on ground */}
             <motion.div
-              className="absolute -bottom-8 left-1/2 h-6 w-[70%] -translate-x-1/2 rounded-[50%] bg-rv-brown/10 blur-xl"
+              animate={{ scaleX: [1, 1.05, 1], opacity: [0.1, 0.06, 0.1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-6 left-1/2 h-5 w-[65%] -translate-x-1/2 rounded-[50%] bg-rv-brown/10 blur-xl"
             />
 
-            {/* Gold glow ring behind bag */}
-            <div className="absolute -inset-20 rounded-full bg-rv-gold/8 blur-[100px]" />
-
-            {/* Rotating ring decoration */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="pointer-events-none absolute -inset-8 md:-inset-12"
-            >
-              <svg viewBox="0 0 300 300" className="h-full w-full opacity-20">
-                <circle
-                  cx="150"
-                  cy="150"
-                  r="145"
-                  fill="none"
-                  stroke="url(#goldGrad)"
-                  strokeWidth="1"
-                  strokeDasharray="8 12"
-                />
-                <defs>
-                  <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#b8860b" />
-                    <stop offset="50%" stopColor="#d4a843" />
-                    <stop offset="100%" stopColor="#b8860b" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </motion.div>
-
-            {/* Small orbiting dots */}
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="pointer-events-none absolute -inset-4 md:-inset-8"
-            >
-              {[0, 90, 180, 270].map((deg) => (
-                <div
-                  key={deg}
-                  className="absolute left-1/2 top-0 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/40"
-                  style={{
-                    transform: `rotate(${deg}deg) translateY(-140px) rotate(-${deg}deg)`,
-                  }}
-                />
-              ))}
-            </motion.div>
-
             {/* ── The Bag Image ── */}
-            <div className="relative w-[280px] md:w-[360px]">
+            <div className="relative w-[260px] md:w-[340px]">
               <img
                 src="/images/product-hero/bar-intenso-front.png"
                 alt="كيس روفينتو بار انتينسو — 1 كجم"
-                className="w-full drop-shadow-[0_20px_60px_rgba(26,26,46,0.2)]"
+                className="w-full drop-shadow-[0_16px_40px_rgba(26,26,46,0.15)]"
                 loading="eager"
               />
 
-              {/* Floating badge */}
-              <motion.div
-                animate={{ y: [-3, 3, -3] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -right-2 top-4 rounded-xl border border-rv-gold/30 bg-white/90 px-3 py-2 shadow-lg backdrop-blur-sm md:-right-6"
-              >
+              {/* Rating badge */}
+              <div className="absolute -right-2 top-4 rounded-xl border border-rv-gold/30 bg-white/90 px-3 py-2 shadow-lg backdrop-blur-sm md:-right-6">
                 <div className="flex items-center gap-1">
                   <Star className="size-3.5 fill-rv-gold text-rv-gold" />
                   <span className="text-xs font-black text-rv-darkBrown">
@@ -203,35 +99,16 @@ export function FloatingProductHero() {
                   </span>
                 </div>
                 <span className="text-[9px] text-rv-brown/60">187 تقييم</span>
-              </motion.div>
+              </div>
 
-              {/* Price tag floating */}
-              <motion.div
-                animate={{ y: [2, -4, 2] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-                className="absolute -bottom-3 -left-2 rounded-xl bg-rv-gold px-4 py-2 shadow-xl md:-bottom-4 md:-left-6"
-              >
+              {/* Price tag */}
+              <div className="absolute -bottom-3 -left-2 rounded-xl bg-rv-gold px-4 py-2 shadow-xl md:-bottom-4 md:-left-6">
                 <span className="text-lg font-black text-white">700</span>
                 <span className="mr-1 text-xs font-bold text-white/80">
                   ج.م
                 </span>
-              </motion.div>
+              </div>
             </div>
-
-            {/* Rotation indicator (shows on hover) */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isHovered ? 1 : 0 }}
-              className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-rv-gold/60"
-            >
-              <RotateCcw className="mx-auto mb-0.5 size-3.5" />
-              يدور مع التمرير
-            </motion.div>
           </motion.div>
         </motion.div>
 
