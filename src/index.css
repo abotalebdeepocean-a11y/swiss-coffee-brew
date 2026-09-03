@@ -137,6 +137,16 @@
     90% { opacity: 0.6; }
     100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
+  @keyframes flying-bean {
+    0%   { left: -8%;  top: 55%; transform: translateY(0)   rotate(0deg);   }
+    25%  { left: 25%;  top: 35%; transform: translateY(-18px) rotate(90deg);  }
+    50%  { left: 55%;  top: 55%; transform: translateY(8px)  rotate(180deg); }
+    75%  { left: 80%;  top: 40%; transform: translateY(-12px) rotate(270deg);}
+    100% { left: 108%; top: 55%; transform: translateY(0)   rotate(360deg); }
+  }
+  .animate-flying-bean {
+    animation: flying-bean 10s ease-in-out infinite;
+  }
   @keyframes gold-line-grow {
     from { transform: scaleX(0); }
     to { transform: scaleX(1); }

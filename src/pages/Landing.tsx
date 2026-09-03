@@ -15,6 +15,7 @@ import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 import { StorySlider } from "@/components/rovento/StorySlider";
 import { FloatingCoffeeBeans } from "@/components/rovento/FloatingCoffeeBeans";
+import { ShippingReturnsBanner } from "@/components/rovento/ShippingReturnsBanner";
 
 export default function Landing() {
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function Landing() {
           <WhyRovento />
           <Testimonials />
           <TrustBar />
+          <ShippingReturnsBanner />
           <FAQ />
           <Newsletter />
         </main>
