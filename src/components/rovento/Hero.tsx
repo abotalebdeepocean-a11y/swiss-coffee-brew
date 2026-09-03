@@ -249,47 +249,6 @@ export function Hero() {
                 className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(208,59,30,0.2)] sm:h-[380px] md:h-[460px]"
               />
             </div>
-
-            {/* Small product cards */}
-            <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#111] px-4 py-3 backdrop-blur-sm transition-all hover:border-rv-red/40 cursor-pointer"
-              >
-                <BagVisual
-                  image={IMAGES.bags.premium}
-                  variant="premium"
-                  alt="كيس روفينتو بريميوم"
-                  className="h-14 w-auto object-contain"
-                />
-                <div className="text-start">
-                  <span className="text-sm font-black text-white">PREMIUM</span>
-                  <p className="text-[10px] text-stone-500">100% أرابيكا</p>
-                  <span className="text-sm font-black text-rv-red">890 ج.م</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.65 }}
-                className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#111] px-4 py-3 backdrop-blur-sm transition-all hover:border-rv-red/40 cursor-pointer"
-              >
-                <BagVisual
-                  image={IMAGES.bags.intenso}
-                  variant="intenso"
-                  alt="كيس روفينتو بار انتينسو"
-                  className="h-14 w-auto object-contain"
-                />
-                <div className="text-start">
-                  <span className="text-sm font-black text-white">BAR INTENSO</span>
-                  <p className="text-[10px] text-stone-500">تحميص داكن</p>
-                  <span className="text-sm font-black text-rv-red">700 ج.م</span>
-                </div>
-              </motion.div>
-            </div>
           </div>
         </motion.div>
       </motion.div>
