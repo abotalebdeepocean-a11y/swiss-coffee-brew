@@ -84,7 +84,7 @@ export function FloatingProductHero() {
             {/* ── The Bag Image ── */}
             <div className="relative w-[260px] md:w-[340px]">
               <img
-                src="/images/product-hero/bar-intenso-front.png"
+                src="/images/intenso-bar-real.webp"
                 alt="كيس روفينتو بار انتينسو — 1 كجم"
                 className="w-full drop-shadow-[0_16px_40px_rgba(26,26,46,0.15)]"
                 loading="eager"

@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { ShoppingCart, Star, ArrowLeft } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/store";
-import { CoffeeBag, blendVariantFor } from "./CoffeeBag";
 
 export function ProductsGrid() {
   const ref = useRef<HTMLDivElement>(null);
@@ -47,9 +46,20 @@ export function ProductsGrid() {
                 </div>
               )}
 
-              {/* Bag visual */}
-              <div className="relative mx-auto mb-6 flex h-[240px] items-center justify-center">
-                <CoffeeBag variant={blendVariantFor(product.slug)} className="h-full w-auto" />
+              {/* Product image — real photo only */}
+              <div className="relative mx-auto mb-6 flex h-[280px] items-center justify-center overflow-hidden rounded-xl bg-rv-cream/50">
+                {product.image ? (
+                  <img
+                    src={`${product.image}.webp`}
+                    alt={product.name}
+                    className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-rv-brown/30">
+                    <ShoppingCart className="size-12" />
+                  </div>
+                )}
               </div>
 
               {/* Product info */}

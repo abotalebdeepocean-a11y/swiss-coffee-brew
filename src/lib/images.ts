@@ -10,40 +10,23 @@
  * الاحتياطي لو الصورة مش موجودة. راجع `public/images/README.txt`.
  */
 export const IMAGES = {
-  /** كيس الهيرو — صورة بريميوم عالية الجودة بخلفية داكنة */
-  heroBag: "/images/bag-premium-scene",
-  /** حقائب ROVENTO الحقيقية — الصور المنسقة بمقاس ثابت (800×1000) */
+  /** كيس الهيرو — صورة البريميوم (النسر) */
+  heroBag: "/images/premium-eagle-real",
+  /** حقائب ROVENTO الحقيقية */
   bags: {
+    /** كيس BAR INTENSO — الصورة الحقيقية من Google Drive */
+    intenso: "/images/intenso-bar-real",
     /** كيس PREMIUM BLEND — النسر الأخضر الفاخر */
-    premium: "/images/bag-premium-real",
-    /** كيس CLASSIC BLEND — الببغاء الأزرق */
-    classic: "/images/bag-classic-real",
-    /** كيس CLASSIC 1 كجم */
-    classic1kg: "/images/bag-classic-1kg-real",
-    /** كيس BAR INTENSO — الصورة الحقيقية (الغلاف الأمامي) */
-    intenso: "/images/product-hero/bar-intenso-front",
-    /** كيس ARABICA — الأرابيكا النقي */
-    arabica: "/images/bag-arabica-new",
-    /** كيس COLOMBIA SINGLE ORIGIN */
-    colombia: "/images/bag-colombia-new",
-    /** الكيسين مع بعض */
-    twoPackages: "/images/bag-two-packages",
-    /** صورة اختيار */
-    choose: "/images/bag-two-packages",
-    /** صورة ماكرو */
-    macro: "/images/bag-macro-closeup",
-    /** صورة خاصة */
-    special: "/images/bag-special-package",
-    /** صورة تمهيد */
-    upcoming: "/images/bag-upcoming",
+    premium: "/images/premium-eagle-real",
+    /** صورة ماكرو — نفس صورة البار انتينسو */
+    macro: "/images/intenso-bar-real",
+    /** صورة الكيسين معاً */
+    twoPackages: "/images/intenso-bar-real",
   },
-  /** صور المنتجات الخمسة — من جوجل درايف (بانرات المنتجات) */
+  /** صور المنتجات — صورتين فقط من Google Drive */
   products: {
-    barIntenso: "/images/product-hero/bar-intenso-front",
-    classic: "/images/product-classic",
-    premium: "/images/product-premium",
-    arabica: "/images/product-arabica",
-    colombia: "/images/product-colombia",
+    barIntenso: "/images/intenso-bar-real",
+    premium: "/images/premium-eagle-real",
   },
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {
