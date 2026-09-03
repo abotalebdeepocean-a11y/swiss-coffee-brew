@@ -62,7 +62,7 @@ export function SignatureCollection() {
   return (
     <section
       id="featured"
-      className="relative overflow-hidden bg-[#0a0a0a] py-20 md:py-28"
+      className="relative overflow-hidden bg-rv-cream py-20 md:py-28"
     >
       {/* Background effects */}
       <div className="absolute inset-0 pointer-events-none">
@@ -85,7 +85,7 @@ export function SignatureCollection() {
           <h2 className="mt-4 text-3xl font-black sm:text-4xl md:text-5xl">
             <span className="gold-gradient-text">اختر تجربتك</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-stone-400 md:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-sm text-rv-brown/60 md:text-base">
             اثنان من خلطاتنا المميزة — كلاهما مُحمّص طازج في القاهرة بعناية فائقة
           </p>
           <div className="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-rv-gold to-transparent" />
@@ -163,17 +163,17 @@ export function SignatureCollection() {
                         className={`h-3 w-3 ${
                           s < Math.round(bag.rating)
                             ? "fill-rv-gold text-rv-gold"
-                            : "text-stone-700"
+                            : "text-rv-brown/20"
                         }`}
                       />
                     ))}
-                    <span className="mr-1 text-xs text-stone-400">
+                    <span className="mr-1 text-xs text-rv-brown/40">
                       {bag.rating} ({bag.reviews})
                     </span>
                   </div>
 
                   {/* Tagline */}
-                  <p className="text-xs leading-relaxed text-stone-400/80">
+                  <p className="text-xs leading-relaxed text-rv-brown/60">
                     {bag.tagline}
                   </p>
 
@@ -182,7 +182,7 @@ export function SignatureCollection() {
                     <span className="text-2xl font-black text-rv-gold">
                       {formatPrice(bag.price)}
                     </span>
-                    <span className="text-xs text-stone-500">/ {bag.weight}</span>
+                    <span className="text-xs text-rv-brown/40">/ {bag.weight}</span>
                   </div>
 
                   {/* Add to Cart button */}
@@ -208,7 +208,7 @@ export function SignatureCollection() {
                   </button>
 
                   {/* Free shipping note */}
-                  <p className="text-[10px] text-stone-600">🚚 شحن مجاني لكل مصر</p>
+                  <p className="text-[10px] text-rv-brown/40">🚚 شحن مجاني لكل مصر</p>
                 </div>
               </motion.div>
             );
@@ -218,7 +218,7 @@ export function SignatureCollection() {
         {/* Decorative divider with VS */}
         <div className="relative my-14 md:my-16">
           <div className="h-px w-full bg-gradient-to-r from-transparent via-stone-700/50 to-transparent" />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0a0a0a] px-6 py-1">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-rv-cream px-6 py-1">
             <span className="text-xs font-black tracking-[0.3em] text-rv-gold/60">
               VS
             </span>
@@ -231,13 +231,13 @@ export function SignatureCollection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-4xl rounded-2xl border border-stone-800/50 bg-stone-900/30 p-4 sm:p-6 md:p-8"
+          className="mx-auto max-w-4xl rounded-2xl border border-rv-brown/15 bg-white p-4 shadow-md sm:p-6 md:p-8"
         >
           <div className="mb-6 text-center">
-            <h3 className="text-lg font-black text-white sm:text-xl">
+            <h3 className="text-lg font-black text-rv-darkBrown sm:text-xl">
               مقارنة سريعة
             </h3>
-            <p className="mt-1 text-xs text-stone-500">
+            <p className="mt-1 text-xs text-rv-brown/50">
               اختار الخلطة الأنسب لطريقتك في التحضير
             </p>
           </div>
@@ -245,8 +245,8 @@ export function SignatureCollection() {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-right text-xs sm:text-sm">
               <thead>
-                <tr className="border-b border-stone-800/60">
-                  <th className="px-3 py-3 text-xs font-bold text-stone-500 sm:px-4">
+                <tr className="border-b border-rv-brown/15">
+                  <th className="px-3 py-3 text-xs font-bold text-rv-brown/50 sm:px-4">
                     الميزة
                   </th>
                   <th className="px-3 py-3 text-center text-xs font-bold text-blue-400 sm:px-4">
@@ -259,21 +259,21 @@ export function SignatureCollection() {
               </thead>
               <tbody className="divide-y divide-stone-800/40">
                 {COMPARE_FEATURES.map((row) => (
-                  <tr key={row.label} className="hover:bg-stone-800/20 transition-colors">
-                    <td className="px-3 py-3.5 text-stone-400 sm:px-4">
+                  <tr key={row.label} className="hover:bg-rv-cream transition-colors">
+                    <td className="px-3 py-3.5 text-rv-brown/60 sm:px-4">
                       {row.label}
                     </td>
                     <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
                       {row.intenso}
                     </td>
-                    <td className="px-3 py-3.5 text-center font-medium text-stone-200 sm:px-4">
+                    <td className="px-3 py-3.5 text-center font-medium text-rv-darkBrown sm:px-4">
                       {row.premium}
                     </td>
                   </tr>
                 ))}
                 {/* Price row highlighted */}
                 <tr className="bg-rv-gold/5">
-                  <td className="px-3 py-3.5 font-bold text-stone-300 sm:px-4">
+                  <td className="px-3 py-3.5 font-bold text-rv-darkBrown/80 sm:px-4">
                     السعر (1 كجم)
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
@@ -287,7 +287,7 @@ export function SignatureCollection() {
             </table>
           </div>
 
-          <p className="mt-4 text-center text-[10px] text-stone-600">
+          <p className="mt-4 text-center text-[10px] text-rv-brown/40">
             * كلا المنتجين متوفر في مقاس 1 كجم و 500 جم — يُشحن مطحون أو حبوب كاملة حسب اختياراتك
           </p>
         </motion.div>
@@ -298,7 +298,7 @@ export function SignatureCollection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-12 text-center text-xs tracking-wider text-stone-600"
+          className="mt-12 text-center text-xs tracking-wider text-rv-brown/30"
         >
           ✦ Sourced from the finest coffee beans — Roasted fresh in Egypt ✦
         </motion.p>

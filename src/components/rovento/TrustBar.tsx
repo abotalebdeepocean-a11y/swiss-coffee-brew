@@ -29,12 +29,12 @@ export function TrustBar() {
   return (
     <>
       {/* Marquee strip */}
-      <div className="relative overflow-hidden border-y border-rv-red/20 bg-rv-red/5 py-3">
+      <div className="relative overflow-hidden border-y border-rv-gold/20 bg-rv-gold/5 py-3">
         <div className="marquee-track flex w-max animate-marquee">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span
               key={i}
-              className="whitespace-nowrap px-4 text-xs font-bold tracking-wide text-rv-red"
+              className="whitespace-nowrap px-4 text-xs font-bold tracking-wide text-rv-gold"
             >
               {item}
             </span>
@@ -43,7 +43,7 @@ export function TrustBar() {
       </div>
 
       {/* Main trust bar */}
-      <div ref={ref} className="border-b border-white/5 bg-[#0a0a0a] py-10 md:py-14">
+      <div ref={ref} className="border-b border-rv-brown/10 bg-white py-10 md:py-14">
         <div className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-6 px-4 md:grid-cols-4 md:px-6">
           {TRUST.map((t, i) => (
             <motion.div
@@ -53,11 +53,11 @@ export function TrustBar() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="flex flex-col items-center gap-2 text-center"
             >
-              <div className="flex size-12 items-center justify-center rounded-full border border-rv-red/20 bg-rv-red/5">
-                <t.icon className="size-5 text-rv-red" />
+              <div className="flex size-12 items-center justify-center rounded-full border border-rv-gold/20 bg-rv-gold/5">
+                <t.icon className="size-5 text-rv-gold" />
               </div>
-              <span className="text-lg font-black text-white">{t.value}</span>
-              <span className="text-xs text-stone-500">{t.label}</span>
+              <span className="text-lg font-black text-rv-darkBrown">{t.value}</span>
+              <span className="text-xs text-rv-brown/50">{t.label}</span>
             </motion.div>
           ))}
         </div>

@@ -5,7 +5,7 @@ export function WhatsAppFloat() {
   return (
     <div className="fixed bottom-20 right-4 z-40 flex flex-row-reverse items-center gap-3 sm:bottom-6 sm:right-6">
       {/* Welcome bubble */}
-      <div className="hidden rounded-2xl border border-[#25D366]/30 bg-[#111] px-4 py-2 text-xs font-bold text-stone-300 shadow-xl sm:block">
+      <div className="hidden rounded-2xl border border-[#25D366]/30 bg-white px-4 py-2 text-xs font-bold text-rv-darkBrown shadow-xl sm:block">
         محتاج ترشيح نوع القهوة المناسب ليك؟
         <br />
         <span className="text-[#25D366]">تواصل معنا الآن على واتساب!</span>

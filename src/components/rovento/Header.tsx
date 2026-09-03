@@ -48,7 +48,7 @@ export function Header() {
     <>
     <header className="sticky top-0 z-40">
       {/* Promo bar — desktop only */}
-      <div className="hidden bg-rv-red text-white md:block">
+      <div className="hidden bg-gradient-to-l from-rv-darkGold via-rv-gold to-rv-darkGold text-white md:block">
         <p className="mx-auto flex h-9 w-full max-w-[1200px] flex-wrap items-center justify-center gap-x-3 gap-y-0 px-4 text-center text-[13px] font-bold">
           <span>خصم 15% على أول طلب باستخدام كود:</span>
           <button
@@ -66,8 +66,16 @@ export function Header() {
       </div>
 
       {/* Main nav */}
-      <div className="border-b border-white/5 bg-[#0a0a0a]/95 backdrop-blur-xl">
+      <div className="border-b border-rv-brown/30 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between gap-3 px-4 md:h-16 md:px-6">
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setOpen(true)}
+            className="grid size-11 place-items-center rounded-[10px] border border-rv-brown/20 lg:hidden"
+            aria-label="افتح القائمة"
+          >
+            <Menu className="size-5 text-rv-darkBrown" />
+          </button>
           <Link to="/" aria-label="روڤينتو — الرئيسية" className="flex items-center">
             <Logo size="large" className="h-10 md:h-12" />
           </Link>
@@ -81,11 +89,11 @@ export function Header() {
               <button
                 key={item.to}
                 onClick={() => go(item.to)}
-                className="relative flex items-center gap-1.5 px-3 py-2 text-stone-400 transition-colors hover:text-rv-red"
+                className="relative flex items-center gap-1.5 px-3 py-2 text-rv-darkBrown/70 transition-colors hover:text-rv-gold"
               >
                 {item.label}
                 {item.hot && (
-                  <span className="rounded-full bg-rv-red px-1.5 py-0.5 text-[10px] font-black text-white">
+                  <span className="rounded-full bg-rv-gold px-1.5 py-0.5 text-[10px] font-black text-white">
                     {item.badge ?? "جديد"}
                   </span>
                 )}
@@ -111,7 +119,7 @@ export function Header() {
             {/* Promo button — desktop */}
             <button
               onClick={openPromoPopup}
-              className="hidden items-center gap-2 rounded-full border border-rv-red/30 bg-[#111] px-3.5 py-2 text-xs font-bold text-rv-red transition-colors hover:bg-rv-red/10 sm:flex"
+              className="hidden items-center gap-2 rounded-full border border-rv-gold/30 bg-rv-cream px-3.5 py-2 text-xs font-bold text-rv-darkGold transition-colors hover:bg-rv-gold/10 sm:flex"
             >
               <Gift className="size-4" />
               هدية فورية
@@ -120,13 +128,13 @@ export function Header() {
             {/* Cart button */}
             <button
               onClick={openCart}
-              className="relative flex h-11 items-center gap-2 rounded-[10px] bg-rv-red px-4 font-black text-white shadow-lg shadow-rv-red/20 transition-all hover:-translate-y-0.5 hover:bg-rv-red-light hover:shadow-rv-red/30"
+              className="relative flex h-11 items-center gap-2 rounded-[10px] bg-rv-gold px-4 font-black text-white shadow-lg shadow-rv-gold/20 transition-all hover:-translate-y-0.5 hover:bg-rv-darkGold hover:shadow-rv-gold/30"
               aria-label="سلة التسوق"
             >
               <ShoppingCart className="size-5" />
               <span className="hidden text-sm sm:inline">السلة</span>
               {count > 0 && (
-                <span className="absolute -top-1.5 -start-1.5 grid min-w-5 h-5 place-items-center rounded-full bg-white px-1 font-mono text-[11px] font-bold text-rv-red shadow">
+                <span className="absolute -top-1.5 -start-1.5 grid min-w-5 h-5 place-items-center rounded-full bg-rv-darkBrown px-1 font-mono text-[11px] font-bold text-rv-cream shadow">
                   {count}
                 </span>
               )}
@@ -135,10 +143,10 @@ export function Header() {
             {/* Mobile menu */}
             <button
               onClick={() => setOpen(true)}
-              className="grid size-11 place-items-center rounded-[10px] border border-white/10 lg:hidden"
+              className="grid size-11 place-items-center rounded-[10px] border border-rv-brown/20 lg:hidden"
               aria-label="افتح القائمة"
             >
-              <Menu className="size-5 text-white" />
+              <Menu className="size-5 text-rv-darkBrown" />
             </button>
           </div>
         </div>
@@ -151,15 +159,15 @@ export function Header() {
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-[85%] max-w-sm overflow-y-auto border-e border-white/5 bg-[#0a0a0a] p-5">
-            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+          <div className="absolute inset-y-0 left-0 w-[85%] max-w-sm overflow-y-auto border-e border-rv-brown/20 bg-white p-5">
+            <div className="flex items-center justify-between border-b border-rv-brown/20 pb-4">
               <Logo size="default" className="h-10" />
               <button
                 onClick={() => setOpen(false)}
-                className="grid size-10 place-items-center rounded-[10px] border border-white/10"
+                className="grid size-10 place-items-center rounded-[10px] border border-rv-brown/20"
                 aria-label="إغلاق"
               >
-                <X className="size-5 text-white" />
+                <X className="size-5 text-rv-darkBrown" />
               </button>
             </div>
             <nav className="mt-2 flex flex-col" aria-label="قائمة الجوال">
@@ -167,10 +175,10 @@ export function Header() {
                 <button
                   key={item.to}
                   onClick={() => go(item.to)}
-                  className="flex items-center justify-between border-b border-white/5 px-2 py-4 text-start text-lg font-bold text-stone-200 transition-colors hover:text-rv-red"
+                  className="flex items-center justify-between border-b border-rv-brown/15 px-2 py-4 text-start text-lg font-bold text-rv-darkBrown transition-colors hover:text-rv-gold"
                 >
                   {item.label}
-                  <span className="font-mono text-[11px] text-rv-red">
+                  <span className="font-mono text-[11px] text-rv-gold">
                     0{i + 1}
                   </span>
                 </button>
@@ -188,7 +196,7 @@ export function Header() {
                     setOpen(false);
                     openPromoPopup();
                   }}
-                  className="flex h-12 items-center justify-center gap-2 rounded-[10px] border border-rv-red/40 text-sm font-bold text-rv-red"
+                  className="flex h-12 items-center justify-center gap-2 rounded-[10px] border border-rv-gold/40 text-sm font-bold text-rv-gold"
                 >
                   <Gift className="size-4" />
                   هدية فورية — كوبون خصم
@@ -201,11 +209,11 @@ export function Header() {
     </header>
 
     {/* Mobile bottom nav */}
-    <div className="fixed bottom-0 inset-x-0 z-30 border-t border-white/5 bg-[#0a0a0a]/95 backdrop-blur-xl lg:hidden">
+    <div className="fixed bottom-0 inset-x-0 z-30 border-t border-rv-brown/20 bg-white/95 backdrop-blur-xl lg:hidden">
       <div className="mx-auto flex h-14 max-w-lg items-center justify-around px-2">
         <button
           onClick={() => setOpen(true)}
-          className="flex flex-1 flex-col items-center gap-0.5 py-1 text-stone-500 transition-colors active:text-rv-red"
+          className="flex flex-1 flex-col items-center gap-0.5 py-1 text-rv-darkBrown/50 transition-colors active:text-rv-gold"
           aria-label="القائمة"
         >
           <Menu className="size-5" />
@@ -213,13 +221,13 @@ export function Header() {
         </button>
         <button
           onClick={openCart}
-          className="relative flex flex-1 flex-col items-center gap-0.5 py-1 text-stone-500 transition-colors active:text-rv-red"
+          className="relative flex flex-1 flex-col items-center gap-0.5 py-1 text-rv-darkBrown/50 transition-colors active:text-rv-gold"
           aria-label="السلة"
         >
           <ShoppingCart className="size-5" />
           <span className="text-[10px] font-bold">السلة</span>
           {count > 0 && (
-            <span className="absolute top-0.5 right-1/3 grid min-w-4 h-4 place-items-center rounded-full bg-rv-red px-1 font-mono text-[10px] font-bold text-white">
+            <span className="absolute top-0.5 right-1/3 grid min-w-4 h-4 place-items-center rounded-full bg-rv-gold px-1 font-mono text-[10px] font-bold text-white">
               {count}
             </span>
           )}

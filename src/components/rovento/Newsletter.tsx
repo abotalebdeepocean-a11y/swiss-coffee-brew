@@ -15,9 +15,9 @@ export function Newsletter() {
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-br from-coffee-950 via-[#1a160e] to-coffee-950 py-12 md:py-16">
+    <section className="relative overflow-hidden border-b border-rv-brown/10 bg-gradient-to-br from-rv-cream via-white to-rv-cream py-12 md:py-16">
       {/* توهج */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_50%,rgba(212,175,55,0.08),transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_50%,rgba(179,139,51,0.06),transparent_70%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-[600px] px-4 text-center md:px-6">
         <motion.div
@@ -34,7 +34,7 @@ export function Newsletter() {
             اشترك واحصل على{" "}
             <span className="text-rv-gold">10% خصم</span> أول طلب 🎁
           </h2>
-          <p className="mt-2 text-sm text-stone-400">
+          <p className="mt-2 text-sm text-rv-brown/60">
             انضم لعائلة روفينتو وتوصلك أحدث العروض والخلطات الحصرية قبل الجميع.
           </p>
 
@@ -59,19 +59,19 @@ export function Newsletter() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="بريدك الإلكتروني"
                   required
-                  className="h-12 w-full rounded-xl border border-white/15 bg-white/5 pe-4 ps-10 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-rv-gold focus:outline-none"
+                  className="h-12 w-full rounded-xl border border-rv-brown/20 bg-white pe-4 ps-10 text-sm text-rv-darkBrown placeholder:text-rv-brown/40 transition-colors focus:border-rv-gold focus:outline-none"
                 />
               </div>
               <button
                 type="submit"
-                className="h-12 rounded-xl bg-rv-gold px-6 text-sm font-black text-black transition-all hover:bg-rv-gold/90 hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                className="h-12 rounded-xl bg-rv-gold px-6 text-sm font-black text-white transition-all hover:bg-rv-darkGold hover:shadow-[0_0_20px_rgba(179,139,51,0.3)]"
               >
                 اشترك
               </button>
             </form>
           )}
 
-          <p className="mt-3 text-[10px] text-stone-600">
+          <p className="mt-3 text-[10px] text-rv-brown/40">
             بدون Spam. نرسل فقط ما يستحق القراءة. يمكنك إلغاء الاشتراك في أي وقت.
           </p>
         </motion.div>

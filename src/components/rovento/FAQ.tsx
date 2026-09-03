@@ -41,7 +41,7 @@ const FAQ_DATA = [
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-white/10 last:border-0">
+    <div className="border-b border-rv-brown/10 last:border-0">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between gap-4 py-4 text-start transition-colors hover:text-rv-gold"
@@ -63,7 +63,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm leading-relaxed text-stone-400">
+            <p className="pb-4 text-sm leading-relaxed text-rv-brown/60">
               {a}
             </p>
           </motion.div>
@@ -75,7 +75,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function FAQ() {
   return (
-    <section className="border-b border-white/10 bg-coffee-950 py-12 md:py-16">
+    <section className="border-b border-rv-brown/10 bg-white py-12 md:py-16">
       <div className="mx-auto w-full max-w-[800px] px-4 md:px-6">
         <div className="flex items-center gap-3 mb-8">
           <div className="grid size-10 place-items-center rounded-full bg-rv-gold/10">
@@ -85,13 +85,13 @@ export function FAQ() {
             <h2 className="text-xl font-black md:text-2xl">
               عندك سؤال؟ عندنا <span className="text-rv-gold">إجابة</span> ☕
             </h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-rv-brown/50">
               كل إجاباتك في مكان واحد
             </p>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 md:p-6">
+        <div className="rounded-2xl border border-rv-brown/10 bg-rv-cream p-4 md:p-6">
           {FAQ_DATA.map((item) => (
             <FAQItem key={item.q} q={item.q} a={item.a} />
           ))}

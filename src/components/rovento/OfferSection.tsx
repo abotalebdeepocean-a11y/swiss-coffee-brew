@@ -38,11 +38,11 @@ function useCountdown() {
 
 function TimeBox({ value, unit }: { value: string; unit: string }) {
   return (
-    <div className="flex flex-col items-center rounded-2xl border border-rv-red/30 bg-[#111] px-3 py-3 sm:px-5 sm:py-4 md:min-w-[100px]">
-      <span className="block text-3xl font-black text-rv-red sm:text-5xl">
+    <div className="flex flex-col items-center rounded-2xl border border-rv-gold/30 bg-white px-3 py-3 shadow-sm sm:px-5 sm:py-4 md:min-w-[100px]">
+      <span className="block text-3xl font-black text-rv-gold sm:text-5xl">
         {value}
       </span>
-      <span className="mt-1 block text-[10px] font-bold uppercase text-stone-500 sm:text-xs">
+      <span className="mt-1 block text-[10px] font-bold uppercase text-rv-brown/50 sm:text-xs">
         {unit}
       </span>
     </div>
@@ -68,45 +68,45 @@ function OfferProductCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="group relative flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-[#111] p-4 transition-all duration-300 hover:border-rv-red/40 hover:shadow-lg hover:shadow-rv-red/10 sm:p-5"
+      className="group relative flex flex-col items-center gap-3 rounded-2xl border border-rv-brown/15 bg-white p-4 shadow-md transition-all duration-300 hover:border-rv-gold/40 hover:shadow-lg hover:shadow-rv-gold/10 sm:p-5"
     >
       {/* Product image */}
       <div className="relative flex h-40 items-center justify-center sm:h-48">
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-auto object-contain drop-shadow-[0_8px_30px_rgba(208,59,30,0.15)] transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-auto object-contain drop-shadow-[0_8px_30px_rgba(179,139,51,0.15)] transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 
       {/* Product name */}
-      <h3 className="text-center text-base font-bold text-white sm:text-lg">
+      <h3 className="text-center text-base font-bold text-rv-darkBrown sm:text-lg">
         {product.name}
       </h3>
 
       {/* Price */}
       <div className="text-center">
-        <span className="text-2xl font-black text-rv-red">
+        <span className="text-2xl font-black text-rv-gold">
           {formatPrice(product.price)}
         </span>
-        <span className="ms-1 text-xs text-stone-500">ج.م</span>
+        <span className="ms-1 text-xs text-rv-brown/50">ج.م</span>
       </div>
 
       {/* Quantity controls */}
-      <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-2 py-1.5">
+      <div className="flex items-center gap-3 rounded-xl border border-rv-brown/15 bg-rv-cream px-2 py-1.5">
         <button
           onClick={() => onQuantityChange(Math.max(0, quantity - 1))}
-          className="flex size-8 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-rv-red/20 hover:text-rv-red"
+          className="flex size-8 items-center justify-center rounded-lg bg-rv-brown/10 text-rv-darkBrown transition-colors hover:bg-rv-gold/20 hover:text-rv-gold"
           aria-label="减持"
         >
           <Minus className="size-4" />
         </button>
-        <span className="min-w-[32px] text-center text-lg font-bold text-white">
+        <span className="min-w-[32px] text-center text-lg font-bold text-rv-darkBrown">
           {quantity}
         </span>
         <button
           onClick={() => onQuantityChange(quantity + 1)}
-          className="flex size-8 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-rv-red/20 hover:text-rv-red"
+          className="flex size-8 items-center justify-center rounded-lg bg-rv-brown/10 text-rv-darkBrown transition-colors hover:bg-rv-gold/20 hover:text-rv-gold"
           aria-label="增加"
         >
           <Plus className="size-4" />
@@ -144,10 +144,10 @@ export function OfferSection() {
   return (
     <section
       id="deal"
-      className="relative overflow-hidden border-y-2 border-rv-red bg-gradient-to-br from-[#111] via-[#0d0808] to-[#111] py-12 md:py-16"
+      className="relative overflow-hidden border-y-2 border-rv-gold/30 bg-gradient-to-br from-white via-rv-cream to-white py-12 md:py-16"
     >
       {/* Red glow */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(208,59,30,0.08),transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(179,139,51,0.08),transparent_70%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl px-4 text-center md:px-6">
         {/* Badge */}
@@ -156,7 +156,7 @@ export function OfferSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-rv-red/30 bg-rv-red/10 px-5 py-1.5 text-sm font-bold uppercase tracking-wider text-rv-red"
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-rv-gold/30 bg-rv-gold/10 px-5 py-1.5 text-sm font-bold uppercase tracking-wider text-rv-gold"
         >
           <Flame className="size-4" />
           عرض الأسبوع
@@ -168,7 +168,7 @@ export function OfferSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.05 }}
-          className="mb-1 text-2xl font-black text-white sm:text-4xl md:text-5xl"
+          className="mb-1 text-2xl font-black text-rv-darkBrown sm:text-4xl md:text-5xl"
         >
           اشترِ 2 كجم من قهوة روفينتو
         </motion.h2>
@@ -178,7 +178,7 @@ export function OfferSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="mx-auto mb-6 max-w-2xl text-lg font-bold text-rv-red sm:text-2xl"
+          className="mx-auto mb-6 max-w-2xl text-lg font-bold text-rv-gold sm:text-2xl"
         >
           واحصل على خصم 5%
         </motion.p>
@@ -189,10 +189,10 @@ export function OfferSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          className="mb-8 inline-flex items-center gap-3 rounded-2xl border border-rv-red/30 bg-rv-red/10 px-6 py-3"
+          className="mb-8 inline-flex items-center gap-3 rounded-2xl border border-rv-gold/30 bg-rv-gold/10 px-6 py-3"
         >
-          <Truck className="size-5 text-rv-red" />
-          <span className="text-base font-bold text-rv-red">
+          <Truck className="size-5 text-rv-gold" />
+          <span className="text-base font-bold text-rv-gold">
             توصيل مجاني لكل المحافظات
           </span>
         </motion.div>
@@ -216,21 +216,21 @@ export function OfferSection() {
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            className="mb-6 rounded-2xl border border-rv-red/40 bg-rv-red/10 px-6 py-4"
+            className="mb-6 rounded-2xl border border-rv-gold/40 bg-rv-gold/10 px-6 py-4"
           >
             <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:justify-center sm:gap-6">
               <div>
-                <span className="text-xs text-stone-500">المجموع قبل الخصم</span>
-                <span className="ms-2 text-lg font-bold text-white line-through">
+                <span className="text-xs text-rv-brown/50">المجموع قبل الخصم</span>
+                <span className="ms-2 text-lg font-bold text-rv-darkBrown line-through">
                   {formatPrice(subtotal)} ج.م
                 </span>
               </div>
-              <div className="text-2xl font-black text-rv-red">
+              <div className="text-2xl font-black text-rv-gold">
                 -{discountAmount} ج.م
               </div>
               <div>
-                <span className="text-xs text-stone-500">الإجمالي</span>
-                <span className="ms-2 text-2xl font-black text-rv-red">
+                <span className="text-xs text-rv-brown/50">الإجمالي</span>
+                <span className="ms-2 text-2xl font-black text-rv-gold">
                   {formatPrice(subtotal - discountAmount)} ج.م
                 </span>
               </div>
@@ -240,15 +240,15 @@ export function OfferSection() {
 
         {/* Countdown */}
         <div className="mb-8">
-          <div className="mb-3 flex items-center justify-center gap-2 text-sm font-bold text-rv-red">
+          <div className="mb-3 flex items-center justify-center gap-2 text-sm font-bold text-rv-gold">
             <Clock className="size-4" />
             <span>ينتهي العرض خلال:</span>
           </div>
           <div className="flex items-center justify-center gap-2 sm:gap-3">
             <TimeBox value={days} unit="يوم" />
-            <span className="text-2xl font-bold text-rv-red sm:text-3xl">:</span>
+            <span className="text-2xl font-bold text-rv-gold sm:text-3xl">:</span>
             <TimeBox value={hours} unit="ساعة" />
-            <span className="text-2xl font-bold text-rv-red sm:text-3xl">:</span>
+            <span className="text-2xl font-bold text-rv-gold sm:text-3xl">:</span>
             <TimeBox value={minutes} unit="دقيقة" />
           </div>
         </div>
@@ -261,14 +261,14 @@ export function OfferSection() {
               add("premium-1kg", 1);
             }
           }}
-          className="inline-flex items-center gap-3 rounded-2xl bg-rv-red px-8 py-4 text-base font-black text-white shadow-2xl shadow-rv-red/20 transition-all duration-300 hover:-translate-y-1 hover:bg-rv-red-light hover:shadow-rv-red/30 sm:px-10 sm:py-5 sm:text-lg"
+          className="inline-flex items-center gap-3 rounded-2xl bg-rv-gold px-8 py-4 text-base font-black text-white shadow-2xl shadow-rv-gold/20 transition-all duration-300 hover:-translate-y-1 hover:bg-rv-darkGold hover:shadow-rv-gold/30 sm:px-10 sm:py-5 sm:text-lg"
         >
           <ShoppingCart className="size-5 sm:size-6" />
           اطلب الآن — شحن مجاني
         </button>
 
         {/* Trust notes */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-stone-500">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-rv-brown/50">
           <span>العرض ساري حتى نفاد الكمية</span>
           <span className="hidden sm:inline">·</span>
           <span>الدفع عند الاستلام</span>

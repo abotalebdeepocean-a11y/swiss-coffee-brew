@@ -28,11 +28,9 @@ function HeroCountdown() {
     return () => clearInterval(t);
   }, []);
 
-  // Target = 1 October 2026 23:59:59 Egypt time (UTC+2)
   const target = useMemo(() => {
-    // Create date in Egypt timezone: 1 Oct 2026 23:59:59
-    const egyptOffset = 2 * 60; // UTC+2 in minutes
-    const utc = new Date(Date.UTC(2026, 9, 1, 23, 59, 59)); // Month is 0-indexed
+    const egyptOffset = 2 * 60;
+    const utc = new Date(Date.UTC(2026, 9, 1, 23, 59, 59));
     const egyptTime = new Date(utc.getTime() - egyptOffset * 60_000);
     return egyptTime.getTime();
   }, []);
@@ -47,29 +45,28 @@ function HeroCountdown() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.6 }}
-      className="flex items-center justify-center gap-3 lg:justify-start"
+      className="flex flex-wrap items-center justify-center gap-3 lg:justify-start"
     >
-      <span className="text-xs font-bold text-stone-500">التوصيل المجاني ينتهي خلال</span>
-      <span className="text-[10px] text-stone-600">1 Oct 2026</span>
+      <span className="text-sm font-bold text-coffee-700">التوصيل المجاني ينتهي خلال</span>
+      <span className="text-xs text-coffee-600">1 Oct 2026</span>
       <div className="flex items-center gap-1.5">
         {/* Days — مميز */}
-        <div className="relative flex items-center justify-center overflow-hidden rounded-lg border border-rv-red/40 bg-rv-red/10 px-3 py-1.5">
-          <span className="relative z-10 font-mono text-lg font-black text-rv-red">{days}</span>
-          <span className="relative z-10 ms-1 text-[10px] font-bold text-rv-red/70">يوم</span>
-          {/* توهج خلف الرقم */}
-          <div className="absolute inset-0 bg-rv-red/5 blur-sm" />
+        <div className="relative flex items-center justify-center overflow-hidden rounded-lg border border-rv-gold/40 bg-rv-gold/10 px-3 py-1.5">
+          <span className="relative z-10 font-mono text-lg font-black text-rv-gold">{days}</span>
+          <span className="relative z-10 ms-1 text-[10px] font-bold text-rv-gold/70">يوم</span>
+          <div className="absolute inset-0 bg-rv-gold/5 blur-sm" />
         </div>
-        <span className="text-sm font-bold text-rv-red">:</span>
+        <span className="text-sm font-bold text-rv-gold">:</span>
         {/* Hours */}
-        <div className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5">
-          <span className="font-mono text-sm font-bold text-white">{String(hours).padStart(2, "0")}</span>
-          <span className="ms-1 text-[9px] text-stone-500">ساعة</span>
+        <div className="flex items-center justify-center rounded-lg border border-coffee-700/15 bg-white px-2.5 py-1.5">
+          <span className="font-mono text-sm font-bold text-coffee-900">{String(hours).padStart(2, "0")}</span>
+          <span className="ms-1 text-[9px] text-coffee-600">ساعة</span>
         </div>
-        <span className="text-sm font-bold text-rv-red">:</span>
+        <span className="text-sm font-bold text-rv-gold">:</span>
         {/* Minutes */}
-        <div className="flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5">
-          <span className="font-mono text-sm font-bold text-white">{String(mins).padStart(2, "0")}</span>
-          <span className="ms-1 text-[9px] text-stone-500">دقيقة</span>
+        <div className="flex items-center justify-center rounded-lg border border-coffee-700/15 bg-white px-2.5 py-1.5">
+          <span className="font-mono text-sm font-bold text-coffee-900">{String(mins).padStart(2, "0")}</span>
+          <span className="ms-1 text-[9px] text-coffee-600">دقيقة</span>
         </div>
       </div>
     </motion.div>
@@ -89,7 +86,7 @@ export function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden bg-gradient-to-b from-[#f5f0e8] via-[#faf7f0] to-[#faf7f0]"
     >
       {/* Background */}
       <div className="absolute inset-0 z-0">
@@ -101,21 +98,21 @@ export function Hero() {
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url(${IMAGES.bags.macro})`,
-              filter: "brightness(0.15) saturate(0.4)",
+              filter: "brightness(0.9) saturate(0.6)",
             }}
           />
         </motion.div>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/95 via-[#0a0a0a]/80 to-[#0a0a0a]" />
-        {/* Red glow */}
-        <div className="pointer-events-none absolute left-1/2 top-1/3 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-red/5 blur-[200px]" />
-        <div className="pointer-events-none absolute bottom-0 right-1/4 size-[400px] rounded-full bg-rv-red/3 blur-[150px]" />
+        {/* Warm overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0e8]/90 via-[#faf7f0]/80 to-[#faf7f0]" />
+        {/* Gold glow */}
+        <div className="pointer-events-none absolute left-1/2 top-1/3 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rv-gold/8 blur-[200px]" />
+        <div className="pointer-events-none absolute bottom-0 right-1/4 size-[400px] rounded-full bg-rv-gold/5 blur-[150px]" />
         {/* Minimalist grid lines */}
         <div className="absolute inset-0 grid-editorial opacity-30" />
       </div>
 
       {/* Trust Signals bar */}
-      <div className="relative z-10 border-b border-white/5 bg-black/60 backdrop-blur-md">
+      <div className="relative z-10 border-b border-coffee-700/10 bg-white/60 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,12 +125,12 @@ export function Hero() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.2 + i * 0.15 }}
-              className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-stone-400 uppercase md:text-xs"
+              className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-coffee-600 uppercase md:text-xs"
             >
-              <CheckCircle2 className="size-3.5 text-rv-red" />
+              <CheckCircle2 className="size-3.5 text-rv-gold" />
               {signal}
               {i < TRUST_SIGNALS.length - 1 && (
-                <span className="ms-2 text-stone-700 md:inline">|</span>
+                <span className="ms-2 text-coffee-700/30 md:inline">|</span>
               )}
             </motion.span>
           ))}
@@ -152,28 +149,15 @@ export function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="space-y-6 text-center lg:col-span-7 lg:text-start"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="inline-flex items-center gap-2 rounded-full border border-rv-red/30 bg-rv-red/10 px-5 py-2"
-          >
-            <Flame className="size-4 text-rv-red" />
-            <span className="text-sm font-bold text-rv-red">
-              يبدأ من 700 ج.م / كجم
-            </span>
-          </motion.div>
-
           {/* Main heading */}
-          <h1 className="font-display text-4xl font-black leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className="text-white">بنقدملك القهوة الإسبريسو</span>
+          <h1 className="font-display text-4xl font-black leading-tight text-coffee-900 sm:text-5xl md:text-6xl lg:text-7xl">
+            <span>بنقدملك القهوة الإسبريسو</span>
             <br />
             <span className="gold-gradient-text">على أصولها</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg lg:mx-0">
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-coffee-600 md:text-lg lg:mx-0">
             من الحبوب إلى الكوب — تجربة إسبريسو احترافية في بيتك.
             <br className="hidden md:block" />
             تحميص طازج يومياً في القاهرة.
@@ -185,13 +169,13 @@ export function Hero() {
           <HeroCountdown />
 
           {/* Features */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-400 lg:justify-start">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-coffee-600 lg:justify-start">
             <span className="flex items-center gap-1.5">
-              <Truck className="size-4 text-rv-red" />
+              <Truck className="size-4 text-rv-gold" />
               شحن مجاني لكل مصر
             </span>
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="size-4 text-rv-red" />
+              <ShieldCheck className="size-4 text-rv-gold" />
               ضمان ذهبي
             </span>
           </div>
@@ -208,7 +192,7 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group inline-flex items-center gap-3 rounded-xl bg-rv-red px-8 py-4 text-lg font-black text-white shadow-xl shadow-rv-red/25 transition-all duration-300 hover:-translate-y-1 hover:bg-rv-red-light hover:shadow-[0_12px_40px_rgba(208,59,30,0.4)]"
+              className="group inline-flex items-center gap-3 rounded-xl bg-rv-gold px-8 py-4 text-lg font-black text-white shadow-xl shadow-rv-gold/25 transition-all duration-300 hover:-translate-y-1 hover:bg-rv-gold-light hover:shadow-[0_12px_40px_rgba(184,134,11,0.35)]"
             >
               <ShoppingCart className="size-5" />
               اطلب الآن — توصيل مجاني
@@ -225,7 +209,7 @@ export function Hero() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="inline-flex items-center gap-3 rounded-xl border-2 border-white/20 bg-transparent px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:border-rv-red/50 hover:bg-rv-red/10 hover:text-rv-red"
+              className="inline-flex items-center gap-3 rounded-xl border-2 border-coffee-700/20 bg-transparent px-8 py-4 text-lg font-bold text-coffee-900 transition-all duration-300 hover:border-rv-gold/50 hover:bg-rv-gold/10 hover:text-rv-gold"
             >
               <Eye className="size-5" />
               تصفح المنتجات
@@ -241,8 +225,8 @@ export function Hero() {
           className="relative flex justify-center lg:col-span-5"
         >
           <div className="relative w-full max-w-xl">
-            {/* Red glow behind bag */}
-            <div className="absolute -inset-16 rounded-full bg-rv-red/8 blur-[100px]" />
+            {/* Gold glow behind bag */}
+            <div className="absolute -inset-16 rounded-full bg-rv-gold/10 blur-[100px]" />
 
             <div className="relative">
               <BagVisual
@@ -250,7 +234,7 @@ export function Hero() {
                 variant="premium"
                 eager
                 alt="كيس روفينتو بريميوم — 100% أرابيكا فاخر"
-                className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(208,59,30,0.2)] sm:h-[380px] md:h-[460px]"
+                className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(184,134,11,0.15)] sm:h-[380px] md:h-[460px]"
               />
             </div>
           </div>
@@ -258,7 +242,7 @@ export function Hero() {
       </motion.div>
 
       {/* Bottom trust strip */}
-      <div className="relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-md">
+      <div className="relative z-10 border-t border-coffee-700/10 bg-white/40 backdrop-blur-md">
         <div className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-5 px-4 py-5 md:grid-cols-4 md:px-6">
           {[
             { icon: ShieldCheck, label: "ضمان استرجاع 30 يوم" },
@@ -271,9 +255,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 + i * 0.1 }}
-              className="flex items-center justify-center gap-2.5 text-sm font-bold text-stone-400"
+              className="flex items-center justify-center gap-2.5 text-sm font-bold text-coffee-600"
             >
-              <t.icon className="size-5 shrink-0 text-rv-red" />
+              <t.icon className="size-5 shrink-0 text-rv-gold" />
               {t.label}
             </motion.div>
           ))}

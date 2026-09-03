@@ -11,12 +11,12 @@ const PHONE_NUMBERS = [
 ];
 
 const PAYMENTS = [
-  { label: "Visa", cls: "text-blue-400" },
-  { label: "Mastercard", cls: "text-orange-400" },
-  { label: "ميزة (Meeza)", cls: "text-rv-red" },
-  { label: "فودافون كاش", cls: "text-red-400" },
-  { label: "Instapay", cls: "text-purple-400" },
-  { label: "COD", cls: "text-emerald-400" },
+  { label: "Visa", cls: "text-blue-500" },
+  { label: "Mastercard", cls: "text-orange-500" },
+  { label: "ميزة (Meeza)", cls: "text-rv-gold" },
+  { label: "فودافون كاش", cls: "text-red-500" },
+  { label: "Instapay", cls: "text-purple-500" },
+  { label: "COD", cls: "text-emerald-600" },
 ];
 
 const SHIPPING = [
@@ -77,11 +77,11 @@ function NewsletterForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="اكتب بريدك الإلكتروني"
             dir="ltr"
-            className="h-11 min-w-0 flex-1 rounded-xl border border-white/10 bg-[#111] px-3 text-sm text-stone-200 placeholder:text-stone-500 focus:border-rv-red focus:outline-none"
+            className="h-11 min-w-0 flex-1 rounded-xl border border-rv-cream/10 bg-rv-darkBrown/80 px-3 text-sm text-rv-cream placeholder:text-rv-cream/30 focus:border-rv-gold focus:outline-none"
           />
           <button
             type="submit"
-            className="h-11 shrink-0 rounded-xl bg-rv-red px-4 text-sm font-black text-white transition hover:bg-rv-red-light"
+            className="h-11 shrink-0 rounded-xl bg-rv-gold px-4 text-sm font-black text-white transition hover:bg-rv-darkGold"
           >
             اشترك
           </button>
@@ -93,51 +93,51 @@ function NewsletterForm() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-[#0a0a0a] pb-10 pt-14 text-sm text-stone-400">
+    <footer className="border-t border-rv-brown/10 bg-rv-darkBrown pb-10 pt-14 text-sm text-rv-cream/60">
       <div className="mx-auto grid w-full max-w-[1200px] gap-8 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-4 lg:gap-10">
         {/* Brand */}
         <div className="space-y-4">
           <Logo />
-          <p className="text-xs leading-relaxed text-stone-500">
+          <p className="text-xs leading-relaxed text-rv-cream/40">
             عصارة قهوة خالصة لتجربة فريدة — علامة مصرية رائدة في تحميص وإنتاج
             قهوة الإسبريسو الفاخرة بأعلى معايير الجودة العالمية في قلب القاهرة.
           </p>
           <div className="space-y-2 text-xs">
             <p className="flex items-center gap-2">
-              <MapPin className="size-3.5 shrink-0 text-rv-red" />
+              <MapPin className="size-3.5 shrink-0 text-rv-gold" />
               القاهرة، مصر
             </p>
             {PHONE_NUMBERS.map((p) => (
               <a
                 key={p.number}
                 href={`tel:+20${p.number}`}
-                className="flex items-center gap-2 transition-colors hover:text-rv-red"
+                className="flex items-center gap-2 transition-colors hover:text-rv-gold"
               >
-                <Phone className="size-3.5 shrink-0 text-rv-red" />
+                <Phone className="size-3.5 shrink-0 text-rv-gold" />
                 <span dir="ltr">{p.number}</span>
-                <span className="text-stone-600">({p.label})</span>
+                <span className="text-rv-cream/30">({p.label})</span>
               </a>
             ))}
             <a
               href="mailto:info@rovento.site"
-              className="flex items-center gap-2 transition-colors hover:text-rv-red"
+              className="flex items-center gap-2 transition-colors hover:text-rv-gold"
             >
-              <Mail className="size-3.5 shrink-0 text-rv-red" />
+              <Mail className="size-3.5 shrink-0 text-rv-gold" />
               info@rovento.site
             </a>
             <a
               href="https://www.rovento.site"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 transition-colors hover:text-rv-red"
+              className="flex items-center gap-2 transition-colors hover:text-rv-gold"
             >
-              <Globe className="size-3.5 shrink-0 text-rv-red" />
+              <Globe className="size-3.5 shrink-0 text-rv-gold" />
               <span dir="ltr">www.rovento.site</span>
             </a>
           </div>
 
           {/* QR Code */}
-          <div className="mt-3 flex items-center gap-3 rounded-xl border border-white/5 bg-[#111] p-3">
+          <div className="mt-3 flex items-center gap-3 rounded-xl border border-rv-cream/10 bg-rv-darkBrown/80 p-3">
             <div className="shrink-0">
               <svg viewBox="0 0 100 100" className="size-16" aria-label="QR Code لـ www.rovento.site">
                 <rect width="100" height="100" fill="white" rx="8" />
@@ -164,8 +164,8 @@ export function Footer() {
               </svg>
             </div>
             <div>
-              <p className="text-[11px] font-bold text-stone-300">امسح الكود للزيارة</p>
-              <p className="text-[10px] text-stone-500" dir="ltr">www.rovento.site</p>
+              <p className="text-[11px] font-bold text-rv-cream/80">امسح الكود للزيارة</p>
+              <p className="text-[10px] text-rv-cream/40" dir="ltr">www.rovento.site</p>
             </div>
           </div>
 
@@ -178,7 +178,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="grid size-9 place-items-center rounded-full border border-white/10 bg-[#111] text-stone-400 transition hover:border-rv-red hover:text-rv-red"
+                className="grid size-9 place-items-center rounded-full border border-rv-cream/10 bg-rv-darkBrown/80 text-rv-cream/40 transition hover:border-rv-gold hover:text-rv-gold"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
                   <path d={s.d} />
@@ -190,36 +190,36 @@ export function Footer() {
 
         {/* Newsletter */}
         <div>
-          <h4 className="mb-1 font-bold text-white">اشترك في نشرتنا البريدية</h4>
-          <p className="text-xs text-stone-500">
+          <h4 className="mb-1 font-bold text-rv-cream">اشترك في نشرتنا البريدية</h4>
+          <p className="text-xs text-rv-cream/40">
             احصل على عروض وخصومات حصرية + كود خصم أول طلب.
           </p>
           <NewsletterForm />
           <div className="mt-5">
-            <h5 className="mb-2 text-xs font-bold text-white">خدمة العملاء</h5>
+            <h5 className="mb-2 text-xs font-bold text-rv-cream">خدمة العملاء</h5>
             <ul className="space-y-1.5 text-xs">
               <li>
                 <a
                   href={whatsappLink("مرحبًا ROVENTO 👋 لدي استفسار.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-rv-red"
+                  className="transition-colors hover:text-rv-gold"
                 >
                   تواصل معنا عبر واتساب
                 </a>
               </li>
-              <li className="text-stone-500">متاحون يوميًا 9 صباحًا — 11 مساءً</li>
+              <li className="text-rv-cream/40">متاحون يوميًا 9 صباحًا — 11 مساءً</li>
             </ul>
           </div>
         </div>
 
         {/* Quick links */}
         <div>
-          <h4 className="mb-4 font-bold text-white">روابط سريعة</h4>
+          <h4 className="mb-4 font-bold text-rv-cream">روابط سريعة</h4>
           <ul className="space-y-2 text-xs">
             {LINKS.map((l) => (
               <li key={l.to + l.label}>
-                <Link to={l.to} className="transition-colors hover:text-rv-red">
+                <Link to={l.to} className="transition-colors hover:text-rv-gold">
                   {l.label}
                 </Link>
               </li>
@@ -230,12 +230,12 @@ export function Footer() {
         {/* Payments + Shipping */}
         <div className="space-y-5">
           <div>
-            <h4 className="mb-3 font-bold text-white">وسائل الدفع</h4>
+            <h4 className="mb-3 font-bold text-rv-cream">وسائل الدفع</h4>
             <div className="flex flex-wrap gap-1.5">
               {PAYMENTS.map((p) => (
                 <span
                   key={p.label}
-                  className={`rounded-lg border border-white/5 bg-[#111] px-2.5 py-1.5 text-[11px] font-bold ${p.cls}`}
+                  className={`rounded-lg border border-rv-cream/10 bg-rv-darkBrown/80 px-2.5 py-1.5 text-[11px] font-bold ${p.cls}`}
                 >
                   {p.label}
                 </span>
@@ -243,19 +243,19 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="mb-3 font-bold text-white">شركاء الشحن</h4>
+            <h4 className="mb-3 font-bold text-rv-cream">شركاء الشحن</h4>
             <div className="flex flex-wrap gap-1.5">
               {SHIPPING.map((s) => (
                 <span
                   key={s.label}
                   dir="ltr"
-                  className={`rounded-lg border border-white/5 bg-[#111] px-2.5 py-1.5 text-[11px] font-bold ${s.cls}`}
+                  className={`rounded-lg border border-rv-cream/10 bg-rv-darkBrown/80 px-2.5 py-1.5 text-[11px] font-bold ${s.cls}`}
                 >
                   {s.label}
                 </span>
               ))}
             </div>
-            <p className="mt-3 text-[11px] text-stone-500">
+            <p className="mt-3 text-[11px] text-rv-cream/40">
               شحن مؤمن لكل مصر خلال 24-72 ساعة.
             </p>
           </div>
@@ -263,14 +263,14 @@ export function Footer() {
       </div>
 
       {/* WhatsApp strip */}
-      <div className="mx-auto mt-10 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-white/5 px-4 pt-8 md:px-6">
+      <div className="mx-auto mt-10 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-rv-cream/10 px-4 pt-8 md:px-6">
         <div className="flex items-center gap-3">
           <span className="grid size-10 place-items-center rounded-full bg-[#25D366] text-white">
             <WhatsAppIcon className="size-5" />
           </span>
           <div>
-            <p className="font-bold text-white">اطلب مباشرة عبر واتساب</p>
-            <p className="text-xs text-stone-500">رد سريع من 9 صباحًا حتى 11 مساءً — <span dir="ltr">01033012381</span></p>
+            <p className="font-bold text-rv-cream">اطلب مباشرة عبر واتساب</p>
+            <p className="text-xs text-rv-cream/40">رد سريع من 9 صباحًا حتى 11 مساءً — <span dir="ltr">01033012381</span></p>
           </div>
         </div>
         <a
@@ -284,7 +284,7 @@ export function Footer() {
         </a>
       </div>
 
-      <div className="mx-auto mt-8 w-full max-w-[1200px] border-t border-white/5 px-4 pt-8 text-center text-xs text-stone-600 md:px-6">
+      <div className="mx-auto mt-8 w-full max-w-[1200px] border-t border-rv-cream/10 px-4 pt-8 text-center text-xs text-rv-cream/30 md:px-6">
         <p>جميع الحقوق محفوظة © {new Date().getFullYear()} روفينتو للقهوة • صنع بكل فخر في مصر 🇪🇬</p>
       </div>
     </footer>

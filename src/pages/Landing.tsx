@@ -24,7 +24,7 @@ export default function Landing() {
   }, []);
 
   return (
-    <div dir="rtl" className="relative min-h-screen bg-[#0a0a0a] text-white antialiased font-sans overflow-hidden">
+    <div dir="rtl" className="relative min-h-screen bg-rv-cream text-rv-darkBrown antialiased font-sans overflow-hidden">
       {/* Floating coffee beans — interactive background */}
       <FloatingCoffeeBeans />
 
@@ -33,23 +33,23 @@ export default function Landing() {
         <main>
           <Hero />
           {/* Free delivery marquee */}
-          <div className="relative z-20 overflow-hidden border-y border-rv-red/20 bg-rv-red/5 py-3">
+          <div className="relative z-20 overflow-hidden border-y border-rv-gold/20 bg-rv-gold/5 py-3">
             <div className="animate-[marquee_20s_linear_infinite] whitespace-nowrap">
-              <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-red">
+              <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-gold">
                 التوصيل مجاني لكل المحافظات لمدة شهر كامل
-                <span className="mx-4 text-rv-red/30">✦</span>
+                <span className="mx-4 text-rv-gold/30">✦</span>
                 اطلب الآن واستمتع بالتوصيل المجاني
-                <span className="mx-4 text-rv-red/30">✦</span>
+                <span className="mx-4 text-rv-gold/30">✦</span>
                 التوصيل مجاني لكل المحافظات — العرض ساري لفترة محدودة
-                <span className="mx-4 text-rv-red/30">✦</span>
+                <span className="mx-4 text-rv-gold/30">✦</span>
               </span>
-              <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-red">
+              <span className="mx-8 inline-flex items-center gap-2 text-sm font-bold text-rv-gold">
                 التوصيل مجاني لكل المحافظات لمدة شهر كامل
-                <span className="mx-4 text-rv-red/30">✦</span>
+                <span className="mx-4 text-rv-gold/30">✦</span>
                 اطلب الآن واستمتع بالتوصيل المجاني
-                <span className="mx-4 text-rv-red/30">✦</span>
+                <span className="mx-4 text-rv-gold/30">✦</span>
                 التوصيل مجاني لكل المحافظات — العرض ساري لفترة محدودة
-                <span className="mx-4 text-rv-red/30">✦</span>
+                <span className="mx-4 text-rv-gold/30">✦</span>
               </span>
             </div>
           </div>

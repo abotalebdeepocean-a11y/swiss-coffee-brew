@@ -11,7 +11,7 @@ export function ProductsGrid() {
   const { add } = useCart();
 
   return (
-    <section id="featured" className="relative py-20 md:py-28">
+    <section id="featured" className="relative bg-rv-cream py-20 md:py-28">
       {/* Section heading */}
       <div className="mx-auto max-w-[1200px] px-4 md:px-6">
         <motion.div
@@ -21,13 +21,13 @@ export function ProductsGrid() {
           transition={{ duration: 0.8 }}
           className="mb-12 text-center"
         >
-          <span className="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-rv-red">
+          <span className="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-rv-gold">
             Our Collection
           </span>
-          <h2 className="font-display text-3xl font-black text-white md:text-5xl">
+          <h2 className="font-display text-3xl font-black text-rv-darkBrown md:text-5xl">
             منتجاتنا
           </h2>
-          <div className="mx-auto mt-4 h-[2px] w-16 bg-rv-red" />
+          <div className="mx-auto mt-4 h-[2px] w-16 bg-rv-gold" />
         </motion.div>
 
         {/* Products grid — 2x2 */}
@@ -38,11 +38,11 @@ export function ProductsGrid() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 + i * 0.15 }}
-              className="group relative overflow-hidden rounded-2xl border border-white/5 bg-[#111] p-6 transition-all duration-500 hover:border-rv-red/30 hover:shadow-[0_20px_60px_rgba(208,59,30,0.08)]"
+              className="group relative overflow-hidden rounded-2xl border border-rv-brown/15 bg-white p-6 shadow-md transition-all duration-500 hover:border-rv-gold/40 hover:shadow-[0_20px_60px_rgba(179,139,51,0.12)]"
             >
               {/* Badge */}
               {product.badge && (
-                <div className="absolute left-4 top-4 z-10 rounded-full bg-rv-red px-3 py-1 text-xs font-bold text-white">
+                <div className="absolute left-4 top-4 z-10 rounded-full bg-rv-gold px-3 py-1 text-xs font-bold text-white">
                   {product.badge}
                 </div>
               )}
@@ -55,10 +55,10 @@ export function ProductsGrid() {
               {/* Product info */}
               <div className="space-y-3">
                 <div>
-                  <h3 className="text-lg font-black text-white">
+                  <h3 className="text-lg font-black text-rv-darkBrown">
                     {product.name}
                   </h3>
-                  <p className="text-xs text-stone-500">{product.nameEn}</p>
+                  <p className="text-xs text-rv-brown/50">{product.nameEn}</p>
                 </div>
 
                 {/* Rating */}
@@ -68,8 +68,8 @@ export function ProductsGrid() {
                       key={j}
                       className={`size-3.5 ${
                         j < Math.floor(product.rating)
-                          ? "fill-rv-red text-rv-red"
-                          : "text-stone-700"
+                          ? "fill-rv-gold text-rv-gold"
+                          : "text-rv-brown/20"
                       }`}
                     />
                   ))}
@@ -83,7 +83,7 @@ export function ProductsGrid() {
                   {product.notes.map((n) => (
                     <span
                       key={n}
-                      className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-bold text-stone-400"
+                      className="rounded-full border border-rv-brown/15 bg-rv-cream px-2.5 py-0.5 text-[10px] font-bold text-rv-brown/60"
                     >
                       {n}
                     </span>
@@ -91,14 +91,14 @@ export function ProductsGrid() {
                 </div>
 
                 {/* Price + CTA */}
-                <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                <div className="flex items-center justify-between border-t border-rv-brown/10 pt-4">
                   <div>
-                    <span className="text-2xl font-black text-white">
+                    <span className="text-2xl font-black text-rv-darkBrown">
                       {product.price.toLocaleString("en-EG")}
                     </span>
-                    <span className="text-xs text-stone-500"> ج.م</span>
+                    <span className="text-xs text-rv-brown/50"> ج.م</span>
                     {product.oldPrice && (
-                      <span className="mr-2 text-xs text-stone-600 line-through">
+                      <span className="mr-2 text-xs text-rv-brown/40 line-through">
                         {product.oldPrice.toLocaleString("en-EG")}
                       </span>
                     )}
@@ -106,7 +106,7 @@ export function ProductsGrid() {
 
                   <button
                     onClick={() => add(product.slug)}
-                    className="flex items-center gap-2 rounded-xl bg-rv-red px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-rv-red-light hover:shadow-[0_8px_24px_rgba(208,59,30,0.3)]"
+                    className="flex items-center gap-2 rounded-xl bg-rv-gold px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-rv-darkGold hover:shadow-[0_8px_24px_rgba(179,139,51,0.3)]"
                   >
                     <ShoppingCart className="size-4" />
                     أضف للسلة
@@ -126,7 +126,7 @@ export function ProductsGrid() {
         >
           <a
             href="/shop"
-            className="group inline-flex items-center gap-2 border-b-2 border-rv-red/30 pb-1 text-sm font-bold text-stone-400 transition-colors hover:border-rv-red hover:text-rv-red"
+            className="group inline-flex items-center gap-2 border-b-2 border-rv-gold/30 pb-1 text-sm font-bold text-rv-brown/50 transition-colors hover:border-rv-gold hover:text-rv-gold"
           >
             عرض جميع المنتجات
             <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />

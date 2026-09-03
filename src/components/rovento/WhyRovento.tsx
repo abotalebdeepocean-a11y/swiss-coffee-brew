@@ -39,7 +39,7 @@ export function WhyRovento() {
   return (
     <section
       id="why-rovento"
-      className="border-b border-stone-800 bg-coffee-900/40 py-20"
+      className="border-b border-rv-brown/10 bg-white py-20"
     >
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
         <div className="mx-auto mb-14 max-w-3xl text-center">
@@ -48,9 +48,9 @@ export function WhyRovento() {
           </span>
           <h2 className="mt-2 text-3xl font-black sm:text-4xl">
             لماذا يختار عشاق القهوة في مصر{" "}
-            <span className="text-rv-red">روفينتو؟</span>
+            <span className="text-rv-gold">روفينتو؟</span>
           </h2>
-          <p className="mt-3 text-lg text-stone-300">
+          <p className="mt-3 text-lg text-rv-brown/60">
             خمسة أسباب تخلي روفينتو اختيار عشاق القهوة في مصر.
           </p>
         </div>
@@ -63,13 +63,13 @@ export function WhyRovento() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.45, delay: (i % 5) * 0.08 }}
-              className="group rounded-2xl border border-stone-800 bg-coffee-900/90 p-5 transition-colors hover:border-rv-gold/50"
+              className="group rounded-2xl border border-rv-brown/10 bg-rv-cream p-5 shadow-sm transition-colors hover:border-rv-gold/40 hover:shadow-md"
             >
               <div className="mb-4 grid size-10 place-items-center rounded-xl bg-rv-gold/10">
                 <f.icon className="size-5 text-rv-gold" />
               </div>
-              <h3 className="text-xl font-bold text-white">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-stone-400">
+              <h3 className="text-xl font-bold text-rv-darkBrown">{f.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-rv-brown/60">
                 {f.desc}
               </p>
             </motion.div>
