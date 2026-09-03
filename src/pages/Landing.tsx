@@ -16,6 +16,7 @@ import { ExitIntentPopup } from "@/components/rovento/ExitIntentPopup";
 import { StorySlider } from "@/components/rovento/StorySlider";
 import { FloatingCoffeeBeans } from "@/components/rovento/FloatingCoffeeBeans";
 import { ShippingReturnsBanner } from "@/components/rovento/ShippingReturnsBanner";
+import { FloatingProductHero } from "@/components/rovento/FloatingProductHero";
 
 export default function Landing() {
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function Landing() {
         <Header />
         <main>
           <Hero />
+          <FloatingProductHero />
           {/* Free delivery marquee */}
           <div className="relative z-20 overflow-hidden border-y border-rv-gold/20 bg-rv-gold/5 py-3">
             <div className="animate-[marquee_20s_linear_infinite] whitespace-nowrap">
