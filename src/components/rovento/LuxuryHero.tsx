@@ -114,11 +114,13 @@ export function LuxuryHero() {
             className="relative"
           >
             <div className="animate-levitate">
-              <img
-                src="/images/intenso-bar-real.webp"
-                alt="ROVENTO Bar Intenso"
-                className="w-[160px] sm:w-[200px] md:w-[260px] bag-shadow"
-              />
+              <div className="h-[200px] w-[160px] sm:h-[260px] sm:w-[200px] md:h-[340px] md:w-[260px]">
+                <img
+                  src="/images/intenso-bar-real.webp"
+                  alt="ROVENTO Bar Intenso"
+                  className="h-full w-full object-contain bag-shadow"
+                />
+              </div>
             </div>
             {/* Shadow on floor */}
             <div className="absolute -bottom-4 left-1/2 h-3 w-[70%] -translate-x-1/2 rounded-[50%] bg-white/[0.06] blur-md" />
@@ -146,11 +148,13 @@ export function LuxuryHero() {
             className="relative"
           >
             <div className="animate-levitate-reverse">
-              <img
-                src="/images/premium-eagle-real.webp"
-                alt="ROVENTO Premium"
-                className="w-[160px] sm:w-[200px] md:w-[260px] bag-shadow"
-              />
+              <div className="h-[200px] w-[160px] sm:h-[260px] sm:w-[200px] md:h-[340px] md:w-[260px]">
+                <img
+                  src="/images/premium-eagle-real.webp"
+                  alt="ROVENTO Premium"
+                  className="h-full w-full object-contain bag-shadow"
+                />
+              </div>
             </div>
             <div className="absolute -bottom-4 left-1/2 h-3 w-[70%] -translate-x-1/2 rounded-[50%] bg-white/[0.06] blur-md" />
           </motion.div>

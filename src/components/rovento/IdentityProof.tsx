@@ -33,10 +33,11 @@ export function IdentityProof() {
         <div className="mt-16 grid gap-8 sm:grid-cols-3">
           {[
             {
-              title: "الختم الدائري",
-              titleEn: "Circular Logo",
-              desc: "نفس الشعار الذهبي الدائري على الكيسين — رأس النسر والحرف R م統一",
-              img: "/images/intenso-bar-real.webp",
+              title: "صمام الحماية",
+              titleEn: "One-Way Valve",
+              desc: "صمام أحادي الاتجاه يحافظ على نضارة القهوة ويمنع دخول الهواء — مثالي للتخزين",
+              img: "/images/valve-closeup.webp",
+              isValve: true,
             },
             {
               title: "الشريط الذهبي",
@@ -58,12 +59,12 @@ export function IdentityProof() {
               transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
               className="group flex flex-col items-center rounded-2xl border border-white/5 bg-white/[0.02] p-8 text-center transition-all duration-500 hover:border-rv-gold/20 hover:bg-white/[0.04]"
             >
-              {/* Zoomed bag crop */}
+              {/* Zoomed crop */}
               <div className="mb-6 flex size-24 items-center justify-center overflow-hidden rounded-full border border-rv-gold/20 bg-rv-gold/5">
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="h-[120px] w-[120px] object-cover object-top opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className={`h-[120px] w-[120px] object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-100 ${(item as { isValve?: boolean }).isValve ? "object-center" : "object-top"}`}
                 />
               </div>
               <h3 className="font-condensed text-lg font-bold tracking-wider text-white">

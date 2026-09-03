@@ -56,11 +56,13 @@ function BagCard({ bag, index }: { bag: (typeof BAGS)[0]; index: number }) {
           {/* Golden rim on hover */}
           <div className="absolute -inset-4 rounded-3xl border border-rv-gold/0 opacity-0 transition-all duration-500 group-hover:border-rv-gold/30 group-hover:opacity-100 group-hover:shadow-[0_0_60px_rgba(201,168,76,0.1)]" />
 
-          <img
-            src={bag.image}
-            alt={`ROVENTO ${bag.title}`}
-            className="relative z-10 w-[200px] sm:w-[240px] md:w-[280px] bag-shadow transition-all duration-500 group-hover:bag-shadow-hover"
-          />
+          <div className="relative z-10 h-[240px] w-[200px] sm:h-[300px] sm:w-[240px] md:h-[360px] md:w-[280px]">
+            <img
+              src={bag.image}
+              alt={`ROVENTO ${bag.title}`}
+              className="h-full w-full object-contain bag-shadow transition-all duration-500 group-hover:bag-shadow-hover"
+            />
+          </div>
         </motion.div>
       </div>
 
