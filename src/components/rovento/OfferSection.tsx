@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ShoppingBag, Flame, Clock, Percent } from "lucide-react";
-import { formatPrice } from "@/lib/products";
+import {
+  Flame,
+  Clock,
+  Truck,
+  Plus,
+  Minus,
+  ShoppingCart,
+} from "lucide-react";
+import { formatPrice, PRODUCTS } from "@/lib/products";
 import { useCart } from "@/lib/store";
-
-const DEAL_PRICE = 1400;
-const DEAL_OLD = 1500;
-const SAVE = DEAL_OLD - DEAL_PRICE;
 
 function useCountdown() {
   const [now, setNow] = useState(() => Date.now());
@@ -46,9 +49,97 @@ function TimeBox({ value, unit }: { value: string; unit: string }) {
   );
 }
 
+/* كيس منتج في العرض */
+function OfferProductCard({
+  slug,
+  quantity,
+  onQuantityChange,
+}: {
+  slug: string;
+  quantity: number;
+  onQuantityChange: (q: number) => void;
+}) {
+  const product = PRODUCTS.find((p) => p.slug === slug);
+  if (!product) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="group relative flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-[#111] p-4 transition-all duration-300 hover:border-rv-red/40 hover:shadow-lg hover:shadow-rv-red/10 sm:p-5"
+    >
+      {/* Product image */}
+      <div className="relative flex h-40 items-center justify-center sm:h-48">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-full w-auto object-contain drop-shadow-[0_8px_30px_rgba(208,59,30,0.15)] transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+
+      {/* Product name */}
+      <h3 className="text-center text-base font-bold text-white sm:text-lg">
+        {product.name}
+      </h3>
+
+      {/* Price */}
+      <div className="text-center">
+        <span className="text-2xl font-black text-rv-red">
+          {formatPrice(product.price)}
+        </span>
+        <span className="ms-1 text-xs text-stone-500">ج.م</span>
+      </div>
+
+      {/* Quantity controls */}
+      <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-2 py-1.5">
+        <button
+          onClick={() => onQuantityChange(Math.max(0, quantity - 1))}
+          className="flex size-8 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-rv-red/20 hover:text-rv-red"
+          aria-label="减持"
+        >
+          <Minus className="size-4" />
+        </button>
+        <span className="min-w-[32px] text-center text-lg font-bold text-white">
+          {quantity}
+        </span>
+        <button
+          onClick={() => onQuantityChange(quantity + 1)}
+          className="flex size-8 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-rv-red/20 hover:text-rv-red"
+          aria-label="增加"
+        >
+          <Plus className="size-4" />
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
 export function OfferSection() {
-  const { add } = useCart();
+  const { items, add, setQty } = useCart();
   const { days, hours, minutes } = useCountdown();
+
+  // Get current quantities from cart
+  const getIntensoQty = () => {
+    const item = items.find((i) => i.slug === "bar-intenso-1kg");
+    return item?.qty ?? 0;
+  };
+  const getPremiumQty = () => {
+    const item = items.find((i) => i.slug === "premium-1kg");
+    return item?.qty ?? 0;
+  };
+
+  const intensoQty = getIntensoQty();
+  const premiumQty = getPremiumQty();
+  const totalQty = intensoQty + premiumQty;
+  const hasDiscount = totalQty >= 2;
+
+  // Calculate 5% discount
+  const intensoTotal = intensoQty * 700;
+  const premiumTotal = premiumQty * 890;
+  const subtotal = intensoTotal + premiumTotal;
+  const discountAmount = hasDiscount ? Math.round(subtotal * 0.05) : 0;
 
   return (
     <section
@@ -77,10 +168,9 @@ export function OfferSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.05 }}
-          className="mb-3 text-2xl font-black text-white sm:text-4xl md:text-5xl"
+          className="mb-1 text-2xl font-black text-white sm:text-4xl md:text-5xl"
         >
-          اشترِ 2 واحصل على{" "}
-          <span className="gold-gradient-text">خصم فوري {SAVE} ج.م</span>
+          اشترِ 2 كجم من قهوة روفينتو
         </motion.h2>
 
         <motion.p
@@ -88,10 +178,9 @@ export function OfferSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="mx-auto mb-6 max-w-2xl text-sm text-stone-400 md:text-lg"
+          className="mx-auto mb-6 max-w-2xl text-lg font-bold text-rv-red sm:text-2xl"
         >
-          على كيسين من بلندات روفينتو (1 كجم) — لفترة محدودة، مع شحن مجاني
-          لأي محافظة في مصر.
+          واحصل على خصم 5%
         </motion.p>
 
         {/* Savings badge */}
@@ -102,16 +191,52 @@ export function OfferSection() {
           transition={{ duration: 0.4, delay: 0.15 }}
           className="mb-8 inline-flex items-center gap-3 rounded-2xl border border-rv-red/30 bg-rv-red/10 px-6 py-3"
         >
-          <Percent className="size-5 text-rv-red" />
-          <div className="text-start">
-            <span className="block text-lg font-black text-rv-red">
-              وفّر {SAVE} ج.م
-            </span>
-            <span className="text-xs text-stone-500">
-              بدل {formatPrice(DEAL_OLD)} → {formatPrice(DEAL_PRICE)}
-            </span>
-          </div>
+          <Truck className="size-5 text-rv-red" />
+          <span className="text-base font-bold text-rv-red">
+            توصيل مجاني لكل المحافظات
+          </span>
         </motion.div>
+
+        {/* Product cards */}
+        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+          <OfferProductCard
+            slug="bar-intenso-1kg"
+            quantity={intensoQty}
+            onQuantityChange={(q) => setQty("bar-intenso-1kg", q)}
+          />
+          <OfferProductCard
+            slug="premium-1kg"
+            quantity={premiumQty}
+            onQuantityChange={(q) => setQty("premium-1kg", q)}
+          />
+        </div>
+
+        {/* Discount summary (when eligible) */}
+        {hasDiscount && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            className="mb-6 rounded-2xl border border-rv-red/40 bg-rv-red/10 px-6 py-4"
+          >
+            <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:justify-center sm:gap-6">
+              <div>
+                <span className="text-xs text-stone-500">المجموع قبل الخصم</span>
+                <span className="ms-2 text-lg font-bold text-white line-through">
+                  {formatPrice(subtotal)} ج.م
+                </span>
+              </div>
+              <div className="text-2xl font-black text-rv-red">
+                -{discountAmount} ج.م
+              </div>
+              <div>
+                <span className="text-xs text-stone-500">الإجمالي</span>
+                <span className="ms-2 text-2xl font-black text-rv-red">
+                  {formatPrice(subtotal - discountAmount)} ج.م
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         {/* Countdown */}
         <div className="mb-8">
@@ -128,13 +253,18 @@ export function OfferSection() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* Main CTA */}
         <button
-          onClick={() => add("rovento-classic", 2)}
+          onClick={() => {
+            if (intensoQty === 0 && premiumQty === 0) {
+              add("bar-intenso-1kg", 1);
+              add("premium-1kg", 1);
+            }
+          }}
           className="inline-flex items-center gap-3 rounded-2xl bg-rv-red px-8 py-4 text-base font-black text-white shadow-2xl shadow-rv-red/20 transition-all duration-300 hover:-translate-y-1 hover:bg-rv-red-light hover:shadow-rv-red/30 sm:px-10 sm:py-5 sm:text-lg"
         >
-          <ShoppingBag className="size-5 sm:size-6" />
-          اطلب العرض الآن — كيسان بـ {formatPrice(DEAL_PRICE)}
+          <ShoppingCart className="size-5 sm:size-6" />
+          اطلب الآن — شحن مجاني
         </button>
 
         {/* Trust notes */}
