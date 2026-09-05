@@ -1,160 +1,158 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { useCart } from "@/lib/store";
+import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
+import { useCart } from "@/lib/store";
+import { RoventoMark } from "./RoventoMark";
 
-const BAGS = [
+interface CharacterCard {
+  slug: string;
+  name: string;
+  nameEn: string;
+  image: string;
+  price: number;
+  pills: string[];
+  tag: string;
+  accent: string;
+  glowColor: string;
+}
+
+const CHARACTERS: CharacterCard[] = [
   {
-    id: "intenso",
     slug: "rovento-bar-intenso-1kg",
+    name: "بار إنتنسو",
+    nameEn: "BAR INTENSO",
     image: "/images/intenso-bag.webp",
-    title: "BAR INTENSO",
-    color: "from-blue-900/20 to-blue-950/10",
-    accentColor: "#2563eb",
+    price: 690,
     pills: ["Rich Crema", "Full Body", "Low Acidity"],
-    arabic: "مضمّن لعشاق الإسبريسو القوي والكريمة الغنية",
-    icons: ["كريمة غنية", "تحميص مثالي", "معبأ بعناية", "مثالي للإسبريسو"],
-    price: "700",
-    weight: "1 كجم",
+    tag: "قوية • غنية • جريئة",
+    accent: "#1a3a5c",
+    glowColor: "rgba(26,58,92,0.3)",
   },
   {
-    id: "premium",
     slug: "rovento-premium-1kg",
+    name: "بريميوم",
+    nameEn: "PREMIUM",
     image: "/images/premium-bag.webp",
-    title: "PREMIUM",
-    color: "from-emerald-900/20 to-emerald-950/10",
-    accentColor: "#059669",
+    price: 890,
     pills: ["Rich Aroma", "Smooth Body", "Balanced Sweetness"],
-    arabic: "مصمّم من أجود أنواع حبوب قهوة الإسبريسو",
-    icons: ["MEDIUM ESPRESSO ROAST", "WHOLE BEAN", "100% ARABICA & ROBUSTA", "RICH CREMA"],
-    price: "890",
-    weight: "1 كجم",
+    tag: "ناعمة • متوازنة • فاخرة",
+    accent: "#1a3c2a",
+    glowColor: "rgba(26,60,42,0.3)",
   },
 ];
 
-function BagCard({ bag, index }: { bag: (typeof BAGS)[0]; index: number }) {
+function CharacterCardComponent({
+  character,
+  index,
+}: {
+  character: CharacterCard;
+  index: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true });
   const { add } = useCart();
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.2 }}
-      className={`group relative flex flex-col items-center rounded-3xl border border-white/5 bg-gradient-to-b ${bag.color} p-6 md:p-10`}
+      transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
+      className="group relative flex flex-col items-center rounded-2xl border border-white/[0.06] bg-[#111111] p-6 text-center transition-all duration-500 hover:border-[#c9a84c]/20 hover:shadow-[0_0_40px_rgba(201,168,76,0.06)] md:p-8"
     >
-      {/* Bag image with 3D hover */}
-      <div className="relative mb-8 perspective-[1200px]">
-        <motion.div
-          whileHover={{ rotateY: 8, rotateX: -4, scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="relative"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {/* Golden rim on hover */}
-          <div className="absolute -inset-4 rounded-3xl border border-rv-gold/0 opacity-0 transition-all duration-500 group-hover:border-rv-gold/30 group-hover:opacity-100 group-hover:shadow-[0_0_60px_rgba(201,168,76,0.1)]" />
-
-          <div className="relative z-10 h-[240px] w-[200px] sm:h-[300px] sm:w-[240px] md:h-[360px] md:w-[280px]">
-            <img
-              src={bag.image}
-              alt={`ROVENTO ${bag.title}`}
-              className="h-full w-full object-contain bag-shadow transition-all duration-500 group-hover:bag-shadow-hover"
-            />
-          </div>
-        </motion.div>
+      {/* Bag */}
+      <div className="relative mb-6">
+        {/* Accent glow behind bag */}
+        <div
+          className="absolute inset-0 -m-8 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{ background: character.glowColor }}
+        />
+        <div className="animate-levitate relative z-10">
+          <img
+            src={character.image}
+            alt={character.name}
+            className="mx-auto h-[260px] w-[190px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105 sm:h-[300px] sm:w-[220px]"
+          />
+        </div>
       </div>
 
-      {/* Title */}
-      <h3 className="mb-2 font-condensed text-3xl font-bold tracking-wider text-white md:text-4xl">
-        {bag.title}
+      {/* English name */}
+      <p className="mb-1 font-condensed text-xs tracking-[0.3em] text-[#888888] uppercase">
+        {character.nameEn}
+      </p>
+
+      {/* Arabic name */}
+      <h3 className="mb-3 text-xl font-black text-[#f5efe6] md:text-2xl">
+        {character.name}
       </h3>
 
+      {/* Tag */}
+      <p className="mb-4 text-sm font-bold text-[#c9a84c]">{character.tag}</p>
+
       {/* Pills */}
-      <div className="mb-4 flex flex-wrap justify-center gap-2">
-        {bag.pills.map((pill) => (
+      <div className="mb-6 flex flex-wrap justify-center gap-2">
+        {character.pills.map((pill) => (
           <span
             key={pill}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold tracking-wider text-rv-smoke uppercase"
+            className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-bold tracking-wide text-[#b0a898] uppercase"
           >
             {pill}
           </span>
         ))}
       </div>
 
-      {/* Arabic description */}
-      <p className="mb-6 max-w-[280px] text-center text-sm leading-relaxed text-rv-smoke">
-        {bag.arabic}
-      </p>
-
-      {/* Feature icons */}
-      <div className="mb-6 grid grid-cols-2 gap-3">
-        {bag.icons.map((icon) => (
-          <div
-            key={icon}
-            className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.03] px-3 py-2"
-          >
-            <div className="size-1.5 rounded-full bg-rv-gold" />
-            <span className="text-[10px] font-bold text-rv-smoke uppercase">
-              {icon}
-            </span>
-          </div>
-        ))}
+      {/* Price */}
+      <div className="mb-6">
+        <span className="text-3xl font-black gold-gradient-text">
+          {character.price}
+        </span>
+        <span className="mr-1 text-sm font-bold text-[#888888]">ج.م</span>
       </div>
 
-      {/* Price + CTA */}
-      <div className="mt-auto flex w-full items-center justify-between border-t border-white/5 pt-4">
-        <div>
-          <span className="text-2xl font-black text-white">{bag.price}</span>
-          <span className="mr-1 text-xs text-rv-smoke">ج.م</span>
-          <span className="mr-2 text-[10px] text-rv-smoke">/ {bag.weight}</span>
-        </div>
-        <button
-          onClick={() => add(bag.slug)}
-          className="flex items-center gap-2 rounded-xl bg-rv-gold px-5 py-3 text-sm font-bold text-rv-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-rv-gold-light hover:shadow-[0_8px_24px_rgba(201,168,76,0.3)]"
-        >
-          <ShoppingCart className="size-4" />
-          أضف للسلة
-        </button>
-      </div>
+      {/* CTA */}
+      <button
+        onClick={() => add(character.slug)}
+        className="rv-btn flex w-full items-center justify-center gap-2 rounded-xl bg-[#c9a84c] py-3.5 text-sm font-black text-[#0a0a0a] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e0c872] hover:shadow-lg hover:shadow-[#c9a84c]/20"
+      >
+        <ShoppingCart className="size-4" />
+        اطلب الآن
+      </button>
     </motion.div>
   );
 }
 
 export function CharacterSelect() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true });
 
   return (
-    <section className="relative overflow-hidden bg-rv-black py-20 md:py-32">
-      {/* Background gradient */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-rv-black via-rv-dark to-rv-black" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-[1200px] px-4 md:px-6">
-        {/* Section heading */}
+    <section ref={ref} className="relative bg-[#0a0a0a] py-20 md:py-28">
+      <div className="mx-auto max-w-[1000px] px-4 md:px-6">
+        {/* Section header */}
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
+          transition={{ duration: 0.7 }}
+          className="mb-12 text-center"
         >
-          <span className="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-rv-gold/60">
-            Choose Your Character
-          </span>
-          <h2 className="font-display text-3xl font-black text-white md:text-5xl">
-            اختار <span className="gold-gradient-text">شخصيتك</span>
+          <div className="mb-4 flex justify-center">
+            <RoventoMark size={36} />
+          </div>
+          <h2 className="mb-3 text-2xl font-black md:text-3xl">
+            <span className="gold-gradient-text">اختار شخصيتك</span>
           </h2>
-          <div className="mx-auto mt-4 h-[2px] w-16 bg-gradient-to-r from-transparent via-rv-gold to-transparent" />
+          <p className="text-sm text-[#888888]">
+            شخصيتان مختلفتان، جودة واحدة
+          </p>
+          <div className="rv-divider mt-4">
+            <span className="text-xs text-[#c9a84c]/40">◆</span>
+          </div>
         </motion.div>
 
-        {/* Two bags */}
-        <div className="grid gap-8 md:grid-cols-2">
-          {BAGS.map((bag, i) => (
-            <BagCard key={bag.id} bag={bag} index={i} />
+        {/* Two columns */}
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+          {CHARACTERS.map((char, i) => (
+            <CharacterCardComponent key={char.slug} character={char} index={i} />
           ))}
         </div>
       </div>

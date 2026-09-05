@@ -26,11 +26,11 @@ const FAQ_DATA = [
   },
   {
     q: "بتقبلوا أنهي طرق الدفع؟",
-    a: "بنقبل الدفع عند الاستلام (COD)، فودافون كاش، إنستاباي، فوري، وبطاقات ائتمان. الدفع عند الاستلام هو الأشهر في مصر وبنوفره لكل المحافظات.",
+    a: "بنقبل الدفع عند الاستلام (COD)، فودافون كاش، إنستاباي، فوري، وبطاقات ائتمان.",
   },
   {
     q: "بتوصّلوا لكل محافظات مصر؟",
-    a: "أيوه! بنوصّل لكل المحافظات في مصر. الشحن من 24 إلى 72 ساعة حسب المحافظة. الشحن مجاني على كل الطلبات — بدون حد أدنى.",
+    a: "أيوه! بنوصّل لكل المحافظات في مصر. الشحن من 24 إلى 72 ساعة حسب المحافظة. الشحن مجاني على كل الطلبات.",
   },
   {
     q: "إزاي بحتفظ بالقهوة طازجة؟",
@@ -41,16 +41,18 @@ const FAQ_DATA = [
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-rv-brown/10 last:border-0">
+    <div className="border-b border-white/[0.06] last:border-0">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between gap-4 py-4 text-start transition-colors hover:text-rv-gold"
+        className="flex w-full items-center justify-between gap-4 py-4 text-start transition-colors hover:text-[#c9a84c]"
       >
-        <span className="text-sm font-bold md:text-base">{q}</span>
+        <span className="text-sm font-bold text-[#f5efe6] md:text-base">
+          {q}
+        </span>
         <ChevronDown
           className={cn(
-            "size-5 flex-shrink-0 text-muted-foreground transition-transform duration-300",
-            open && "rotate-180 text-rv-gold",
+            "size-5 shrink-0 text-[#888888] transition-transform duration-300",
+            open && "rotate-180 text-[#c9a84c]",
           )}
         />
       </button>
@@ -63,7 +65,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm leading-relaxed text-rv-brown/60">
+            <p className="pb-4 text-sm leading-relaxed text-[#888888]">
               {a}
             </p>
           </motion.div>
@@ -75,23 +77,22 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function FAQ() {
   return (
-    <section className="border-b border-rv-brown/10 bg-white py-12 md:py-16">
+    <section className="bg-[#0a0a0a] py-16 md:py-20">
       <div className="mx-auto w-full max-w-[800px] px-4 md:px-6">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="grid size-10 place-items-center rounded-full bg-rv-gold/10">
-            <HelpCircle className="size-5 text-rv-gold" />
+        <div className="mb-8 flex items-center gap-3">
+          <div className="grid size-10 place-items-center rounded-full border border-[#c9a84c]/15 bg-[#c9a84c]/[0.06]">
+            <HelpCircle className="size-5 text-[#c9a84c]" />
           </div>
           <div>
             <h2 className="text-xl font-black md:text-2xl">
-              عندك سؤال؟ عندنا <span className="text-rv-gold">إجابة</span> ☕
+              عندك سؤال؟ عندنا{" "}
+              <span className="text-[#c9a84c]">إجابة</span> ☕
             </h2>
-            <p className="text-xs text-rv-brown/50">
-              كل إجاباتك في مكان واحد
-            </p>
+            <p className="text-xs text-[#888888]">كل إجاباتك في مكان واحد</p>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-rv-brown/10 bg-rv-cream p-4 md:p-6">
+        <div className="rounded-2xl border border-white/[0.06] bg-[#111111] p-4 md:p-6">
           {FAQ_DATA.map((item) => (
             <FAQItem key={item.q} q={item.q} a={item.a} />
           ))}
