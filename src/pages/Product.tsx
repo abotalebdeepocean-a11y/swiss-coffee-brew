@@ -19,12 +19,11 @@ import { Header } from "@/components/rovento/Header";
 import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
-import { BrikkaStickyBar } from "@/components/rovento/BrikkaStickyBar";
-import { BrikkaUpsellCard } from "@/components/rovento/BrikkaUpsellCard";
+import { OfferBanner } from "@/components/rovento/OfferBanner";
 import { ProductCard } from "@/components/rovento/ProductCard";
 import { BagVisual } from "@/components/rovento/BagVisual";
 import { blendVariantFor } from "@/components/rovento/CoffeeBag";
-import { IntensityMeter, Stars, WhatsAppIcon, Steam, Bean } from "@/components/rovento/art";
+import { IntensityMeter, Stars, WhatsAppIcon, Bean } from "@/components/rovento/art";
 import {
   getProduct,
   PRODUCTS,
@@ -39,7 +38,7 @@ import { cn } from "@/lib/utils";
 /* ─── صور المعرض الافتراضية لكل منتج — أمامي وخلفي لكل كيس ─── */
 const DEFAULT_GALLERY = [
   "/images/intenso-bag",
-  "/images/intenso-bag-back",
+  "/images/intenso-bag-back-clean",
   "/images/premium-bag",
   "/images/premium-bag-back",
 ];
@@ -150,7 +149,7 @@ export default function Product() {
                     key={i}
                     onClick={() => setActiveImg(i)}
                     className={cn(
-                      "group relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all sm:h-20 sm:w-20",
+                      "group relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-white transition-all sm:h-20 sm:w-20",
                       activeImg === i
                         ? "border-rv-gold shadow-[0_0_12px_rgba(212,175,55,0.3)]"
                         : "border-white/10 hover:border-white/30",
@@ -168,25 +167,24 @@ export default function Product() {
                 ))}
               </div>
 
-              {/* الصورة الرئيسية */}
-              <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10 bg-[#111111]">
+              {/* الصورة الرئيسية — خلفية بيضاء خلف صورة المنتج فقط لإخفاء عيوب الظلال */}
+              <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/15 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
                 <div
                   className="absolute inset-0"
                   style={{
-                    background: `radial-gradient(500px 450px at 50% 45%, ${product.accent}15, transparent 70%)`,
+                    background: `radial-gradient(500px 450px at 50% 45%, ${product.accent}12, transparent 70%)`,
                   }}
                 />
                 <Bean
                   color="#4a3523"
-                  className="absolute start-6 top-8 w-12 animate-float opacity-40"
+                  className="absolute start-6 top-8 w-12 animate-float opacity-30"
                   style={{ "--rot": "-14deg" } as CSSProperties}
                 />
                 <Bean
                   color="#241a10"
-                  className="absolute bottom-10 end-6 w-14 animate-float-slow opacity-30"
+                  className="absolute bottom-10 end-6 w-14 animate-float-slow opacity-25"
                   style={{ "--rot": "18deg", animationDelay: "1s" } as CSSProperties}
                 />
-                <Steam className="absolute end-[15%] top-4 h-40 w-14 opacity-50" delay={0.6} />
 
                 <div className="relative flex min-h-[340px] items-center justify-center p-6 sm:min-h-[400px] md:min-h-[500px]">
                   <BagVisual
@@ -194,7 +192,7 @@ export default function Product() {
                     variant={variant}
                     eager
                     alt={product.name}
-                    className="h-full max-h-[460px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)] transition-all duration-500"
+                    className="h-full max-h-[460px] w-auto object-contain drop-shadow-[0_20px_32px_rgba(0,0,0,0.22)] transition-all duration-500"
                   />
                 </div>
 
@@ -362,11 +360,6 @@ export default function Product() {
                 اطلب عبر واتساب
               </a>
 
-              {/* Brikka Upsell */}
-              {(product.category === "beans" || product.category === "espresso") && (
-                <BrikkaUpsellCard />
-              )}
-
               {/* شريط الثقة */}
               <div className="mt-5 grid grid-cols-3 gap-2">
                 {[
@@ -440,6 +433,9 @@ export default function Product() {
               )}
             </div>
           </div>
+
+          {/* ═══════════════════ عرض الكيسين ووفّر أكتر — بدل عرض المكنة ═══════════════════ */}
+          <OfferBanner />
 
           {/* ═══════════════════ قسم التعليقات ═══════════════════ */}
           {testimonials.length > 0 && (
@@ -527,7 +523,6 @@ export default function Product() {
       <Footer />
       <CartDrawer />
       <WhatsAppFloat />
-      <BrikkaStickyBar />
     </div>
   );
 }
