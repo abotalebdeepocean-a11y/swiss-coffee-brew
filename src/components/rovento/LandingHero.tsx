@@ -204,7 +204,7 @@ export function LandingHero() {
               Premium
             </p>
             <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              ناعمة • متوازنة • فاخرة — 40% أرابيكا و60% روبوستا بتحميص متوسط ولمسة نهائية طويلة
+              ناعمة • متوازنة • فاخرة — 50% أرابيكا و50% روبوستا بتحميص متوسط ولمسة نهائية طويلة
             </p>
           </div>
 

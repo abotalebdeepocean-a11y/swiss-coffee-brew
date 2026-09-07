@@ -14,7 +14,7 @@
 - Freshness: Roasted daily, packed same day, delivered within 72h. Peak 7-10 days post-roast (robusta degassing), excellent to 30 days. Store cool/dry/dark, reseal tight; consume within 4 weeks of opening.
 
 ### PREMIUM ROVENTO — Master Profile (per the official bag label)
-- Blend: 40% Arabica beans (Guatemala highlands) + 60% Robusta beans (India), carefully selected
+- Blend: 50% Arabica beans (Guatemala highlands) + 50% Robusta beans (India), carefully selected
 - Roast: Medium roast
 - Sensory: Balanced rich aroma, smooth body, moderate sweetness, low-to-medium acidity, measured bitterness, long distinctive finish
 - Flavor profile (bag): Body high | Crema balanced | Aroma moderate | Sweetness low-to-medium | Acidity low-to-medium | Bitterness measured | Finish long
