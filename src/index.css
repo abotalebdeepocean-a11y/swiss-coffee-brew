@@ -159,6 +159,16 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+  @keyframes oliveDrift {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(6px, -3px) scale(1.12); }
+    66% { transform: translate(-4px, 2px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes neonSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
 }
 
 .animate-levitate { animation: levitate 4s ease-in-out infinite; }

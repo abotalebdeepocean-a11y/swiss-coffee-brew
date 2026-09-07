@@ -3,7 +3,6 @@ import { Header } from "@/components/rovento/Header";
 import { LandingHero } from "@/components/rovento/LandingHero";
 import { OfferBanner } from "@/components/rovento/OfferBanner";
 import { EmotionalHook } from "@/components/rovento/EmotionalHook";
-import { CharacterSelect } from "@/components/rovento/CharacterSelect";
 import { BlendProfiles } from "@/components/rovento/BlendProfiles";
 import { TrustPillars } from "@/components/rovento/TrustPillars";
 import { FlavorProfile } from "@/components/rovento/FlavorProfile";
@@ -49,15 +48,10 @@ export default function Landing() {
         {/* 6 — Emotional pause */}
         <EmotionalHook />
 
-        {/* 7 — اختار شخصيتك (split comparison) */}
-        <div id="products">
-          <CharacterSelect />
-        </div>
-
-        {/* 8 — Why Rovento (trust pillars) */}
+        {/* 7 — Why Rovento (trust pillars) */}
         <TrustPillars />
 
-        {/* 9 — Shipping & Returns */}
+        {/* 8 — Shipping & Returns (PK 7 placeholder for character-select: now Shipping & Returns) */}
         <div id="shipping">
           <ShippingReturnsBanner />
         </div>
