@@ -70,7 +70,7 @@ const CATEGORIES_RAW: Omit<Category, "count">[] = [
 ];
 
 export const PRODUCTS: Product[] = [
-  // ====== حبوب الإسبريسو — المنتجات الأربعة فقط ======
+  // ====== حبوب الإسبريسو — المنتجان فقط ======
   {
     slug: "rovento-bar-intenso-1kg",
     name: "ROVENTO بار انتينسو — 1 كجم",

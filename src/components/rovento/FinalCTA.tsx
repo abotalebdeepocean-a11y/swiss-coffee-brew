@@ -2,11 +2,14 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
+import { getProduct } from "@/lib/products";
 
 export function FinalCTA() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const { add } = useCart();
+  const intensoPrice = getProduct("rovento-bar-intenso-1kg")?.price;
+  const premiumPrice = getProduct("rovento-premium-1kg")?.price;
 
   return (
     <section ref={ref} className="relative bg-[#0a0a0a] py-20 md:py-28">
@@ -31,14 +34,14 @@ export function FinalCTA() {
               className="rv-btn flex items-center gap-3 rounded-xl bg-[#c9a84c] px-8 py-4 text-base font-black text-[#0a0a0a] shadow-lg shadow-[#c9a84c]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e0c872] hover:shadow-[#c9a84c]/30"
             >
               <ShoppingCart className="size-5" />
-              اطلب بار إنتنسو — 690 ج.م
+              اطلب بار إنتنسو — {intensoPrice} ج.م
             </button>
             <button
               onClick={() => add("rovento-premium-1kg")}
               className="rv-btn flex items-center gap-3 rounded-xl border-2 border-[#c9a84c]/40 px-8 py-4 text-base font-black text-[#c9a84c] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a84c] hover:bg-[#c9a84c]/10"
             >
               <ShoppingCart className="size-5" />
-              اطلب بريميوم — 890 ج.م
+              اطلب بريميوم — {premiumPrice} ج.م
             </button>
           </div>
 

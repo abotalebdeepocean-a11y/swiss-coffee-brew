@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
+import { getProduct } from "@/lib/products";
 
 /**
  * Hero — "خذ حصاد الجبل إلى بيتك"
@@ -73,6 +74,8 @@ export function LandingHero() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const { add } = useCart();
+  const intenso = getProduct("rovento-bar-intenso-1kg");
+  const premium = getProduct("rovento-premium-1kg");
 
   return (
     <section
@@ -159,7 +162,7 @@ export function LandingHero() {
           <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
             <div className="flex items-baseline justify-center gap-1">
               <span className="text-3xl font-black gold-gradient-text md:text-4xl">
-                690
+                {intenso?.price}
               </span>
               <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
             </div>
@@ -205,7 +208,7 @@ export function LandingHero() {
           <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
             <div className="flex items-baseline justify-center gap-1">
               <span className="text-3xl font-black gold-gradient-text md:text-4xl">
-                890
+                {premium?.price}
               </span>
               <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
             </div>

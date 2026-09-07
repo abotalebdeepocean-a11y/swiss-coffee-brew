@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { discountedPriceFor2kg } from "@/lib/offer";
+import { getProduct } from "@/lib/products";
 
 /**
  * BLEND PROFILES — deep, editorial profile for each blend.
@@ -37,7 +38,7 @@ const PROFILES: BlendProfile[] = [
     name: "بريميوم",
     nameEn: "PREMIUM",
     image: "/images/premium-bag.webp",
-    price: 890,
+    price: getProduct("rovento-premium-1kg")?.price ?? 890,
     story:
       "بريميوم هو الجواب لللي بيدور على توازن راقي بنعومة كاملة. بلند مصنوع من 50% أرابيكا من مرتفعات الجواتيمالا و50% روبوستا من الهند، محمص تحميص متوسط — رائحة غنية متوازنة، جسم ناعم، ولمسة نهائية طويلة مميزة. إسبريسو ناعم يفتح يومك — أو لاتيه وكابتشينو بجودة الكافيهات.",
     tag: "ناعمة • متوازنة • فاخرة",
@@ -58,7 +59,7 @@ const PROFILES: BlendProfile[] = [
     name: "بار إنتنسو",
     nameEn: "BAR INTENSO",
     image: "/images/intenso-bag.webp",
-    price: 690,
+    price: getProduct("rovento-bar-intenso-1kg")?.price ?? 700,
     story:
       "ولد بار إنتنسو من فكرة واحدة: إسبريسو يفرض احترامه من أول رشفة. روبوستا كولومبي فاخر بتدي الجسم والكريمة الكثيفة، وأرابيكا من مرتفعات الجواتيمالا بتدي العمق. البلند اللي بيخلي الكورتادو والماكياتو تجربة يومية مختلفة.",
     tag: "قوية • غنية • جريئة",
