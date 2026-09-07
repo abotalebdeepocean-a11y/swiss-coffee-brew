@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { Truck, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
@@ -112,21 +113,29 @@ export function OfferBanner() {
                   {/* Soft glow pool under the bags */}
                   <div className="pointer-events-none absolute -bottom-3 left-1/2 h-14 w-[240px] -translate-x-1/2 rounded-full bg-[#c9a84c]/[0.14] blur-3xl" />
 
-                  {/* The two bags */}
-                  <div className="animate-levitate relative z-[5]">
+                  {/* The two bags — كل كيس ينقلك لصفحة منتجك */}
+                  <Link
+                    to="/product/rovento-bar-intenso-1kg"
+                    aria-label="بار إنتنسو — انتقل إلى صفحة المنتج"
+                    className="animate-levitate relative z-[5] block cursor-pointer transition-transform duration-300 hover:scale-[1.05]"
+                  >
                     <img
                       src="/images/intenso-bag.webp"
                       alt="ROVENTO بار إنتنسو"
                       className="h-[120px] w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.75)] md:h-[155px]"
                     />
-                  </div>
-                  <div className="animate-levitate-reverse relative z-[5]">
+                  </Link>
+                  <Link
+                    to="/product/rovento-premium-1kg"
+                    aria-label="بريميوم — انتقل إلى صفحة المنتج"
+                    className="animate-levitate-reverse relative z-[5] block cursor-pointer transition-transform duration-300 hover:scale-[1.05]"
+                  >
                     <img
                       src="/images/premium-bag.webp"
                       alt="ROVENTO بريميوم"
                       className="h-[120px] w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.75)] md:h-[155px]"
                     />
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>

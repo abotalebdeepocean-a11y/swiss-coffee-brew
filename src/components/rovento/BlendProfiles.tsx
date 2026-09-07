@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
@@ -91,13 +92,17 @@ function ProfileBlock({ profile }: { profile: BlendProfile }) {
       {/* Bag side */}
       <div className="relative flex justify-center">
         <div className="pointer-events-none absolute inset-0 -m-10 bg-[radial-gradient(circle_at_50%_45%,rgba(201,168,76,0.08)_0%,transparent_68%)]" />
-        <div className="animate-levitate relative">
+        <Link
+          to={`/product/${profile.slug}`}
+          aria-label={`ROVENTO ${profile.name} — انتقل إلى صفحة المنتج`}
+          className="animate-levitate relative block cursor-pointer transition-transform duration-500 hover:scale-[1.03]"
+        >
           <img
             src={profile.image}
             alt={`ROVENTO ${profile.name}`}
             className="h-[260px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.75)] sm:h-[320px] md:h-[380px]"
           />
-        </div>
+        </Link>
       </div>
 
       {/* Text side */}

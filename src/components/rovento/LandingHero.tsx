@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
@@ -142,13 +143,17 @@ export function LandingHero() {
           transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
           className="group flex flex-1 flex-col items-center"
         >
-          <div className="animate-levitate relative">
+          <Link
+            to="/product/rovento-bar-intenso-1kg"
+            aria-label="بار إنتنسو — انتقل إلى صفحة المنتج"
+            className="animate-levitate relative block cursor-pointer"
+          >
             <img
               src="/images/intenso-bag.webp"
               alt="ROVENTO بار إنتنسو"
               className="relative h-[210px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
             />
-          </div>
+          </Link>
 
           {/* Price tag beneath */}
           <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
@@ -185,13 +190,17 @@ export function LandingHero() {
           transition={{ duration: 1, delay: 0.85, ease: "easeOut" }}
           className="group flex flex-1 flex-col items-center"
         >
-          <div className="animate-levitate-reverse relative">
+          <Link
+            to="/product/rovento-premium-1kg"
+            aria-label="بريميوم — انتقل إلى صفحة المنتج"
+            className="animate-levitate-reverse relative block cursor-pointer"
+          >
             <img
               src="/images/premium-bag.webp"
               alt="ROVENTO بريميوم"
               className="relative h-[210px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
             />
-          </div>
+          </Link>
 
           <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
             <div className="flex items-baseline justify-center gap-1">
