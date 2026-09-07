@@ -1,0 +1,7 @@
+# Deploy reliability
+# Fresh deploy machines sometimes have a corrupted global bun cache that
+# fails with: "FileNotFound: failed copying files from cache to destination
+# for package ...". Disabling the global cache forces bun to download
+# packages cleanly on every install — slightly slower, but deterministic.
+[install]
+cache = false
