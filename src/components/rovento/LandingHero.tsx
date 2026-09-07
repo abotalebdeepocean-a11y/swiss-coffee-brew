@@ -14,8 +14,17 @@ export function LandingHero() {
       ref={ref}
       className="relative min-h-screen overflow-hidden bg-[#0a0a0a] pb-20 pt-24"
     >
-      {/* Background gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(201,168,76,0.06)_0%,transparent_60%)]" />
+      {/* Espresso-layer cinematic background — dark crema bands from bottom */}
+      <div className="pointer-events-none absolute inset-0">
+        {/* Single dramatic light source — top center */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,rgba(201,168,76,0.10)_0%,transparent_55%)]" />
+        {/* Espresso layer — deep crema band at the bottom */}
+        <div className="absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-[#3e2318]/70 via-[#3e2318]/25 to-transparent" />
+        {/* Crema highlight — thin gold line where espresso meets dark */}
+        <div className="absolute inset-x-0 bottom-[36%] h-px bg-gradient-to-r from-transparent via-[#c9a84c]/25 to-transparent" />
+        {/* Second espresso layer — darker, below */}
+        <div className="absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#1a0f08] to-transparent" />
+      </div>
       <div className="rv-noise pointer-events-none absolute inset-0" />
 
       <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 md:flex-row md:items-center md:px-6">

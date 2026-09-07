@@ -61,6 +61,12 @@ export function Header() {
             >
               الأسئلة
             </a>
+            <Link
+              to="/about"
+              className="text-sm font-bold text-[#b0a898] transition-colors hover:text-[#c9a84c]"
+            >
+              من نحن
+            </Link>
           </nav>
 
           {/* Actions */}
@@ -132,6 +138,13 @@ export function Header() {
             >
               الأسئلة
             </a>
+            <Link
+              to="/about"
+              onClick={() => setOpen(false)}
+              className="text-lg font-bold text-[#b0a898]"
+            >
+              من نحن
+            </Link>
             <a
               href={whatsappLink("مرحباً، عايز أعرف أكتر عن منتجات روفينتو")}
               target="_blank"

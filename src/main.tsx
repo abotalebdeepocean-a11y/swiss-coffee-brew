@@ -17,6 +17,7 @@ const AuthPage = lazy(() => import("./pages/Auth.tsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
 const Shop = lazy(() => import("./pages/Shop.tsx"));
 const Product = lazy(() => import("./pages/Product.tsx"));
+const About = lazy(() => import("./pages/About.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const InvoiceDownload = lazy(() => import("./pages/InvoiceDownload.tsx"));
 const DownloadProject = lazy(() => import("./components/rovento/DownloadProject.tsx"));
@@ -147,6 +148,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/" element={<Landing />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/product/:slug" element={<Product />} />
+                <Route path="/about" element={<About />} />
                 <Route
                   path="/auth"
                   element={<AuthPage redirectAfterAuth="/dashboard" />}

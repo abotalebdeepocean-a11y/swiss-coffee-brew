@@ -21,12 +21,10 @@ const AXES: FlavorAxis[] = [
 function Bar({
   label,
   value,
-  color,
   delay,
 }: {
   label: string;
   value: number;
-  color: string;
   delay: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +41,10 @@ function Bar({
           animate={isInView ? { width: `${value * 10}%` } : {}}
           transition={{ duration: 0.8, delay: delay, ease: "easeOut" }}
           className="absolute inset-y-0 left-0 rounded-full"
-          style={{ background: color }}
+          style={{
+            background:
+              "linear-gradient(90deg, #a08030 0%, #c9a84c 60%, #e0c872 100%)",
+          }}
         />
       </div>
       <span className="w-6 text-center text-xs font-mono font-bold text-[#888888]">
@@ -74,7 +75,7 @@ export function FlavorProfile() {
             <span className="gold-gradient-text">تفاصيل النكهة</span>
           </h2>
           <p className="text-sm text-[#888888]">
-            الملف التذوقي لكل بلند — على نفس offspec الكيس
+            الملف التذوقي لكل بلند — بنفس مواصفات الكيس
           </p>
           <div className="rv-divider mt-4">
             <span className="text-xs text-[#c9a84c]/40">◆</span>
@@ -100,7 +101,6 @@ export function FlavorProfile() {
                   key={axis.label}
                   label={axis.label}
                   value={axis.intenso}
-                  color="linear-gradient(90deg, #1a3a5c, #2a5a8c)"
                   delay={i * 0.08}
                 />
               ))}
@@ -124,7 +124,6 @@ export function FlavorProfile() {
                   key={axis.label}
                   label={axis.label}
                   value={axis.premium}
-                  color="linear-gradient(90deg, #1a3c2a, #2a6c4a)"
                   delay={i * 0.08}
                 />
               ))}

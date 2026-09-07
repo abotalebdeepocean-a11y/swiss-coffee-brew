@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { RoventoMark } from "./RoventoMark";
+import { discountedPriceFor2kg } from "@/lib/offer";
 
 interface CharacterCard {
   slug: string;
@@ -12,7 +13,7 @@ interface CharacterCard {
   price: number;
   pills: string[];
   tag: string;
-  accent: string;
+  origin: string;
   glowColor: string;
 }
 
@@ -25,8 +26,8 @@ const CHARACTERS: CharacterCard[] = [
     price: 690,
     pills: ["Rich Crema", "Full Body", "Low Acidity"],
     tag: "قوية • غنية • جريئة",
-    accent: "#1a3a5c",
-    glowColor: "rgba(26,58,92,0.3)",
+    origin: "الجواتيمالا • الهند",
+    glowColor: "rgba(201,168,76,0.10)",
   },
   {
     slug: "rovento-premium-1kg",
@@ -36,8 +37,8 @@ const CHARACTERS: CharacterCard[] = [
     price: 890,
     pills: ["Rich Aroma", "Smooth Body", "Balanced Sweetness"],
     tag: "ناعمة • متوازنة • فاخرة",
-    accent: "#1a3c2a",
-    glowColor: "rgba(26,60,42,0.3)",
+    origin: "كولومبيا • الجواتيمالا",
+    glowColor: "rgba(201,168,76,0.10)",
   },
 ];
 
@@ -51,6 +52,7 @@ function CharacterCardComponent({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const { add } = useCart();
+  const price2kg = discountedPriceFor2kg(character.price);
 
   return (
     <motion.div
@@ -62,7 +64,7 @@ function CharacterCardComponent({
     >
       {/* Bag */}
       <div className="relative mb-6">
-        {/* Accent glow behind bag */}
+        {/* Gold glow behind bag — palette gold only */}
         <div
           className="absolute inset-0 -m-8 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{ background: character.glowColor }}
@@ -90,7 +92,7 @@ function CharacterCardComponent({
       <p className="mb-4 text-sm font-bold text-[#c9a84c]">{character.tag}</p>
 
       {/* Pills */}
-      <div className="mb-6 flex flex-wrap justify-center gap-2">
+      <div className="mb-5 flex flex-wrap justify-center gap-2">
         {character.pills.map((pill) => (
           <span
             key={pill}
@@ -101,12 +103,29 @@ function CharacterCardComponent({
         ))}
       </div>
 
-      {/* Price */}
+      {/* Origin */}
+      <p className="mb-5 text-xs text-[#888888]">{character.origin}</p>
+
+      {/* Price + live 2kg discounted price */}
       <div className="mb-6">
-        <span className="text-3xl font-black gold-gradient-text">
-          {character.price}
-        </span>
-        <span className="mr-1 text-sm font-bold text-[#888888]">ج.م</span>
+        <div className="flex items-baseline justify-center gap-1">
+          <span className="text-2xl font-black text-[#f5efe6]">
+            {character.price}
+          </span>
+          <span className="text-sm font-bold text-[#888888]">ج.م / كيس</span>
+        </div>
+        <div className="mt-2 flex items-baseline justify-center gap-1.5">
+          <span className="text-xs font-bold text-[#b0a898]">كيسين:</span>
+          <span className="text-lg font-black text-[#e0c872]">
+            {price2kg * 2} ج.م
+          </span>
+          <span className="text-xs text-[#888888] line-through">
+            {character.price * 2} ج.م
+          </span>
+        </div>
+        <p className="mt-1 text-[10px] text-[#c9a84c]/70">
+          خصم 10% محسوب تلقائيًا
+        </p>
       </div>
 
       {/* CTA */}
@@ -141,9 +160,7 @@ export function CharacterSelect() {
           <h2 className="mb-3 text-2xl font-black md:text-3xl">
             <span className="gold-gradient-text">اختار شخصيتك</span>
           </h2>
-          <p className="text-sm text-[#888888]">
-            شخصيتان مختلفتان، جودة واحدة
-          </p>
+          <p className="text-sm text-[#888888]">شخصيتان مختلفتان، جودة واحدة</p>
           <div className="rv-divider mt-4">
             <span className="text-xs text-[#c9a84c]/40">◆</span>
           </div>

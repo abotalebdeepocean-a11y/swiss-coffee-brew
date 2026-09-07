@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { MessageCircle, Phone } from "lucide-react";
 import { whatsappLink } from "@/lib/store";
 import { RoventoMark } from "./RoventoMark";
@@ -45,6 +46,13 @@ export function Footer() {
               >
                 info@rovento.site
               </a>
+              <Link
+                to="/about"
+                className="flex items-center gap-2 text-sm text-[#b0a898] transition-colors hover:text-[#c9a84c]"
+              >
+                <span className="text-[#c9a84c]">→</span>
+                من نحن — ملف الشركة
+              </Link>
             </div>
           </div>
 
