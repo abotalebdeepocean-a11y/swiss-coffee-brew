@@ -12,7 +12,8 @@ import {
 /**
  * The ONE real offer — luxury glass rectangle with a rotating neon gold
  * border, real olive-grove photo (shiny olives on the tree) glowing behind
- * the glass, and the yellow "خصم 10%" seal above the Bar Intenso bag.
+ * the glass, and the yellow "خصم 10%" seal pinned to the left corner of the
+ * card (never over the bags, identical position on every screen size).
  *
  * Olive photo: "Olive tree (Olea europaea) branch with immature olives,
  * Lisbon" by julesvernex2 — Wikimedia Commons, CC BY-SA 4.0.
@@ -106,77 +107,10 @@ export function OfferBanner() {
                   </button>
                 </div>
 
-                {/* ─── Bags + yellow seal ─── */}
+                {/* ─── Bags ─── */}
                 <div className="relative flex items-end justify-center gap-4 pb-2 md:gap-6">
                   {/* Soft glow pool under the bags */}
                   <div className="pointer-events-none absolute -bottom-3 left-1/2 h-14 w-[240px] -translate-x-1/2 rounded-full bg-[#c9a84c]/[0.14] blur-3xl" />
-
-                  {/* Yellow 10% seal — above the Intenso bag */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.6, rotate: -30 }}
-                    animate={
-                      isInView ? { opacity: 1, scale: 1, rotate: -12 } : {}
-                    }
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.45,
-                      ease: "easeOut",
-                    }}
-                    className="absolute -top-7 right-1 z-20 md:-top-9 md:right-4"
-                  >
-                    <div className="relative">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 14,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        aria-hidden="true"
-                        className="absolute -inset-1.5 rounded-full"
-                        style={{
-                          background:
-                            "conic-gradient(from 0deg, rgba(245,197,17,0.9), rgba(245,197,17,0.15) 40%, rgba(245,197,17,0.9) 70%, rgba(245,197,17,0.2) 100%)",
-                          mask: "radial-gradient(farthest-side, transparent calc(100% - 3.5px), #000 calc(100% - 3px))",
-                          WebkitMask:
-                            "radial-gradient(farthest-side, transparent calc(100% - 3.5px), #000 calc(100% - 3px))",
-                        }}
-                      />
-                      <div className="relative grid size-[74px] place-items-center rounded-full bg-[#f5c511] text-center shadow-[0_0_30px_rgba(245,197,17,0.55)] md:size-[92px]">
-                        <div>
-                          <p className="text-[10px] font-black leading-none text-[#1a0f08] md:text-[11px]">
-                            خصم
-                          </p>
-                          <p className="text-2xl font-black leading-tight text-[#1a0f08] md:text-3xl">
-                            10%
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Curved arrow: seal → bags */}
-                  <svg
-                    viewBox="0 0 100 90"
-                    className="pointer-events-none absolute -bottom-1 right-16 z-10 w-12 rotate-[160deg] md:right-24 md:w-14"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M50 8 C58 30, 52 55, 42 74"
-                      stroke="#f5c511"
-                      strokeWidth="6"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M28 58 L42 78 L56 60"
-                      stroke="#f5c511"
-                      strokeWidth="6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                    />
-                  </svg>
 
                   {/* The two bags */}
                   <div className="animate-levitate relative z-[5]">
@@ -196,6 +130,72 @@ export function OfferBanner() {
                 </div>
               </div>
             </div>
+
+            {/* ── Yellow 10% seal — pinned to the LEFT corner of the card.
+                   Fixed anchor relative to the card itself, so it sits in
+                   the same corner on every device and never over the bags ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
+              animate={isInView ? { opacity: 1, scale: 1, rotate: -12 } : {}}
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+              className="absolute -top-4 -left-3 z-30 sm:-left-4 md:-top-6 md:-left-6"
+            >
+              <motion.div
+                whileHover={{ scale: 1.12, rotate: -4 }}
+                transition={{ type: "spring", stiffness: 260, damping: 15 }}
+                className="relative cursor-pointer"
+              >
+                {/* Pulsing halo — depth */}
+                <motion.div
+                  aria-hidden="true"
+                  animate={{ opacity: [0.3, 0.65, 0.3], scale: [1, 1.12, 1] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -inset-2 rounded-full bg-[#f5c511]/35 blur-lg"
+                />
+                {/* Rotating neon ring */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  aria-hidden="true"
+                  className="absolute -inset-1.5 rounded-full"
+                  style={{
+                    background:
+                      "conic-gradient(from 0deg, rgba(245,197,17,0.95), rgba(245,197,17,0.15) 40%, rgba(245,197,17,0.95) 70%, rgba(245,197,17,0.2) 100%)",
+                    mask: "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px))",
+                    WebkitMask:
+                      "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px))",
+                  }}
+                />
+                {/* Embossed gold coin */}
+                <div
+                  className="relative grid size-[76px] place-items-center overflow-hidden rounded-full text-center md:size-[94px]"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 32% 26%, #ffe479 0%, #f5c511 48%, #c99706 100%)",
+                    boxShadow:
+                      "0 16px 34px rgba(0,0,0,0.6), 0 0 36px rgba(245,197,17,0.5), inset 0 2px 5px rgba(255,255,255,0.7), inset 0 -7px 12px rgba(122,84,4,0.5)",
+                  }}
+                >
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-black leading-none text-[#1a0f08] md:text-[11px]">
+                      خصم
+                    </p>
+                    <p className="text-2xl font-black leading-tight text-[#1a0f08] md:text-3xl">
+                      10%
+                    </p>
+                  </div>
+                  {/* Glossy sheen */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 rounded-full"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 30% 22%, rgba(255,255,255,0.6), transparent 52%)",
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

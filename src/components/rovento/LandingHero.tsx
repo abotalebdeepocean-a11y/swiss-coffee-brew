@@ -8,7 +8,67 @@ import { RoventoMark } from "./RoventoMark";
  * Hero — "خذ حصاد الجبل إلى بيتك"
  * Real mountain-harvest photograph as the full-bleed background,
  * the two real bags float with prices beneath, exactly like the reference.
+ * كل منتج تحته بروفايل مختصر ببارات مضيئة (نفس بارات تفاصيل النكهة بحجم أصغر).
  */
+
+/** ═══ بروفايل مختصر ببارات مضيئة — نفس محاور تفاصيل النكهة بشكل مصغّر ═══ */
+const MINI_AXES = [
+  { label: "الجسم", intenso: 9, premium: 7 },
+  { label: "الكريما", intenso: 9, premium: 8 },
+  { label: "الروائح", intenso: 7, premium: 9 },
+  { label: "الحلاوة", intenso: 4, premium: 7 },
+];
+
+function MiniProfileBars({ blend }: { blend: "intenso" | "premium" }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <div
+      ref={ref}
+      className="mt-3 w-full max-w-[250px] rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2.5 backdrop-blur-sm"
+    >
+      <div className="mb-2 flex items-center justify-between gap-2 border-b border-white/[0.07] pb-1.5">
+        <span className="text-[9px] font-black uppercase tracking-[0.22em] text-[#c9a84c]/80">
+          بروفايل النكهة
+        </span>
+        <span className="text-[9px] text-[#f5efe6]/40">من 10</span>
+      </div>
+      <div className="space-y-1.5">
+        {MINI_AXES.map((axis, i) => {
+          const value = blend === "intenso" ? axis.intenso : axis.premium;
+          return (
+            <div key={axis.label} className="flex items-center gap-2">
+              <span className="w-12 shrink-0 text-[10px] font-bold text-[#b0a898]">
+                {axis.label}
+              </span>
+              <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: `${value * 10}%` } : {}}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.15 + i * 0.09,
+                    ease: "easeOut",
+                  }}
+                  className="absolute inset-y-0 left-0 rounded-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #a08030 0%, #c9a84c 60%, #e0c872 100%)",
+                    boxShadow: "0 0 8px rgba(224,200,114,0.6)",
+                  }}
+                />
+              </div>
+              <span className="w-4 text-center font-mono text-[9px] font-bold text-[#888888]">
+                {value}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 export function LandingHero() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -66,9 +126,9 @@ export function LandingHero() {
         transition={{ duration: 0.9, delay: 0.55 }}
         className="relative z-10 mt-4 text-center text-sm text-[#f5efe6]/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] md:text-base"
       >
-        متوسط سعر الكيس:{" "}
-        <span className="font-bold text-[#e0c872]">790 ج.م</span> — وفر حتى 300
-        ج.م على الكيس الواحد مع خصم الكمية
+        نرى أن أسعارنا مناسبة تمامًا للحصول على{" "}
+        <span className="font-bold text-[#e0c872]">أفضل أنواع الحبوب في مصر</span>{" "}
+        ونعمل للحفاظ على هذه الأسعار لتقديم أفضل جودة بأيدي أمينة
       </motion.p>
 
       {/* ═══ The two bags with prices — like the reference ═══ */}
@@ -104,6 +164,8 @@ export function LandingHero() {
               أصيل
             </p>
           </div>
+
+          <MiniProfileBars blend="intenso" />
 
           <button
             onClick={() => add("rovento-bar-intenso-1kg")}
@@ -143,6 +205,8 @@ export function LandingHero() {
               ناعمة • متوازنة • فاخرة — 100% أرابيكا ونكهة غنية وتجربة قيّمة
             </p>
           </div>
+
+          <MiniProfileBars blend="premium" />
 
           <button
             onClick={() => add("rovento-premium-1kg")}
