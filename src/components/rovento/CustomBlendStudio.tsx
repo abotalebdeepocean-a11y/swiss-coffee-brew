@@ -62,7 +62,7 @@ const clamp10 = (n: number) => Math.min(10, Math.max(1, Math.round(n)));
 function blendNotes(a: number, roastId: RoastId): string {
   if (a >= 90)
     return roastId === "light"
-      ? "فواكه وزهور وحموضة مشرقة — متعة محبي القهوة المختصة."
+      ? "فواكه وزهور وحموضة مشرقة — نكهة راقية في كل كوب."
       : "أصل فاخر: حلاوة الأرابيكا ونكهات راقية في كل كوب.";
   if (a >= 60)
     return roastId === "dark"

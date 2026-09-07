@@ -300,7 +300,7 @@ export function CartDrawer() {
                   />
                   <p className="text-lg font-semibold">سلتك فارغة</p>
                   <p className="text-sm text-muted-foreground">
-                    ابدأ رحلتك مع قهوة مختصة تُحمَّص طازجة في مصر.
+                    ابدأ رحلتك مع قهوة إسبريسو تُحمَّص طازجة في مصر.
                   </p>
                   <Button asChild className="rounded-none" onClick={handleClose}>
                     <Link to="/#products">تصفح المنتجات</Link>
