@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
 import { LandingHero } from "@/components/rovento/LandingHero";
 import { OfferBanner } from "@/components/rovento/OfferBanner";
-import { FeaturedProduct } from "@/components/rovento/FeaturedProduct";
 import { EmotionalHook } from "@/components/rovento/EmotionalHook";
 import { CharacterSelect } from "@/components/rovento/CharacterSelect";
 import { BlendProfiles } from "@/components/rovento/BlendProfiles";
@@ -46,11 +45,6 @@ export default function Landing() {
 
         {/* 4 — The ONE real dated offer */}
         <OfferBanner />
-
-        {/* 5 — FEATURED PRODUCT spotlight (sales funnel: attention → focus) */}
-        <div id="featured">
-          <FeaturedProduct />
-        </div>
 
         {/* 6 — Emotional pause */}
         <EmotionalHook />
