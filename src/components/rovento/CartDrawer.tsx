@@ -240,46 +240,6 @@ export function CartDrawer() {
   const total = afterWeightDiscount - prepayDiscount + shippingCost;
 
   const handleConfirmOrder = () => {
-    const paymentLabel =
-      PAYMENT_METHODS.find((m) => m.id === formData.paymentMethod)?.label ??
-      formData.paymentMethod;
-
-    const orderDetails = items
-      .map((item) => {
-        const line = cartLine(item);
-        if (!line) return "";
-        if (line.custom) {
-          return `• ${line.spec.label} × ${item.qty} — ${formatPrice(line.price * item.qty)}`;
-        }
-        return `• ${line.product.name} × ${item.qty} — ${formatPrice(line.price * item.qty)}`;
-      })
-      .filter(Boolean)
-      .join("\n");
-
-    const message = [
-      `🛒 *طلب جديد من ROVENTO*`,
-      ``,
-      orderDetails,
-      ``,
-      `━━━━━━━━━━━━━━━━━━`,
-      weightDiscount > 0 ? `📦 خصم الكمية: -${formatPrice(weightDiscount)} (${Math.round(weightDiscountRate * 100)}%)` : ``,
-      prepayDiscount > 0 ? `💳 خصم الدفع المسبق: -${formatPrice(prepayDiscount)} (5%)` : ``,
-      `📦 الشحن: ${shippingCost === 0 ? "مجاني ✅" : formatPrice(shippingCost)}`,
-      `💰 الإجمالي: *${formatPrice(total)}*`,
-      ``,
-      `👤 *بيانات الشحن:*`,
-      `الاسم: ${formData.name}`,
-      `الهاتف: ${formData.phone}`,
-      formData.phone2 ? `هاتف إضافي: ${formData.phone2}` : ``,
-      `العنوان: ${formData.address}`,
-      `المدينة: ${formData.city}`,
-      `المحافظة: ${formData.governorate}`,
-      `طريقة الدفع: ${paymentLabel}`,
-      formData.notes ? `ملاحظات: ${formData.notes}` : ``,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
     orderViaWhatsApp(items);
     setStep("confirmation");
   };
@@ -448,7 +408,7 @@ export function CartDrawer() {
                     )}
                     {weightDiscount === 0 && totalWeightKg >= 1 && (
                       <p className="mt-1 text-[10px] text-emerald-400">
-                        أضف {2 - (totalWeightKg % 2)} كجم إضافيين للحصول على خصم 5%
+                        أضف {2 - (totalWeightKg % 2)} كجم إضافيين للحصول على خصم 10%
                       </p>
                     )}
                     {subtotal < 1500 && (
