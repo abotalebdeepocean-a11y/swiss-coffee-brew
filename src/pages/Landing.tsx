@@ -17,7 +17,7 @@ import { RippleFX } from "@/components/rovento/RippleFX";
 export default function Landing() {
   useEffect(() => {
     document.title =
-      "ROVENTO — خذ حصاد الجبل إلى بيتك | Specialty Coffee, Made in Egypt";
+      "ROVENTO — انقل حصاد الجبل لبيتك ! | Specialty Coffee, Made in Egypt";
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
   }, []);

@@ -113,9 +113,9 @@ export function LandingHero() {
         transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
         className="relative z-10 mt-6 text-center text-4xl font-black leading-[1.25] drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)] md:text-6xl lg:text-7xl"
       >
-        <span className="text-[#f5efe6]">خذ حصاد </span>
+        <span className="text-[#f5efe6]">انقل حصاد </span>
         <span className="gold-gradient-text">الجبل</span>
-        <span className="text-[#f5efe6]"> إلى بيتك</span>
+        <span className="text-[#f5efe6]"> لبيتك !</span>
       </motion.h1>
 
       {/* ═══ Offer subline ═══ */}
@@ -125,9 +125,9 @@ export function LandingHero() {
         transition={{ duration: 0.9, delay: 0.55 }}
         className="relative z-10 mt-4 text-center text-sm text-[#f5efe6]/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] md:text-base"
       >
-        نرى أن أسعارنا مناسبة تمامًا للحصول على{" "}
-        <span className="font-bold text-[#e0c872]">أفضل أنواع الحبوب في مصر</span>{" "}
-        ونعمل للحفاظ على هذه الأسعار لتقديم أفضل جودة بأيدي أمينة
+        نقدم تجربة الحصول على{" "}
+        <span className="font-bold text-[#e0c872]">أفضل أنواع حبوب القهوة في مصر</span>{" "}
+        ونعمل على تقديمها بأفضل جودة وبسعر تستحقونه انتم
       </motion.p>
 
       {/* ═══ The two bags with prices — like the reference ═══ */}
