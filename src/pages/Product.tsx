@@ -18,7 +18,6 @@ import {
 import { Header } from "@/components/rovento/Header";
 import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
-import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
 import { OfferBanner } from "@/components/rovento/OfferBanner";
 import { ProductCard } from "@/components/rovento/ProductCard";
 import { BagVisual } from "@/components/rovento/BagVisual";
@@ -522,7 +521,6 @@ export default function Product() {
       </main>
       <Footer />
       <CartDrawer />
-      <WhatsAppFloat />
     </div>
   );
 }
