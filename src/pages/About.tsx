@@ -5,7 +5,6 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { Header } from "@/components/rovento/Header";
 import { Footer } from "@/components/rovento/Footer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
-import { RoventoMark } from "@/components/rovento/RoventoMark";
 
 /* ═══════════ النص المعتمد — من نحن ═══════════ */
 const ABOUT_TEXT = [
@@ -89,7 +88,11 @@ export default function About() {
         <section className="px-4 pb-16 text-center md:px-6 md:pb-24">
           <FadeIn>
             <div className="mb-6 flex justify-center">
-              <RoventoMark size={72} />
+              <img
+                src="/images/rovento-logo-real.webp"
+                alt="ROVENTO"
+                className="h-24 w-auto"
+              />
             </div>
             <h1 className="mb-3 text-2xl font-black md:text-4xl">
               <span className="gold-gradient-text">

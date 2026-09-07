@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
-import { RoventoMark } from "./RoventoMark";
 
 /**
  * Hero — "خذ حصاد الجبل إلى بيتك"
@@ -132,7 +131,10 @@ export function LandingHero() {
       </motion.p>
 
       {/* ═══ The two bags with prices — like the reference ═══ */}
-      <div className="relative z-10 mx-auto mt-10 flex max-w-[820px] items-end justify-center gap-6 px-4 md:mt-14 md:gap-16">
+      <div
+        id="products"
+        className="relative z-10 mx-auto mt-10 flex max-w-[820px] scroll-mt-24 items-end justify-center gap-6 px-4 md:mt-14 md:gap-16"
+      >
         {/* Bar Intenso — right (RTL first) */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -225,7 +227,11 @@ export function LandingHero() {
         transition={{ duration: 1, delay: 1.2 }}
         className="relative z-10 mt-10 flex flex-col items-center gap-3 pb-14"
       >
-        <RoventoMark size={30} className="opacity-80" />
+        <img
+          src="/images/rovento-logo-real.webp"
+          alt="ROVENTO"
+          className="h-12 w-auto opacity-95"
+        />
         <span className="text-[10px] tracking-[0.4em] text-[#f5efe6]/60 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
           Rovento — Mountain Harvest
         </span>

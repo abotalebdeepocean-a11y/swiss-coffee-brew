@@ -55,7 +55,7 @@ export default function NotFound() {
             ارجع للرئيسية
           </Link>
           <Link
-            to="/shop"
+            to="/#products"
             className="flex h-12 items-center gap-2 rounded-xl border border-white/15 px-6 text-sm font-bold text-stone-300 transition-all hover:border-rv-gold/50 hover:text-rv-gold"
           >
             <ShoppingBag className="size-4" />

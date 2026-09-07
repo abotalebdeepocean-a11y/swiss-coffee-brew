@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShoppingCart, MessageCircle } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { whatsappLink } from "@/lib/store";
-import { RoventoMark } from "./RoventoMark";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -27,12 +26,13 @@ export function Header() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 md:h-20 md:px-6">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5">
-            <RoventoMark size={32} />
-            <span className="font-condensed text-sm font-bold tracking-[0.2em] text-[#c9a84c] uppercase">
-              ROVENTO
-            </span>
+          {/* Logo — الشعار الرسمي */}
+          <Link to="/" className="flex items-center" aria-label="ROVENTO — الرئيسية">
+            <img
+              src="/images/rovento-logo-real.webp"
+              alt="ROVENTO"
+              className="h-11 w-auto md:h-12"
+            />
           </Link>
 
           {/* Desktop nav */}

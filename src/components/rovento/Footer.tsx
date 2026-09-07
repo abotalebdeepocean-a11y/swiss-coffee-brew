@@ -1,7 +1,6 @@
 import { Link } from "react-router";
 import { MessageCircle, Phone } from "lucide-react";
 import { whatsappLink } from "@/lib/store";
-import { RoventoMark } from "./RoventoMark";
 
 export function Footer() {
   return (
@@ -10,11 +9,12 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
           <div>
-            <div className="mb-4 flex items-center gap-2.5">
-              <RoventoMark size={32} />
-              <span className="font-condensed text-sm font-bold tracking-[0.2em] text-[#c9a84c] uppercase">
-                ROVENTO
-              </span>
+            <div className="mb-4 flex items-center">
+              <img
+                src="/images/rovento-logo-real.webp"
+                alt="ROVENTO"
+                className="h-14 w-auto"
+              />
             </div>
             <p className="max-w-[280px] text-sm leading-relaxed text-[#888888]">
               روفينتو — محمصة قهوة مختصة في مصر. تحميص طازج يومياً. شحن

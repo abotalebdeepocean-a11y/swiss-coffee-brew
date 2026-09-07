@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { RoventoMark } from "./RoventoMark";
 
 interface FlavorAxis {
   label: string;
@@ -69,7 +68,11 @@ export function FlavorProfile() {
           className="mb-12 text-center"
         >
           <div className="mb-4 flex justify-center">
-            <RoventoMark size={36} />
+            <img
+              src="/images/rovento-logo-real.webp"
+              alt="ROVENTO"
+              className="h-14 w-auto"
+            />
           </div>
           <h2 className="mb-3 text-2xl font-black md:text-3xl">
             <span className="gold-gradient-text">تفاصيل النكهة</span>

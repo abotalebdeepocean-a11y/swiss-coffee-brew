@@ -94,8 +94,8 @@ export default function Product() {
         <Header />
         <main className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4 px-4 py-32 text-center">
           <p className="text-2xl font-bold">المنتج غير موجود</p>
-          <Link to="/shop" className="bg-rv-red px-6 py-3 text-sm font-bold text-white">
-            العودة إلى المتجر
+          <Link to="/" className="bg-rv-red px-6 py-3 text-sm font-bold text-white">
+            العودة إلى الرئيسية
           </Link>
         </main>
         <Footer />
@@ -127,9 +127,7 @@ export default function Product() {
           <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground md:mb-8">
             <Link to="/" className="transition-colors hover:text-foreground">الرئيسية</Link>
             <ChevronLeft className="size-3" />
-            <Link to="/shop" className="transition-colors hover:text-foreground">المتجر</Link>
-            <ChevronLeft className="size-3" />
-            <Link to={`/shop?category=${product.category}`} className="transition-colors hover:text-foreground">
+            <Link to="/#products" className="transition-colors hover:text-foreground">
               {cat.name}
             </Link>
             <ChevronLeft className="size-3" />
@@ -483,9 +481,6 @@ export default function Product() {
                   منتجات <span className="text-rv-gold">مشابهة</span>
                 </h2>
                 <div className="flex items-center gap-2">
-                  <Link to="/shop" className="text-xs font-semibold text-muted-foreground transition-colors hover:text-rv-gold">
-                    عرض الكل
-                  </Link>
                   <div className="flex gap-1">
                     <button
                       onClick={() => scrollRelated("right")}

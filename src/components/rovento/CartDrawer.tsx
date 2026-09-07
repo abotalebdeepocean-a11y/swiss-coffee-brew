@@ -303,7 +303,7 @@ export function CartDrawer() {
                     ابدأ رحلتك مع قهوة مختصة تُحمَّص طازجة في مصر.
                   </p>
                   <Button asChild className="rounded-none" onClick={handleClose}>
-                    <Link to="/shop">تصفح المتجر</Link>
+                    <Link to="/#products">تصفح المنتجات</Link>
                   </Button>
                 </div>
               ) : (
