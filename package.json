@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "preinstall": "bun pm cache rm || true",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
