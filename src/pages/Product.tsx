@@ -36,13 +36,12 @@ import {
 import { useCart, whatsappLink } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
-/* ─── صور المعرض الافتراضية لكل منتج ─── */
+/* ─── صور المعرض الافتراضية لكل منتج — كيسا روفينتو الرسميان فقط ─── */
 const DEFAULT_GALLERY = [
-  "/images/bag-premium-real",
-  "/images/bag-classic-real",
-  "/images/bag-two-packages",
-  "/images/bag-macro-closeup",
-  "/images/bag-premium-scene",
+  "/images/intenso-bag",
+  "/images/premium-bag",
+  "/images/intenso-bag",
+  "/images/premium-bag",
 ];
 
 /* ─── تعليقات افتراضية ─── */

@@ -18,7 +18,7 @@ export function RoasteryStory() {
       <motion.div style={{ y: bgY }} className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-110"
-          style={{ backgroundImage: "url(/images/intenso-bar-real.webp)" }}
+          style={{ backgroundImage: "url(/images/intenso-bag.webp)" }}
         />
         <div className="absolute inset-0 bg-rv-black/80" />
         <div className="absolute inset-0 bg-gradient-to-b from-rv-black via-transparent to-rv-black" />

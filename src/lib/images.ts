@@ -18,8 +18,8 @@ export const IMAGES = {
     intenso: "/images/intenso-bag",
     /** كيس PREMIUM BLEND — النسر الأخضر الفاخر */
     premium: "/images/premium-bag",
-    /** صورة ماكرو — النسخة الأصلية كاملة الإطار للخلفيات */
-    macro: "/images/intenso-bar-real",
+    /** صورة ماكرو — كيس بار إنتنسو الجديد (للخلفيات) */
+    macro: "/images/intenso-bag",
     /** صورة الكيسين معاً — مقاس موحد */
     twoPackages: "/images/intenso-bag",
   },
@@ -45,7 +45,7 @@ export const IMAGES = {
     /** بانر قسم خلطتك الخاصة */
     customBlend: "/images/banner-2",
     /** بانر الكيس CLASSIC 1 كجم */
-    classic1kg: "/images/bag-classic-1kg-real",
+    classic1kg: "/images/premium-bag",
   },
   /** شعار ROVENTO الحقيقي */
   logo: "/images/rovento-logo-final",
