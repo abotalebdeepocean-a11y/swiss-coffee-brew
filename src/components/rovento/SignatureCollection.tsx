@@ -28,7 +28,7 @@ const BAGS = [
     image: IMAGES.products.premium,
     nameEn: "PREMIUM",
     nameAr: "بريميوم",
-    tagline: "100% أرابيكا — كريمة غنية، تحميص متوسط، قوة متوازنة",
+    tagline: "40% أرابيكا / 60% روبوستا — رائحة غنية، جسم ناعم، تحميص متوسط",
     price: 890,
     weight: "1 كجم",
     accent: "from-teal-900/40 to-teal-950/0",
@@ -42,8 +42,9 @@ const BAGS = [
 ];
 
 const COMPARE_FEATURES = [
-  { label: "نسبة الأرابيكا", intenso: "30%", premium: "100%" },
-  { label: "درجة التحميص", intenso: "غامق", premium: "متوسط" },
+  { label: "نسبة الأرابيكا", intenso: "30%", premium: "40%" },
+  { label: "نسبة الروبوستا", intenso: "70%", premium: "60%" },
+  { label: "درجة التحميص", intenso: "متوسط-غامق", premium: "متوسط" },
   { label: "النكهات", intenso: "كريمة غنية", premium: "نكهة غنية فاخرة" },
   { label: "الأفضل لـ", intenso: "كورتوادو وإسبريسو قوي", premium: "لاتيه وكابتشينو" },
   { label: "الكريما", intenso: "غنية جدًا (Rich Crema)", premium: "غنية (Rich Crema)" },

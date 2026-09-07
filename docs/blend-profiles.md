@@ -13,10 +13,11 @@
 - Dial-in: Espresso 18.5-19g → 36-38g (1:2), 26-29s @ 92-93°C, fine grind (one notch finer than premium). Moka: medium-fine, low heat, stop before sputtering. Not recommended for V60 (too intense). AeroPress ok: 17g, 200ml, 2min, inverted.
 - Freshness: Roasted daily, packed same day, delivered within 72h. Peak 7-10 days post-roast (robusta degassing), excellent to 30 days. Store cool/dry/dark, reseal tight; consume within 4 weeks of opening.
 
-### PREMIUM ROVENTO — Master Profile
-- Blend: 100% Arabica, Colombia + Guatemala, carefully selected
+### PREMIUM ROVENTO — Master Profile (per the official bag label)
+- Blend: 40% Arabica beans (Guatemala highlands) + 60% Robusta beans (India), carefully selected
 - Roast: Medium roast
-- Sensory: Rich crema, smooth body, balanced, refined, layered sweetness
+- Sensory: Balanced rich aroma, smooth body, moderate sweetness, low-to-medium acidity, measured bitterness, long distinctive finish
+- Flavor profile (bag): Body high | Crema balanced | Aroma moderate | Sweetness low-to-medium | Acidity low-to-medium | Bitterness measured | Finish long
 - Milk performance: Smooth with milk (latte, cappuccino), balanced sweetness shines
 - Dial-in: Espresso medium-fine, standard dose; pairs with V60/filter for clarity
 - Freshness: Same daily-roast promise

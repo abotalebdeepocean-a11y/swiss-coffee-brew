@@ -27,7 +27,7 @@ const CARDS: CardSpec[] = [
     slug: "rovento-premium-1kg",
     nameEn: "Premium",
     nameAr: "بريميوم",
-    tag: "100% أرابيكا · تحميص متوسط",
+    tag: "40% أرابيكا / 60% روبوستا · تحميص متوسط",
     desc: "القمة المطلقة من التميز. خليط فاخر من أجود أنواع البن العالمية، محمص بدقة عالية جداً.",
     img: "/images/premium-bag.webp",
     badge: "الأكثر مبيعاً",

@@ -12,10 +12,10 @@ import { useCart } from "@/lib/store";
 
 /** ═══ بروفايل مختصر ببارات مضيئة — نفس محاور تفاصيل النكهة بشكل مصغّر ═══ */
 const MINI_AXES = [
-  { label: "الجسم", intenso: 9, premium: 7 },
+  { label: "الجسم", intenso: 9, premium: 9 },
   { label: "الكريما", intenso: 9, premium: 8 },
-  { label: "الروائح", intenso: 7, premium: 9 },
-  { label: "الحلاوة", intenso: 4, premium: 7 },
+  { label: "الروائح", intenso: 7, premium: 7 },
+  { label: "الحلاوة", intenso: 4, premium: 5 },
 ];
 
 function MiniProfileBars({ blend }: { blend: "intenso" | "premium" }) {
@@ -204,7 +204,7 @@ export function LandingHero() {
               Premium
             </p>
             <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              ناعمة • متوازنة • فاخرة — 100% أرابيكا ونكهة غنية وتجربة قيّمة
+              ناعمة • متوازنة • فاخرة — 40% أرابيكا و60% روبوستا بتحميص متوسط ولمسة نهائية طويلة
             </p>
           </div>
 

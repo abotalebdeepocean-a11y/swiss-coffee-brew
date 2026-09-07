@@ -8,13 +8,13 @@ interface FlavorAxis {
 }
 
 const AXES: FlavorAxis[] = [
-  { label: "الجسم", intenso: 9, premium: 7 },
+  { label: "الجسم", intenso: 9, premium: 9 },
   { label: "الكريما", intenso: 9, premium: 8 },
-  { label: "الروائح", intenso: 7, premium: 9 },
-  { label: "الحلاوة", intenso: 4, premium: 7 },
-  { label: "الحموضة", intenso: 3, premium: 6 },
-  { label: "المرارة", intenso: 8, premium: 4 },
-  { label: "النكهة الختامية", intenso: 8, premium: 7 },
+  { label: "الروائح", intenso: 7, premium: 7 },
+  { label: "الحلاوة", intenso: 4, premium: 5 },
+  { label: "الحموضة", intenso: 3, premium: 4 },
+  { label: "المرارة", intenso: 8, premium: 5 },
+  { label: "النكهة الختامية", intenso: 8, premium: 8 },
 ];
 
 function Bar({

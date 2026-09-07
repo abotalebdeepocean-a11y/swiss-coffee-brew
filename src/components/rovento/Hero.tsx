@@ -233,7 +233,7 @@ export function Hero() {
                 image={IMAGES.bags.premium}
                 variant="premium"
                 eager
-                alt="كيس روفينتو بريميوم — 100% أرابيكا فاخر"
+                alt="كيس روفينتو بريميوم — بلند إسبريسو فاخر 40% أرابيكا و60% روبوستا"
                 className="relative mx-auto h-[320px] w-auto object-contain drop-shadow-[0_20px_60px_rgba(184,134,11,0.15)] sm:h-[380px] md:h-[460px]"
               />
             </div>
