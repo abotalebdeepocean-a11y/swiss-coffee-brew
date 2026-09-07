@@ -36,12 +36,12 @@ import {
 import { useCart, whatsappLink } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
-/* ─── صور المعرض الافتراضية لكل منتج — كيسا روفينتو الرسميان فقط ─── */
+/* ─── صور المعرض الافتراضية لكل منتج — أمامي وخلفي لكل كيس ─── */
 const DEFAULT_GALLERY = [
   "/images/intenso-bag",
+  "/images/intenso-bag-back",
   "/images/premium-bag",
-  "/images/intenso-bag",
-  "/images/premium-bag",
+  "/images/premium-bag-back",
 ];
 
 /* ─── تعليقات افتراضية ─── */

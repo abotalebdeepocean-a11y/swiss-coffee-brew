@@ -12,21 +12,27 @@
 export const IMAGES = {
   /** كيس الهيرو — صورة البريميوم (النسر) — مقاس موحد */
   heroBag: "/images/premium-bag",
-  /** حقائب ROVENTO الحقيقية — مقاس موحد (760×1000) عشان الكيسين يظهروا بنفس الحجم */
+  /** حقائب ROVENTO الحقيقية — مقاس موحد (1100×1100) عشان الكيسين يظهروا بنفس الحجم */
   bags: {
-    /** كيس BAR INTENSO — مقصوص على محتوى الكيس نفسه */
+    /** كيس BAR INTENSO — الأمامي */
     intenso: "/images/intenso-bag",
-    /** كيس PREMIUM BLEND — النسر الأخضر الفاخر */
+    /** كيس BAR INTENSO — الخلفي (نفس المقياس) */
+    intensoBack: "/images/intenso-bag-back",
+    /** كيس PREMIUM — الأمامي */
     premium: "/images/premium-bag",
-    /** صورة ماكرو — كيس بار إنتنسو الجديد (للخلفيات) */
+    /** كيس PREMIUM — الخلفي (نفس المقياس) */
+    premiumBack: "/images/premium-bag-back",
+    /** صورة ماكرو — كيس بار إنتنسو (للخلفيات) */
     macro: "/images/intenso-bag",
     /** صورة الكيسين معاً — مقاس موحد */
     twoPackages: "/images/intenso-bag",
   },
-  /** صور المنتجات — صورتين فقط من Google Drive (مقاس موحد) */
+  /** صور المنتجات — الأمامي والخلفي لكل منتج */
   products: {
     barIntenso: "/images/intenso-bag",
+    barIntensoBack: "/images/intenso-bag-back",
     premium: "/images/premium-bag",
+    premiumBack: "/images/premium-bag-back",
   },
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {

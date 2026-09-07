@@ -94,8 +94,7 @@ export const PRODUCTS: Product[] = [
     bestseller: true,
     gallery: [
       IMAGES.products.barIntenso,
-      IMAGES.bags.intenso,
-      IMAGES.bags.macro,
+      IMAGES.products.barIntensoBack,
     ],
     testimonials: [
       { name: "خالد ر.", text: "البار انتينسو قوي وجريء بجد. بستخدمه للكورتوادو والطعم لا يُقاوم. أقوى إسبريسو جربته في مصر!", rating: 5, date: "2026-08-12" },
@@ -126,8 +125,7 @@ export const PRODUCTS: Product[] = [
     bestseller: true,
     gallery: [
       IMAGES.products.premium,
-      IMAGES.bags.premium,
-      IMAGES.bags.macro,
+      IMAGES.products.premiumBack,
     ],
     testimonials: [
       { name: "أحمد م.", text: "أحلى كريما جربتها في مصر! البريميوم بجد فرق عن أي قهوة تانية. بقالي 3 شهور بطلبها.", rating: 5, date: "2026-08-10" },
@@ -157,8 +155,7 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "كورتوادو", "ماكياتو"],
     gallery: [
       IMAGES.products.barIntenso,
-      IMAGES.bags.intenso,
-      IMAGES.bags.macro,
+      IMAGES.products.barIntensoBack,
     ],
     testimonials: [
       { name: "خالد ر.", text: "البار انتينسو قوي وجريء بجد. بستخدمه للكورتوادو والطعم لا يُقاوم.", rating: 5, date: "2026-08-12" },
@@ -187,8 +184,7 @@ export const PRODUCTS: Product[] = [
     brewing: ["إسبريسو", "لاتيه", "كابتشينو", "فلتر"],
     gallery: [
       IMAGES.products.premium,
-      IMAGES.bags.premium,
-      IMAGES.bags.macro,
+      IMAGES.products.premiumBack,
     ],
     testimonials: [
       { name: "أحمد م.", text: "أحلى كريما جربتها في مصر! البريميوم بجد فرق عن أي قهوة تانية.", rating: 5, date: "2026-08-10" },
