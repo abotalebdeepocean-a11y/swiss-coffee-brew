@@ -1,7 +1,0 @@
-# Deploy reliability — bypass bun's global package cache entirely.
-# The deploy sandbox intermittently fails with:
-#   "FileNotFound: failed copying files from cache to destination for package ..."
-# (different packages each run — a cache-copy race). With the global cache
-# disabled, bun downloads straight into node_modules: slower, but deterministic.
-[install.cache]
-disable = true
