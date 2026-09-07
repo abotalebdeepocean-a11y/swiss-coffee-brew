@@ -205,8 +205,10 @@ export function BlendProfiles() {
           <span className="font-condensed text-xs tracking-[0.4em] text-[#c9a84c]/60 uppercase">
             The Blends
           </span>
-          <h2 className="mt-3 text-3xl font-black md:text-5xl">
-            <span className="gold-gradient-text">اعرف بلندك</span>
+          <h2 className="mt-3 text-3xl font-black leading-snug md:text-5xl">
+            <span className="text-[#f5efe6]">اعرف نوع </span>
+            <span className="rv-neon-word">الحبوب</span>
+            <span className="text-[#f5efe6]"> اللي يناسب مزاجك</span>
           </h2>
           <p className="mx-auto mt-4 max-w-[460px] text-sm leading-relaxed text-[#b0a898]">
             قصة كل بلند، منشأ حبوبه، تحميصه، ونوتاته — عشان تختار وعي كامل
