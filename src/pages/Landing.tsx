@@ -39,29 +39,29 @@ export default function Landing() {
           <BlendProfiles />
         </div>
 
-        {/* 3 — The ONE real dated offer */}
+        {/* 3 — تفاصيل النكهة: flavor proof right after the profiles */}
+        <div id="flavor">
+          <FlavorProfile />
+        </div>
+
+        {/* 4 — The ONE real dated offer */}
         <OfferBanner />
 
-        {/* 4 — FEATURED PRODUCT spotlight (sales funnel: attention → focus) */}
+        {/* 5 — FEATURED PRODUCT spotlight (sales funnel: attention → focus) */}
         <div id="featured">
           <FeaturedProduct />
         </div>
 
-        {/* 4 — Emotional pause */}
+        {/* 6 — Emotional pause */}
         <EmotionalHook />
 
-        {/* 5 — اختار شخصيتك (split comparison) */}
+        {/* 7 — اختار شخصيتك (split comparison) */}
         <div id="products">
           <CharacterSelect />
         </div>
 
-        {/* 7 — Why Rovento (trust pillars) */}
+        {/* 8 — Why Rovento (trust pillars) */}
         <TrustPillars />
-
-        {/* 8 — Flavor profile proof */}
-        <div id="flavor">
-          <FlavorProfile />
-        </div>
 
         {/* 9 — Shipping & Returns */}
         <div id="shipping">
