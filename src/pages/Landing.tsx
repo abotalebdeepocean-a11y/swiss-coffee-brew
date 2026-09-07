@@ -34,10 +34,15 @@ export default function Landing() {
         {/* 1 — Hero: Mountain Harvest cinematic scene */}
         <LandingHero />
 
-        {/* 2 — The ONE real dated offer */}
+        {/* 2 — اعرف بلندك: deep blend profiles (Premium first) */}
+        <div id="profiles">
+          <BlendProfiles />
+        </div>
+
+        {/* 3 — The ONE real dated offer */}
         <OfferBanner />
 
-        {/* 3 — FEATURED PRODUCT spotlight (sales funnel: attention → focus) */}
+        {/* 4 — FEATURED PRODUCT spotlight (sales funnel: attention → focus) */}
         <div id="featured">
           <FeaturedProduct />
         </div>
@@ -48,11 +53,6 @@ export default function Landing() {
         {/* 5 — اختار شخصيتك (split comparison) */}
         <div id="products">
           <CharacterSelect />
-        </div>
-
-        {/* 6 — Blend profiles: deep dive per blend (consideration stage) */}
-        <div id="profiles">
-          <BlendProfiles />
         </div>
 
         {/* 7 — Why Rovento (trust pillars) */}
