@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
 import { LandingHero } from "@/components/rovento/LandingHero";
 import { OfferBanner } from "@/components/rovento/OfferBanner";
+import { FeaturedProduct } from "@/components/rovento/FeaturedProduct";
 import { EmotionalHook } from "@/components/rovento/EmotionalHook";
 import { CharacterSelect } from "@/components/rovento/CharacterSelect";
+import { BlendProfiles } from "@/components/rovento/BlendProfiles";
 import { TrustPillars } from "@/components/rovento/TrustPillars";
 import { FlavorProfile } from "@/components/rovento/FlavorProfile";
 import { ShippingReturnsBanner } from "@/components/rovento/ShippingReturnsBanner";
@@ -17,7 +19,7 @@ import { RippleFX } from "@/components/rovento/RippleFX";
 export default function Landing() {
   useEffect(() => {
     document.title =
-      "ROVENTO — إسبريسو يستاهل الاسم | Specialty Coffee, Made in Egypt";
+      "ROVENTO — خذ حصاد الجبل إلى بيتك | Specialty Coffee, Made in Egypt";
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
   }, []);
@@ -29,39 +31,49 @@ export default function Landing() {
     >
       <Header />
       <main>
-        {/* Section 1 — Hero (Attention) */}
+        {/* 1 — Hero: Mountain Harvest cinematic scene */}
         <LandingHero />
 
-        {/* Section 2 — The ONE real dated offer (free shipping + 10% off 2kg) */}
+        {/* 2 — The ONE real dated offer */}
         <OfferBanner />
 
-        {/* Section 2 — Emotional Hook */}
+        {/* 3 — FEATURED PRODUCT spotlight (sales funnel: attention → focus) */}
+        <div id="featured">
+          <FeaturedProduct />
+        </div>
+
+        {/* 4 — Emotional pause */}
         <EmotionalHook />
 
-        {/* Section 3 — Choose Your Character (split comparison) */}
+        {/* 5 — اختار شخصيتك (split comparison) */}
         <div id="products">
           <CharacterSelect />
         </div>
 
-        {/* Section 4 — Why Rovento (trust pillars) */}
+        {/* 6 — Blend profiles: deep dive per blend (consideration stage) */}
+        <div id="profiles">
+          <BlendProfiles />
+        </div>
+
+        {/* 7 — Why Rovento (trust pillars) */}
         <TrustPillars />
 
-        {/* Section 5 — Flavor Profile Proof */}
+        {/* 8 — Flavor profile proof */}
         <div id="flavor">
           <FlavorProfile />
         </div>
 
-        {/* Section 6 — Shipping & Returns (glassmorphism banner) */}
+        {/* 9 — Shipping & Returns */}
         <div id="shipping">
           <ShippingReturnsBanner />
         </div>
 
-        {/* Section 7 — FAQ */}
+        {/* 10 — FAQ */}
         <div id="faq">
           <FAQ />
         </div>
 
-        {/* Section 8 — Final CTA */}
+        {/* 11 — Final CTA */}
         <FinalCTA />
       </main>
       <Footer />

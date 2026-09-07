@@ -38,10 +38,22 @@ export function Header() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-7 md:flex">
             <a
+              href="#featured"
+              className="text-sm font-bold text-[#b0a898] transition-colors hover:text-[#c9a84c]"
+            >
+              المنتج المميز
+            </a>
+            <a
               href="#products"
               className="text-sm font-bold text-[#b0a898] transition-colors hover:text-[#c9a84c]"
             >
               المنتجات
+            </a>
+            <a
+              href="#profiles"
+              className="text-sm font-bold text-[#b0a898] transition-colors hover:text-[#c9a84c]"
+            >
+              البلندات
             </a>
             <a
               href="#flavor"
@@ -111,11 +123,25 @@ export function Header() {
         <div className="fixed inset-0 z-40 bg-[#0a0a0a]/95 pt-20 backdrop-blur-xl md:hidden">
           <nav className="flex flex-col items-center gap-6 py-12">
             <a
+              href="#featured"
+              onClick={() => setOpen(false)}
+              className="text-lg font-bold text-[#f5efe6]"
+            >
+              المنتج المميز
+            </a>
+            <a
               href="#products"
               onClick={() => setOpen(false)}
               className="text-lg font-bold text-[#f5efe6]"
             >
               المنتجات
+            </a>
+            <a
+              href="#profiles"
+              onClick={() => setOpen(false)}
+              className="text-lg font-bold text-[#b0a898]"
+            >
+              البلندات
             </a>
             <a
               href="#flavor"
