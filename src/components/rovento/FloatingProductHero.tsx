@@ -214,15 +214,6 @@ export function FloatingProductHero() {
               أضف للسلة — 700 ج.م
             </motion.button>
 
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => add("rovento-bar-intenso-500g")}
-              className="flex items-center gap-2 rounded-xl border-2 border-rv-brown/15 bg-transparent px-6 py-3.5 text-sm font-bold text-rv-darkBrown transition-all hover:border-rv-gold/40 hover:bg-rv-gold/10"
-            >
-              <Coffee className="size-4 text-rv-gold" />
-              نص كيلو — 400 ج.م
-            </motion.button>
           </div>
 
           {/* Brewing methods */}

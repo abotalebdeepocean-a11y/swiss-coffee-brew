@@ -289,7 +289,7 @@ export function SignatureCollection() {
           </div>
 
           <p className="mt-4 text-center text-[10px] text-rv-brown/40">
-            * كلا المنتجين متوفر في مقاس 1 كجم و 500 جم — يُشحن مطحون أو حبوب كاملة حسب اختياراتك
+            * كلا المنتجين متوفر في مقاس 1 كجم — يُشحن مطحون أو حبوب كاملة حسب اختياراتك
           </p>
         </motion.div>
 
