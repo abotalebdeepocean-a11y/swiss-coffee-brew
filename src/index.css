@@ -321,6 +321,19 @@
     );
   }
 
+  /* backdrop-filter بblur كبير (24px) يعيد طمس كل ما خلفه في كل إطار تمرير —
+     أخف قيمة تحافظ على مظهر الزجاج بدون كلفة التمرير الباهظة */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* توهج النيون المتنفس (text-shadow متحرك) — جمّده على الموبايل،
+     الظل الثابت يبقى موجودًا فالمظهر لا يتغير */
+  .rv-neon-word {
+    animation: none;
+  }
+
   /* كلاسات الطفو — مدة أبطأ ومدى أصغر (6px بدل 18–24px) */
   .animate-levitate,
   .animate-levitate-reverse {
