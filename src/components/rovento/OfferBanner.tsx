@@ -41,28 +41,17 @@ export function OfferBanner() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* ── Rotating neon border: oversized spinning conic layer behind
-                 a 2px gap; the glass card covers its center ── */}
-          <div className="relative rounded-[28px] p-[2px]">
+          {/* ── Rotating neon border: cheap animated conic ring via
+                 ::before + @property (GPU-friendly, no oversized layer) ── */}
+          <div className="rv-glow-ring relative rounded-[28px] p-[2px]">
             {/* Faint static ring — border is never invisible */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-[2px] rounded-[26px] bg-[conic-gradient(from_0deg,rgba(201,168,76,0.16),rgba(201,168,76,0.05)_90deg,rgba(201,168,76,0.16)_180deg,rgba(201,168,76,0.05)_270deg,rgba(201,168,76,0.16))]"
             />
-            {/* The rotating neon comet */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[260%] -translate-x-1/2 -translate-y-1/2"
-              style={{
-                background:
-                  "conic-gradient(from 0deg, transparent 0deg, rgba(201,168,76,0.55) 28deg, #e0c872 48deg, rgba(201,168,76,0.55) 68deg, transparent 96deg, transparent 360deg)",
-                animation: "neonSpin 6.5s linear infinite",
-                filter: "drop-shadow(0 0 8px rgba(224,200,114,0.65))",
-              }}
-            />
 
             {/* ── Glass card ── */}
-            <div className="relative overflow-hidden rounded-[26px] bg-[#0a0a0a]/88 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+            <div className="relative z-10 overflow-hidden rounded-[26px] bg-[#0a0a0a]/88 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl">
               {/* Shiny olives on the tree — real photo behind the glass */}
               <img
                 src="/images/olives-tree.webp"

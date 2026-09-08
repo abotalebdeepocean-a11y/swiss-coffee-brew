@@ -172,11 +172,45 @@
 .animate-gold-shimmer { animation: gold-shimmer 3s ease-in-out infinite; }
 .animate-particle-float { animation: particle-float 8s ease-in-out infinite; }
 
-/* Rotating neon comet — used by inline-style animations (top-level so it's
-   never tree-shaken out of the @theme block) */
-@keyframes neonSpin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+/* ═══ حلقة إطار متوهجة دوّارة (rotating glow border) ═══
+   نفذ الأنيميشن عبر تحريك زاوية conic-gradient باستخدام @property،
+   وهو أوفر بكثير من الطبقة العملاقة (260%) التي كانت تدور بـ transform —
+   نفس اللير كان يسبب اهتزاز/تقطيع أثناء التمرير، خصوصًا على الموبايل.
+   (.rv-glow-ring::before هو اللاير المرئي، و التحريك يحدث على المتغير فقط). */
+@property --rv-ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes rv-ring-spin {
+  from { --rv-ring-angle: 0deg; }
+  to { --rv-ring-angle: 360deg; }
+}
+
+.rv-glow-ring {
+  position: relative;
+}
+.rv-glow-ring::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  /* قيمة أساسية للمتغير — بدونها يصبح الـ gradient غير صالح في المتصفحات
+     التي لا تدعم @property (تدهور رشيق: حلقة ذهبية ثابتة) */
+  --rv-ring-angle: 0deg;
+  background: conic-gradient(
+    from var(--rv-ring-angle),
+    rgba(201, 168, 76, 0.1) 0deg,
+    rgba(201, 168, 76, 0.5) 28deg,
+    #e0c872 46deg,
+    rgba(201, 168, 76, 0.5) 64deg,
+    rgba(201, 168, 76, 0.1) 96deg,
+    rgba(201, 168, 76, 0.1) 360deg
+  );
+  filter: drop-shadow(0 0 8px rgba(224, 200, 114, 0.5));
+  animation: rv-ring-spin 6.5s linear infinite;
 }
 
 /* تنفس التوهج النيوني لكلمة الحبوب */
@@ -272,9 +306,11 @@
   /* نويز سينمائي (film grain) مكلف على الشاشات الصغيرة — أوقفه تمامًا */
   .rv-noise::after { display: none; }
 
-  /* حلقة النيون الدوارة (conic-gradient متحرك) — استبدلها بحلقة ثابتة */
-  [style*="neonSpin"] {
-    animation: none !important;
+  /* حلقة النيون الدوارة — على الموبايل تصبح حلقة ذهبية ثابتة بدون دوران
+     (تحريك conic-gradient عبر @property مكلف على الشاشات الصغيرة) */
+  .rv-glow-ring::before {
+    animation: none;
+    filter: none;
     background: conic-gradient(
       from 0deg,
       rgba(201, 168, 76, 0.55) 0deg,
@@ -282,8 +318,7 @@
       rgba(201, 168, 76, 0.55) 180deg,
       rgba(201, 168, 76, 0.08) 270deg,
       rgba(201, 168, 76, 0.55) 360deg
-    ) !important;
-    filter: none !important;
+    );
   }
 
   /* كلاسات الطفو — مدة أبطأ ومدى أصغر (6px بدل 18–24px) */
@@ -313,17 +348,8 @@
   .animate-particle-float {
     animation: none;
   }
-  [style*="neonSpin"] {
-    animation: none !important;
-    background: conic-gradient(
-      from 0deg,
-      rgba(201, 168, 76, 0.55) 0deg,
-      rgba(201, 168, 76, 0.08) 90deg,
-      rgba(201, 168, 76, 0.55) 180deg,
-      rgba(201, 168, 76, 0.08) 270deg,
-      rgba(201, 168, 76, 0.55) 360deg
-    ) !important;
-    filter: none !important;
+  .rv-glow-ring::before {
+    animation: none;
   }
 }
 

@@ -72,36 +72,26 @@ export function ShippingReturnsBanner() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* ── Glowing frame — the shine lives on the border only ── */}
-          <div className="relative rounded-[28px] p-[2px]">
+          {/* ── Glowing frame — cheap animated conic ring via
+                 ::before + @property (GPU-friendly, no oversized layer) ── */}
+          <div className="rv-glow-ring relative rounded-[28px] p-[2px]">
             {/* Faint static ring — border never fully dark */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-[2px] rounded-[26px] bg-[conic-gradient(from_0deg,rgba(201,168,76,0.18),rgba(201,168,76,0.05)_90deg,rgba(201,168,76,0.18)_180deg,rgba(201,168,76,0.05)_270deg,rgba(201,168,76,0.18))]"
             />
-            {/* Rotating shine comet — luminous sweep around the frame */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[220%] -translate-x-1/2 -translate-y-1/2"
-              style={{
-                background:
-                  "conic-gradient(from 0deg, transparent 0deg, rgba(201,168,76,0.55) 30deg, #e0c872 50deg, rgba(201,168,76,0.55) 70deg, transparent 100deg, transparent 360deg)",
-                animation: "neonSpin 7s linear infinite",
-                filter: "drop-shadow(0 0 10px rgba(224,200,114,0.55))",
-              }}
-            />
 
             {/* ── Glass rectangle — transparent from behind ── */}
-            <div className="relative overflow-hidden rounded-[26px] bg-white/[0.03] shadow-[0_0_46px_rgba(201,168,76,0.14),0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+            <div className="relative z-10 overflow-hidden rounded-[26px] bg-white/[0.03] shadow-[0_0_46px_rgba(201,168,76,0.14),0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl">
               {/* Soft inner glow along the glass edges */}
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 rounded-[26px] shadow-[inset_0_0_34px_rgba(201,168,76,0.07)]"
               />
 
-              {/* Flying Coffee Bean behind the glass */}
-              <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-                <div className="animate-flying-bean absolute top-1/2 -translate-y-1/2">
+              {/* Flying Coffee Bean behind the glass (ثابت — بدون أنيميشن لأداء أفضل) */}
+              <div className="pointer-events-none absolute inset-0 z-0 flex items-center overflow-hidden">
+                <div className="-translate-y-1/2">
                   <CoffeeBean3D className="h-12 w-9 opacity-[0.12] sm:h-16 sm:w-12 md:h-20 md:w-14" />
                 </div>
               </div>
