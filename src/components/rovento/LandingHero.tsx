@@ -155,7 +155,7 @@ export function LandingHero() {
             className="animate-levitate relative block cursor-pointer"
           >
             <img
-              src="/images/intenso-bag.webp"
+              src="/images/intenso-bag-front-new.webp"
               alt="ROVENTO بار إنتنسو"
               fetchPriority="high"
               decoding="async"

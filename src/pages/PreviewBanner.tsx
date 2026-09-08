@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Check, Image as ImageIcon, Ruler, Sparkles } from "lucide-react";
-import { OfferBanner } from "@/components/rovento/OfferBanner";
+import { LandingHero } from "@/components/rovento/LandingHero";
 
 /**
  * Temporary preview page — يعرض البانر الحقيقي (المكوّن الفعلي المستخدم في
@@ -41,13 +41,13 @@ export default function PreviewBanner() {
 
       <section className="py-10">
         <div className="mx-auto max-w-5xl px-4">
-          {/* Real banner — the actual component used on the landing page */}
+          {/* Real hero — the actual component used on the landing page */}
           <PreviewSection
             icon={<ImageIcon className="size-4" />}
-            title="البانر الحقيقي — كما سيظهر في الموقع"
-            subtitle="هذا هو مكوّن OfferBanner نفسه — الصورة الجديدة مدمجة داخل التصميم"
+            title="البانر الرئيسي — كما سيظهر في الموقع"
+            subtitle="هذا هو مكوّن الهيرو نفسه — صورة إنتنسو الجديدة مكانه"
           >
-            <OfferBanner />
+            <LandingHero />
           </PreviewSection>
 
           {/* Size consistency proof */}
@@ -59,12 +59,12 @@ export default function PreviewBanner() {
             <div className="grid gap-4 sm:grid-cols-3">
               <Metric
                 label="الارتفاع الظاهري — إنتنسو الجديد"
-                value="146px"
-                note="عند عرض الصورة بارتفاع 155px"
+                value="302px"
+                note="عند عرض الصورة بارتفاع 320px (ديسكتوب)"
               />
               <Metric
                 label="الارتفاع الظاهري — بريميوم"
-                value="146px"
+                value="302px"
                 note="تطابق تام مع إنتنسو"
               />
               <Metric
@@ -97,9 +97,9 @@ export default function PreviewBanner() {
                 تم قصّ الصورة الجديدة على حدود الكيس بدقة، ثم إعادة تحجيمها على
                 نفس مقياس كيس البريميوم: محتوى الكيس يشغل 94.4% من ارتفاع
                 الملف في كلا الصورتين، مع نفس هامش القاعدة (20px) ونفس النسبة
-                البُعدية (0.473). لذلك حين يعرضهما المتصفح بنفس الارتفاع
-                يظهران بحجم ظاهري متطابق تمامًا — قاعدة مستقيمة، ظل موحّد،
-                وانعكاس ذهبي مشترك تحت الكيسين.
+                البُعدية (0.473). لذلك في الهيرو — حيث يعرض الكيسان بارتفاع
+                320px — يظهران بحجم ظاهري متطابق تمامًا (302px ارتفاع مرئي
+                لكل منهما): قاعدة مستقيمة، ظل موحّد، وحركة طفو متناظرة.
               </p>
             </div>
           </PreviewSection>

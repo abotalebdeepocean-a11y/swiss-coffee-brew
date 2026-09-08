@@ -100,7 +100,7 @@ export function OfferBanner() {
                 </div>
 
                 {/* ─── Bags ─── */}
-                <div className="relative flex items-end justify-center gap-5 pb-2 md:gap-10">
+                <div className="relative flex items-end justify-center gap-4 pb-2 md:gap-6">
                   {/* Soft glow pool under the bags */}
                   <div className="pointer-events-none absolute -bottom-3 left-1/2 h-14 w-[240px] -translate-x-1/2 rounded-full bg-[#c9a84c]/[0.14] blur-3xl" />
 
@@ -111,7 +111,7 @@ export function OfferBanner() {
                     className="animate-levitate relative z-[5] block cursor-pointer transition-transform duration-300 hover:scale-[1.05]"
                   >
                     <img
-                      src="/images/intenso-bag-front-new.webp"
+                      src="/images/intenso-bag.webp"
                       alt="ROVENTO بار إنتنسو"
                       loading="lazy"
                       decoding="async"
