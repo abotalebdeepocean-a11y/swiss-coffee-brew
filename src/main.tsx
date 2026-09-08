@@ -13,6 +13,7 @@ import "./index.css";
 
 // Lazy load route components for better code splitting
 const Landing = lazy(() => import("./pages/Landing.tsx"));
+const PreviewBanner = lazy(() => import("./pages/PreviewBanner.tsx"));
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
 const Product = lazy(() => import("./pages/Product.tsx"));
@@ -145,6 +146,7 @@ createRoot(document.getElementById("root")!).render(
             <Suspense fallback={<RouteLoading />}>
               <Routes>
                 <Route path="/" element={<Landing />} />
+                <Route path="/preview-banner" element={<PreviewBanner />} />
                 <Route path="/product/:slug" element={<Product />} />
                 <Route path="/about" element={<About />} />
                 <Route
