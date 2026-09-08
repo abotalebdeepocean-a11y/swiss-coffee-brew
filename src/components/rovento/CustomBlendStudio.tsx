@@ -31,7 +31,7 @@ type RoastId = "light" | "medium" | "dark";
 const ROASTS: { id: RoastId; label: string; emoji: string; image: string; desc: string }[] = [
   { id: "light", label: "فاتح", emoji: "☀️", image: IMAGES.roastLevels.light, desc: "حموضة مشرقة" },
   { id: "medium", label: "متوسط", emoji: "🔥", image: IMAGES.roastLevels.medium, desc: "التوازن المثالي" },
-  { id: "dark", label: "غامق", emoji: "🌑", image: IMAGES.roastLevels.dark, desc: "كاكاو وجسم قوي" },
+  { id: "dark", label: "وسط غامق", emoji: "🌑", image: IMAGES.roastLevels.dark, desc: "كاكاو وجسم قوي" },
 ];
 
 const GRINDS = [

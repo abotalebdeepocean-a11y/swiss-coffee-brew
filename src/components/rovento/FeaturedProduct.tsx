@@ -14,13 +14,13 @@ export function FeaturedProduct() {
   const isInView = useInView(ref, { once: true });
   const { add } = useCart();
 
-  const price = 690;
+  const price = 750;
   const price2kg = discountedPriceFor2kg(price);
 
   const CALLOUTS = [
     { label: "الكريما", value: "9/10" },
     { label: "القوة", value: "5/5" },
-    { label: "التحميص", value: "غامق" },
+    { label: "الكافيين", value: "عالي" },
     { label: "الأصل", value: "الجواتيمالا · الهند" },
   ];
 

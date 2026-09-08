@@ -18,7 +18,7 @@ const CARDS: CardSpec[] = [
     slug: "rovento-bar-intenso-1kg",
     nameEn: "Bar Intenso",
     nameAr: "بار انتينسو",
-    tag: "تحميص غامق · قوة عالية",
+    tag: "كافيين أعلى · قوة عالية · مثالي مع الحليب",
     desc: "قهوة مكثفة بنكهة جريئة وعميقة، مثالية لعشاق الطعم القوي. محمصة بعناية فائقة لأفضل النتائج.",
     img: "/images/intenso-bag.webp",
     badge: "عرض محدود",
@@ -35,7 +35,7 @@ const CARDS: CardSpec[] = [
 ];
 
 function priceOf(slug: string): number {
-  return PRODUCTS.find((p) => p.slug === slug)?.price ?? 700;
+  return PRODUCTS.find((p) => p.slug === slug)?.price ?? 750;
 }
 
 /** منتجاتنا المختارة — بطاقتان لكل منتج رئيسي (1 كجم) */

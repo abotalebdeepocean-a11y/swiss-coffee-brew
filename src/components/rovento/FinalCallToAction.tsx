@@ -7,13 +7,13 @@ const OFFERS = [
   {
     slug: "rovento-bar-intenso-1kg",
     label: "اطلب Bar Intenso الآن",
-    price: 700,
+    price: 750,
     icon: ShoppingBag,
   },
   {
     slug: "rovento-premium-1kg",
     label: "اطلب Premium الآن",
-    price: 890,
+    price: 850,
     icon: Sparkles,
   },
 ];

@@ -37,7 +37,7 @@ const SPECS = [
     nameEn: "BAR INTENSO",
     ratio: "30% أرابيكا / 70% روبوستا",
     origin: "الجواتيمالا • كولومبيا",
-    roast: "متوسط - متوسط غامق",
+    roast: "تحميص وسط",
   },
   {
     name: "بريميوم",

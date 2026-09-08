@@ -11,7 +11,7 @@ import {
 import { useCart } from "@/lib/store";
 
 const SPECS = [
-  { icon: Flame, label: "تحميص غامق", value: "Dark Roast" },
+  { icon: Flame, label: "كافيين أعلى", value: "High Caffeine" },
   { icon: Droplets, label: "كريمة غنية", value: "Rich Crema" },
   { icon: Zap, label: "قوة عالية", value: "Full Body" },
   { icon: Coffee, label: "30% أرابيكا", value: "70% روبوستا" },
@@ -103,7 +103,7 @@ export function FloatingProductHero() {
 
               {/* Price tag */}
               <div className="absolute -bottom-3 -left-2 rounded-xl bg-rv-gold px-4 py-2 shadow-xl md:-bottom-4 md:-left-6">
-                <span className="text-lg font-black text-white">700</span>
+                <span className="text-lg font-black text-white">750</span>
                 <span className="mr-1 text-xs font-bold text-white/80">
                   ج.م
                 </span>
@@ -149,7 +149,7 @@ export function FloatingProductHero() {
 
           {/* Price */}
           <div className="flex items-baseline justify-center gap-3 md:justify-start">
-            <span className="text-4xl font-black text-rv-darkBrown">700</span>
+            <span className="text-4xl font-black text-rv-darkBrown">750</span>
             <span className="text-lg font-bold text-rv-brown/50">ج.م</span>
             <span className="rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-bold text-red-600">
               1 كجم
@@ -198,8 +198,8 @@ export function FloatingProductHero() {
           {/* Description */}
           <p className="text-sm leading-relaxed text-rv-brown/70 md:text-base">
             قوي وجريء بتأثير إيطالي — عمق في النكهة وكريمة غنية. مثالي
-            لعشاق الإسبريسو القوي والكورتوادو. تحميص غامق بدرجة عالية
-            من الجسم والكريما.
+            لعشاق الإسبريسو القوي والكورتوادو. توليفة بكافيين أعلى ومناسبة أكتر
+            للمشروبات المعتمدة على الحليب.
           </p>
 
           {/* Add to Cart CTA */}
@@ -211,7 +211,7 @@ export function FloatingProductHero() {
               className="flex items-center gap-3 rounded-xl bg-rv-gold px-8 py-4 text-lg font-black text-white shadow-xl shadow-rv-gold/25 transition-shadow hover:shadow-[0_12px_40px_rgba(179,139,51,0.35)]"
             >
               <ShoppingCart className="size-5" />
-              أضف للسلة — 700 ج.م
+              أضف للسلة — 750 ج.م
             </motion.button>
 
           </div>

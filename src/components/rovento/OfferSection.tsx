@@ -136,8 +136,8 @@ export function OfferSection() {
   const hasDiscount = totalQty >= 2;
 
   // Calculate 5% discount
-  const intensoTotal = intensoQty * 700;
-  const premiumTotal = premiumQty * 890;
+  const intensoTotal = intensoQty * 750;
+  const premiumTotal = premiumQty * 850;
   const subtotal = intensoTotal + premiumTotal;
   const discountAmount = hasDiscount ? Math.round(subtotal * 0.05) : 0;
 

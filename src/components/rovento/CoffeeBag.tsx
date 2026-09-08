@@ -45,12 +45,12 @@ const BLEND_META: Record<
     blendText: "INTENSO BLEND",
     ratio: "30% ARABICA · 70% ROBUSTA",
     blendAr: "خلاطة إنتينسو",
-    roast: "FRESH DARK ROAST",
+    roast: "FRESH MEDIUM ROAST",
     badge: [
       { top: "EXTRA", bottom: "CREMA", x: 106, icon: "drop" },
       { top: "STRONG", bottom: "BODY", x: 177, icon: "scale" },
       { top: "BOLD", bottom: "TASTE", x: 248, icon: "wave" },
-      { top: "DARK", bottom: "ROAST", x: 319, icon: "flame" },
+      { top: "MEDIUM", bottom: "ROAST", x: 319, icon: "flame" },
     ],
   },
   classic: {
@@ -60,7 +60,7 @@ const BLEND_META: Record<
     blendText: "CLASSIC BLEND",
     ratio: "50% ARABICA · 50% ROBUSTA",
     blendAr: "خلاطة كلاسيك",
-    roast: "FRESH MEDIUM DARK ROAST",
+    roast: "FRESH MEDIUM ROAST",
     badge: [
       { top: "RICH", bottom: "CREMA", x: 106, icon: "drop" },
       { top: "WELL", bottom: "BALANCED", x: 177, icon: "scale" },

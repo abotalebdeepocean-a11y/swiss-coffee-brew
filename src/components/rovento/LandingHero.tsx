@@ -177,7 +177,7 @@ export function LandingHero() {
               Bar Intenso
             </p>
             <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              قوية • غنية • جريئة — كريمة غنية وتحميص غامق وإسبريسو إيطالي
+              توليفة قوية بكافيين أعلى — مثالية للمشروبات المعتمدة على الحليب وإسبريسو إيطالي
               أصيل
             </p>
           </div>

@@ -12,8 +12,8 @@ const BAGS = [
     image: IMAGES.products.barIntenso,
     nameEn: "BAR INTENSO",
     nameAr: "بار انتينسو",
-    tagline: "قوي وجريء — تحميص غامق، كريمة غنية، قوة عالية",
-    price: 700,
+    tagline: "توليفة قوية بكافيين أعلى — كريمة غنية، مثالي مع الحليب",
+    price: 750,
     weight: "1 كجم",
     accent: "from-blue-900/40 to-blue-950/0",
     glow: "rgba(30,58,95,0.18)",
@@ -29,7 +29,7 @@ const BAGS = [
     nameEn: "PREMIUM",
     nameAr: "بريميوم",
     tagline: "50% أرابيكا / 50% روبوستا — رائحة غنية، جسم ناعم، تحميص متوسط",
-    price: 890,
+    price: 850,
     weight: "1 كجم",
     accent: "from-teal-900/40 to-teal-950/0",
     glow: "rgba(201,169,97,0.18)",
@@ -44,7 +44,7 @@ const BAGS = [
 const COMPARE_FEATURES = [
   { label: "نسبة الأرابيكا", intenso: "30%", premium: "50%" },
   { label: "نسبة الروبوستا", intenso: "70%", premium: "50%" },
-  { label: "درجة التحميص", intenso: "متوسط-غامق", premium: "متوسط" },
+  { label: "درجة التحميص", intenso: "وسط", premium: "متوسط" },
   { label: "النكهات", intenso: "كريمة غنية", premium: "نكهة غنية فاخرة" },
   { label: "الأفضل لـ", intenso: "كورتوادو وإسبريسو قوي", premium: "لاتيه وكابتشينو" },
   { label: "الكريما", intenso: "غنية جدًا (Rich Crema)", premium: "غنية (Rich Crema)" },
@@ -278,10 +278,10 @@ export function SignatureCollection() {
                     السعر (1 كجم)
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
-                    700 ج.م
+                    750 ج.م
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
-                    890 ج.م
+                    850 ج.م
                   </td>
                 </tr>
               </tbody>
