@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { getProduct } from "@/lib/products";
+import { FlipBag } from "./FlipBag";
 
 /**
  * Hero — "خذ حصاد الجبل إلى بيتك"
@@ -154,14 +155,31 @@ export function LandingHero() {
             aria-label="بار إنتنسو — انتقل إلى صفحة المنتج"
             className="animate-levitate relative block cursor-pointer"
           >
-            <img
-              src="/images/intenso-bag-front-new.webp"
-              alt="ROVENTO بار إنتنسو"
-              fetchPriority="high"
-              decoding="async"
-              width={400}
-              height={600}
-              className="relative h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+            <FlipBag
+              altFront="ROVENTO بار إنتنسو — الوجه الأمامي"
+              altBack="ROVENTO بار إنتنسو — الغلاف الخلفي"
+              front={
+                <img
+                  src="/images/intenso-bag-front-new.webp"
+                  alt=""
+                  fetchPriority="high"
+                  decoding="async"
+                  width={400}
+                  height={600}
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+                />
+              }
+              back={
+                <img
+                  src="/images/intenso-bag-back-new.webp"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={600}
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] sm:h-[260px] md:h-[320px]"
+                />
+              }
             />
           </Link>
 
@@ -205,14 +223,31 @@ export function LandingHero() {
             aria-label="بريميوم — انتقل إلى صفحة المنتج"
             className="animate-levitate-reverse relative block cursor-pointer"
           >
-            <img
-              src="/images/premium-bag.webp"
-              alt="ROVENTO بريميوم"
-              fetchPriority="high"
-              decoding="async"
-              width={400}
-              height={600}
-              className="relative h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+            <FlipBag
+              altFront="ROVENTO بريميوم — الوجه الأمامي"
+              altBack="ROVENTO بريميوم — الغلاف الخلفي"
+              front={
+                <img
+                  src="/images/premium-bag.webp"
+                  alt=""
+                  fetchPriority="high"
+                  decoding="async"
+                  width={400}
+                  height={600}
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+                />
+              }
+              back={
+                <img
+                  src="/images/premium-bag-back.webp"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={600}
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] sm:h-[260px] md:h-[320px]"
+                />
+              }
             />
           </Link>
 

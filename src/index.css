@@ -169,6 +169,38 @@
 
 .animate-levitate { animation: levitate 4s ease-in-out infinite; }
 .animate-levitate-reverse { animation: levitate-reverse 5s ease-in-out infinite; }
+
+/* ═══ تبديل سلو موشن بين وجهي الكيس (أمامي/خلفي) — CSS خالص بلا JS ═══
+   حركة rotateY فقط على طبقة مركّبة واحدة (GPU) — خفيفة جدًا على الموبايل.
+   الدورة: ثبات أمامي ~5.8ث ← انقلاب بطيء 1.6ث ← ثبات خلفي ~6.4ث ← عودة بطيئة. */
+.rv-flip-scene {
+  perspective: 1200px;
+}
+.rv-flip-inner {
+  transform-style: preserve-3d;
+  animation: bag-flip 16s ease-in-out infinite;
+  will-change: transform;
+}
+/* إزاحة طفيفة للكيس الثاني — ينقلبان بالتناوب لا معًا */
+.rv-flip-inner--stagger {
+  animation-delay: 1.2s;
+}
+/* وقفة عند الماوس ليتفحّص الزائر الوجه — تُستأنف تلقائيًا */
+.rv-flip-scene:hover .rv-flip-inner {
+  animation-play-state: paused;
+}
+.rv-flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rv-flip-face--back {
+  transform: rotateY(180deg);
+}
+@keyframes bag-flip {
+  0%, 36% { transform: rotateY(0deg); }
+  46%, 86% { transform: rotateY(180deg); }
+  96%, 100% { transform: rotateY(360deg); }
+}
 .animate-gold-shimmer { animation: gold-shimmer 3s ease-in-out infinite; }
 .animate-particle-float { animation: particle-float 8s ease-in-out infinite; }
 
@@ -339,6 +371,13 @@
   .animate-levitate-reverse {
     animation-duration: 8s;
   }
+
+  /* الانقلاب: تبقى حركة rotateY مركّبة على GPU — لكن نطيلها قليلًا
+     على الموبايل لتكون أكثر نعومة، ونوقف stagger الكيس الثاني temporarily
+     لتخفيف الحمل؟ لا — التناوب بين الكيسين أرخص من انقلاب متزامن، نُبقيه. */
+  .rv-flip-inner {
+    animation-duration: 18s;
+  }
 }
 
 /* مدى الطفو المخفف على الموبايل — نفس المحددات مع أزواج القيم المطلوبة */
@@ -363,6 +402,13 @@
   }
   .rv-glow-ring::before {
     animation: none;
+  }
+  /* الوجه الخلفي يبقى مخفيًا — يظهر الأمامي ثابتًا */
+  .rv-flip-inner {
+    animation: none;
+  }
+  .rv-flip-face--back {
+    visibility: hidden;
   }
 }
 

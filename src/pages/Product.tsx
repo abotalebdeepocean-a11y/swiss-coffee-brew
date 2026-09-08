@@ -36,8 +36,8 @@ import { cn } from "@/lib/utils";
 
 /* ─── صور المعرض الافتراضية لكل منتج — أمامي وخلفي لكل كيس ─── */
 const DEFAULT_GALLERY = [
-  "/images/intenso-bag",
-  "/images/intenso-bag-back-clean",
+  "/images/intenso-bag-front-new",
+  "/images/intenso-bag-back-new",
   "/images/premium-bag",
   "/images/premium-bag-back",
 ];

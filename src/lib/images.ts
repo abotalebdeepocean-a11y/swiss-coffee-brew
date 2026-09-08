@@ -16,8 +16,8 @@ export const IMAGES = {
   bags: {
     /** كيس BAR INTENSO — الأمامي */
     intenso: "/images/intenso-bag",
-    /** كيس BAR INTENSO — الخلفي (نفس المقياس — النسخة النظيفة بلا عيب الظل) */
-    intensoBack: "/images/intenso-bag-back-clean",
+    /** كيس BAR INTENSO — الخلفي (نفس مقياس الأمامي الجديد — الغلاف الخلفي الرسمي) */
+    intensoBack: "/images/intenso-bag-back-new",
     /** كيس PREMIUM — الأمامي */
     premium: "/images/premium-bag",
     /** كيس PREMIUM — الخلفي (نفس المقياس) */
@@ -30,7 +30,7 @@ export const IMAGES = {
   /** صور المنتجات — الأمامي والخلفي لكل منتج */
   products: {
     barIntenso: "/images/intenso-bag",
-    barIntensoBack: "/images/intenso-bag-back-clean",
+    barIntensoBack: "/images/intenso-bag-back-new",
     premium: "/images/premium-bag",
     premiumBack: "/images/premium-bag-back",
   },
