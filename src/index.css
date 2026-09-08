@@ -267,6 +267,64 @@
   button, a[role="button"], [role="tab"], input, select, textarea {
     min-height: 48px;
   }
+
+  /* ─── أداء الموبايل: قلّل الحركة/التأثيرات المكلفة على GPU ─── */
+  /* نويز سينمائي (film grain) مكلف على الشاشات الصغيرة — أوقفه تمامًا */
+  .rv-noise::after { display: none; }
+
+  /* حلقة النيون الدوارة (conic-gradient متحرك) — استبدلها بحلقة ثابتة */
+  [style*="neonSpin"] {
+    animation: none !important;
+    background: conic-gradient(
+      from 0deg,
+      rgba(201, 168, 76, 0.55) 0deg,
+      rgba(201, 168, 76, 0.08) 90deg,
+      rgba(201, 168, 76, 0.55) 180deg,
+      rgba(201, 168, 76, 0.08) 270deg,
+      rgba(201, 168, 76, 0.55) 360deg
+    ) !important;
+    filter: none !important;
+  }
+
+  /* كلاسات الطفو — مدة أبطأ ومدى أصغر (6px بدل 18–24px) */
+  .animate-levitate,
+  .animate-levitate-reverse {
+    animation-duration: 8s;
+  }
+}
+
+/* مدى الطفو المخفف على الموبايل — نفس المحددات مع أزواج القيم المطلوبة */
+@media (max-width: 767px) {
+  @keyframes levitate {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-6px) rotate(0deg); }
+  }
+  @keyframes levitate-reverse {
+    0%, 100% { transform: translateY(0) rotate(1deg); }
+    50% { transform: translateY(-6px) rotate(0deg); }
+  }
+}
+
+/* احترام إعداد المستخدم لتقليل الحركة (إتاحة) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-levitate,
+  .animate-levitate-reverse,
+  .animate-gold-shimmer,
+  .animate-particle-float {
+    animation: none;
+  }
+  [style*="neonSpin"] {
+    animation: none !important;
+    background: conic-gradient(
+      from 0deg,
+      rgba(201, 168, 76, 0.55) 0deg,
+      rgba(201, 168, 76, 0.08) 90deg,
+      rgba(201, 168, 76, 0.55) 180deg,
+      rgba(201, 168, 76, 0.08) 270deg,
+      rgba(201, 168, 76, 0.55) 360deg
+    ) !important;
+    filter: none !important;
+  }
 }
 
 /* ═══ Ornamental / Luxe Decor ═══ */

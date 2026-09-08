@@ -101,6 +101,10 @@ function ProfileBlock({ profile }: { profile: BlendProfile }) {
           <img
             src={profile.image}
             alt={`ROVENTO ${profile.name}`}
+            loading="lazy"
+            decoding="async"
+            width={400}
+            height={600}
             className="h-[260px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.75)] sm:h-[320px] md:h-[380px]"
           />
         </Link>

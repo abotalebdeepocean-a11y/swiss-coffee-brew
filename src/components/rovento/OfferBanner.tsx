@@ -68,6 +68,8 @@ export function OfferBanner() {
                 src="/images/olives-tree.webp"
                 alt=""
                 aria-hidden="true"
+                loading="lazy"
+                decoding="async"
                 className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-50"
               />
               {/* Legibility scrims — text side darker, bags side lighter */}
@@ -122,6 +124,10 @@ export function OfferBanner() {
                     <img
                       src="/images/intenso-bag.webp"
                       alt="ROVENTO بار إنتنسو"
+                      loading="lazy"
+                      decoding="async"
+                      width={400}
+                      height={600}
                       className="h-[120px] w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.75)] md:h-[155px]"
                     />
                   </Link>
@@ -131,6 +137,10 @@ export function OfferBanner() {
                     className="animate-levitate-reverse relative z-[5] block cursor-pointer transition-transform duration-300 hover:scale-[1.05]"
                   >
                     <img
+                      loading="lazy"
+                      decoding="async"
+                      width={400}
+                      height={600}
                       src="/images/premium-bag.webp"
                       alt="ROVENTO بريميوم"
                       className="h-[120px] w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.75)] md:h-[155px]"

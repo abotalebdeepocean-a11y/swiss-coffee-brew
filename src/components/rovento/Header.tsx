@@ -31,6 +31,8 @@ export function Header() {
             <img
               src="/images/rovento-logo-real.webp"
               alt="ROVENTO"
+              fetchPriority="high"
+              decoding="async"
               className="h-11 w-auto md:h-12"
             />
           </Link>

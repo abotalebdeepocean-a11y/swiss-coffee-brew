@@ -70,6 +70,7 @@ export function BagVisual({
         src={src}
         alt={alt ?? "ROVENTO coffee bag"}
         loading={eager ? "eager" : "lazy"}
+        decoding="async"
         onError={onError}
         className={className}
         style={style}

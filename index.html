@@ -26,6 +26,11 @@
   <meta name="twitter:image" content="/images/rovento-logo-real.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Preload critical LCP images (hero background + the two hero bags)
+       so the browser starts fetching them before the JS bundle runs -->
+  <link rel="preload" as="image" href="/images/mountain-harvest-bg.webp" />
+  <link rel="preload" as="image" href="/images/premium-bag.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/images/intenso-bag.webp" fetchpriority="high" />
   <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&display=swap"
     rel="stylesheet"

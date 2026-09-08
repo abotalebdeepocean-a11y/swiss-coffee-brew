@@ -83,11 +83,14 @@ export function LandingHero() {
       className="relative min-h-screen overflow-hidden bg-[#0a0a0a] pt-20"
     >
       {/* ═══ Full-bleed mountain photo background ═══ */}
-      <div className="pointer-events-none absolute inset-0">
-        <img
+      <div className="pointer-events-none absolute inset-0">        <img
           src="/images/mountain-harvest-bg.webp"
           alt=""
           aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          width={1600}
+          height={900}
           className="absolute inset-0 h-full w-full object-cover"
         />
         {/* Legibility scrim — subtle, keeps the photo untouched visually */}
@@ -137,7 +140,7 @@ export function LandingHero() {
       {/* ═══ The two bags with prices — like the reference ═══ */}
       <div
         id="products"
-        className="relative z-10 mx-auto mt-10 flex max-w-[820px] scroll-mt-24 items-end justify-center gap-6 px-4 md:mt-14 md:gap-16"
+        className="relative z-10 mx-auto mt-10 flex max-w-[820px] scroll-mt-24 flex-col items-stretch gap-10 px-4 md:mt-14 md:flex-row md:items-end md:gap-16"
       >
         {/* Bar Intenso — right (RTL first) */}
         <motion.div
@@ -154,7 +157,11 @@ export function LandingHero() {
             <img
               src="/images/intenso-bag.webp"
               alt="ROVENTO بار إنتنسو"
-              className="relative h-[210px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+              fetchPriority="high"
+              decoding="async"
+              width={400}
+              height={600}
+              className="relative h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
             />
           </Link>
 
@@ -201,7 +208,11 @@ export function LandingHero() {
             <img
               src="/images/premium-bag.webp"
               alt="ROVENTO بريميوم"
-              className="relative h-[210px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+              fetchPriority="high"
+              decoding="async"
+              width={400}
+              height={600}
+              className="relative h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
             />
           </Link>
 
@@ -242,6 +253,8 @@ export function LandingHero() {
         <img
           src="/images/rovento-logo-real.webp"
           alt="ROVENTO"
+          loading="lazy"
+          decoding="async"
           className="h-12 w-auto opacity-95"
         />
         <span className="text-[10px] tracking-[0.4em] text-[#f5efe6]/60 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">

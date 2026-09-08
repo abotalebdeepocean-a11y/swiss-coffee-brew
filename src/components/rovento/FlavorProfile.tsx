@@ -71,6 +71,8 @@ export function FlavorProfile() {
             <img
               src="/images/rovento-logo-real.webp"
               alt="ROVENTO"
+              loading="lazy"
+              decoding="async"
               className="h-14 w-auto"
             />
           </div>
