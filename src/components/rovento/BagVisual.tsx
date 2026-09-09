@@ -14,6 +14,15 @@ function candidatesFor(base: string): string[] {
 }
 
 /**
+ * أفضل مسار معروف لصورة على القرص — يُستخدم في preload داخل index.html
+ * حتى لا يبدأ المتصفح التنزيل إلا بعد تشغيل JS. (اختياري: استخدمه لتوليد
+ * قائمة preload محدثة دائمًا عند تغيير امتدادات الملفات.)
+ */
+export function bestKnownCandidate(base: string): string {
+  return `${base}${EXTENSIONS[0]}`;
+}
+
+/**
  * Tries `base.png`, `base.jpg`, `base.webp` in order and returns `null`
  * once all of them fail — the caller then renders the SVG fallback art.
  * Used so real photos replace the SVG art the moment they exist, while a
@@ -53,6 +62,8 @@ export function BagVisual({
   style,
   alt,
   eager = false,
+  width,
+  height,
 }: {
   image?: string;
   variant?: BlendVariant;
@@ -61,6 +72,10 @@ export function BagVisual({
   style?: CSSProperties;
   alt?: string;
   eager?: boolean;
+  /** عرض العرض بالبكسل (لحجز المساحة ومنع CLS) */
+  width?: number;
+  /** ارتفاع العرض بالبكسل (لحجز المساحة ومنع CLS) */
+  height?: number;
 }) {
   const { src, onError } = useImageCandidates(image);
 
@@ -72,6 +87,8 @@ export function BagVisual({
         loading={eager ? "eager" : "lazy"}
         decoding="async"
         onError={onError}
+        width={width}
+        height={height}
         className={className}
         style={style}
       />
@@ -105,12 +122,16 @@ export function SlideVisual({
   if (src) {
     return (
       <>
-        <img
-          src={src}
-          alt=""
-          onError={onError}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+      <img
+        src={src}
+        alt=""
+        onError={onError}
+        loading="lazy"
+        decoding="async"
+        width={2243}
+        height={701}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
         {scrim === "soft" ? (
           /* light scrim — the banner already carries its own copy */
           <div className="absolute inset-0 bg-black/15" />
