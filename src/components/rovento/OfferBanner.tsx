@@ -103,14 +103,14 @@ export function OfferBanner() {
                   {/* حساب العرض بالدقة — كيسان من أي بلند */}
                   <div className="mb-6 rounded-xl border border-[#c9a84c]/25 bg-[#050505]/70 px-4 py-3">
                     <p className="text-xs text-[#b0a898]">
-                      مثال: كيسان بريميوم —{" "}
-                      <span className="rv-old-price font-bold text-[#888888]">1,900 ج.م</span>{" "}
+                      مثال: كيس إنتنسو + كيس بريميوم —{" "}
+                      <span className="rv-old-price font-bold text-[#888888]">1,740 ج.م</span>{" "}
                       ←{" "}
-                      <span className="font-black text-[#f5efe6]">1,710 ج.م</span>{" "}
+                      <span className="font-black text-[#f5efe6]">1,440 ج.م</span>{" "}
                       بعد الخصم
                     </p>
                     <p className="mt-1 text-sm font-black text-[#e0c872]">
-                      توفير إجمالي 190 ج.م على الطلب
+                      توفير إجمالي 300 ج.م على الطلب
                     </p>
                   </div>
 
