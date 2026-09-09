@@ -186,7 +186,7 @@ function ProfileBlock({ profile }: { profile: BlendProfile }) {
               <span className="text-xs font-bold text-[#888888]">ج.م</span>
             </div>
             {profile.oldPrice && (
-              <span className="rv-old-price mt-0.5 text-xs font-bold text-[#888888]">
+              <span className="rv-old-price rv-price-flash mt-0.5 text-xs font-bold text-[#888888]">
                 بدلًا من {profile.oldPrice} ج.م
               </span>
             )}
@@ -196,7 +196,7 @@ function ProfileBlock({ profile }: { profile: BlendProfile }) {
             <span className="text-sm font-black text-[#e0c872]">
               {price2kg * 2} ج.م
             </span>
-            <span className="rv-old-price text-[11px] font-bold text-[#888888]">
+            <span className="rv-old-price rv-price-flash text-[11px] font-bold text-[#888888]">
               بدلًا من {profile.price * 2} ج.م
             </span>
           </div>

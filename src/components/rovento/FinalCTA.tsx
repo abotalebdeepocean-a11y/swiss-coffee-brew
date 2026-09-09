@@ -38,7 +38,7 @@ export function FinalCTA() {
               <ShoppingCart className="size-5" />
               اطلب بار إنتنسو — {intensoPrice} ج.م
               {intensoOld && (
-                <span className="rv-old-price rv-old-price-dark text-xs font-bold text-rv-black/60">
+                <span className="rv-old-price rv-old-price-dark rv-price-flash-dark text-xs font-bold text-rv-black/60">
                   {intensoOld}
                 </span>
               )}
@@ -50,7 +50,7 @@ export function FinalCTA() {
               <ShoppingCart className="size-5" />
               اطلب بريميوم — {premiumPrice} ج.م
               {premiumOld && (
-                <span className="rv-old-price rv-old-price-dark text-xs font-bold text-rv-black/60">
+                <span className="rv-old-price rv-old-price-dark rv-price-flash-dark text-xs font-bold text-rv-black/60">
                   {premiumOld}
                 </span>
               )}

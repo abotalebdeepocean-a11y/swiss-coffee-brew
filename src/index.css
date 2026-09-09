@@ -665,3 +665,81 @@
     opacity: 1;
   }
 }
+
+/* ═══ فلشر أسعار "بدلًا من" — وميض أنيق لجذب النظر للسعر القديم ═══
+   ومضة مزدوجة سريعة كل 4.5 ثوانٍ (بنفس نبض بانر العرض للتناسق):
+   النص يلمع بسطوع أعلى + هالة ذهبية (تغيّر لون محسوس) ثم يخفت
+   ويبقى هادئًا باقي الدورة — يلفت الانتباه بدون إزعاج.
+   الحركة على opacity/filter فقط = تكلفة شبه معدومة على الموبايل،
+   وتُعطَّل تلقائيًا مع prefers-reduced-motion. */
+.rv-price-flash {
+  animation: rv-price-flash 4.5s ease-in-out infinite;
+}
+@keyframes rv-price-flash {
+  0%,
+  58% {
+    opacity: 1;
+    filter: brightness(1);
+    text-shadow: 0 0 0 rgba(224, 200, 114, 0);
+  }
+  /* الومضة الأولى */
+  61% {
+    opacity: 0.5;
+    filter: brightness(1.9);
+    text-shadow: 0 0 10px rgba(224, 200, 114, 0.9);
+  }
+  65% {
+    opacity: 1;
+    filter: brightness(1.25);
+    text-shadow: 0 0 4px rgba(224, 200, 114, 0.35);
+  }
+  /* الومضة الثانية — أقوى مع التوهج الذهبي الكامل */
+  69% {
+    opacity: 0.55;
+    filter: brightness(2.1);
+    text-shadow: 0 0 12px rgba(224, 200, 114, 1);
+  }
+  78% {
+    opacity: 1;
+    filter: brightness(1.45);
+    text-shadow: 0 0 6px rgba(224, 200, 114, 0.5);
+  }
+  /* خمود ناعم حتى نهاية الدورة */
+  92%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+    text-shadow: 0 0 0 rgba(224, 200, 114, 0);
+  }
+}
+
+/* نسخة للسعر القديم داخل الأزرار الذهبية (نص داكن) — نفس الإيقاع
+   لكن بومضة opacity فقط: الرقم يظهر ويختفي بسرعة بدل تغيير اللون،
+   لأن سطوع النص الداكن لا يتغير فوق خلفية ذهبية. */
+.rv-price-flash-dark {
+  animation-name: rv-price-flash-dark;
+}
+@keyframes rv-price-flash-dark {
+  0%,
+  58%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  61%,
+  69% {
+    opacity: 0.35;
+  }
+  65% {
+    opacity: 0.9;
+  }
+  78% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-price-flash {
+    animation: none;
+  }
+}

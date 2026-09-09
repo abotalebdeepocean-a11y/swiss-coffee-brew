@@ -91,12 +91,12 @@ export function OfferBanner() {
                     <div className="flex items-baseline gap-2 rounded-xl border border-[#c9a84c]/20 bg-[#050505]/60 px-3.5 py-2">
                       <span className="text-lg font-black text-[#f5efe6]">750</span>
                       <span className="text-[10px] font-bold text-[#b0a898]">ج.م</span>
-                      <span className="rv-old-price text-xs font-bold text-[#888888]">790 ج.م</span>
+                      <span className="rv-old-price rv-price-flash text-xs font-bold text-[#888888]">790 ج.م</span>
                     </div>
                     <div className="flex items-baseline gap-2 rounded-xl border border-[#c9a84c]/20 bg-[#050505]/60 px-3.5 py-2">
                       <span className="text-lg font-black text-[#f5efe6]">850</span>
                       <span className="text-[10px] font-bold text-[#b0a898]">ج.م</span>
-                      <span className="rv-old-price text-xs font-bold text-[#888888]">950 ج.م</span>
+                      <span className="rv-old-price rv-price-flash text-xs font-bold text-[#888888]">950 ج.م</span>
                     </div>
                   </div>
 
