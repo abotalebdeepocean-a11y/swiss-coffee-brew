@@ -90,12 +90,12 @@ export function LandingHero() {
           aria-hidden="true"
           fetchPriority="high"
           decoding="async"
-          width={1600}
-          height={900}
-          className="absolute inset-0 h-full w-full object-cover"
+          width={1200}
+          height={896}
+          className="absolute inset-0 h-full w-full object-cover object-[62%_35%]"
         />
-        {/* Legibility scrim — subtle, keeps the photo untouched visually */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/25" />
+        {/* Legibility scrim — light: the new photo is already dark/moody, keep its detail visible */}
+        <div className="absolute inset-0 bg-[#0a0a0a]/10" />
         {/* Top/bottom fades into the page */}
         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0a0a0a]/80 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
