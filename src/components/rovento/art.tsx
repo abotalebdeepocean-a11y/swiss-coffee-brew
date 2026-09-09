@@ -312,6 +312,9 @@ export function Logo({ className, size = "default" }: { className?: string; size
           <img
             src="/images/rovento-logo-final.webp"
             alt="ROVENTO Coffee Logo"
+            width={512}
+            height={512}
+            decoding="async"
             className="h-full w-full object-cover"
             loading="eager"
           />
@@ -329,6 +332,9 @@ export function Logo({ className, size = "default" }: { className?: string; size
       <img
         src="/images/rovento-logo-final.webp"
         alt="ROVENTO"
+        width={512}
+        height={512}
+        decoding="async"
         className="sr-only"
         aria-hidden="true"
       />

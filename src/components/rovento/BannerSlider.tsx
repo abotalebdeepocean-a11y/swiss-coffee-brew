@@ -79,6 +79,15 @@ export function BannerSlider() {
     return () => clearInterval(t);
   }, [paused, go]);
 
+  // تسخين كاش الصور بعد أول رسم — أول تبديل سلايد يصبح فوريًا من الكاش
+  // بدل انتظار تنزيل الصورة (كان يظهر فراغ/سقوط للفالباك في أول دورة).
+  useEffect(() => {
+    SLIDES.forEach((s) => {
+      const img = new Image();
+      img.src = `${s.image}.webp`;
+    });
+  }, []);
+
   const slide = SLIDES[index];
 
   return (

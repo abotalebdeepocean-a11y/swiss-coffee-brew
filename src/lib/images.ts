@@ -53,42 +53,5 @@ export const IMAGES = {
     /** بانر الكيس CLASSIC 1 كجم */
     classic1kg: "/images/premium-bag",
   },
-  /** شعار ROVENTO الحقيقي */
-  logo: "/images/rovento-logo-final",
-  /** حبوب خام لقسم خلطتك الخاصة */
-  beans: {
-    arabica: "/images/bean-arabica",
-    robusta: "/images/bean-robusta",
-  },
-  /** درجات التحميص — صور حبوب بن حقيقية (بدون امتداد — useImageCandidates يجرب .webp/.png/.jpg) */
-  roastLevels: {
-    light: "/images/bean-light",
-    medium: "/images/bean-medium",
-    dark: "/images/bean-dark",
-  },
-  /** صور مقارنة درجات التحميص */
-  roastCompare: {
-    lightDark: "/images/roast-compare-light-dark",
-    mediumLight: "/images/roast-compare-medium-light",
-    darkMedium: "/images/roast-compare-dark-medium",
-  },
-  /** ماكينات القهوة — صور حقيقية (Wikimedia Commons) */
-  machines: {
-    espressoHome: "/images/machine-espresso-home",
-    espressoPro: "/images/machine-espresso-pro",
-    automatic: "/images/machine-automatic",
-    capsule: "/images/machine-capsule",
-    moka: "/images/machine-moka",
-    cezve: "/images/machine-cezve",
-  },
-  /** إكسسوارات وأدوات — صور حقيقية (Wikimedia Commons) */
-  accessories: {
-    grinderHand: "/images/acc-grinder-hand",
-    grinderElectric: "/images/acc-grinder-electric",
-    v60: "/images/acc-v60",
-    frenchPress: "/images/acc-french-press",
-    kettle: "/images/acc-kettle",
-    scale: "/images/acc-scale",
-    cups: "/images/acc-cups",
-  },
-} as const;
+  /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
+  banners: {
