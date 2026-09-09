@@ -144,12 +144,10 @@ export function LandingHero() {
         ونعمل على تقديمها بأفضل جودة وبسعر تستحقونه انتم
       </motion.p>
 
-      {/* ═══ The two bags with prices — like the reference ═══
-          الموبايل: الكيسان جنب بعض (صف واحد) بأحجام أصغر،
-          والشاشات المتوسطة+ ترجع لتوزيع الصف الواسع الأصلي. */}
+      {/* ═══ The two bags with prices — like the reference ═══ */}
       <div
         id="products"
-        className="relative z-20 mx-auto mt-8 flex max-w-[820px] scroll-mt-24 flex-row items-stretch justify-center gap-3 px-4 sm:gap-6 md:mt-14 md:items-end md:gap-16"
+        className="relative z-20 mx-auto mt-10 flex max-w-[820px] scroll-mt-24 flex-col items-stretch gap-10 px-4 md:mt-14 md:flex-row md:items-end md:gap-16"
       >
         {/* Bar Intenso — right (RTL first) */}
         <motion.div
@@ -174,7 +172,7 @@ export function LandingHero() {
                   decoding="async"
                   width={400}
                   height={600}
-                  className="h-[190px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
                 />
               }
               back={
@@ -185,7 +183,7 @@ export function LandingHero() {
                   decoding="async"
                   width={400}
                   height={600}
-                  className="h-[190px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] sm:h-[260px] md:h-[320px]"
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] sm:h-[260px] md:h-[320px]"
                 />
               }
             />
@@ -247,7 +245,7 @@ export function LandingHero() {
                   decoding="async"
                   width={400}
                   height={600}
-                  className="h-[190px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-[1.04] sm:h-[260px] md:h-[320px]"
                 />
               }
               back={
@@ -258,7 +256,7 @@ export function LandingHero() {
                   decoding="async"
                   width={400}
                   height={600}
-                  className="h-[190px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] sm:h-[260px] md:h-[320px]"
+                  className="h-[240px] w-auto object-contain drop-shadow-[0_36px_50px_rgba(0,0,0,0.85)] sm:h-[260px] md:h-[320px]"
                 />
               }
             />
