@@ -12,6 +12,7 @@
 export const IMAGES = {
   /** كيس الهيرو — صورة البريميوم (النسر) — مقاس موحد */
   heroBag: "/images/premium-bag",
+
   /** حقائب ROVENTO الحقيقية — مقاس موحد (1100×1100) عشان الكيسين يظهروا بنفس الحجم */
   bags: {
     /** كيس BAR INTENSO — الأمامي (نفس صورة البانر الرئيسي) */
@@ -27,6 +28,7 @@ export const IMAGES = {
     /** صورة الكيسين معاً — مقاس موحد — نفس صورة البانر الرئيسي */
     twoPackages: "/images/intenso-bag-front-new",
   },
+
   /** صور المنتجات — الأمامي والخلفي لكل منتج */
   products: {
     barIntenso: "/images/intenso-bag-front-new",
@@ -34,6 +36,7 @@ export const IMAGES = {
     premium: "/images/premium-bag",
     premiumBack: "/images/premium-bag-back",
   },
+
   /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
   banners: {
     /** السلايد 1 — البنر الرئيسي */
@@ -53,5 +56,16 @@ export const IMAGES = {
     /** بانر الكيس CLASSIC 1 كجم */
     classic1kg: "/images/premium-bag",
   },
-  /** بنرات السلايدر (صور حقيقية من Google Drive — محدثة) */
-  banners: {
+
+  /** درجات التحميص (قسم "اخلط قهوتك") */
+  roastLevels: {
+    light: "/images/bean-light",
+    medium: "/images/bean-medium",
+    dark: "/images/bean-dark",
+  },
+
+  /** صور الماكينات */
+  machines: {
+    moka: "/images/valve-closeup",
+  },
+} as const;
