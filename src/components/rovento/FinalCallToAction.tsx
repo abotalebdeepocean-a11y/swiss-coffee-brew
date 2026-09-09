@@ -8,12 +8,14 @@ const OFFERS = [
     slug: "rovento-bar-intenso-1kg",
     label: "اطلب Bar Intenso الآن",
     price: 750,
+    oldPrice: 790,
     icon: ShoppingBag,
   },
   {
     slug: "rovento-premium-1kg",
     label: "اطلب Premium الآن",
     price: 850,
+    oldPrice: 950,
     icon: Sparkles,
   },
 ];
@@ -65,6 +67,9 @@ export function FinalCallToAction() {
               <o.icon className="size-5" />
               {o.label}
               <span className="font-mono text-lg">— {o.price.toLocaleString("en-US")} جنيه</span>
+              <span className="rv-old-price rv-old-price-light text-xs font-bold text-white/70">
+                {o.oldPrice.toLocaleString("en-US")}
+              </span>
               <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </button>
           ))}

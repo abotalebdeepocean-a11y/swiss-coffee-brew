@@ -559,6 +559,34 @@
   animation: rv-ripple 0.55s ease-out forwards;
 }
 
+/* السعر القديم — شطب مائل أنيق بلون ذهبي دافئ (أنسب من الأحمر لهوية ROVENTO) */
+.rv-old-price {
+  position: relative;
+  display: inline-block;
+}
+
+/* الخط المائل — بطول النص نفسه دائمًا (scaleX بطول 100% من العنصر) */
+.rv-old-price::after {
+  content: "";
+  position: absolute;
+  right: -2%;
+  left: -2%;
+  top: 50%;
+  height: 1.5px;
+  background: linear-gradient(to left, rgba(224, 200, 114, 0.35), #c9a84c 30%, #c9a84c 70%, rgba(224, 200, 114, 0.35));
+  transform: rotate(-7deg);
+}
+
+/* نسخة بخط أبيض — للسعر القديم فوق خلفية ذهبية صلبة */
+.rv-old-price-light::after {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.35));
+}
+
+/* نسخة بخط داكن — للسعر القديم داخل أزرار ذهبية بنص داكن */
+.rv-old-price-dark::after {
+  background: linear-gradient(to left, rgba(10, 10, 10, 0.15), rgba(10, 10, 10, 0.45) 30%, rgba(10, 10, 10, 0.45) 70%, rgba(10, 10, 10, 0.15));
+}
+
 /* نويز سينمائي خفيف (film grain) */
 .rv-noise {
   position: relative;

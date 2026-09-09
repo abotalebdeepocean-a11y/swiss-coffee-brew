@@ -191,6 +191,11 @@ export function LandingHero() {
               </span>
               <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
             </div>
+            {intenso?.oldPrice && (
+              <span className="rv-old-price mt-1 block text-center text-sm font-bold text-[#888888]">
+                بدلًا من {intenso.oldPrice} ج.م
+              </span>
+            )}
             <p className="mt-1 font-condensed text-[11px] tracking-[0.3em] text-[#f5efe6]/70 uppercase">
               Bar Intenso
             </p>
@@ -258,6 +263,11 @@ export function LandingHero() {
               </span>
               <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
             </div>
+            {premium?.oldPrice && (
+              <span className="rv-old-price mt-1 block text-center text-sm font-bold text-[#888888]">
+                بدلًا من {premium.oldPrice} ج.م
+              </span>
+            )}
             <p className="mt-1 font-condensed text-[11px] tracking-[0.3em] text-[#f5efe6]/70 uppercase">
               Premium
             </p>

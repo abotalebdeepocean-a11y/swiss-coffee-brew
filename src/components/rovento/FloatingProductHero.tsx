@@ -102,10 +102,11 @@ export function FloatingProductHero() {
 
               {/* Price tag */}
               <div className="absolute -bottom-3 -left-2 rounded-xl bg-rv-gold px-4 py-2 shadow-xl md:-bottom-4 md:-left-6">
-                <span className="text-lg font-black text-white">750</span>
-                <span className="mr-1 text-xs font-bold text-white/80">
-                  ج.م
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-black leading-none text-white">750</span>
+                  <span className="text-xs font-bold text-white/80">ج.م</span>
+                  <span className="rv-old-price rv-old-price-light text-[11px] font-bold text-white/75">790</span>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -150,6 +151,7 @@ export function FloatingProductHero() {
           <div className="flex items-baseline justify-center gap-3 md:justify-start">
             <span className="text-4xl font-black text-rv-darkBrown">750</span>
             <span className="text-lg font-bold text-rv-brown/50">ج.م</span>
+            <span className="rv-old-price text-sm font-bold text-rv-brown/45">بدلًا من 790 ج.م</span>
             <span className="rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-bold text-red-600">
               1 كجم
             </span>

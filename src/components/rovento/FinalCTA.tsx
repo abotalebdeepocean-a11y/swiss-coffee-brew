@@ -10,6 +10,8 @@ export function FinalCTA() {
   const { add } = useCart();
   const intensoPrice = getProduct("rovento-bar-intenso-1kg")?.price;
   const premiumPrice = getProduct("rovento-premium-1kg")?.price;
+  const intensoOld = getProduct("rovento-bar-intenso-1kg")?.oldPrice;
+  const premiumOld = getProduct("rovento-premium-1kg")?.oldPrice;
 
   return (
     <section ref={ref} className="relative bg-[#0a0a0a] py-20 md:py-28">
@@ -35,6 +37,11 @@ export function FinalCTA() {
             >
               <ShoppingCart className="size-5" />
               اطلب بار إنتنسو — {intensoPrice} ج.م
+              {intensoOld && (
+                <span className="rv-old-price rv-old-price-dark text-xs font-bold text-rv-black/60">
+                  {intensoOld}
+                </span>
+              )}
             </button>
             <button
               onClick={() => add("rovento-premium-1kg")}
@@ -42,6 +49,11 @@ export function FinalCTA() {
             >
               <ShoppingCart className="size-5" />
               اطلب بريميوم — {premiumPrice} ج.م
+              {premiumOld && (
+                <span className="rv-old-price rv-old-price-dark text-xs font-bold text-rv-black/60">
+                  {premiumOld}
+                </span>
+              )}
             </button>
           </div>
 

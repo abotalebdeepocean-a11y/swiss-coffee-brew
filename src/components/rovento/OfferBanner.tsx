@@ -85,6 +85,35 @@ export function OfferBanner() {
                     خصم {TWO_KG_DISCOUNT_RATE * 100}% فوري على أي بلندَين —
                     بيتحسب تلقائيًا في السلة، بدون كود
                   </p>
+
+                  {/* الأسعار — الحالية والقديمة لكل بلند */}
+                  <div className="mb-5 flex flex-wrap items-center justify-center gap-2.5 md:justify-start">
+                    <div className="flex items-baseline gap-2 rounded-xl border border-[#c9a84c]/20 bg-[#050505]/60 px-3.5 py-2">
+                      <span className="text-lg font-black text-[#f5efe6]">750</span>
+                      <span className="text-[10px] font-bold text-[#b0a898]">ج.م</span>
+                      <span className="rv-old-price text-xs font-bold text-[#888888]">790 ج.م</span>
+                    </div>
+                    <div className="flex items-baseline gap-2 rounded-xl border border-[#c9a84c]/20 bg-[#050505]/60 px-3.5 py-2">
+                      <span className="text-lg font-black text-[#f5efe6]">850</span>
+                      <span className="text-[10px] font-bold text-[#b0a898]">ج.م</span>
+                      <span className="rv-old-price text-xs font-bold text-[#888888]">950 ج.م</span>
+                    </div>
+                  </div>
+
+                  {/* حساب العرض بالدقة — كيسان من أي بلند */}
+                  <div className="mb-6 rounded-xl border border-[#c9a84c]/25 bg-[#050505]/70 px-4 py-3">
+                    <p className="text-xs text-[#b0a898]">
+                      مثال: كيسان بريميوم —{" "}
+                      <span className="rv-old-price font-bold text-[#888888]">1,900 ج.م</span>{" "}
+                      ←{" "}
+                      <span className="font-black text-[#f5efe6]">1,710 ج.م</span>{" "}
+                      بعد الخصم
+                    </p>
+                    <p className="mt-1 text-sm font-black text-[#e0c872]">
+                      توفير إجمالي 190 ج.م على الطلب
+                    </p>
+                  </div>
+
                   <p className="mb-7 text-xs text-[#888888]">
                     شحن مجاني من {formatArabicDate(FREE_SHIPPING_START)} إلى{" "}
                     {formatArabicDate(FREE_SHIPPING_END)}

@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { discountedPriceFor2kg } from "@/lib/offer";
+import { getProduct } from "@/lib/products";
 
 /**
  * FEATURED PRODUCT — Apple-style product spotlight.
@@ -14,7 +15,8 @@ export function FeaturedProduct() {
   const isInView = useInView(ref, { once: true });
   const { add } = useCart();
 
-  const price = 750;
+  const price = getProduct("rovento-bar-intenso-1kg")?.price ?? 750;
+  const oldPrice = getProduct("rovento-bar-intenso-1kg")?.oldPrice ?? 790;
   const price2kg = discountedPriceFor2kg(price);
 
   const CALLOUTS = [
@@ -140,23 +142,28 @@ export function FeaturedProduct() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="mt-12 flex flex-col items-center gap-5 text-center md:mt-16"
         >
-          <div className="flex items-baseline justify-center gap-2">
-            <span className="text-4xl font-black gold-gradient-text md:text-5xl">
-              {price}
-            </span>
-            <span className="text-sm font-bold text-[#888888]">
-              ج.م / كيس 1 كجم
+          <div className="flex flex-col items-center">
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-4xl font-black gold-gradient-text md:text-5xl">
+                {price}
+              </span>
+              <span className="text-sm font-bold text-[#888888]">
+                ج.م / كيس 1 كجم
+              </span>
+            </div>
+            <span className="rv-old-price mt-1 text-sm font-bold text-[#888888]">
+              بدلًا من {oldPrice} ج.م
             </span>
           </div>
           <p className="text-xs text-[#b0a898]">
-            كيسين (2 كجم) بسعر خاص:{" "}
+            كيسان (2 كجم) بسعر خاص:{" "}
             <span className="font-black text-[#e0c872]">
               {price2kg * 2} ج.م
             </span>{" "}
-            <span className="text-[#888888] line-through">
+            <span className="rv-old-price text-[#888888]">
               {price * 2} ج.م
             </span>{" "}
-            — خصم 10% تلقائي
+            — وفّر {price * 2 - price2kg * 2} ج.م
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row">
             <button

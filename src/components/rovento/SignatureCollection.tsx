@@ -14,6 +14,7 @@ const BAGS = [
     nameAr: "بار انتينسو",
     tagline: "توليفة قوية بكافيين أعلى — كريمة غنية، مثالي مع الحليب",
     price: 750,
+    oldPrice: 790,
     weight: "1 كجم",
     accent: "from-blue-900/40 to-blue-950/0",
     glow: "rgba(30,58,95,0.18)",
@@ -30,6 +31,7 @@ const BAGS = [
     nameAr: "بريميوم",
     tagline: "50% أرابيكا / 50% روبوستا — رائحة غنية، جسم ناعم، تحميص متوسط",
     price: 850,
+    oldPrice: 950,
     weight: "1 كجم",
     accent: "from-teal-900/40 to-teal-950/0",
     glow: "rgba(201,169,97,0.18)",
@@ -185,6 +187,9 @@ export function SignatureCollection() {
                     </span>
                     <span className="text-xs text-rv-brown/40">/ {bag.weight}</span>
                   </div>
+                  <span className="rv-old-price -mt-1 block text-center text-xs font-bold text-rv-brown/45">
+                    بدلًا من {bag.oldPrice} ج.م
+                  </span>
 
                   {/* Add to Cart button */}
                   <button
@@ -278,10 +283,12 @@ export function SignatureCollection() {
                     السعر (1 كجم)
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-blue-400 sm:px-4">
-                    750 ج.م
+                    750 ج.م{" "}
+                    <span className="rv-old-price block text-[11px] font-bold text-rv-brown/45">790</span>
                   </td>
                   <td className="px-3 py-3.5 text-center font-black text-rv-gold sm:px-4">
-                    850 ج.م
+                    850 ج.م{" "}
+                    <span className="rv-old-price block text-[11px] font-bold text-rv-brown/45">950</span>
                   </td>
                 </tr>
               </tbody>

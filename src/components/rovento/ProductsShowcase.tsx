@@ -34,8 +34,9 @@ const CARDS: CardSpec[] = [
   },
 ];
 
-function priceOf(slug: string): number {
-  return PRODUCTS.find((p) => p.slug === slug)?.price ?? 750;
+function priceOf(slug: string): { price: number; oldPrice?: number } {
+  const product = PRODUCTS.find((p) => p.slug === slug);
+  return { price: product?.price ?? 750, oldPrice: product?.oldPrice };
 }
 
 /** منتجاتنا المختارة — بطاقتان لكل منتج رئيسي (1 كجم) */
@@ -69,7 +70,7 @@ export function ProductsShowcase() {
         {/* الشبكة */}
         <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 md:gap-8">
           {CARDS.map((c, i) => {
-            const price = priceOf(c.slug);
+            const { price, oldPrice } = priceOf(c.slug);
             return (
               <motion.article
                 key={c.slug}
@@ -121,10 +122,17 @@ export function ProductsShowcase() {
 
                   {/* السعر + الشحن */}
                   <div className="mt-5 flex items-end justify-between gap-3">
-                    <p className="text-2xl font-black leading-none md:text-3xl">
-                      <span className="gold-gradient-text">{price.toLocaleString("en-US")}</span>{" "}
-                      <span className="text-sm font-black text-white md:text-base">جنيه</span>
-                    </p>
+                    <div>
+                      <p className="text-2xl font-black leading-none md:text-3xl">
+                        <span className="gold-gradient-text">{price.toLocaleString("en-US")}</span>{" "}
+                        <span className="text-sm font-black text-white md:text-base">جنيه</span>
+                      </p>
+                      {oldPrice && (
+                        <span className="rv-old-price mt-1.5 block text-xs font-bold text-white/45">
+                          بدلًا من {oldPrice.toLocaleString("en-US")} جنيه
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <p className="mt-2 flex items-center gap-1.5 text-[11px] font-bold text-white/40">
                     <span className="size-1.5 rounded-full bg-rv-gold" />

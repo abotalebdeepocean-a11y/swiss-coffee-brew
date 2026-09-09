@@ -24,6 +24,7 @@ interface BlendProfile {
   nameEn: string;
   image: string;
   price: number;
+  oldPrice?: number;
   story: string;
   tag: string;
   notes: string[];
@@ -39,6 +40,7 @@ const PROFILES: BlendProfile[] = [
     nameEn: "PREMIUM",
     image: "/images/premium-bag.webp",
     price: getProduct("rovento-premium-1kg")?.price ?? 850,
+    oldPrice: getProduct("rovento-premium-1kg")?.oldPrice ?? 950,
     story:
       "بريميوم هو الجواب لللي بيدور على توازن راقي بنعومة كاملة. بلند مصنوع من 50% أرابيكا من مرتفعات الجواتيمالا و50% روبوستا من الهند، محمص تحميص متوسط — رائحة غنية متوازنة، جسم ناعم، ولمسة نهائية طويلة مميزة. إسبريسو ناعم يفتح يومك — أو لاتيه وكابتشينو بجودة الكافيهات.",
     tag: "ناعمة • متوازنة • فاخرة",
@@ -60,6 +62,7 @@ const PROFILES: BlendProfile[] = [
     nameEn: "BAR INTENSO",
     image: "/images/intenso-bag-front-new.webp",
     price: getProduct("rovento-bar-intenso-1kg")?.price ?? 750,
+    oldPrice: getProduct("rovento-bar-intenso-1kg")?.oldPrice ?? 790,
     story:
       "ولد بار إنتنسو من فكرة واحدة: إسبريسو يفرض احترامه من أول رشفة. روبوستا كولومبي فاخر بتدي الجسم والكريمة الكثيفة، وأرابيكا من مرتفعات الجواتيمالا بتدي العمق. البلند اللي بيخلي الكورتادو والماكياتو تجربة يومية مختلفة.",
     tag: "قوية • غنية • جريئة",
@@ -175,14 +178,26 @@ function ProfileBlock({ profile }: { profile: BlendProfile }) {
 
         {/* Price + CTA */}
         <div className="flex flex-wrap items-center gap-4">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-2xl font-black gold-gradient-text">
-              {profile.price}
-            </span>
-            <span className="text-xs font-bold text-[#888888]">ج.م</span>
-            <span className="mr-2 text-xs text-[#888888]">| كيسين:</span>
+          <div className="flex flex-col">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-2xl font-black gold-gradient-text">
+                {profile.price}
+              </span>
+              <span className="text-xs font-bold text-[#888888]">ج.م</span>
+            </div>
+            {profile.oldPrice && (
+              <span className="rv-old-price mt-0.5 text-xs font-bold text-[#888888]">
+                بدلًا من {profile.oldPrice} ج.م
+              </span>
+            )}
+          </div>
+          <span className="text-xs text-[#888888]">| كيسان:</span>
+          <div className="flex flex-col">
             <span className="text-sm font-black text-[#e0c872]">
               {price2kg * 2} ج.م
+            </span>
+            <span className="rv-old-price text-[11px] font-bold text-[#888888]">
+              بدلًا من {profile.price * 2} ج.م
             </span>
           </div>
           <button
