@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
  * بلا تأثير على التخطيط) — الأكياس العائمة والنصوص طبقات مستقلة فوقها
  * في تدفق الصفحة، فلا تُعاد render ولا تتحرك ولا تهتز مهما تغيّرت الصورة.
  *
- * السلايد 0 = بانر العرض (خصم ١٠٪) — يُعرض في الـ HTML الأولي (بدون تحميل
- * كسول) ليكون LCP فوريًا، مع وميض خلفي CSS خفيف (rv-promo-flash) يعطي
- * إحساس الـ GIF المتوهج بدون أي ملف GIF ثقيل. باقي السلايدات lazy.
+ * بانر العرض (خصم ١٠٪) مُعطّل حاليًا — لإعادة تفعيله أضف السطر التالي
+ * أول المصفوفة: { src: "/images/promo-slide.webp", promo: true },
+ * وحدّث الـ preloads في index.html (promo بحق أولوية عالية).
  *
  * الحركة: crossfade بطيء (1.8ث) — لا انزلاق ولا حركة مزعجة.
  * كل صورة layer دائمة absolute inset-0: لا إزالة/تركيب DOM عند التبديل،
@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
  * نفسه (خاصية paused)، ويتوقف كليًا أثناء إخفاء التاب.
  */
 const SLIDES = [
-  { src: "/images/promo-slide.webp", promo: true },
+  // { src: "/images/promo-slide.webp", promo: true }, // مُعطّل — بانر خصم ١٠٪
   { src: "/images/hero-slide-1.webp", promo: false },
   { src: "/images/hero-slide-2.webp", promo: false },
   { src: "/images/hero-slide-3.webp", promo: false },
