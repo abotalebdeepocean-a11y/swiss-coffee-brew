@@ -86,7 +86,7 @@ export function FeaturedProduct() {
             <div className="pointer-events-none absolute -top-8 h-[420px] w-[340px] bg-[radial-gradient(ellipse_at_top,rgba(224,200,114,0.14)_0%,transparent_65%)] blur-xl" />
             <div className="animate-levitate relative">
               <img
-                src="/images/intenso-bag.webp"
+                src="/images/intenso-bag-front-new.webp"
                 alt="ROVENTO بار إنتنسو — المنتج المميز"
                 className="relative h-[300px] w-auto object-contain drop-shadow-[0_44px_60px_rgba(0,0,0,0.8)] md:h-[420px]"
               />

@@ -20,7 +20,7 @@ const CARDS: CardSpec[] = [
     nameAr: "بار انتينسو",
     tag: "كافيين أعلى · قوة عالية · مثالي مع الحليب",
     desc: "قهوة مكثفة بنكهة جريئة وعميقة، مثالية لعشاق الطعم القوي. محمصة بعناية فائقة لأفضل النتائج.",
-    img: "/images/intenso-bag.webp",
+    img: "/images/intenso-bag-front-new.webp",
     badge: "عرض محدود",
   },
   {

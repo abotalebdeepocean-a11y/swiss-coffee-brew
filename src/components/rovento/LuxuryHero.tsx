@@ -113,9 +113,9 @@ export function LuxuryHero() {
             className="relative"
           >
             <div className="animate-levitate">
-              <div className="h-[200px] w-[160px] sm:h-[260px] sm:w-[200px] md:h-[340px] md:w-[260px]">
+              <div className="h-[200px] w-[118px] sm:h-[260px] sm:w-[153px] md:h-[340px] md:w-[200px]">
                 <img
-                  src="/images/intenso-bag.webp"
+                  src="/images/intenso-bag-front-new.webp"
                   alt="ROVENTO Bar Intenso"
                   className="h-full w-full object-contain bag-shadow"
                 />

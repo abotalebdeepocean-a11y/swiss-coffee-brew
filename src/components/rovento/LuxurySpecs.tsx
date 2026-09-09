@@ -63,9 +63,9 @@ export function LuxurySpecs() {
           className="mt-16 flex items-center justify-center gap-6 md:gap-12"
         >
           <img
-            src="/images/intenso-bag.webp"
+            src="/images/intenso-bag-front-new.webp"
             alt="Bar Intenso"
-            className="w-[120px] md:w-[180px] bag-shadow"
+            className="h-[142px] w-auto md:h-[213px] bag-shadow"
           />
           <div className="text-center">
             <div className="font-condensed text-lg tracking-wider text-rv-gold/40">

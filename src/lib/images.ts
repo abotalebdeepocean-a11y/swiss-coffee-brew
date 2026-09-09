@@ -14,22 +14,22 @@ export const IMAGES = {
   heroBag: "/images/premium-bag",
   /** حقائب ROVENTO الحقيقية — مقاس موحد (1100×1100) عشان الكيسين يظهروا بنفس الحجم */
   bags: {
-    /** كيس BAR INTENSO — الأمامي */
-    intenso: "/images/intenso-bag",
+    /** كيس BAR INTENSO — الأمامي (نفس صورة البانر الرئيسي) */
+    intenso: "/images/intenso-bag-front-new",
     /** كيس BAR INTENSO — الخلفي (نفس مقياس الأمامي الجديد — الغلاف الخلفي الرسمي) */
     intensoBack: "/images/intenso-bag-back-new",
     /** كيس PREMIUM — الأمامي */
     premium: "/images/premium-bag",
     /** كيس PREMIUM — الخلفي (نفس المقياس) */
     premiumBack: "/images/premium-bag-back",
-    /** صورة ماكرو — كيس بار إنتنسو (للخلفيات) */
-    macro: "/images/intenso-bag",
-    /** صورة الكيسين معاً — مقاس موحد */
-    twoPackages: "/images/intenso-bag",
+    /** صورة ماكرو — كيس بار إنتنسو (للخلفيات) — نفس صورة البانر الرئيسي */
+    macro: "/images/intenso-bag-front-new",
+    /** صورة الكيسين معاً — مقاس موحد — نفس صورة البانر الرئيسي */
+    twoPackages: "/images/intenso-bag-front-new",
   },
   /** صور المنتجات — الأمامي والخلفي لكل منتج */
   products: {
-    barIntenso: "/images/intenso-bag",
+    barIntenso: "/images/intenso-bag-front-new",
     barIntensoBack: "/images/intenso-bag-back-new",
     premium: "/images/premium-bag",
     premiumBack: "/images/premium-bag-back",

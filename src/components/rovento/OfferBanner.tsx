@@ -111,7 +111,7 @@ export function OfferBanner() {
                     className="animate-levitate relative z-[5] block cursor-pointer transition-transform duration-300 hover:scale-[1.05]"
                   >
                     <img
-                      src="/images/intenso-bag.webp"
+                      src="/images/intenso-bag-front-new.webp"
                       alt="ROVENTO بار إنتنسو"
                       loading="lazy"
                       decoding="async"

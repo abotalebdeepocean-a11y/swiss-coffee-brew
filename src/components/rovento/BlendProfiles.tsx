@@ -58,7 +58,7 @@ const PROFILES: BlendProfile[] = [
     slug: "rovento-bar-intenso-1kg",
     name: "بار إنتنسو",
     nameEn: "BAR INTENSO",
-    image: "/images/intenso-bag.webp",
+    image: "/images/intenso-bag-front-new.webp",
     price: getProduct("rovento-bar-intenso-1kg")?.price ?? 750,
     story:
       "ولد بار إنتنسو من فكرة واحدة: إسبريسو يفرض احترامه من أول رشفة. روبوستا كولومبي فاخر بتدي الجسم والكريمة الكثيفة، وأرابيكا من مرتفعات الجواتيمالا بتدي العمق. البلند اللي بيخلي الكورتادو والماكياتو تجربة يومية مختلفة.",

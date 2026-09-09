@@ -26,7 +26,7 @@ const CHARACTERS = [
     name: "الببغاء — بار إنتنسو",
     nameEn: "THE PARROT — BAR INTENSO",
     desc: "الببغاء رمز الشخصية والجرأة. لونه مميز وصوته عالي، زي بار إنتنسو بالظبط: إسبريسو قوي وجريء بكريمة غنية، للي عايز قهوتها تفرض نفسها من غير مقدمات.",
-    image: "/images/intenso-bag.webp",
+    image: "/images/intenso-bag-front-new.webp",
   },
 ];
 
