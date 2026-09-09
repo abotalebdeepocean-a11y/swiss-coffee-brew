@@ -8,77 +8,87 @@ import { cn } from "@/lib/utils";
  * بلا تأثير على التخطيط) — الأكياس العائمة والنصوص طبقات مستقلة فوقها
  * في تدفق الصفحة، فلا تُعاد render ولا تتحرك ولا تهتز مهما تغيّرت الصورة.
  *
- * Slide 0 يُعرض في الـ HTML الأولي (بدون تحميل كسول) ليكون LCP فوريًا،
- * والباقي lazy بعد أول تشكيل.
+ * السلايد 0 = بانر العرض (خصم ١٠٪) — يُعرض في الـ HTML الأولي (بدون تحميل
+ * كسول) ليكون LCP فوريًا، مع وميض خلفي CSS خفيف (rv-promo-flash) يعطي
+ * إحساس الـ GIF المتوهج بدون أي ملف GIF ثقيل. باقي السلايدات lazy.
  *
- * الحركة: crossfade بطيء (1.8ث) كل 5 ثوانٍ — لا انزلاق ولا حركة مزعجة.
+ * الحركة: crossfade بطيء (1.8ث) — لا انزلاق ولا حركة مزعجة.
  * كل صورة layer دائمة absolute inset-0: لا إزالة/تركيب DOM عند التبديل،
- * لا وميض، ولا إعادة تحميل. الإيقاف عند مرور المؤشر يُدار من قسم الهيرو
- * نفسه (خاصية paused) ليشمل الهيرو كله، ويعود تلقائيًا عند الخروج.
+ * لا وميض، ولا إعادة تحميل. زمن بقاء كل سلايد مستقل (بانر العرض يبقى
+ * أطول قليلًا ليُقرأ العرض). الإيقاف عند مرور المؤشر يُدار من قسم الهيرو
+ * نفسه (خاصية paused)، ويتوقف كليًا أثناء إخفاء التاب.
  */
 const SLIDES = [
-  { src: "/images/hero-slide-1.webp" },
-  { src: "/images/hero-slide-2.webp" },
-  { src: "/images/hero-slide-3.webp" },
-];
+  { src: "/images/promo-slide.webp", promo: true },
+  { src: "/images/hero-slide-1.webp", promo: false },
+  { src: "/images/hero-slide-2.webp", promo: false },
+  { src: "/images/hero-slide-3.webp", promo: false },
+] as const;
 
-const INTERVAL_MS = 5000;
 const FADE_MS = 1800;
+/** مدة بقاء كل سلايد — بانر العرض يبقى أطول لأن فيه نص العرض */
+const HOLD_MS = (promo: boolean) => (promo ? 7000 : 5000);
 
 export function HeroSlider({ paused = false }: { paused?: boolean }) {
   const [active, setActive] = useState(0);
+  const [pageHidden, setPageHidden] = useState(false);
   const timerRef = useRef<number | null>(null);
 
-  const start = useCallback(() => {
-    if (timerRef.current !== null) return;
-    timerRef.current = window.setInterval(() => {
-      setActive((a) => (a + 1) % SLIDES.length);
-    }, INTERVAL_MS);
-  }, []);
-
-  const stop = useCallback(() => {
-    if (timerRef.current !== null) {
-      window.clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-
+  // إيقاف كامل أثناء إخفاء التاب — لا استهلاك بطارية في الخلفية
   useEffect(() => {
-    if (!paused) start();
-    return stop;
-  }, [paused, start, stop]);
-
-  // إيقاف أثناء إخفاء التاب — لا استهلاك بطاقة في الخلفية
-  useEffect(() => {
-    const onVis = () => (document.hidden ? stop() : start());
+    const onVis = () => setPageHidden(document.hidden);
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
-  }, [start, stop]);
+  }, []);
+
+  // مؤقت لكل سلايد على حدة — أي تغيير (تبديل/إيقاف/عودة للتاب) يضبطه من جديد
+  useEffect(() => {
+    if (paused || pageHidden) return;
+    timerRef.current = window.setTimeout(
+      () => setActive((a) => (a + 1) % SLIDES.length),
+      HOLD_MS(SLIDES[active].promo),
+    );
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [active, paused, pageHidden]);
+
+  const goTo = useCallback((i: number) => {
+    setActive(i); // المؤقت يُعاد ضبطه تلقائيًا عبر الـ effect
+  }, []);
 
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       {/* كل الصور layers دائمة inset-0 — التبديل عبر opacity فقط */}
       {SLIDES.map((slide, i) => (
-        <img
+        <div
           key={slide.src}
-          src={slide.src}
-          alt=""
-          loading={i === 0 ? "eager" : "lazy"}
-          fetchPriority={i === 0 ? "high" : "low"}
-          decoding="async"
-          width={1600}
-          height={1000}
-          draggable={false}
           className={cn(
-            "absolute inset-0 h-full w-full object-cover select-none",
-            "transition-opacity ease-in-out will-change-[opacity]",
+            "absolute inset-0 transition-opacity ease-in-out will-change-[opacity]",
             "motion-reduce:transition-none",
           )}
           style={{
             opacity: i === active ? 1 : 0,
             transitionDuration: `${FADE_MS}ms`,
           }}
-        />
+        >
+          <img
+            src={slide.src}
+            alt=""
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchPriority={i === 0 ? "high" : "low"}
+            decoding="async"
+            width={1600}
+            height={1000}
+            draggable={false}
+            className="absolute inset-0 h-full w-full object-cover select-none"
+          />
+          {/* وميض خلفي متوهج لبانر العرض — CSS خفيف بدل GIF (يُعطَّل مع reduced-motion) */}
+          {slide.promo && <div className="rv-promo-flash motion-reduce:hidden" />}
+        </div>
       ))}
 
       {/* نقاط التنقل — قابلة للنقر ولوحة المفاتيح */}
@@ -93,12 +103,8 @@ export function HeroSlider({ paused = false }: { paused?: boolean }) {
             type="button"
             role="tab"
             aria-selected={i === active}
-            aria-label={`خلفية ${i + 1}`}
-            onClick={() => {
-              setActive(i);
-              stop();
-              start(); // إعادة ضبط مؤقت الـ 5 ثوانٍ عند الاختيار اليدوي
-            }}
+            aria-label={slide.promo ? "عرض الخصم" : `خلفية ${i}`}
+            onClick={() => goTo(i)}
             className={cn(
               "pointer-events-auto h-2.5 cursor-pointer rounded-full border transition-all duration-500 ease-out",
               i === active

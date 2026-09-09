@@ -31,9 +31,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload critical LCP images (hero slider background + the two hero bags)
        so the browser starts fetching them before the JS bundle runs.
-       Slides 2-3 low-priority: ready before the first 5s crossfade, without
-       competing with the LCP image. -->
-  <link rel="preload" as="image" href="/images/hero-slide-1.webp" fetchpriority="high" />
+       السلايد الأول هو بانر العرض (LCP). باقي السلايدات أولوية منخفضة:
+       جاهزة قبل أول crossfade بدون منافسة صورة LCP. -->
+  <link rel="preload" as="image" href="/images/promo-slide.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/images/hero-slide-1.webp" />
   <link rel="preload" as="image" href="/images/hero-slide-2.webp" />
   <link rel="preload" as="image" href="/images/hero-slide-3.webp" />
   <link rel="preload" as="image" href="/images/premium-bag.webp" fetchpriority="high" />
