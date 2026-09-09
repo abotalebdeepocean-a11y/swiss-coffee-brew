@@ -1,16 +1,25 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { getProduct } from "@/lib/products";
 import { FlipBag } from "./FlipBag";
+import { HeroSlider } from "./HeroSlider";
 
 /**
  * Hero — "خذ حصاد الجبل إلى بيتك"
- * Real mountain-harvest photograph as the full-bleed background,
- * the two real bags float with prices beneath, exactly like the reference.
- * كل منتج تحته بروفايل مختصر ببارات مضيئة (نفس بارات تفاصيل النكهة بحجم أصغر).
+ * خلفية سلايدر سينمائية (3 مشاهد تتغير crossfade كل 5 ثوانٍ) + الأكياس
+ * العائمة ثابتة فوقها كطبقة مستقلة تمامًا: السلايدر داخل طبقة absolute
+ * معزولة، فلا تُعاد render للأكياس ولا تتحرك ولا تهتز مهما تغيّرت الصورة.
+ *
+ * ترتيب الطبقات (من الخلف للأمام):
+ *   1. صورة الخلفية المتغيرة (HeroSlider)
+ *   2. طبقة التعتيم الخفيفة + تدرجات الدمج
+ *   3. العناصر الزخرفية الثابتة (rv-noise)
+ *   4. أكياس القهوة العائمة (مع الأسعار) — ثابتة تمامًا
+ *   5. النصوص والأزرار
+ * إيقاف السلايدر عند مرور المؤشر فوق الهيرو كله، واستئنافه عند الخروج.
  */
 
 /** ═══ بروفايل مختصر ببارات مضيئة — نفس محاور تفاصيل النكهة بشكل مصغّر ═══ */
@@ -74,6 +83,7 @@ function MiniProfileBars({ blend }: { blend: "intenso" | "premium" }) {
 export function LandingHero() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
+  const [sliderPaused, setSliderPaused] = useState(false);
   const { add } = useCart();
   const intenso = getProduct("rovento-bar-intenso-1kg");
   const premium = getProduct("rovento-premium-1kg");
@@ -82,32 +92,28 @@ export function LandingHero() {
     <section
       ref={ref}
       className="relative min-h-screen overflow-hidden bg-[#0a0a0a] pt-20"
+      onMouseEnter={() => setSliderPaused(true)}
+      onMouseLeave={() => setSliderPaused(false)}
     >
-      {/* ═══ Full-bleed mountain photo background ═══ */}
-      <div className="pointer-events-none absolute inset-0">        <img
-          src="/images/mountain-harvest-bg.webp"
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          decoding="async"
-          width={1200}
-          height={896}
-          className="absolute inset-0 h-full w-full object-cover object-[62%_35%]"
-        />
-        {/* Legibility scrim — light: the new photo is already dark/moody, keep its detail visible */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/10" />
-        {/* Top/bottom fades into the page */}
+      {/* ═══ الطبقة 1 — خلفية السلايدر المتغيرة (معزولة تمامًا) ═══ */}
+      <HeroSlider paused={sliderPaused} />
+
+      {/* ═══ الطبقة 2 — تعتيم خفيف لوضوح النص + اندماج أعلى/أسفل ═══ */}
+      <div className="pointer-events-none absolute inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[#0a0a0a]/20" />
         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0a0a0a]/80 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
-        <div className="rv-noise absolute inset-0" />
       </div>
+
+      {/* ═══ الطبقة 3 — عناصر زخرفية ثابتة (حبيبات سينمائية) ═══ */}
+      <div className="rv-noise pointer-events-none absolute inset-0 z-[2]" />
 
       {/* ═══ Top bar — origin story line ═══ */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative z-10 mx-auto flex max-w-[1200px] items-center justify-center gap-3 px-4 text-[10px] font-bold tracking-[0.35em] text-[#e0c872] uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-xs"
+        className="relative z-30 mx-auto flex max-w-[1200px] items-center justify-center gap-3 px-4 text-[10px] font-bold tracking-[0.35em] text-[#e0c872] uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-xs"
       >
         <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#e0c872]/50" />
         من مزارع الجبال — إلى فنجانك
@@ -119,7 +125,7 @@ export function LandingHero() {
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
-        className="relative z-10 mt-6 text-center text-4xl font-black leading-[1.25] drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)] md:text-6xl lg:text-7xl"
+        className="relative z-30 mt-6 text-center text-4xl font-black leading-[1.25] drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)] md:text-6xl lg:text-7xl"
       >
         <span className="text-[#f5efe6]">انقل حصاد </span>
         <span className="gold-gradient-text">الجبل</span>
@@ -131,7 +137,7 @@ export function LandingHero() {
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.9, delay: 0.55 }}
-        className="relative z-10 mt-4 text-center text-sm text-[#f5efe6]/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] md:text-base"
+        className="relative z-30 mt-4 text-center text-sm text-[#f5efe6]/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] md:text-base"
       >
         نقدم تجربة الحصول على{" "}
         <span className="font-bold text-[#e0c872]">أفضل أنواع حبوب القهوة في مصر</span>{" "}
@@ -141,7 +147,7 @@ export function LandingHero() {
       {/* ═══ The two bags with prices — like the reference ═══ */}
       <div
         id="products"
-        className="relative z-10 mx-auto mt-10 flex max-w-[820px] scroll-mt-24 flex-col items-stretch gap-10 px-4 md:mt-14 md:flex-row md:items-end md:gap-16"
+        className="relative z-20 mx-auto mt-10 flex max-w-[820px] scroll-mt-24 flex-col items-stretch gap-10 px-4 md:mt-14 md:flex-row md:items-end md:gap-16"
       >
         {/* Bar Intenso — right (RTL first) */}
         <motion.div
@@ -293,7 +299,7 @@ export function LandingHero() {
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 1, delay: 1.2 }}
-        className="relative z-10 mt-10 flex flex-col items-center gap-3 pb-14"
+        className="relative z-30 mt-10 flex flex-col items-center gap-3 pb-14"
       >
         <img
           src="/images/rovento-logo-real.webp"
