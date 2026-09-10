@@ -9,8 +9,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0a0a0a" />
   <meta name="robots" content="index, follow" />
-  <!-- canonical: يُضاف لاحقًا كرابط مطلق بعد معرفة الدومين النهائي
-       (href="/" يكسر بناء الإنتاج — Vite يحاول قراءته كملف) -->
   <meta name="description" content="روڤينتو — قهوة إسبريسو محمصة طازج يومياً في القاهرة، مصر. بلندات فاخرة من بار إنتنسو القوي إلى بريميوم المتوازن. شحن مجاني لكل المحافظات." />
   <meta name="keywords" content="قهوة, قهوة إسبريسو, روفينتو, rovento, espresso coffee, espresso, coffee beans, محمصة, مصر, القاهرة, coffee, arabica, robusta, colombia, guatemala, india, premium, bar intenso" />
   <!-- Open Graph / Facebook -->
@@ -32,10 +30,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload critical LCP images (hero slider background + the two hero bags)
        so the browser starts fetching them before the JS bundle runs.
-       السلايد الأول (hero-slide-1) هو LCP. باقي السلايدات أولوية منخفضة:
-       جاهزة قبل أول crossfade بدون منافسة صورة LCP.
-       بانر العرض (promo-slide) مُعطّل — لا يُحمّل مسبقًا.
-       لإعادة تفعيله: أضف preload بحق أولوية عالية + فعل سطره في HeroSlider. -->
+       hero-slide-1 is the LCP slide. Later slides preload at low priority:
+       ready before the first crossfade without competing with the LCP image.
+       The promo/discount slide is currently disabled and not preloaded. -->
   <link rel="preload" as="image" href="/images/hero-slide-1.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="/images/hero-slide-2.webp" />
   <link rel="preload" as="image" href="/images/hero-slide-3.webp" />
