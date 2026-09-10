@@ -18,7 +18,7 @@ export const emailOtp = Email({
   async sendVerificationRequest({ identifier: email, token }) {
     try {
       const apiKey = import.meta.env.VITE_FREEBUFF_API_KEY;
-      
+
       if (!apiKey) {
         throw new Error(
           "VITE_FREEBUFF_API_KEY is not configured. Check your .env file."
@@ -43,8 +43,8 @@ export const emailOtp = Email({
       console.error("[Email OTP] Failed to send verification email:", {
         error:
           error instanceof Error
-            ? { message: error.message, cause: error.cause }
-            : error,
+            ? error.message
+            : String(error),
       });
 
       throw new Error(
