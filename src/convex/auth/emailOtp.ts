@@ -17,7 +17,9 @@ export const emailOtp = Email({
   },
   async sendVerificationRequest({ identifier: email, token }) {
     try {
-      const apiKey = import.meta.env.VITE_FREEBUFF_API_KEY;
+      // Convex backend runs server-side: read env via process.env (accept both naming conventions).
+      const apiKey =
+        process.env.VITE_FREEBUFF_API_KEY || process.env.FREEBUFF_API_KEY;
 
       if (!apiKey) {
         throw new Error(
@@ -30,7 +32,10 @@ export const emailOtp = Email({
         {
           to: email,
           otp: token,
-          appName: import.meta.env.VITE_VLY_APP_NAME || "ROVENTO Coffee",
+          appName:
+            process.env.VITE_VLY_APP_NAME ||
+            process.env.VLY_APP_NAME ||
+            "ROVENTO Coffee",
         },
         {
           headers: {
