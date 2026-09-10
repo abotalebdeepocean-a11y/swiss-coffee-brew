@@ -30,8 +30,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload critical LCP images (hero slider background + the two hero bags)
        so the browser starts fetching them before the JS bundle runs.
-       Slides 2-3 low-priority: ready before the first 5s crossfade, without
-       competing with the LCP image. -->
+       hero-slide-1 is the LCP slide. Later slides preload at low priority:
+       ready before the first crossfade without competing with the LCP image.
+       The promo/discount slide is currently disabled and not preloaded. -->
   <link rel="preload" as="image" href="/images/hero-slide-1.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="/images/hero-slide-2.webp" />
   <link rel="preload" as="image" href="/images/hero-slide-3.webp" />
@@ -68,11 +69,11 @@
     ]
   }
   </script>
-  <script type="module" crossorigin src="/assets/index-CfCjBtTO.js"></script>
+  <script type="module" crossorigin src="/assets/index-DtVjGhGP.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/react-vendor-C3PczigS.js">
   <link rel="modulepreload" crossorigin href="/assets/framer-motion-EHhto_O3.js">
   <link rel="modulepreload" crossorigin href="/assets/radix-ui-DPyInHli.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-3O1ywRhh.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-BQjvdlBJ.css">
 </head>
 
 <body>
