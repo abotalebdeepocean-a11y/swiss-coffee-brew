@@ -303,7 +303,7 @@ export default function Product() {
               {/* اختيار المقاس/الطحن */}
               {product.variants && product.variants.length > 1 && (
                 <div className="mt-5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">الخيار</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">اختار</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {product.variants.map((v) => (
                       <button
@@ -342,7 +342,8 @@ export default function Product() {
                   className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-rv-red text-sm font-bold text-white shadow-lg shadow-rv-red/20 transition-all hover:-translate-y-0.5 hover:bg-[#b53219] hover:shadow-rv-red/30 sm:flex-none sm:px-8"
                 >
                   <ShoppingBag className="size-4" />
-                  أضف إلى السلة — {formatPrice(price * qty)}
+                  {product.slug === "rovento-bar-intenso-1kg" ? "جرّب قوي" : "جرّب ناعم"} ←
+                  <span className="font-mono text-xs opacity-75">— {formatPrice(price * qty)}</span>
                 </button>
               </div>
 
@@ -354,15 +355,15 @@ export default function Product() {
                 className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#25d366]/40 bg-[#25d366]/10 text-sm font-bold text-[#25d366] transition-colors hover:bg-[#25d366] hover:text-white"
               >
                 <WhatsAppIcon className="size-4" />
-                اطلب عبر واتساب
+                اطلب واتساب — من غير تعقيد
               </a>
 
               {/* شريط الثقة */}
               <div className="mt-5 grid grid-cols-3 gap-2">
                 {[
-                  { icon: Truck, t: "شحن سريع", s: "24-72 ساعة" },
-                  { icon: ShieldCheck, t: "جودة مضمونة", s: "أو استرجاع" },
-                  { icon: RotateCcw, t: "استبدال سهل", s: "خلال 7 أيام" },
+                  { icon: Truck, t: "بيوصلك بسرعة", s: "24-72 ساعة" },
+                  { icon: ShieldCheck, t: "ادفع لما يوصّلك", s: "مش محتاج تثق فينا الأول" },
+                  { icon: RotateCcw, t: "مش عجبك؟ ارجعه", s: "خلال 14 يوم — خلاص" },
                 ].map((x) => (
                   <div key={x.t} className="flex flex-col items-center gap-1 rounded-xl border border-white/8 bg-white/[0.02] p-2.5 text-center">
                     <x.icon className="size-3.5 text-rv-gold" />
@@ -442,7 +443,7 @@ export default function Product() {
                   <Stars value={product.rating} />
                 </div>
                 <h2 className="text-xl font-bold md:text-2xl">
-                  آراء <span className="text-rv-gold">العملاء</span>
+                  الناس اللي جربتها <span className="text-rv-gold">بتقول إيه</span>
                 </h2>
                 <span className="text-sm text-muted-foreground">({product.reviews} تقييم)</span>
               </div>
@@ -478,7 +479,7 @@ export default function Product() {
             <section className="mt-14 md:mt-16">
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-lg font-bold md:text-xl">
-                  منتجات <span className="text-rv-gold">مشابهة</span>
+                  أو جرّب <span className="text-rv-gold">كمان</span>
                 </h2>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
