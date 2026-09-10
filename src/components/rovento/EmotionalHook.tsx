@@ -22,36 +22,42 @@ export function EmotionalHook() {
           {/* Steaming espresso cup */}
           <div className="mb-8 flex justify-center">
             <div className="relative">
-              {/* Steam lines */}
+              {/* Steam lines — living, drifting (GPU-only opacity/y motion) */}
               <svg
                 viewBox="0 0 60 40"
-                className="absolute -top-8 left-1/2 h-8 w-15 -translate-x-1/2 opacity-40"
+                className="absolute -top-8 left-1/2 h-8 w-15 -translate-x-1/2"
                 aria-hidden="true"
               >
-                <path
-                  d="M15 35 C15 25, 20 20, 18 10 C16 0, 22 -5, 20 5"
-                  fill="none"
-                  stroke="#c9a84c"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.5"
-                />
-                <path
-                  d="M30 35 C30 22, 35 18, 33 8 C31 -2, 37 -7, 35 3"
-                  fill="none"
-                  stroke="#c9a84c"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.7"
-                />
-                <path
-                  d="M45 35 C45 25, 40 20, 42 10 C44 0, 38 -5, 40 5"
-                  fill="none"
-                  stroke="#c9a84c"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.5"
-                />
+                {[
+                  {
+                    d: "M15 35 C15 25, 20 20, 18 10 C16 0, 22 -5, 20 5",
+                    delay: 0,
+                  },
+                  {
+                    d: "M30 35 C30 22, 35 18, 33 8 C31 -2, 37 -7, 35 3",
+                    delay: 0.8,
+                  },
+                  {
+                    d: "M45 35 C45 25, 40 20, 42 10 C44 0, 38 -5, 40 5",
+                    delay: 1.6,
+                  },
+                ].map((s) => (
+                  <motion.path
+                    key={s.d}
+                    d={s.d}
+                    fill="none"
+                    stroke="#c9a84c"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    animate={{ opacity: [0.15, 0.7, 0.15], y: [0, -3, 0] }}
+                    transition={{
+                      duration: 3.2,
+                      delay: s.delay,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
               </svg>
 
               {/* Cup SVG */}

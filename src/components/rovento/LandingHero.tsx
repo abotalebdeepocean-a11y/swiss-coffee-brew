@@ -8,7 +8,8 @@ import { FlipBag } from "./FlipBag";
 import { HeroSlider } from "./HeroSlider";
 
 /**
- * Hero — "خذ حصاد الجبل إلى بيتك"
+ * Hero — "بتدفع في قهوتك... وبتشرب نص المذاق؟"
+ * يبدأ بسؤال يلمس الألم (القهوة المخزّنة) مش بيان يصف المنتج، وبعدين يقدّم الحل:
  * خلفية سلايدر سينمائية (3 مشاهد تتغير crossfade كل 5 ثوانٍ) + الأكياس
  * العائمة ثابتة فوقها كطبقة مستقلة تمامًا: السلايدر داخل طبقة absolute
  * معزولة، فلا تُعاد render للأكياس ولا تتحرك ولا تهتز مهما تغيّرت الصورة.
@@ -127,9 +128,8 @@ export function LandingHero() {
         transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
         className="relative z-30 mt-6 text-center text-4xl font-black leading-[1.25] drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)] md:text-6xl lg:text-7xl"
       >
-        <span className="text-[#f5efe6]">انقل حصاد </span>
-        <span className="gold-gradient-text">الجبل</span>
-        <span className="text-[#f5efe6]"> لبيتك !</span>
+        <span className="text-[#f5efe6]">بتدفع في قهوتك... </span>
+        <span className="gold-gradient-text">وبتشرب نص المذاق؟</span>
       </motion.h1>
 
       {/* ═══ Offer subline ═══ */}
@@ -139,9 +139,9 @@ export function LandingHero() {
         transition={{ duration: 0.9, delay: 0.55 }}
         className="relative z-30 mt-4 text-center text-sm text-[#f5efe6]/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] md:text-base"
       >
-        نقدم تجربة الحصول على{" "}
-        <span className="font-bold text-[#e0c872]">أفضل أنواع حبوب القهوة في مصر</span>{" "}
-        ونعمل على تقديمها بأفضل جودة وبسعر تستحقونه انتم
+        القهوة الطازة بتفقد{" "}
+        <span className="font-bold text-[#e0c872]">60% من نكهتها بعد أسبوع من التحميص</span>.
+        روفينتو بيتحمص لطلبك — مش من المخزن.
       </motion.p>
 
       {/* ═══ The two bags with prices — like the reference ═══ */}
@@ -206,8 +206,7 @@ export function LandingHero() {
               Bar Intenso
             </p>
             <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              توليفة قوية بكافيين أعلى — مثالية للمشروبات المعتمدة على الحليب وإسبريسو إيطالي
-              أصيل
+              الكريمة دي مش بتتلاشى — قوي وكافيين أعلى، واتعمل أصلاً للمشروبات اللي بالحليب
             </p>
           </div>
 
@@ -218,7 +217,7 @@ export function LandingHero() {
             className="rv-btn mt-4 flex items-center gap-2 rounded-xl bg-[#c9a84c] px-5 py-2.5 text-xs font-black text-[#0a0a0a] opacity-90 shadow-lg shadow-black/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e0c872] hover:opacity-100 md:text-sm"
           >
             <ShoppingCart className="size-3.5" />
-            اطلب بار إنتنسو
+            جرّب قوي ←
           </button>
         </motion.div>
 
@@ -278,7 +277,7 @@ export function LandingHero() {
               Premium
             </p>
             <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              ناعمة • متوازنة • فاخرة — 50% أرابيكا و50% روبوستا بتحميص متوسط ولمسة نهائية طويلة
+              ناعمة ومتوازنة ومش محتاجة سكر — 50% أرابيكا و50% روبوستا بتحميص وسط
             </p>
           </div>
 
@@ -289,7 +288,7 @@ export function LandingHero() {
             className="rv-btn mt-4 flex items-center gap-2 rounded-xl border-2 border-[#c9a84c]/60 bg-[#0a0a0a]/30 px-5 py-2.5 text-xs font-black text-[#e0c872] opacity-90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a84c] hover:bg-[#c9a84c]/15 hover:opacity-100 md:text-sm"
           >
             <ShoppingCart className="size-3.5" />
-            اطلب بريميوم
+            جرّب ناعم ←
           </button>
         </motion.div>
       </div>

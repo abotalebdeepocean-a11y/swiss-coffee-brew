@@ -17,7 +17,7 @@ import { RippleFX } from "@/components/rovento/RippleFX";
 export default function Landing() {
   useEffect(() => {
     document.title =
-      "ROVENTO — انقل حصاد الجبل لبيتك ! | Espresso Coffee, Made in Egypt";
+      "ROVENTO — بتجيب قهوة وبتشرب نص المذاق؟ | Espresso Coffee, Made in Egypt";
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
   }, []);
@@ -29,27 +29,27 @@ export default function Landing() {
     >
       <Header />
       <main>
-        {/* 1 — Hero: Mountain Harvest cinematic scene */}
+        {/* 1 — Hero: السؤال اللي يلمس الألم + الحل */}
         <LandingHero />
 
-        {/* 2 — اعرف بلندك: deep blend profiles (Premium first) */}
+        {/* 2 — لمسة عاطفية: نفَس واحد قبل البيع */}
+        <EmotionalHook />
+
+        {/* 3 — اختار شخصيتك: قرار بسيط — قوي ولا ناعم */}
         <div id="profiles">
           <BlendProfiles />
         </div>
 
-        {/* 3 — تفاصيل النكهة: flavor proof right after the profiles */}
+        {/* 4 — سبب واحد للشراء دلوقتي: العرض الحقيقي */}
+        <OfferBanner />
+
+        {/* 5 — ليه روفينتو: 3 أسباب */}
+        <TrustPillars />
+
+        {/* 6 — تفاصيل النكهة: للمقتنع اللي عايز يتأكد */}
         <div id="flavor">
           <FlavorProfile />
         </div>
-
-        {/* 4 — The ONE real dated offer */}
-        <OfferBanner />
-
-        {/* 6 — Emotional pause */}
-        <EmotionalHook />
-
-        {/* 7 — Why Rovento (trust pillars) */}
-        <TrustPillars />
 
         {/* 8 — Shipping & Returns (PK 7 placeholder for character-select: now Shipping & Returns) */}
         <div id="shipping">

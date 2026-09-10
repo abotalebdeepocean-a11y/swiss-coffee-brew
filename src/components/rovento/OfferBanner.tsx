@@ -77,8 +77,8 @@ export function OfferBanner() {
                   </div>
 
                   <h2 className="mb-3 text-2xl font-black leading-snug md:text-4xl">
-                    <span className="text-[#f5efe6]">اشترِ كيسين </span>
-                    <span className="gold-gradient-text">ووفّر أكتر</span>
+                    <span className="text-[#f5efe6]">خد كيسين </span>
+                    <span className="gold-gradient-text">وفّر أكتر</span>
                   </h2>
 
                   <p className="mb-2 text-sm leading-relaxed text-[#b0a898]">
@@ -124,7 +124,7 @@ export function OfferBanner() {
                     className="rv-btn inline-flex items-center gap-2.5 rounded-xl bg-[#c9a84c] px-7 py-3.5 text-sm font-black text-[#0a0a0a] shadow-lg shadow-[#c9a84c]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e0c872] hover:shadow-[0_0_26px_rgba(201,168,76,0.4)]"
                   >
                     <ShoppingCart className="size-4" />
-                    اشترِ الاتنين ووفّر
+                    خد الاتنين ووفّر
                   </button>
                 </div>
 

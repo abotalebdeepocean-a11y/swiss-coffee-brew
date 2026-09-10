@@ -5,18 +5,18 @@ import { Truck, ShieldCheck, Award } from "lucide-react";
 const PILLARS = [
   {
     icon: Award,
-    title: "جودة حقيقية",
-    desc: "مصادر بن موثوقة ومحمصة طازة",
+    title: "بتتحمص لطلبك",
+    desc: "كل كيس بيتحمص بعد ما تطلبه — مش من مخزن من زمان",
   },
   {
     icon: Truck,
-    title: "شحن سريع",
-    desc: "بيوصلك في أيام معدودة",
+    title: "مش محتاج تثق فينا الأول",
+    desc: "ادفع لما يوصّلك — وشوف الكيس بإيدك قبل ما تدفع",
   },
   {
     icon: ShieldCheck,
-    title: "ضمان استرجاع",
-    desc: "مش عاجبك، ترجعه بسهولة",
+    title: "مش عجبك؟ ارجعه. خلاص.",
+    desc: "14 يوم استرجاع بدون أسئلة وبدون تعقيد",
   },
 ];
 
@@ -27,6 +27,22 @@ export function TrustPillars() {
   return (
     <section ref={ref} className="relative bg-[#0a0a0a] py-16 md:py-20">
       <div className="mx-auto max-w-[900px] px-4 md:px-6">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="mb-12 text-center md:mb-14"
+        >
+          <h2 className="text-2xl font-black md:text-3xl">
+            <span className="text-[#f5efe6]">ليه </span>
+            <span className="gold-gradient-text">روفينتو؟</span>
+          </h2>
+          <div className="rv-divider mt-5">
+            <span className="text-xs text-[#c9a84c]/40">◆</span>
+          </div>
+        </motion.div>
+
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6">
           {PILLARS.map((pillar, i) => {
             const Icon = pillar.icon;
