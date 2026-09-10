@@ -17,21 +17,41 @@ export const emailOtp = Email({
   },
   async sendVerificationRequest({ identifier: email, token }) {
     try {
+      const apiKey = import.meta.env.VITE_FREEBUFF_API_KEY;
+      
+      if (!apiKey) {
+        throw new Error(
+          "VITE_FREEBUFF_API_KEY is not configured. Check your .env file."
+        );
+      }
+
       await axios.post(
         "https://auth.freebuff.app/send_otp",
         {
           to: email,
           otp: token,
-          appName: process.env.VLY_APP_NAME || "a freebuff.com application",
+          appName: import.meta.env.VITE_VLY_APP_NAME || "ROVENTO Coffee",
         },
         {
           headers: {
-            "x-api-key": "fb_email_2crN1hqIArZP2bEfvjp5Qik4",
+            "x-api-key": apiKey,
           },
+          timeout: 10000, // 10 second timeout
         },
       );
     } catch (error) {
-      throw new Error(JSON.stringify(error));
+      console.error("[Email OTP] Failed to send verification email:", {
+        error:
+          error instanceof Error
+            ? { message: error.message, cause: error.cause }
+            : error,
+      });
+
+      throw new Error(
+        error instanceof Error
+          ? `Failed to send verification email: ${error.message}`
+          : "Failed to send verification email. Please try again.",
+      );
     }
   },
 });
