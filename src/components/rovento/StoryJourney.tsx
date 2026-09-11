@@ -119,23 +119,25 @@ function SectionBurnout() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#141414] py-24 md:py-32"
+      className="relative overflow-hidden bg-[#3d3d3d] py-24 md:py-32"
     >
-      {/* gray minimal office vibe — dim window light + desk gradient */}
+      {/* gray minimal office vibe (#9A9A9A family) — dim window light + desk gradient */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1b1b1b] via-[#141414] to-[#101010]" />
-        <div className="absolute left-[8%] top-0 h-[55%] w-[26%] rotate-6 bg-gradient-to-b from-[#2e2e2e]/70 via-[#242424]/30 to-transparent blur-2xl" />
-        <div className="absolute right-[12%] top-[10%] h-[40%] w-[18%] bg-gradient-to-b from-[#262626]/60 to-transparent blur-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#8a8a8a] via-[#6e6e6e] to-[#4a4a4a]" />
+        <div className="absolute left-[8%] top-0 h-[55%] w-[26%] rotate-6 bg-gradient-to-b from-[#9a9a9a]/80 via-[#8a8a8a]/40 to-transparent blur-2xl" />
+        <div className="absolute right-[12%] top-[10%] h-[40%] w-[18%] bg-gradient-to-b from-[#9a9a9a]/70 to-transparent blur-2xl" />
         {/* faint gray blinds stripes */}
         <div
-          className="absolute inset-x-0 top-0 h-[60%] opacity-[0.05]"
+          className="absolute inset-x-0 top-0 h-[60%] opacity-[0.08]"
           style={{
             background:
               "repeating-linear-gradient(180deg, #9a9a9a 0 3px, transparent 3px 42px)",
           }}
         />
+        {/* vignette to keep text readable on the lighter gray */}
+        <div className="absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_40%,transparent_40%,rgba(20,20,20,0.45)_100%)]" />
         {/* transition to gold for next section */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#c49b34]/10" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#c49b34]/25" />
       </div>
 
       <div className="relative mx-auto max-w-[1100px] px-5 md:px-8">
@@ -162,7 +164,7 @@ function SectionBurnout() {
         </h1>
 
         <p
-          className={`mx-auto mt-6 max-w-[560px] text-center text-[14px] leading-[1.9] text-[#9a9a9a] transition-all delay-200 duration-700 md:text-[16px] ${
+          className={`mx-auto mt-6 max-w-[560px] text-center text-[14px] leading-[1.9] text-[#d6d6d6] transition-all delay-200 duration-700 md:text-[16px] ${
             inView ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -184,25 +186,25 @@ function SectionBurnout() {
               decoding="async"
               className="w-full drop-shadow-[0_24px_40px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:-translate-y-1"
             />
-            <div className="mx-auto mt-3 h-3 w-[45%] rounded-full bg-black/60 blur-md" />
+            <div className="mx-auto mt-3 h-3 w-[45%] rounded-full bg-black/45 blur-md" />
           </div>
         </div>
 
-        {/* CTA */}
+        {/* CTA — يوصلك لسكشن المجد فين بريميوم */}
         <div className="mt-10 flex justify-center">
-          <button
-            onClick={() => add("rovento-bar-intenso-1kg")}
-            className="flex h-[52px] items-center gap-2 rounded-full bg-[#c49b34] px-9 text-[15px] font-black text-black shadow-[0_10px_30px_rgba(196,155,52,0.3)] transition-all hover:bg-[#d9b34a] active:scale-[0.98]"
+          <a
+            href="#glory"
+            className="flex h-[52px] items-center gap-2 rounded-full bg-[#c49b34] px-9 text-[15px] font-black text-black shadow-[0_10px_30px_rgba(196,155,52,0.35)] transition-all hover:bg-[#d9b34a] active:scale-[0.98]"
           >
             <ShoppingCart className="size-4" />
             اطلب بريميوم
-          </button>
+          </a>
         </div>
 
         {/* energy 3% */}
         <div className="mt-14">
-          <EnergyBar level={3} tone="linear-gradient(to left, #9a9a9a, #cfcfcf)" />
-          <p className="mt-2 text-center text-[11px] tracking-wide text-[#9a9a9a]/70">
+          <EnergyBar level={3} tone="linear-gradient(to left, #e5e5e5, #ffffff)" />
+          <p className="mt-2 text-center text-[11px] tracking-wide text-[#e5e5e5]/80">
             الطاقة.. قبل أول رشفة
           </p>
         </div>
@@ -332,8 +334,9 @@ function SectionGlory() {
 
   return (
     <section
+      id="glory"
       ref={ref}
-      className="relative overflow-hidden bg-[#1b2f48] py-24 md:py-32"
+      className="relative scroll-mt-20 overflow-hidden bg-[#1b2f48] py-24 md:py-32"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         {/* navy depth + gold summit glow */}
