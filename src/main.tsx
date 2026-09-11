@@ -20,6 +20,7 @@ const Product = lazy(() => import("./pages/Product.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const InvoiceDownload = lazy(() => import("./pages/InvoiceDownload.tsx"));
+const Checkout = lazy(() => import("./pages/Checkout.tsx"));
 const DownloadProject = lazy(() => import("./components/rovento/DownloadProject.tsx"));
 
 // Simple loading fallback for route transitions
@@ -162,6 +163,7 @@ createRoot(document.getElementById("root")!).render(
                   }
                 />
                 <Route path="/invoice" element={<InvoiceDownload />} />
+                <Route path="/checkout" element={<Checkout />} />
                 <Route path="/download" element={<DownloadProject />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
