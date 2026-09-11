@@ -32,24 +32,24 @@ export function FinalCTA() {
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <button
-              onClick={() => add("rovento-bar-intenso-1kg")}
+              onClick={() => add("rovento-premium-1kg")}
               className="rv-btn flex items-center gap-3 rounded-xl bg-[#c9a84c] px-8 py-4 text-base font-black text-[#0a0a0a] shadow-lg shadow-[#c9a84c]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e0c872] hover:shadow-[#c9a84c]/30"
             >
               <ShoppingCart className="size-5" />
-              جرّب قوي ← {intensoPrice} ج.م
-              {intensoOld && (
+              جرّب الفاخر ← {premiumPrice} ج.م
+              {premiumOld && (
                 <span className="rv-old-price rv-old-price-dark rv-price-flash-dark text-xs font-bold text-rv-black/60">
-                  {intensoOld}
+                  {premiumOld}
                 </span>
               )}
             </button>
             <button
-              onClick={() => add("rovento-premium-1kg")}
+              onClick={() => add("rovento-bar-intenso-1kg")}
               className="rv-btn flex items-center gap-3 rounded-xl border-2 border-[#c9a84c]/40 px-8 py-4 text-base font-black text-[#c9a84c] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c9a84c] hover:bg-[#c9a84c]/10"
             >
               <ShoppingCart className="size-5" />
-              جرّب ناعم ← {premiumPrice} ج.م
-              {premiumOld && (
+              جرّب القوي ← {intensoPrice} ج.م
+              {intensoOld && (
                 <span className="rv-old-price rv-old-price-dark rv-price-flash-dark text-xs font-bold text-rv-black/60">
                   {premiumOld}
                 </span>

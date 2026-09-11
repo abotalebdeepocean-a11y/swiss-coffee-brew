@@ -342,7 +342,7 @@ export default function Product() {
                   className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-rv-red text-sm font-bold text-white shadow-lg shadow-rv-red/20 transition-all hover:-translate-y-0.5 hover:bg-[#b53219] hover:shadow-rv-red/30 sm:flex-none sm:px-8"
                 >
                   <ShoppingBag className="size-4" />
-                  {product.slug === "rovento-bar-intenso-1kg" ? "جرّب قوي" : "جرّب ناعم"} ←
+                  {product.slug === "rovento-bar-intenso-1kg" ? "جرّب القوي" : "جرّب الفاخر"} ←
                   <span className="font-mono text-xs opacity-75">— {formatPrice(price * qty)}</span>
                 </button>
               </div>

@@ -27,17 +27,29 @@ const SLIDES = [
   // { src: "/images/promo-slide.webp", promo: true }, // مُعطّل — بانر خصم ١٠٪ (لا يُعرض في السلايدر)
   // { src: "/images/hero-slide-1.webp", promo: false }, // مشاهد الجبال القديمة — استُبدلت بطلب المالك
   // { src: "/images/hero-slide-2.webp", promo: false },
-  // { src: "./images/hero-slide-3.webp", promo: false },
+  // { src: "/images/hero-slide-3.webp", promo: false },
 ] as const;
 
 const FADE_MS = 1800;
 /** مدة بقاء كل سلايد — بانر العرض يبقى أطول لأن فيه نص العرض */
 const HOLD_MS = (promo: boolean) => (promo ? 7000 : 5000);
 
-export function HeroSlider({ paused = false }: { paused?: boolean }) {
+export function HeroSlider({
+  paused = false,
+  onActiveChange,
+}: {
+  paused?: boolean;
+  /** يُبلّغ قسم الهيرو بالسلايد النشط — لاستخدامها في مزامنة نص العنوان */
+  onActiveChange?: (index: number) => void;
+}) {
   const [active, setActive] = useState(0);
   const [pageHidden, setPageHidden] = useState(false);
   const timerRef = useRef<number | null>(null);
+
+  // مزامنة السلايد النشط مع الأب (عنوان الهيرو) — بدون إعادة render للأب
+  useEffect(() => {
+    onActiveChange?.(active);
+  }, [active, onActiveChange]);
 
   // إيقاف كامل أثناء إخفاء التاب — لا استهلاك بطارية في الخلفية
   useEffect(() => {
