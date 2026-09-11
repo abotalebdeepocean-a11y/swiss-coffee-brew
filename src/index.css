@@ -743,3 +743,63 @@
     animation: none;
   }
 }
+
+/* ═══ حركة نصوص الهيرو المتزامنة مع السلايدر — CSS transitions فقط ═══
+   الخروج: opacity 1→0 + translateY(0→-12px) — 300ms ease-in.
+   الدخول: opacity 0→1 + translateY(12px→0) — 400ms ease-out بتأخير
+   200ms يبدأ بعد انتهاء خروج العنوان السابق (300ms).
+   السطر الفرعي بنفس الحركة بتأخير إضافي 100ms بعد بدء دخول العنوان.
+   الأكياس: crossfade شفافية فقط (500ms) بلا أي transform — ثابتة.
+   مع prefers-reduced-motion: تُلغى كل الـ transforms ويبقى opacity فقط. */
+.rv-hero-text {
+  display: inline-block;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 400ms ease-out 200ms,
+    transform 400ms ease-out 200ms;
+  will-change: opacity, transform;
+}
+/* السطر الفرعي — تأخير دخول إضافي 100ms بعد العنوان الرئيسي */
+.rv-hero-text--sub {
+  transition-delay: 300ms, 300ms;
+}
+/* حالة الخروج — تُلغي تأخير الدخول وتستبدل الانتقال */
+.rv-hero-text--out {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition:
+    opacity 300ms ease-in,
+    transform 300ms ease-in;
+}
+
+/* حالة الدخول الأولى — نقطة انطلاق الحركة (بلا انتقال): النص الجديد
+   يبدأ من opacity 0 + translateY(12px)، ثم عند إزالة الصنف ينتقل
+   إلى حالته النهائية عبر انتقال الحالة الأساسية أعلاه. */
+.rv-hero-text--pre {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: none;
+}
+
+/* الأكياس — طبقة مستقرة: crossfade شفافية فقط، بلا حركة موضع */
+.rv-bag-crossfade {
+  transition: opacity 500ms ease;
+  will-change: opacity;
+}
+.rv-bag-crossfade--hidden {
+  opacity: 0;
+}
+
+/* إتاحة: مع تقليل الحركة — transforms متعطلة بالكامل، opacity فقط */
+@media (prefers-reduced-motion: reduce) {
+  .rv-hero-text,
+  .rv-hero-text--out {
+    transform: none !important;
+    transition: opacity 300ms ease-in-out;
+    transition-delay: 0ms !important;
+  }
+  .rv-bag-crossfade {
+    transition: none;
+  }
+}

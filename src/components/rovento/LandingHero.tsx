@@ -1,32 +1,34 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { getProduct } from "@/lib/products";
 import { FlipBag } from "./FlipBag";
-import { HeroSlider } from "./HeroSlider";
+import { HeroSlider, HeroDots } from "./HeroSlider";
 
 /**
  * Hero — "بتدفع في قهوتك... وبتشرب نص المذاق؟"
  * يبدأ بسؤال يلمس الألم (القهوة المخزّنة) مش بيان يصف المنتج، وبعدين يقدّم الحل:
- * خلفية سلايدر سينمائية (بانران يتغيّران crossfade كل 5 ثوانٍ) + الأكياس
+ * خلفية سلايدر سينمائية (بانران يتقدّمان تلقائيًا كل 5 ثوانٍ) + الأكياس
  * العائمة ثابتة فوقها كطبقة مستقلة تمامًا: السلايدر داخل طبقة absolute
  * معزولة، فلا تُعاد render للأكياس ولا تتحرك ولا تهتز مهما تغيّرت الصورة.
  *
  * ترتيب المنتجات (طلب المالك): بريميوم أولًا — الجهة اليمنى/الموقع الأساسي،
  * وبار إنتنسو ثانيًا — الجهة اليسرى. على الموبايل (عمودي): بريميوم فوق.
  *
- * عنوان الهيرو متزامن مع السلايدر: على السلايد الأول سؤال الألم، وعلى
- * السلايد الثاني وعد الفريش — يتبدّلان بتلاشٍ ناعم دون تحريك باقي الطبقات.
+ * حركة النصوص المتزامنة مع السلايدر (CSS transitions فقط، بلا مكتبات):
+ *   خروج العنوان  : 300ms ease-in — opacity 1→0 + translateY(0→-12px)
+ *   دخول العنوان  : 400ms ease-out بتأخير 200ms — opacity 0→1 + translateY(12px→0)
+ *   السطر الفرعي   : نفس حركة الدخول بتأخير إضافي 100ms بعد العنوان
+ *   الأكياس        : crossfade شفافية فقط (500ms) بلا transform — ثابتة
+ * الأكياس تنعكس شفافيتها مع السلايد النشط (طبقتان دائمتان، تبديل opacity
+ * فقط) فيبدو النص يطفو بلطف فوق مشهد ثابت — كلها في src/index.css
+ * (rv-hero-text / rv-bag-crossfade) مع تعطيل transforms كليًا عند
+ * prefers-reduced-motion (يبقى opacity فقط).
  *
- * ترتيب الطبقات (من الخلف للأمام):
- *   1. صورة الخلفية المتغيرة (HeroSlider)
- *   2. طبقة التعتيم الخفيفة + تدرجات الدمج
- *   3. العناصر الزخرفية الثابتة (rv-noise)
- *   4. أكياس القهوة العائمة (مع الأسعار) — ثابتة تمامًا
- *   5. النصوص والأزرار
- * إيقاف السلايدر عند مرور المؤشر فوق الهيرو كله، واستئنافه عند الخروج.
+ * الإيقاف: مرور المؤشر فوق الهيرو (hover) أو اللمس على الشاشات اللمسية
+ * (touchstart)، واستئناف تلقائي بعد ثانيتين من آخر لمسة.
  */
 
 /** ═══ بروفايل مختصر ببارات مضيئة — نفس محاور تفاصيل النكهة بشكل مصغّر ═══ */
@@ -88,17 +90,87 @@ function MiniProfileBars({ blend }: { blend: "intenso" | "premium" }) {
   );
 }
 
-/** ═══ عنوان السلايد الثاني — وعد الفريش ═══ */
-const SLIDE2_HEADLINE = "روفينتو بتحافظ على حبوب القهوة فريش لحد ما توصل باب بيتك";
+/** ═══ نصوص الهيرو لكل سلايد ═══ */
+const HEADLINES = [
+  <>
+    <span className="text-[#f5efe6]">بتدفع في قهوتك... </span>
+    <span className="gold-gradient-text">وبتشرب نص المذاق؟</span>
+  </>,
+  <span className="text-[#f5efe6]">
+    روفينتو بتحافظ على حبوب القهوة فريش لحد ما توصل باب بيتك
+  </span>,
+];
 
 export function LandingHero() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const [sliderPaused, setSliderPaused] = useState(false);
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [active, setActive] = useState(0);
+  /** حالة حركة النص: ثابت | خارج | داخل (آلية النقل عبر أصناف CSS) */
+  const [textPhase, setTextPhase] = useState<"idle" | "out" | "pre">("idle");
+  const touchTimerRef = useRef<number | null>(null);
   const { add } = useCart();
   const intenso = getProduct("rovento-bar-intenso-1kg");
   const premium = getProduct("rovento-premium-1kg");
+
+  // ── تبديل السلايد مع حركة النص: خروج 300ms ← دخول بتأخير 200ms ──
+  // عند التبديل: نخلي العنوان القديم يخرج (rv-hero-text--out 300ms)،
+  // ثم عند انتهائه نبدّل المحتوى ونركّب rv-hero-text--pre لحظة واحدة
+  // (نقطة انطلاق translateY(12px) بلا انتقال)، ثم نزيله لينطلق انتقال
+  // الدخول 400ms ease-out بتأخير 200ms المعرّف في CSS.
+  const changeSlide = (next: number) => {
+    setActive((current) => {
+      if (next === current) return current;
+      setTextPhase("out");
+      window.setTimeout(() => {
+        setActive(next);
+        setTextPhase("pre");
+        // إطار رسم واحد لإلغاء --pre وانطلاق انتقال الدخول
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setTextPhase("idle");
+          });
+        });
+      }, 300);
+      return current;
+    });
+  };
+
+  // ── إيقاف مؤقت عند اللمس — استئناف تلقائي بعد ثانيتين ──
+  useEffect(() => {
+    const onTouch = () => {
+      setSliderPaused(true);
+      if (touchTimerRef.current !== null) {
+        window.clearTimeout(touchTimerRef.current);
+      }
+      touchTimerRef.current = window.setTimeout(() => {
+        setSliderPaused(false);
+        touchTimerRef.current = null;
+      }, 2000);
+    };
+    const el = ref.current;
+    el?.addEventListener("touchstart", onTouch, { passive: true });
+    return () => {
+      el?.removeEventListener("touchstart", onTouch);
+      if (touchTimerRef.current !== null) {
+        window.clearTimeout(touchTimerRef.current);
+      }
+    };
+  }, []);
+
+  const headlineClass =
+    textPhase === "out"
+      ? "rv-hero-text rv-hero-text--out"
+      : textPhase === "pre"
+        ? "rv-hero-text rv-hero-text--pre"
+        : "rv-hero-text";
+
+  const subClass =
+    textPhase === "out"
+      ? "rv-hero-text rv-hero-text--sub rv-hero-text--out"
+      : textPhase === "pre"
+        ? "rv-hero-text rv-hero-text--sub rv-hero-text--pre"
+        : "rv-hero-text rv-hero-text--sub";
 
   return (
     <section
@@ -108,7 +180,7 @@ export function LandingHero() {
       onMouseLeave={() => setSliderPaused(false)}
     >
       {/* ═══ الطبقة 1 — خلفية السلايدر المتغيرة (معزولة تمامًا) ═══ */}
-      <HeroSlider paused={sliderPaused} onActiveChange={setSlideIndex} />
+      <HeroSlider active={active} paused={sliderPaused} onActiveChange={changeSlide} />
 
       {/* ═══ الطبقة 2 — تعتيم خفيف لوضوح النص + اندماج أعلى/أسفل ═══ */}
       <div className="pointer-events-none absolute inset-0 z-[1]">
@@ -132,45 +204,31 @@ export function LandingHero() {
         <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#e0c872]/50" />
       </motion.div>
 
-      {/* ═══ Headline — متزامن مع السلايدر (تلاشٍ ناعم بين العنوانين) ═══ */}
+      {/* ═══ Headline — يتبدّل بتلاشٍ + ارتفاع خفيف متزامن مع السلايدر ═══ */}
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
         className="relative z-30 mx-auto mt-6 max-w-[900px] px-4 text-center text-4xl font-black leading-[1.25] drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)] md:text-6xl lg:text-7xl"
       >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={slideIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.55, ease: "easeInOut" }}
-            className="inline-block"
-          >
-            {slideIndex === 1 ? (
-              <span className="text-[#f5efe6]">{SLIDE2_HEADLINE}</span>
-            ) : (
-              <>
-                <span className="text-[#f5efe6]">بتدفع في قهوتك... </span>
-                <span className="gold-gradient-text">وبتشرب نص المذاق؟</span>
-              </>
-            )}
-          </motion.span>
-        </AnimatePresence>
+        <span key={active} className={headlineClass}>
+          {HEADLINES[active]}
+        </span>
       </motion.h1>
 
-      {/* ═══ Subheadline — فقرة واحدة تلتف طبيعيًا ═══ */}
+      {/* ═══ Subheadline — نفس حركة العنوان بتأخير +100ms ═══ */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.9, delay: 0.55 }}
         className="relative z-30 mx-auto mt-4 max-w-[720px] px-4 text-center text-sm leading-relaxed text-[#f5efe6]/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] md:text-base"
       >
-        نقدم تجربة الحصول على أفضل أنواع حبوب القهوة في مصر ونعمل على تقديمها
-        بأفضل جودة وسعر تستحقونه —{" "}
-        <span className="font-bold text-[#e0c872]">
-          روفينتو بتحمصلك طلبك مخصوص.. مش من المخزن
+        <span className={subClass}>
+          نقدم تجربة الحصول على أفضل أنواع حبوب القهوة في مصر ونعمل على تقديمها
+          بأفضل جودة وسعر تستحقونه —{" "}
+          <span className="font-bold text-[#e0c872]">
+            روفينتو بتحمصلك طلبك مخصوص.. مش من المخزن
+          </span>
         </span>
       </motion.p>
 
@@ -219,25 +277,25 @@ export function LandingHero() {
             />
           </Link>
 
-          <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
-            <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl font-black gold-gradient-text md:text-4xl">
-                {premium?.price}
-              </span>
-              <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
+            <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-3xl font-black gold-gradient-text md:text-4xl">
+                  {premium?.price}
+                </span>
+                <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
+              </div>
+              {premium?.oldPrice && (
+                <span className="rv-old-price rv-price-flash mt-1 block text-center text-sm font-bold text-[#888888]">
+                  بدلًا من {premium.oldPrice} ج.م
+                </span>
+              )}
+              <p className="mt-1 font-condensed text-[11px] tracking-[0.3em] text-[#f5efe6]/70 uppercase">
+                Premium
+              </p>
+              <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
+                ناعمة ومتوازنة ومش محتاجة سكر — 50% أرابيكا و50% روبوستا بتحميص وسط
+              </p>
             </div>
-            {premium?.oldPrice && (
-              <span className="rv-old-price rv-price-flash mt-1 block text-center text-sm font-bold text-[#888888]">
-                بدلًا من {premium.oldPrice} ج.م
-              </span>
-            )}
-            <p className="mt-1 font-condensed text-[11px] tracking-[0.3em] text-[#f5efe6]/70 uppercase">
-              Premium
-            </p>
-            <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              ناعمة ومتوازنة ومش محتاجة سكر — 50% أرابيكا و50% روبوستا بتحميص وسط
-            </p>
-          </div>
 
           <MiniProfileBars blend="premium" />
 
@@ -292,24 +350,24 @@ export function LandingHero() {
 
           {/* Price tag beneath */}
           <div className="mt-5 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
-            <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl font-black gold-gradient-text md:text-4xl">
-                {intenso?.price}
-              </span>
-              <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-3xl font-black gold-gradient-text md:text-4xl">
+                  {intenso?.price}
+                </span>
+                <span className="text-xs font-bold text-[#f5efe6]/80">ج.م</span>
+              </div>
+              {intenso?.oldPrice && (
+                <span className="rv-old-price rv-price-flash mt-1 block text-center text-sm font-bold text-[#888888]">
+                  بدلًا من {intenso.oldPrice} ج.م
+                </span>
+              )}
+              <p className="mt-1 font-condensed text-[11px] tracking-[0.3em] text-[#f5efe6]/70 uppercase">
+                Bar Intenso
+              </p>
+              <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
+                الكريمة دي مش بتتلاشى — قوي وكافيين أعلى، واتعمل أصلاً للمشروبات اللي بالحليب
+              </p>
             </div>
-            {intenso?.oldPrice && (
-              <span className="rv-old-price rv-price-flash mt-1 block text-center text-sm font-bold text-[#888888]">
-                بدلًا من {intenso.oldPrice} ج.م
-              </span>
-            )}
-            <p className="mt-1 font-condensed text-[11px] tracking-[0.3em] text-[#f5efe6]/70 uppercase">
-              Bar Intenso
-            </p>
-            <p className="mx-auto mt-1.5 max-w-[180px] text-[11px] leading-relaxed text-[#f5efe6]/80">
-              الكريمة دي مش بتتلاشى — قوي وكافيين أعلى، واتعمل أصلاً للمشروبات اللي بالحليب
-            </p>
-          </div>
 
           <MiniProfileBars blend="intenso" />
 
@@ -323,12 +381,17 @@ export function LandingHero() {
         </motion.div>
       </div>
 
+      {/* ═══ نقاط التنقل — 24px تحت أزرار CTA ═══ */}
+      <div className="relative z-30 mt-6 flex justify-center">
+        <HeroDots active={active} onSelect={changeSlide} />
+      </div>
+
       {/* ═══ Mark + seal line ═══ */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 1, delay: 1.2 }}
-        className="relative z-30 mt-10 flex flex-col items-center gap-3 pb-14"
+        className="relative z-30 mt-6 flex flex-col items-center gap-3 pb-14"
       >
         <img
           src="/images/rovento-logo-real.webp"

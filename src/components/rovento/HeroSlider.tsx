@@ -1,26 +1,28 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 /**
  * HeroSlider — خلفية سلايدر سينمائية معزولة تمامًا عن باقي الهيرو.
  *
  * لماذا معزول؟ كل التغيير يحدث داخل هذه الطبقة فقط (خلفية absolute
- * بلا تأثير على التخطيط) — الأكياس العائمة والنصوص طبقات مستقلة فوقها
- * في تدفق الصفحة، فلا تُعاد render ولا تتحرك ولا تهتز مهما تغيّرت الصورة.
+ * بلا تأثير على التخطيط) — الأكياس العائمة طبقة مستقلة فوقها، فلا
+ * تتحرك ولا تهتز مهما تغيّرت الصورة.
  *
- * بانر العرض (خصم ١٠٪) مُعطّل حاليًا — لإعادة تفعيله أضف السطر التالي
- * أول المصفوفة: { src: "/images/promo-slide.webp", promo: true },
- * وحدّث الـ preloads في index.html (promo بحق أولوية عالية).
+ * الملكية (lifting state): حالة السلايد النشط معاشة في قسم الهيرو
+ * (LandingHero) حتى تتزامن نصوص العنوان/السطر الفرعي والنقاط معها.
+ * هذا المكوّن "متحكَّم فيه" (controlled): يستقبل active وonActiveChange.
  *
  * الطلبات الخاصة بالمالك: سلايدر البانر الرئيسي يعرض **بانرين فقط**
- * (hero-main-1 و hero-main-2) بالتناوب — لا صور أخرى في السلايدر.
+ * (hero-main-1 و hero-main-2) بالتناوب — لا صور أخرى في السلايدر،
+ * ويتقدّم تلقائيًا كل 5 ثوانٍ، ويتوقف عند اللمس أو مرور المؤشر.
  *
  * الحركة: crossfade بطيء (1.8ث) — لا انزلاق ولا حركة مزعجة.
- * كل صورة layer دائمة absolute inset-0: لا إزالة/تركيب DOM عند التبديل،
- * لا وميض، ولا إعادة تحميل. زمن بقاء كل سلايد مستقل (بانر العرض يبقى
- * أطول قليلًا ليُقرأ العرض). الإيقاف عند مرور المؤشر يُدار من قسم الهيرو
- * نفسه (خاصية paused)، ويتوقف كليًا أثناء إخفاء التاب.
+ * كل صورة layer دائمة absolute inset-0: لا إزالة/تركيب DOM عند
+ * التبديل، لا وميض، ولا إعادة تحميل. الإيقاف عند مرور المؤشر أو
+ * اللمس يُدار من قسم الهيرو نفسه (خاصية paused)، ويتوقف كليًا أثناء
+ * إخفاء التاب.
  */
+
 const SLIDES = [
   { src: "/images/hero-main-1.webp", promo: false }, // بانر ١ — من مكتبة Drive
   { src: "/images/hero-main-2.webp", promo: false }, // بانر ٢ — من مكتبة Drive
@@ -30,52 +32,40 @@ const SLIDES = [
   // { src: "/images/hero-slide-3.webp", promo: false },
 ] as const;
 
+/** عدد السلايدرات الفعّالة — تستخدمه النقاط والهيرو للتنقل */
+export const HERO_SLIDE_COUNT = SLIDES.length;
+
 const FADE_MS = 1800;
-/** مدة بقاء كل سلايد — بانر العرض يبقى أطول لأن فيه نص العرض */
-const HOLD_MS = (promo: boolean) => (promo ? 7000 : 5000);
+/** التقدّم التلقائي كل 5 ثوانٍ (طلب المالك) */
+const AUTO_ADVANCE_MS = 5000;
 
 export function HeroSlider({
+  active,
   paused = false,
   onActiveChange,
 }: {
+  /** السلايد النشط — مملوك لقسم الهيرو */
+  active: number;
+  /** إيقاف التقدّم التلقائي (مرور المؤشر / لمس) */
   paused?: boolean;
-  /** يُبلّغ قسم الهيرو بالسلايد النشط — لاستخدامها في مزامنة نص العنوان */
+  /** يُبلّغ قسم الهيرو بالسلايد النشط عند النقر على نقاط التنقل */
   onActiveChange?: (index: number) => void;
 }) {
-  const [active, setActive] = useState(0);
-  const [pageHidden, setPageHidden] = useState(false);
   const timerRef = useRef<number | null>(null);
 
-  // مزامنة السلايد النشط مع الأب (عنوان الهيرو) — بدون إعادة render للأب
+  // التقدّم التلقائي كل 5 ثوانٍ — يتوقف مع paused وإخفاء التاب
   useEffect(() => {
-    onActiveChange?.(active);
-  }, [active, onActiveChange]);
-
-  // إيقاف كامل أثناء إخفاء التاب — لا استهلاك بطارية في الخلفية
-  useEffect(() => {
-    const onVis = () => setPageHidden(document.hidden);
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, []);
-
-  // مؤقت لكل سلايد على حدة — أي تغيير (تبديل/إيقاف/عودة للتاب) يضبطه من جديد
-  useEffect(() => {
-    if (paused || pageHidden) return;
-    timerRef.current = window.setTimeout(
-      () => setActive((a) => (a + 1) % SLIDES.length),
-      HOLD_MS(SLIDES[active].promo),
-    );
+    if (paused || document.hidden) return;
+    timerRef.current = window.setTimeout(() => {
+      onActiveChange?.((active + 1) % SLIDES.length);
+    }, AUTO_ADVANCE_MS);
     return () => {
       if (timerRef.current !== null) {
         window.clearTimeout(timerRef.current);
         timerRef.current = null;
       }
     };
-  }, [active, paused, pageHidden]);
-
-  const goTo = useCallback((i: number) => {
-    setActive(i); // المؤقت يُعاد ضبطه تلقائيًا عبر الـ effect
-  }, []);
+  }, [active, paused, onActiveChange]);
 
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -103,34 +93,51 @@ export function HeroSlider({
             draggable={false}
             className="absolute inset-0 h-full w-full object-cover select-none"
           />
-          {/* وميض خلفي متوهج لبانر العرض — CSS خفيف بدل GIF (يُعطَّل مع reduced-motion) */}
+          {/* وميض خلفي متوهج لبانر العرض — CSS خفيف (يُعطَّل مع reduced-motion) */}
           {slide.promo && <div className="rv-promo-flash motion-reduce:hidden" />}
         </div>
       ))}
+    </div>
+  );
+}
 
-      {/* نقاط التنقل — قابلة للنقر ولوحة المفاتيح */}
-      <div
-        className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5"
-        role="tablist"
-        aria-label="اختيار خلفية الهيرو"
-      >
-        {SLIDES.map((slide, i) => (
-          <button
-            key={slide.src}
-            type="button"
-            role="tab"
-            aria-selected={i === active}
-            aria-label={slide.promo ? "عرض الخصم" : `خلفية ${i}`}
-            onClick={() => goTo(i)}
-            className={cn(
-              "pointer-events-auto h-2.5 cursor-pointer rounded-full border transition-all duration-500 ease-out",
-              i === active
-                ? "w-8 border-[#e0c872]/90 bg-[#e0c872] shadow-[0_0_12px_rgba(224,200,114,0.55)]"
-                : "w-2.5 border-white/35 bg-white/25 hover:border-white/60 hover:bg-white/45",
-            )}
-          />
-        ))}
-      </div>
+/**
+ * HeroDots — نقاط تنقل ذهبية تحت أزرار CTA في الهيرو.
+ * 3 نقاط فقط، قطر 8px، غير النشطة بشفافية 40% والنشطة 100%،
+ * بلا أسهم — النقر (ولوحة المفاتيح) ينقل مباشرة.
+ */
+export function HeroDots({
+  active,
+  onSelect,
+  className,
+}: {
+  active: number;
+  onSelect: (index: number) => void;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn("flex items-center justify-center gap-2.5", className)}
+      role="tablist"
+      aria-label="اختيار خلفية الهيرو"
+    >
+      {Array.from({ length: HERO_SLIDE_COUNT }, (_, i) => (
+        <button
+          key={i}
+          type="button"
+          role="tab"
+          aria-selected={i === active}
+          aria-label={`خلفية ${i + 1}`}
+          onClick={() => onSelect(i)}
+          className={cn(
+            "size-2 cursor-pointer rounded-full border transition-opacity duration-500 ease-out",
+            "motion-reduce:transition-none",
+            i === active
+              ? "border-[#e0c872] bg-[#e0c872] opacity-100 shadow-[0_0_10px_rgba(224,200,114,0.55)]"
+              : "border-[#e0c872]/50 bg-[#e0c872]/40 opacity-40 hover:opacity-70",
+          )}
+        />
+      ))}
     </div>
   );
 }
