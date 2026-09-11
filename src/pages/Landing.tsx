@@ -1,23 +1,17 @@
 import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
-import { LandingHero } from "@/components/rovento/LandingHero";
-import { OfferBanner } from "@/components/rovento/OfferBanner";
-import { EmotionalHook } from "@/components/rovento/EmotionalHook";
-import { BlendProfiles } from "@/components/rovento/BlendProfiles";
+import { StoryJourney } from "@/components/rovento/StoryJourney";
 import { TrustPillars } from "@/components/rovento/TrustPillars";
-import { FlavorProfile } from "@/components/rovento/FlavorProfile";
 import { ShippingReturnsBanner } from "@/components/rovento/ShippingReturnsBanner";
 import { FAQ } from "@/components/rovento/FAQ";
-import { FinalCTA } from "@/components/rovento/FinalCTA";
 import { Footer } from "@/components/rovento/Footer";
 import { CartDrawer } from "@/components/rovento/CartDrawer";
 import { WhatsAppFloat } from "@/components/rovento/WhatsAppFloat";
-import { RippleFX } from "@/components/rovento/RippleFX";
 
 export default function Landing() {
   useEffect(() => {
     document.title =
-      "ROVENTO — بتجيب قهوة وبتشرب نص المذاق؟ | Espresso Coffee, Made in Egypt";
+      "ROVENTO — انقل حصاد الجبل لبيتك! | قهوة مصرية بتحمص لطلبك";
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
   }, []);
@@ -29,45 +23,25 @@ export default function Landing() {
     >
       <Header />
       <main>
-        {/* 1 — Hero: السؤال اللي يلمس الألم + الحل */}
-        <LandingHero />
+        {/* القصة الكاملة: القهر (رمادي) → البعثة (دهبي) → المجد (كحلي/دهبي) */}
+        <StoryJourney />
 
-        {/* 2 — لمسة عاطفية: نفَس واحد قبل البيع */}
-        <EmotionalHook />
-
-        {/* 3 — اختار شخصيتك: قرار بسيط — قوي ولا ناعم */}
-        <div id="profiles">
-          <BlendProfiles />
-        </div>
-
-        {/* 4 — سبب واحد للشراء دلوقتي: العرض الحقيقي */}
-        <OfferBanner />
-
-        {/* 5 — ليه روفينتو: 3 أسباب */}
+        {/* ليه روفينتو — الثقة بعد القصة */}
         <TrustPillars />
 
-        {/* 6 — تفاصيل النكهة: للمقتنع اللي عايز يتأكد */}
-        <div id="flavor">
-          <FlavorProfile />
-        </div>
-
-        {/* 8 — Shipping & Returns (PK 7 placeholder for character-select: now Shipping & Returns) */}
+        {/* الشحن والضمان — إزالة آخر عذر */}
         <div id="shipping">
           <ShippingReturnsBanner />
         </div>
 
-        {/* 10 — FAQ */}
+        {/* FAQ */}
         <div id="faq">
           <FAQ />
         </div>
-
-        {/* 11 — Final CTA */}
-        <FinalCTA />
       </main>
       <Footer />
       <CartDrawer />
       <WhatsAppFloat />
-      <RippleFX />
     </div>
   );
 }
