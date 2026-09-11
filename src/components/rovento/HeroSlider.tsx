@@ -12,6 +12,9 @@ import { cn } from "@/lib/utils";
  * أول المصفوفة: { src: "/images/promo-slide.webp", promo: true },
  * وحدّث الـ preloads في index.html (promo بحق أولوية عالية).
  *
+ * الطلبات الخاصة بالمالك: سلايدر البانر الرئيسي يعرض **بانرين فقط**
+ * (hero-main-1 و hero-main-2) بالتناوب — لا صور أخرى في السلايدر.
+ *
  * الحركة: crossfade بطيء (1.8ث) — لا انزلاق ولا حركة مزعجة.
  * كل صورة layer دائمة absolute inset-0: لا إزالة/تركيب DOM عند التبديل،
  * لا وميض، ولا إعادة تحميل. زمن بقاء كل سلايد مستقل (بانر العرض يبقى
@@ -19,10 +22,12 @@ import { cn } from "@/lib/utils";
  * نفسه (خاصية paused)، ويتوقف كليًا أثناء إخفاء التاب.
  */
 const SLIDES = [
-  // { src: "/images/promo-slide.webp", promo: true }, // مُعطّل — بانر خصم ١٠٪
-  { src: "/images/hero-slide-1.webp", promo: false },
-  { src: "/images/hero-slide-2.webp", promo: false },
-  { src: "/images/hero-slide-3.webp", promo: false },
+  { src: "/images/hero-main-1.webp", promo: false }, // بانر ١ — من مكتبة Drive
+  { src: "/images/hero-main-2.webp", promo: false }, // بانر ٢ — من مكتبة Drive
+  // { src: "/images/promo-slide.webp", promo: true }, // مُعطّل — بانر خصم ١٠٪ (لا يُعرض في السلايدر)
+  // { src: "/images/hero-slide-1.webp", promo: false }, // مشاهد الجبال القديمة — استُبدلت بطلب المالك
+  // { src: "/images/hero-slide-2.webp", promo: false },
+  // { src: "./images/hero-slide-3.webp", promo: false },
 ] as const;
 
 const FADE_MS = 1800;

@@ -32,12 +32,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload critical LCP images (hero slider background + the two hero bags)
        so the browser starts fetching them before the JS bundle runs.
-       hero-slide-1 is the LCP slide. Later slides preload at low priority:
-       ready before the first crossfade without competing with the LCP image.
-       The promo/discount slide is currently disabled and not preloaded. -->
-  <link rel="preload" as="image" href="/images/hero-slide-1.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/images/hero-slide-2.webp" />
-  <link rel="preload" as="image" href="/images/hero-slide-3.webp" />
+       hero-main-1 is the LCP slide (the owner's banner #1). hero-main-2 preloads
+       at low priority so it's ready before the first crossfade.
+       The old mountain slides and the promo/discount slide are disabled and not preloaded. -->
+  <link rel="preload" as="image" href="/images/hero-main-1.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/images/hero-main-2.webp" />
   <link rel="preload" as="image" href="/images/premium-bag.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="/images/intenso-bag-front-new.webp" fetchpriority="high" />
   <link
