@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
-import { StoryJourney } from "@/components/rovento/StoryJourney";
+import { LandingHero } from "@/components/rovento/LandingHero";
+import { BlendProfiles } from "@/components/rovento/BlendProfiles";
 import { TrustPillars } from "@/components/rovento/TrustPillars";
 import { ShippingReturnsBanner } from "@/components/rovento/ShippingReturnsBanner";
 import { FAQ } from "@/components/rovento/FAQ";
@@ -23,10 +24,15 @@ export default function Landing() {
     >
       <Header />
       <main>
-        {/* القصة الكاملة: القهر (رمادي) → البعثة (دهبي) → المجد (كحلي/دهبي) */}
-        <StoryJourney />
+        {/* الهيرو — سلايدر البانرات + الكيسين + بروفايل النكهة */}
+        <LandingHero />
 
-        {/* ليه روفينتو — الثقة بعد القصة */}
+        {/* البلندات — اختار شخصيتك: قوي ولا فاخر؟ */}
+        <div id="profiles">
+          <BlendProfiles />
+        </div>
+
+        {/* ليه روفينتو — الثقة بعد المنتج */}
         <TrustPillars />
 
         {/* الشحن والضمان — إزالة آخر عذر */}

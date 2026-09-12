@@ -9,7 +9,8 @@ import { getProduct } from "@/lib/products";
 /**
  * BLEND PROFILES — deep, editorial profile for each blend.
  * Numbered chapters (01 / 02): story, origin, roast, ratio, flavor notes,
- * brewing methods, and the live 2kg price — the sales-funnel deep dive.
+ * brewing methods, the live 2kg price, and the pro cupping FLAVOR PROFILE
+ * (10-point segmented gold meters, same data as the hero profiles).
  */
 
 interface ProfileSpec {
@@ -30,6 +31,11 @@ interface BlendProfile {
   notes: string[];
   brewing: string[];
   specs: ProfileSpec[];
+  /** بروفايل النكهة — مقياس من 10 (نفس بيانات الهيرو) */
+  flavor: { label: string; value: number }[];
+  /** تدرج امتلاء الأشرطة + لون المساحة الفارغة */
+  fill: string;
+  track: string;
 }
 
 const PROFILES: BlendProfile[] = [
@@ -54,6 +60,17 @@ const PROFILES: BlendProfile[] = [
       { label: "الكافيين", value: "متوسط - عالي" },
       { label: "الوزن", value: "1 كجم" },
     ],
+    // دهبي → كريمي — يطابق هوية البريميوم
+    fill: "linear-gradient(to left, #a8843c, #f3e5c0)",
+    track: "rgba(201,168,76,0.14)",
+    flavor: [
+      { label: "Body", value: 8 },
+      { label: "Sweetness", value: 7 },
+      { label: "Acidity", value: 6 },
+      { label: "Bitterness", value: 5 },
+      { label: "Aftertaste", value: 8 },
+      { label: "Roast", value: 6 },
+    ],
   },
   {
     index: "02",
@@ -76,8 +93,117 @@ const PROFILES: BlendProfile[] = [
       { label: "الكافيين", value: "عالي" },
       { label: "الوزن", value: "1 كجم" },
     ],
+    // كحلي → دهبي — يطابق هوية البار إنتنسو
+    fill: "linear-gradient(to left, #16304f, #c9a84c, #f0dfa0)",
+    track: "rgba(27,47,72,0.65)",
+    flavor: [
+      { label: "Body", value: 10 },
+      { label: "Crema", value: 10 },
+      { label: "Aroma", value: 9 },
+      { label: "Sweetness", value: 8 },
+      { label: "Acidity", value: 6 },
+      { label: "Bitterness", value: 8 },
+      { label: "Aftertaste", value: 8 },
+    ],
   },
 ];
+
+function formatScore(value: number): string {
+  return Number.isInteger(value) ? `${value}` : value.toFixed(1);
+}
+
+function CuppingMeter({
+  label,
+  value,
+  fill,
+  track,
+  animate,
+  delayMs,
+}: {
+  label: string;
+  value: number;
+  fill: string;
+  track: string;
+  animate: boolean;
+  delayMs: number;
+}) {
+  const filledCount = Math.round(value);
+  return (
+    <div className="flex items-center gap-3">
+      <span className="w-[86px] shrink-0 text-[10px] font-bold uppercase tracking-[0.12em] text-white/55">
+        {label}
+      </span>
+      <div
+        className="flex flex-1 items-center gap-[3px]"
+        role="img"
+        aria-label={`${label}: ${formatScore(value)} من 10`}
+      >
+        {Array.from({ length: 10 }, (_, i) => {
+          const filled = i < filledCount;
+          return (
+            <span
+              key={i}
+              className="h-[7px] flex-1 rounded-[2px] transition-all duration-500 ease-out"
+              style={{
+                background: animate && filled ? fill : track,
+                boxShadow:
+                  animate && filled ? "0 0 8px rgba(201,168,76,0.25)" : "none",
+                transitionDelay:
+                  animate && filled ? `${delayMs + i * 70}ms` : "0ms",
+              }}
+            />
+          );
+        })}
+      </div>
+      <span className="w-[58px] shrink-0 text-left text-[12px] font-black tabular-nums text-[#c9a84c]">
+        {formatScore(value)}{" "}
+        <span className="text-[10px] font-bold text-white/35">/ 10</span>
+      </span>
+    </div>
+  );
+}
+
+function FlavorProfileBlock({
+  profile,
+}: {
+  profile: BlendProfile;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <div
+      ref={ref}
+      className="mt-6 w-full rounded-2xl border border-[#c9a84c]/15 bg-black/30 p-5 backdrop-blur-xl"
+    >
+      {/* header */}
+      <div className="text-center">
+        <p className="text-[11px] font-black tracking-[0.35em] text-[#c9a84c]">
+          FLAVOR PROFILE
+        </p>
+        <p className="mt-1.5 text-[10px] font-bold tracking-[0.22em] text-white/45">
+          {profile.nameEn} ESPRESSO BLEND
+        </p>
+        <div className="mx-auto mt-3 h-px w-20 bg-gradient-to-r from-transparent via-[#c9a84c]/50 to-transparent" />
+      </div>
+
+      {/* meters */}
+      <div className="mt-5 space-y-3">
+        {profile.flavor.map((r, i) => (
+          <CuppingMeter
+            key={r.label}
+            label={r.label}
+            value={r.value}
+            fill={profile.fill}
+            track={profile.track}
+            animate={isInView}
+            delayMs={i * 60}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ProfileBlock({ profile }: { profile: BlendProfile }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -208,6 +334,9 @@ function ProfileBlock({ profile }: { profile: BlendProfile }) {
             أضف للسلة
           </button>
         </div>
+
+        {/* بروفايل النكهة الاحترافي — أسفل وصف كل بلند */}
+        <FlavorProfileBlock profile={profile} />
       </div>
     </motion.div>
   );
