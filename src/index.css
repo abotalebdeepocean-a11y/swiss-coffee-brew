@@ -110,12 +110,12 @@
     50% { transform: translateY(-20px); }
   }
   @keyframes levitate {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-24px) rotate(0deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
   }
   @keyframes levitate-reverse {
-    0%, 100% { transform: translateY(0) rotate(2deg); }
-    50% { transform: translateY(-18px) rotate(0deg); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
   }
   @keyframes gold-shimmer {
     0%, 100% { opacity: 0.4; }

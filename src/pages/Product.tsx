@@ -34,12 +34,10 @@ import {
 import { useCart, whatsappLink } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
-/* ─── صور المعرض الافتراضية لكل منتج — أمامي وخلفي لكل كيس ─── */
+/* ─── صور المعرض الافتراضية لكل منتج — الغلاف الأمامي فقط ─── */
 const DEFAULT_GALLERY = [
   "/images/intenso-bag-front-new",
-  "/images/intenso-bag-back-new",
   "/images/premium-bag",
-  "/images/premium-bag-back",
 ];
 
 /* ─── تعليقات افتراضية ─── */
@@ -136,59 +134,55 @@ export default function Product() {
           {/* ═══════════════════ القسم الرئيسي ═══════════════════ */}
           <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
 
-            {/* ─── معرض الصور ─── */}
+            {/* ─── معرض الصور — الغلاف الأمامي فقط، بلا مساحات بيضاء ─── */}
             <div className="flex flex-col-reverse gap-3 sm:flex-row">
-              {/* Thumbnails */}
-              <div className="flex gap-2 sm:flex-col">
-                {gallery.map((img, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveImg(i)}
-                    className={cn(
-                      "group relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-white transition-all sm:h-20 sm:w-20",
-                      activeImg === i
-                        ? "border-rv-gold shadow-[0_0_12px_rgba(212,175,55,0.3)]"
-                        : "border-white/10 hover:border-white/30",
-                    )}
-                  >
-                    <BagVisual
-                      image={img}
-                      variant={variant}
-                      className="h-full w-full object-contain p-1"
-                    />
-                    {activeImg === i && (
-                      <div className="absolute inset-0 bg-rv-gold/10" />
-                    )}
-                  </button>
-                ))}
-              </div>
+              {/* Thumbnails — تظهر فقط لو فيه أكثر من صورة */}
+              {gallery.length > 1 && (
+                <div className="flex gap-2 sm:flex-col">
+                  {gallery.map((img, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveImg(i)}
+                      className={cn(
+                        "group relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-[#111111] transition-all sm:h-20 sm:w-20",
+                        activeImg === i
+                          ? "border-rv-gold shadow-[0_0_12px_rgba(212,175,55,0.3)]"
+                          : "border-white/10 hover:border-white/30",
+                      )}
+                    >
+                      <BagVisual
+                        image={img}
+                        variant={variant}
+                        className="h-full w-full object-contain"
+                      />
+                      {activeImg === i && (
+                        <div className="absolute inset-0 bg-rv-gold/10" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
 
-              {/* الصورة الرئيسية — خلفية بيضاء خلف صورة المنتج فقط لإخفاء عيوب الظلال */}
-              <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/15 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+              {/* الصورة الرئيسية — إطار داكن فاخر، الكيس يملأ المساحة بلا حشو */}
+              <div className="relative flex-1 overflow-hidden rounded-2xl border border-[#c9a84c]/20 bg-gradient-to-b from-[#161616] via-[#0d0d0d] to-[#0a0a0a] shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
+                {/* توهج بلون المنتج خلف الكيس */}
                 <div
                   className="absolute inset-0"
                   style={{
-                    background: `radial-gradient(500px 450px at 50% 45%, ${product.accent}12, transparent 70%)`,
+                    background: `radial-gradient(70% 60% at 50% 50%, ${product.accent}1e, transparent 75%)`,
                   }}
                 />
-                <Bean
-                  color="#4a3523"
-                  className="absolute start-6 top-8 w-12 animate-float opacity-30"
-                  style={{ "--rot": "-14deg" } as CSSProperties}
-                />
-                <Bean
-                  color="#241a10"
-                  className="absolute bottom-10 end-6 w-14 animate-float-slow opacity-25"
-                  style={{ "--rot": "18deg", animationDelay: "1s" } as CSSProperties}
-                />
+                {/* خط دهبي علوي رفيع — لمسة فخامة */}
+                <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/50 to-transparent" />
+                <div className="absolute inset-x-8 bottom-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/30 to-transparent" />
 
-                <div className="relative flex min-h-[340px] items-center justify-center p-6 sm:min-h-[400px] md:min-h-[500px]">
+                <div className="relative flex h-[380px] items-center justify-center sm:h-[460px] md:h-[560px]">
                   <BagVisual
                     image={gallery[activeImg]}
                     variant={variant}
                     eager
                     alt={product.name}
-                    className="h-full max-h-[460px] w-auto object-contain drop-shadow-[0_20px_32px_rgba(0,0,0,0.22)] transition-all duration-500"
+                    className="h-full w-full object-contain drop-shadow-[0_32px_50px_rgba(0,0,0,0.75)] transition-all duration-500"
                   />
                 </div>
 
@@ -211,18 +205,20 @@ export default function Product() {
                 )}
 
                 {/* عداد الصور */}
-                <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/60 px-3 py-1.5 backdrop-blur-sm">
-                  {gallery.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActiveImg(i)}
-                      className={cn(
-                        "h-1.5 rounded-full transition-all",
-                        activeImg === i ? "w-5 bg-rv-gold" : "w-1.5 bg-white/40 hover:bg-white/60",
-                      )}
-                    />
-                  ))}
-                </div>
+                {gallery.length > 1 && (
+                  <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/60 px-3 py-1.5 backdrop-blur-sm">
+                    {gallery.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveImg(i)}
+                        className={cn(
+                          "h-1.5 rounded-full transition-all",
+                          activeImg === i ? "w-5 bg-rv-gold" : "w-1.5 bg-white/40 hover:bg-white/60",
+                        )}
+                      />
+                    ))}
+                  </div>
+                )}
 
                 {/* Badges */}
                 {discount !== null && (

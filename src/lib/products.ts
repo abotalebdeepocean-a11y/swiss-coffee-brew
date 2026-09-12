@@ -95,7 +95,6 @@ export const PRODUCTS: Product[] = [
     bestseller: true,
     gallery: [
       IMAGES.products.barIntenso,
-      IMAGES.products.barIntensoBack,
     ],
     testimonials: [
       { name: "خالد ر.", text: "البار انتينسو قوي وجريء بجد. بستخدمه للكورتوادو والطعم لا يُقاوم. أقوى إسبريسو جربته في مصر!", rating: 5, date: "2026-08-12" },
@@ -127,7 +126,6 @@ export const PRODUCTS: Product[] = [
     bestseller: true,
     gallery: [
       IMAGES.products.premium,
-      IMAGES.products.premiumBack,
     ],
     testimonials: [
       { name: "سارة ك.", text: "الطعم متوازن وحلو من غير سكر. بستخدمها في اللاتيه كل صبح. أنصح بيها جدًا.", rating: 5, date: "2026-08-05" },
