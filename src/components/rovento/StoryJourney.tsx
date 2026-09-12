@@ -67,43 +67,151 @@ function EnergyBar({ level, tone }: { level: 3 | 85 | 100; tone: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Flavor bar — glassmorphism sensory row                             */
+/*  Flavor profile — pro cupping card with 10-point segmented meters   */
 /* ------------------------------------------------------------------ */
 
-function FlavorRow({ label, value, animate }: { label: string; value: number; animate: boolean }) {
+interface FlavorRowSpec {
+  label: string;
+  /** 0–10 — decimals like 8.5 are supported */
+  value: number;
+}
+
+interface FlavorProfileData {
+  blend: string;
+  description: string;
+  /** filled segment gradient (RTL: fills from the right) */
+  fill: string;
+  /** empty segment track */
+  track: string;
+  rows: FlavorRowSpec[];
+}
+
+/** ⚙️ Single source of truth — edit blend scores here (scale of 10) */
+const FLAVOR_PROFILES: Record<"premium" | "intenso", FlavorProfileData> = {
+  premium: {
+    blend: "PREMIUM ESPRESSO BLEND",
+    description:
+      "Smooth body, balanced sweetness, moderate acidity, and a long pleasant aftertaste.",
+    // gold → creamy — matches the eagle bag
+    fill: "linear-gradient(to left, #a8843c, #f3e5c0)",
+    track: "rgba(201,168,76,0.14)",
+    rows: [
+      { label: "Body", value: 8 },
+      { label: "Sweetness", value: 7 },
+      { label: "Acidity", value: 6 },
+      { label: "Bitterness", value: 5 },
+      { label: "Aftertaste", value: 8 },
+      { label: "Roast", value: 6 },
+    ],
+  },
+  intenso: {
+    blend: "BAR INTENSO ESPRESSO BLEND",
+    description:
+      "Full body, rich crema, intense aroma, low-to-moderate acidity, and a strong lasting aftertaste.",
+    // navy → gold — matches the parrot bag
+    fill: "linear-gradient(to left, #16304f, #c9a84c, #f0dfa0)",
+    track: "rgba(27,47,72,0.65)",
+    rows: [
+      { label: "Body", value: 10 },
+      { label: "Crema", value: 10 },
+      { label: "Aroma", value: 9 },
+      { label: "Sweetness", value: 8 },
+      { label: "Acidity", value: 6 },
+      { label: "Bitterness", value: 8 },
+      { label: "Aftertaste", value: 8 },
+    ],
+  },
+};
+
+function formatScore(value: number): string {
+  return Number.isInteger(value) ? `${value}` : value.toFixed(1);
+}
+
+function FlavorMeter({
+  label,
+  value,
+  fill,
+  track,
+  animate,
+  delayMs,
+}: {
+  label: string;
+  value: number;
+  fill: string;
+  track: string;
+  animate: boolean;
+  delayMs: number;
+}) {
+  const filledCount = Math.round(value);
   return (
     <div className="flex items-center gap-3">
-      <span className="w-14 text-[12px] font-bold text-white/55">{label}</span>
-      <div className="relative h-[6px] flex-1 overflow-hidden rounded-full bg-white/10">
-        <div
-          className="absolute inset-y-0 right-0 rounded-full transition-all duration-1000 ease-out"
-          style={{
-            width: animate ? `${value * 10}%` : "0%",
-            background: "linear-gradient(to left, #c9a84c, #f0dfa0)",
-          }}
-        />
+      <span className="w-[86px] shrink-0 text-[10px] font-bold uppercase tracking-[0.12em] text-white/55">
+        {label}
+      </span>
+      {/* 10-segment meter — segments light up one by one as you scroll */}
+      <div className="flex flex-1 items-center gap-[3px]" role="img" aria-label={`${label}: ${formatScore(value)} من 10`}>
+        {Array.from({ length: 10 }, (_, i) => {
+          const filled = i < filledCount;
+          return (
+            <span
+              key={i}
+              className="h-[7px] flex-1 rounded-[2px] transition-all duration-500 ease-out"
+              style={{
+                background: animate && filled ? fill : track,
+                boxShadow: animate && filled ? "0 0 8px rgba(201,168,76,0.25)" : "none",
+                transitionDelay: animate && filled ? `${delayMs + i * 70}ms` : "0ms",
+              }}
+            />
+          );
+        })}
       </div>
-      <span className="w-5 text-left text-[12px] font-black tabular-nums text-white/80">
-        {value}
+      <span className="w-[58px] shrink-0 text-left text-[12px] font-black tabular-nums text-[#c9a84c]">
+        {formatScore(value)}{" "}
+        <span className="text-[10px] font-bold text-white/35">/ 10</span>
       </span>
     </div>
   );
 }
 
-function FlavorCard({ title, rows, animate }: { title: string; rows: { label: string; value: number }[]; animate: boolean }) {
+function FlavorProfileCard({
+  profile,
+  animate,
+}: {
+  profile: FlavorProfileData;
+  animate: boolean;
+}) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-xl">
-      <div className="mb-4 flex items-center justify-between">
-        <span className="text-[11px] font-black tracking-[0.18em] text-white/50">{title}</span>
-        <span className="rounded-full border border-[#c9a84c]/25 bg-[#c9a84c]/10 px-2 py-0.5 text-[9px] font-bold text-[#c9a84c]">
-          مقياس 10
-        </span>
+    <div className="w-full rounded-2xl border border-[#c9a84c]/15 bg-black/30 p-5 backdrop-blur-xl md:p-6">
+      {/* header */}
+      <div className="text-center">
+        <p className="text-[11px] font-black tracking-[0.35em] text-[#c9a84c]">
+          FLAVOR PROFILE
+        </p>
+        <p className="mt-1.5 text-[10px] font-bold tracking-[0.22em] text-white/45">
+          {profile.blend}
+        </p>
+        <div className="mx-auto mt-3 h-px w-20 bg-gradient-to-r from-transparent via-[#c9a84c]/50 to-transparent" />
       </div>
-      <div className="space-y-3">
-        {rows.map((r) => (
-          <FlavorRow key={r.label} label={r.label} value={r.value} animate={animate} />
+
+      {/* meters */}
+      <div className="mt-5 space-y-3">
+        {profile.rows.map((r, i) => (
+          <FlavorMeter
+            key={r.label}
+            label={r.label}
+            value={r.value}
+            fill={profile.fill}
+            track={profile.track}
+            animate={animate}
+            delayMs={i * 60}
+          />
         ))}
       </div>
+
+      {/* tasting note */}
+      <p className="mt-5 border-t border-white/[0.06] pt-4 text-center text-[11px] font-medium leading-relaxed text-white/50">
+        {profile.description}
+      </p>
     </div>
   );
 }
@@ -378,16 +486,14 @@ function SectionGlory() {
           }`}
         >
           من القهر للبعثة للمجد — اختار الفنجان اللي يستاهل يومك.
-        </p>
-
-        <div
-          className={`mt-14 grid grid-cols-1 items-center gap-10 transition-all delay-200 duration-700 lg:grid-cols-2 lg:gap-14 ${
+        </p>        <div
+          className={`mt-14 grid grid-cols-1 gap-16 transition-all delay-200 duration-700 lg:grid-cols-2 lg:gap-10 ${
             inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-          }`}
+          }`
+        }
         >
-          {/* products column — realistic scale bags */}
-          <div className="flex flex-col items-center gap-12 sm:flex-row sm:items-end sm:justify-center sm:gap-8">
-            {/* PREMIUM — eagle bag */}
+          {/* PREMIUM — eagle bag + its own profile */}
+          <div className="flex flex-col items-center">
             <div className="group w-[190px] md:w-[215px]">
               <img
                 src="/images/premium-bag.webp"
@@ -412,7 +518,14 @@ function SectionGlory() {
               </div>
             </div>
 
-            {/* BAR INTENSO — parrot bag + mascot */}
+            {/* PREMIUM flavor profile — under its bag */}
+            <div className="mt-10 w-full max-w-[360px]">
+              <FlavorProfileCard profile={FLAVOR_PROFILES.premium} animate={inView} />
+            </div>
+          </div>
+
+          {/* BAR INTENSO — parrot bag + mascot + its own profile */}
+          <div className="flex flex-col items-center">
             <div className="group w-[190px] md:w-[215px]">
               <div className="relative">
                 <img
@@ -460,30 +573,11 @@ function SectionGlory() {
                 </button>
               </div>
             </div>
-          </div>
 
-          {/* flavor glassmorphism cards */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <FlavorCard
-              title="بار إنتنسو"
-              rows={[
-                { label: "الجسم", value: 9 },
-                { label: "الكريما", value: 9 },
-                { label: "الروائح", value: 7 },
-                { label: "الحلاوة", value: 6 },
-              ]}
-              animate={inView}
-            />
-            <FlavorCard
-              title="بريميوم"
-              rows={[
-                { label: "الجسم", value: 9 },
-                { label: "الكريما", value: 8 },
-                { label: "الروائح", value: 9 },
-                { label: "الحلاوة", value: 8 },
-              ]}
-              animate={inView}
-            />
+            {/* BAR INTENSO flavor profile — under its bag */}
+            <div className="mt-10 w-full max-w-[360px]">
+              <FlavorProfileCard profile={FLAVOR_PROFILES.intenso} animate={inView} />
+            </div>
           </div>
         </div>
 
