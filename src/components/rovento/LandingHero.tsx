@@ -6,6 +6,7 @@ import { useCart } from "@/lib/store";
 import { getProduct } from "@/lib/products";
 import { FlipBag } from "./FlipBag";
 import { HeroSlider, HeroDots } from "./HeroSlider";
+import { FlavorProfileCard, FLAVOR_COMPARISON_HINT } from "./FlavorProfileCard";
 
 /**
  * Hero — "بتدفع في قهوتك... وبتشرب نص المذاق؟"
@@ -31,144 +32,7 @@ import { HeroSlider, HeroDots } from "./HeroSlider";
  * (touchstart)، واستئناف تلقائي بعد ثانيتين من آخر لمسة.
  */
 
-/** ═══ بروفايل النكهة الاحترافي — 10 قطاعات ذهبية تُملأ تدريجيًا عند التمرير ═══
- *  نفس بيانات FLAVOR_PROFILES في StoryJourney — مصدر واحد قابل للتعديل لاحقًا */
-
-interface FlavorRowSpec {
-  label: string;
-  /** 0–10 — الكسور مثل 8.5 مدعومة */
-  value: number;
-}
-
-interface HeroFlavorProfile {
-  blend: string;
-  fill: string;
-  track: string;
-  rows: FlavorRowSpec[];
-}
-
-const HERO_FLAVOR_PROFILES: Record<"premium" | "intenso", HeroFlavorProfile> = {
-  premium: {
-    blend: "PREMIUM ESPRESSO BLEND",
-    // دهبي → كريمي — يطابق كيس النسر
-    fill: "linear-gradient(to left, #a8843c, #f3e5c0)",
-    track: "rgba(201,168,76,0.14)",
-    rows: [
-      { label: "Body", value: 8 },
-      { label: "Sweetness", value: 7 },
-      { label: "Acidity", value: 6 },
-      { label: "Bitterness", value: 5 },
-      { label: "Aftertaste", value: 8 },
-      { label: "Roast", value: 6 },
-    ],
-  },
-  intenso: {
-    blend: "BAR INTENSO ESPRESSO BLEND",
-    // كحلي → دهبي — يطابق كيس الببغاء
-    fill: "linear-gradient(to left, #16304f, #c9a84c, #f0dfa0)",
-    track: "rgba(27,47,72,0.65)",
-    rows: [
-      { label: "Body", value: 10 },
-      { label: "Crema", value: 10 },
-      { label: "Aroma", value: 9 },
-      { label: "Sweetness", value: 8 },
-      { label: "Acidity", value: 6 },
-      { label: "Bitterness", value: 8 },
-      { label: "Aftertaste", value: 8 },
-    ],
-  },
-};
-
-function formatScore(value: number): string {
-  return Number.isInteger(value) ? `${value}` : value.toFixed(1);
-}
-
-function FlavorMeter({
-  label,
-  value,
-  fill,
-  track,
-  animate,
-  delayMs,
-}: {
-  label: string;
-  value: number;
-  fill: string;
-  track: string;
-  animate: boolean;
-  delayMs: number;
-}) {
-  const filledCount = Math.round(value);
-  return (
-    <div className="flex items-center gap-2">
-      <span className="w-[74px] shrink-0 text-[9px] font-bold uppercase tracking-[0.1em] text-[#b0a898]">
-        {label}
-      </span>
-      <div
-        className="flex flex-1 items-center gap-[2px]"
-        role="img"
-        aria-label={`${label}: ${formatScore(value)} من 10`}
-      >
-        {Array.from({ length: 10 }, (_, i) => {
-          const filled = i < filledCount;
-          return (
-            <span
-              key={i}
-              className="h-[6px] flex-1 rounded-[2px] transition-all duration-500 ease-out"
-              style={{
-                background: animate && filled ? fill : track,
-                boxShadow:
-                  animate && filled ? "0 0 6px rgba(201,168,76,0.25)" : "none",
-                transitionDelay:
-                  animate && filled ? `${delayMs + i * 60}ms` : "0ms",
-              }}
-            />
-          );
-        })}
-      </div>
-      <span className="w-[46px] shrink-0 text-left text-[10px] font-black tabular-nums text-[#c9a84c]">
-        {formatScore(value)}{" "}
-        <span className="text-[8px] font-bold text-[#f5efe6]/35">/ 10</span>
-      </span>
-    </div>
-  );
-}
-
-function MiniProfileBars({ blend }: { blend: "intenso" | "premium" }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const profile = HERO_FLAVOR_PROFILES[blend];
-
-  return (
-    <div
-      ref={ref}
-      className="mt-3 w-full max-w-[260px] rounded-xl border border-[#c9a84c]/15 bg-black/40 px-3 py-2.5 backdrop-blur-md"
-    >
-      <div className="mb-2 text-center">
-        <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#c9a84c]">
-          FLAVOR PROFILE
-        </p>
-        <p className="mt-0.5 text-[8px] font-bold tracking-[0.18em] text-[#f5efe6]/45">
-          {profile.blend}
-        </p>
-        <div className="mx-auto mt-1.5 h-px w-16 bg-gradient-to-r from-transparent via-[#c9a84c]/50 to-transparent" />
-      </div>
-      <div className="space-y-1.5">
-        {profile.rows.map((row, i) => (
-          <FlavorMeter
-            key={row.label}
-            label={row.label}
-            value={row.value}
-            fill={profile.fill}
-            track={profile.track}
-            animate={isInView}
-            delayMs={i * 50}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+/** بروفايل النكهة — المكوّن المشترك FlavorProfileCard (مقاييس موحّدة من 10) */
 
 /** ═══ نصوص الهيرو لكل سلايد ═══ */
 const HEADLINES = [
@@ -377,7 +241,7 @@ export function LandingHero() {
               </p>
             </div>
 
-          <MiniProfileBars blend="premium" />
+          <FlavorProfileCard profileKey="premium" />
 
           <button
             onClick={() => add("rovento-premium-1kg")}
@@ -448,7 +312,7 @@ export function LandingHero() {
               </p>
             </div>
 
-          <MiniProfileBars blend="intenso" />
+          <FlavorProfileCard profileKey="intenso" />
 
           <button
             onClick={() => add("rovento-bar-intenso-1kg")}
@@ -459,6 +323,11 @@ export function LandingHero() {
           </button>
         </motion.div>
       </div>
+
+      {/* ═══ تلميح المقارنة بين البلندين ═══ */}
+      <p className="relative z-30 mx-auto mt-8 max-w-[520px] rounded-full border border-[#c49b34]/20 bg-black/40 px-5 py-2 text-center text-[11px] font-bold leading-relaxed text-[#e0c872]/90 backdrop-blur-sm md:text-xs">
+        {FLAVOR_COMPARISON_HINT}
+      </p>
 
       {/* ═══ نقاط التنقل — 24px تحت أزرار CTA ═══ */}
       <div className="relative z-30 mt-6 flex justify-center">
