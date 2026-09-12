@@ -362,7 +362,7 @@ export default function Product() {
                 {[
                   { icon: Truck, t: "بيوصلك بسرعة", s: "24-72 ساعة" },
                   { icon: ShieldCheck, t: "ادفع لما يوصّلك", s: "مش محتاج تثق فينا الأول" },
-                  { icon: RotateCcw, t: "مش عجبك؟ ارجعه", s: "خلال 14 يوم — خلاص" },
+                  { icon: RotateCcw, t: "اقدر ارجع المنتج ؟ ايوة تقدر", s: "لو فيه عيب أو مش مطابق — خلال 14 يوم" },
                 ].map((x) => (
                   <div key={x.t} className="flex flex-col items-center gap-1 rounded-xl border border-white/8 bg-white/[0.02] p-2.5 text-center">
                     <x.icon className="size-3.5 text-rv-gold" />
