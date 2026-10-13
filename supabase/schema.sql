@@ -1,0 +1,1 @@
+-- Applied as migration 'rovento_schema' on project osganvzmjisqsomjayyt. See Supabase dashboard > Database > Migrations for the exact SQL.

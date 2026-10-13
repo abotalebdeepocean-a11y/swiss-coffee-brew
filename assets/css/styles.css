@@ -399,3 +399,13 @@ details p { color: var(--muted); padding-bottom: 14px; margin: 0; }
 
 .float-cta { transition: opacity .25s ease, transform .25s ease; }
 .float-cta.is-away { opacity: 0; transform: translateY(20px); pointer-events: none; }
+
+/* ---------- دخول جوجل ---------- */
+.acct { position: relative; margin-inline-start: auto; }
+.acct-btn { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--text); font: inherit; font-weight: 700; font-size: .88rem; display: inline-flex; align-items: center; gap: 8px; }
+.acct-btn::before { content: "G"; font-family: Arial, sans-serif; font-weight: 800; color: #4285f4; }
+.acct-btn.is-in::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #2e9e5b; }
+.acct-menu { position: absolute; inset-inline-end: 0; top: calc(100% + 6px); z-index: 60; min-width: 220px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 12px; display: grid; gap: 8px; }
+.acct-menu p { margin: 0; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
+.acct-menu button { min-height: 44px; border-radius: 10px; border: 1.5px solid var(--line); background: transparent; color: var(--text); font: inherit; font-weight: 700; }
+@media (max-width: 520px) { .acct-btn { padding: 0 12px; font-size: .8rem; } .brand-word { font-size: 1rem; } }

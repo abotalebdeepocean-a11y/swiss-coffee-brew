@@ -170,6 +170,56 @@
     var n = (CFG.whatsappNumber || "").replace(/\D/g, "");
     return n ? "https://wa.me/" + n + (text ? "?text=" + encodeURIComponent(text) : "") : "";
   }
+  /* ---------- Supabase: دخول جوجل + حفظ الطلبات ---------- */
+  var sb = null, user = null;
+  try {
+    if (CFG.supabaseUrl && CFG.supabaseKey && window.supabase) {
+      sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, { auth: { persistSession: true, detectSessionInUrl: true, flowType: "pkce" } });
+    }
+  } catch (e) { sb = null; }
+  var authBtn = $("#authBtn"), acctMenu = $("#acctMenu");
+  function renderAuth() {
+    if (!sb) { authBtn.hidden = true; return; }
+    authBtn.hidden = false;
+    var meta = (user && user.user_metadata) || {};
+    var nm = meta.full_name || meta.name || (user && user.email) || "";
+    $("#authLabel").textContent = user ? (nm.split(" ")[0] || "حسابي") : "دخول بجوجل";
+    authBtn.classList.toggle("is-in", !!user);
+    $("#acctName").textContent = user ? nm + (user.email && nm !== user.email ? " — " + user.email : "") : "";
+    if (!user) acctMenu.hidden = true;
+  }
+  function prefillFromUser() {
+    if (!user) return;
+    var meta = user.user_metadata || {}, nm = meta.full_name || meta.name || "";
+    if (nm && !F.name.value) F.name.value = nm;
+    sb.from("profiles").select("phone,governorate,address").eq("id", user.id).maybeSingle().then(function (r) {
+      var d = r && r.data; if (!d) return;
+      if (d.phone && !F.phone.value) F.phone.value = d.phone;
+      if (d.governorate && !gov.value) gov.value = d.governorate;
+      if (d.address && !F.addr.value) F.addr.value = d.address;
+    }, function () { /* ignore */ });
+  }
+  authBtn.addEventListener("click", function () {
+    if (!sb) return;
+    if (!user) {
+      sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: window.location.origin + window.location.pathname } })
+        .then(function (r) { if (r && r.error) toast("تعذر الدخول بجوجل. حاول تاني بعد شوية"); });
+      return;
+    }
+    acctMenu.hidden = !acctMenu.hidden; authBtn.setAttribute("aria-expanded", String(!acctMenu.hidden));
+  });
+  $("#signOutBtn").addEventListener("click", function () { sb.auth.signOut().then(function () { toast("تم تسجيل الخروج"); }); });
+  document.addEventListener("click", function (e) { if (!e.target.closest(".acct")) acctMenu.hidden = true; });
+  function saveOrder(phone) {
+    if (!sb) return Promise.resolve(null);
+    var items = cart.map(function (i) { return { id: i.id, size: i.size, qty: i.qty }; });
+    var call = sb.rpc("create_order", { p_name: F.name.value.trim(), p_phone: phone, p_governorate: gov.value, p_address: F.addr.value.trim(), p_notes: F.notes.value.trim(), p_items: items })
+      .then(function (r) { return r && !r.error ? r.data : null; }, function () { return null; });
+    if (user) sb.from("profiles").update({ phone: phone, governorate: gov.value, address: F.addr.value.trim(), updated_at: new Date().toISOString() }).eq("id", user.id).then(function () {}, function () {});
+    /* لو الاتصال بطيء ما نعطلش العميل أكتر من ٣ ثواني */
+    return Promise.race([call, new Promise(function (res) { setTimeout(function () { res(null); }, 3000); })]);
+  }
+
   /* محافظات + استرجاع بيانات العميل */
   var gov = $("#custGov");
   (CFG.governorates || []).forEach(function (g) { var o = document.createElement("option"); o.value = g; o.textContent = g; gov.appendChild(o); });
@@ -193,13 +243,13 @@
   }
   Object.keys(F).forEach(function (k) { F[k].addEventListener("input", function () { if (F[k].getAttribute("aria-invalid") === "true") validate(); }); });
 
-  function buildMessage(phone) {
+  function buildMessage(phone, orderNo) {
     var sub = total(), ship = shippingFor(sub);
     var lines = cart.map(function (i) {
       var p = byId(i.id);
       return "• " + p.name + " — " + sizeLabel(i.size) + " × " + num(i.qty) + " = " + money(p.prices[i.size] * i.qty);
     });
-    var msg = "طلب جديد من موقع روفينتو\n\nالمنتجات:\n" + lines.join("\n") +
+    var msg = "طلب جديد من موقع روفينتو" + (orderNo ? " (رقم " + num(orderNo) + ")" : "") + "\n\nالمنتجات:\n" + lines.join("\n") +
       "\n\nثمن المنتجات: " + money(sub) + "\nالشحن: " + (ship ? money(ship) : "مجاني") + "\nالإجمالي: " + money(sub + ship) +
       "\n\nبيانات الشحن:\nالاسم: " + F.name.value.trim() + "\nالموبايل: " + phone + "\nالمحافظة: " + gov.value + "\nالعنوان: " + F.addr.value.trim() +
       (F.notes.value.trim() ? "\nملاحظات: " + F.notes.value.trim() : "");
@@ -211,12 +261,16 @@
     var v = validate();
     if (!v.ok) { v.first.focus(); toast("كمّل بيانات الشحن الأول"); return; }
     try { localStorage.setItem(CKEY, JSON.stringify({ name: F.name.value.trim(), phone: v.phone, gov: gov.value, addr: F.addr.value.trim() })); } catch (x) { /* ignore */ }
-    var link = waLink(buildMessage(v.phone));
-    if (!link) { toast("رقم الواتساب لسه متضافش. أضفه في assets/js/config.js"); return; }
-    var fb = $("#waFallback"); fb.href = link; $("#sentBox").hidden = false;
-    var w = null;
-    try { w = window.open(link, "_blank", "noopener"); } catch (x) { w = null; }
-    if (!w) window.location.href = link;
+    if (!waLink("")) { toast("رقم الواتساب لسه متضافش. أضفه في assets/js/config.js"); return; }
+    var btn = $("#sendOrder"); btn.disabled = true; btn.textContent = "جاري تجهيز طلبك...";
+    saveOrder(v.phone).then(function (res) {
+      btn.disabled = false; btn.textContent = "أكمل الطلب على الواتساب";
+      var link = waLink(buildMessage(v.phone, res && res.order_no));
+      $("#waFallback").href = link; $("#sentBox").hidden = false;
+      var w = null;
+      try { w = window.open(link, "_blank", "noopener"); } catch (x) { w = null; }
+      if (!w) window.location.href = link;
+    });
   });
   $("#clearCart").addEventListener("click", function () { cart = []; save(); renderCart(); $("#sentBox").hidden = true; closeCart(); toast("تم تفضية السلة. شكرًا لثقتك في روفينتو"); });
 
@@ -344,4 +398,9 @@
   renderProducts();
   renderCart();
   observeReveal();
+  if (sb) {
+    sb.auth.getSession().then(function (r) { user = r && r.data && r.data.session ? r.data.session.user : null; renderAuth(); prefillFromUser(); }, renderAuth);
+    sb.auth.onAuthStateChange(function (ev, session) { user = session ? session.user : null; renderAuth(); if (user) prefillFromUser(); });
+  }
+  renderAuth();
 })();
