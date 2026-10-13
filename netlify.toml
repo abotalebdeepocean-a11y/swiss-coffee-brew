@@ -1,5 +1,6 @@
 # ROVENTO v2 — static site, no build step
 [build]
+  base = "/"
   publish = "."
   command = ""
 
