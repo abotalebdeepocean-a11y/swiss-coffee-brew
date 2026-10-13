@@ -41,3 +41,5 @@ assets/img/
 - زر «دخول بجوجل» في الهيدر (Supabase Auth). بعد الدخول بتتعبّى بيانات الشحن تلقائيًا من حسابه.
 - كل طلب بيتسجل في Supabase (جدول `orders`) ويظهر رقم الطلب في رسالة الواتساب. لو Supabase مش متاح، الطلب بيكمل على الواتساب عادي.
 - تفاصيل التفعيل (Google OAuth) في `supabase/README.md`.
+
+- معاينة الفرع: https://rovento-v2--rovento.netlify.app
