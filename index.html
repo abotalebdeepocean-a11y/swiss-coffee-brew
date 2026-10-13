@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ROVENTO — قهوة تستاهل الاسم</title>
+<meta name="description" content="روفينتو: قهوة تركي مطحونة (GOLD 18 / 21 / 24) وخلطات إسبريسو حبوب كاملة (PREMIUM / BAR INTENSO) بثلاثة أحجام. اطلب بالواتساب.">
+<meta name="theme-color" content="#3b2414">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ROVENTO — قهوة تستاهل الاسم">
+<meta property="og:description" content="قهوة تركي وإسبريسو بهوية واضحة وثلاثة أحجام. اطلب بالواتساب.">
+<meta property="og:image" content="assets/img/gold-24-bag.webp">
+<link rel="icon" href="assets/img/logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<a class="skip" href="#products">تخطي للمنتجات</a>
+
+<!-- ============ Header ============ -->
+<header class="site-header" id="top">
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="ROVENTO — الصفحة الرئيسية">
+      <img src="assets/img/logo.webp" alt="" width="48" height="43">
+      <span class="brand-word">ROVENTO</span>
+    </a>
+    <nav class="nav" aria-label="القائمة الرئيسية">
+      <a href="#products">المنتجات</a>
+      <a href="#gold">خط GOLD</a>
+      <a href="#story">قصتنا</a>
+      <a href="#faq">أسئلة شائعة</a>
+    </nav>
+    <button class="cart-btn" id="openCart" aria-label="فتح السلة">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 7h12l-1 12H7L6 7Zm3 0a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="cart-count" id="cartCount" hidden>0</span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ Hero Slider (3 بانرات تفاعلية) ============ -->
+<section class="hero" aria-roledescription="carousel" aria-label="عروض روفينتو">
+  <div class="slides" id="slides">
+
+    <!-- بانر ١: الحجم -->
+    <article class="slide theme-kraft is-active" id="b1" aria-roledescription="slide" aria-label="1 من 3">
+      <div class="wrap slide-grid">
+        <div class="slide-text">
+          <p class="eyebrow">GOLD 21 — تحميص متوسط</p>
+          <h1>اختار حجمك<br>وشوف العبوة بتكبر</h1>
+          <p class="lead">قهوة تركي مطحونة متوازنة. من ٢٥٠ جم للتجربة لحد ١ كجم للبيت كله.</p>
+          <div class="sizes hero-sizes" role="group" aria-label="اختيار الحجم" id="b1Sizes"></div>
+          <div class="hero-price"><span id="b1Price"></span></div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" id="b1Add">أضف للسلة</button>
+            <a class="btn btn-outline" href="#products">كل المنتجات</a>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="stage tilt" data-tilt>
+            <img class="photo bag" id="b1Img" src="assets/img/gold-21-bag.webp" alt="عبوة روفينتو GOLD 21" width="1000" height="1000" fetchpriority="high">
+            <span class="seal" id="b1Seal" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- بانر ٢: خط GOLD -->
+    <article class="slide theme-ivory" id="b2" aria-roledescription="slide" aria-label="2 من 3">
+      <div class="wrap slide-grid">
+        <div class="slide-text">
+          <p class="eyebrow">خط GOLD — قهوة تركي</p>
+          <h2>اختار درجتك<br>والتحميص يتكلم</h2>
+          <div class="picks" role="group" aria-label="اختيار درجة GOLD" id="b2Picks"></div>
+          <div class="meter" id="b2Meter" aria-hidden="true"><i>LIGHT</i><i>MEDIUM</i><i>DARK</i></div>
+          <p class="pick-note" id="b2Note" aria-live="polite"></p>
+          <div class="hero-price"><span id="b2Price"></span></div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" id="b2Add">أضف للسلة</button>
+            <a class="btn btn-outline" href="#gold">اعرف الفرق</a>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="stage tilt" data-tilt>
+            <div class="swap" id="b2Stack"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- بانر ٣: الإسبريسو -->
+    <article class="slide theme-dark" id="b3" aria-roledescription="slide" aria-label="3 من 3">
+      <div class="wrap slide-grid">
+        <div class="slide-text">
+          <p class="eyebrow">إسبريسو — حبوب كاملة</p>
+          <h2>خلطتين<br>لعشاق الإسبريسو</h2>
+          <div class="picks" role="group" aria-label="اختيار خلطة الإسبريسو" id="b3Picks"></div>
+          <p class="pick-note" id="b3Note" aria-live="polite"></p>
+          <div class="hero-price"><span id="b3Price"></span></div>
+          <div class="hero-actions">
+            <button class="btn btn-gold" type="button" id="b3Add">أضف للسلة</button>
+            <a class="btn btn-outline" href="#products" data-filter-link="ESPRESSO">كل الإسبريسو</a>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="stage tilt" data-tilt>
+            <div class="swap" id="b3Stack"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="slider-ui">
+    <button class="arrow" id="prevSlide" aria-label="البانر السابق"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="dots" id="dots" role="tablist" aria-label="اختيار البانر"></div>
+    <button class="arrow" id="nextSlide" aria-label="البانر التالي"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m15 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</section>
+
+<!-- ============ Trust bar ============ -->
+<section class="trust" aria-label="مميزات الطلب">
+  <div class="wrap trust-grid" id="trustGrid"></div>
+</section>
+
+<!-- ============ Products ============ -->
+<section class="section" id="products">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">المجموعة</p>
+      <h2>اختار قهوتك</h2>
+      <p class="sub">خمس منتجات، ثلاث أحجام لكل منتج. اضغط على الحجم عشان تشوف السعر.</p>
+    </header>
+    <div class="filters" role="tablist" aria-label="تصفية المنتجات">
+      <button class="chip is-on" data-filter="all" role="tab" aria-selected="true">الكل</button>
+      <button class="chip" data-filter="GOLD" role="tab" aria-selected="false">GOLD — قهوة تركي</button>
+      <button class="chip" data-filter="ESPRESSO" role="tab" aria-selected="false">إسبريسو</button>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- ============ GOLD line ============ -->
+<section class="section section-alt" id="gold">
+  <div class="wrap gold-grid">
+    <figure class="label-fig">
+      <img src="assets/img/gold-24-sticker-label.webp" alt="ملصق GOLD 24 يوضح اسم المنتج ونوع القهوة ومؤشر درجة التحميص" width="760" height="645" loading="lazy">
+      <figcaption>درجة التحميص موضحة على كل عبوة بمربع واضح، فتعرف اللي بتشتريه من أول نظرة.</figcaption>
+    </figure>
+    <div>
+      <p class="eyebrow">خط GOLD</p>
+      <h2>ثلاث درجات، ثلاث حكايات</h2>
+      <ol class="steps">
+        <li><span class="num">18</span><div><h3>Discovery — اكتشف</h3><p>تحميص خفيف. بداية سهلة لو أول مرة تجرب روفينتو أو بتحب القهوة الخفيفة.</p></div></li>
+        <li><span class="num">21</span><div><h3>Familiarity — ألفة</h3><p>تحميص متوسط. التوازن اللي الذوق المصري بيدور عليه، وهو قلب المجموعة.</p></div></li>
+        <li><span class="num">24</span><div><h3>Indulgence — تدليل</h3><p>تحميص أغمق مضبوط. غني وناعم بنكهة شوكولاتة ومكسرات، من غير مرارة زيادة.</p></div></li>
+      </ol>
+      <a class="btn btn-primary" href="#products" data-filter-link="GOLD">شوف منتجات GOLD</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Story ============ -->
+<section class="section" id="story">
+  <div class="wrap story">
+    <img class="story-logo" src="assets/img/logo.webp" alt="شعار روفينتو" width="260" height="232" loading="lazy">
+    <div>
+      <p class="eyebrow">قصتنا</p>
+      <h2>ذوق مصري بمعايير عالمية</h2>
+      <p>روفينتو براند قهوة مصري بيقدّم القهوة التركي والإسبريسو بشكل بسيط وواضح. النسر والحرف R هما توقيعنا، وفكرتنا إن العبوة تقولك كل حاجة: اسم المنتج، نوعه، ودرجة تحميصه.</p>
+      <p>بنبني كل منتج حوالين الذوق المصري الأول، ومن هنا جه خط GOLD اللي بيبدأ بالتوازن ويتحرك منه للأخف أو للأغنى.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Why ============ -->
+<section class="section section-alt" id="why">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">ليه روفينتو</p>
+      <h2>بسيطة وواضحة</h2>
+    </header>
+    <div class="why-grid">
+      <div class="why"><h3>عبوة بتتكلم</h3><p>اسم المنتج ونوعه ودرجة التحميص ظاهرين من أول نظرة.</p></div>
+      <div class="why"><h3>ثلاثة أحجام</h3><p>٢٥٠ جم للتجربة، ٥٠٠ جم للبيت، ١ كجم للاستهلاك الكبير.</p></div>
+      <div class="why"><h3>قهوتك على مزاجك</h3><p>تركي مطحونة بثلاث درجات، وإسبريسو حبوب كاملة بخلطتين.</p></div>
+      <div class="why"><h3>طلب من غير تعقيد</h3><p>اختار، ابعت على الواتساب، واحنا نأكد معاك.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap narrow">
+    <header class="section-head">
+      <p class="eyebrow">أسئلة شائعة</p>
+      <h2>اللي بيسألوا عنه</h2>
+    </header>
+    <details><summary>إزاي أطلب؟</summary><p>أضف المنتجات للسلة، املا بيانات الشحن (الاسم والموبايل والمحافظة والعنوان)، واضغط «أكمل الطلب على الواتساب». هتوصلنا رسالة جاهزة بتفاصيل طلبك ونأكد معاك.</p></details>
+    <details><summary>إيه الفرق بين GOLD 18 وGOLD 21 وGOLD 24؟</summary><p>الفرق في درجة التحميص والشخصية: 18 خفيفة، 21 متوسطة ومتوازنة، 24 أغمق وأغنى. كلهم قهوة تركي مطحونة.</p></details>
+    <details><summary>المنتجات مطحونة ولا حبوب؟</summary><p>خط GOLD قهوة تركي مطحونة. PREMIUM وBAR INTENSO خلطات إسبريسو حبوب كاملة.</p></details>
+    <details><summary>الأحجام المتاحة؟</summary><p>٢٥٠ جم، ٥٠٠ جم، و١ كجم لكل المنتجات.</p></details>
+    <details><summary>الشحن والدفع؟</summary><p>الشحن <span data-shipping-text></span> لكل الطلبات. بنأكد معاك الدفع وموعد التسليم على الواتساب.</p></details>
+  </div>
+</section>
+
+<!-- ============ Final CTA ============ -->
+<section class="final">
+  <div class="wrap final-row">
+    <div>
+      <h2>جاهز لفنجانك؟</h2>
+      <p>اختار منتجك واطلب دلوقتي.</p>
+    </div>
+    <button class="btn btn-gold" type="button" data-open-cart>اطلب الآن</button>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="site-footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img src="assets/img/logo.webp" alt="" width="64" height="57" loading="lazy">
+      <p>ROVENTO COFFEE<br><span id="siteUrlText"></span></p>
+    </div>
+    <nav aria-label="روابط سريعة" class="foot-links">
+      <a href="#products">المنتجات</a>
+      <a href="#gold">خط GOLD</a>
+      <a href="#story">قصتنا</a>
+      <a href="#faq">أسئلة شائعة</a>
+    </nav>
+    <div class="foot-social" id="footSocial"></div>
+  </div>
+  <p class="copy">© <span id="year"></span> ROVENTO COFFEE. جميع الحقوق محفوظة.</p>
+</footer>
+
+<!-- ============ Floating actions ============ -->
+<a class="wa-fab" id="waFab" href="#" aria-label="تواصل على واتساب" hidden>
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 1-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.6c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.8.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg>
+</a>
+<button class="float-cta" id="floatCta" type="button" data-open-cart>
+  <span>اطلب الآن</span><span class="float-count" id="floatCount" hidden></span>
+</button>
+
+<!-- ============ Cart drawer ============ -->
+<div class="overlay" id="overlay" hidden></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle" tabindex="-1">
+  <div class="drawer-head">
+    <h2 id="drawerTitle">سلتك</h2>
+    <button class="icon-btn" id="closeCart" aria-label="إغلاق السلة">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <form class="drawer-foot" id="cartFoot" novalidate>
+    <div class="sum">
+      <div><span>المنتجات</span><b id="cartSub">٠ جنيه</b></div>
+      <div><span>الشحن</span><b id="cartShip">٠ جنيه</b></div>
+      <div class="sum-total"><span>الإجمالي</span><strong id="cartTotal">٠ جنيه</strong></div>
+    </div>
+    <h3 class="ship-title">بيانات الشحن</h3>
+    <label class="field"><span>الاسم بالكامل</span><input id="custName" name="name" type="text" autocomplete="name" placeholder="اسمك" required><em class="err" id="errName" hidden></em></label>
+    <label class="field"><span>رقم الموبايل</span><input id="custPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="مثال: 01012345678" dir="ltr" style="text-align:right" required><em class="err" id="errPhone" hidden></em></label>
+    <label class="field"><span>المحافظة</span><select id="custGov" name="gov" required><option value="">اختار المحافظة</option></select><em class="err" id="errGov" hidden></em></label>
+    <label class="field"><span>العنوان بالتفصيل</span><textarea id="custAddress" name="address" rows="2" autocomplete="street-address" placeholder="المنطقة، الشارع، رقم العمارة والشقة" required></textarea><em class="err" id="errAddr" hidden></em></label>
+    <label class="field"><span>ملاحظات (اختياري)</span><input id="custNotes" name="notes" type="text" placeholder="أي ملاحظة على الطلب"></label>
+    <button class="btn btn-primary block" id="sendOrder" type="submit">أكمل الطلب على الواتساب</button>
+    <div class="sent" id="sentBox" hidden><p>اتفتح الواتساب برسالة طلبك. لو ماتفتحش تلقائيًا:</p><a class="btn btn-outline block" id="waFallback" href="#" target="_blank" rel="noopener">افتح الواتساب</a><button class="rm" type="button" id="clearCart">فضّي السلة بعد الإرسال</button></div>
+    <p class="note">الشحن <span data-shipping-text></span> لكل الطلبات. الدفع والتأكيد النهائي على الواتساب.</p>
+  </form>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
