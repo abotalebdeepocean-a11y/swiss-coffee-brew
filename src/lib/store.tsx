@@ -10,7 +10,7 @@ import {
 import { PRODUCTS, getProduct, variantOf, formatPrice } from "./products";
 
 /** ⚠️ ضع رقم واتساب المتجر هنا بصيغة دولية بدون + أو أصفار بادئة */
-export const WHATSAPP_NUMBER = "201033012381";
+export const WHATSAPP_NUMBER = "201109600543";
 
 export interface CartItem {
   slug: string;
@@ -191,16 +191,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   /** خصم 10% على كل 2 كيلوجرام من الحبوب — نفس عرض الحملة الرسمي */
-  const weightDiscountRate = useMemo(
-    () => Math.floor(totalWeightKg / 2) * 0.1,
-    [totalWeightKg],
-  );
+  const weightDiscountRate = 0;
 
   /** الخصم على الوزن */
-  const weightDiscount = useMemo(
-    () => Math.round(subtotal * weightDiscountRate),
-    [subtotal, weightDiscountRate],
-  );
+  const weightDiscount = 0;
 
   const value = useMemo(
     () => ({
