@@ -192,13 +192,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   /** خصم 10% على كل 2 كيلوجرام من الحبوب — نفس عرض الحملة الرسمي */
   const weightDiscountRate = useMemo(
-    () => Math.floor(totalWeightKg / 2) * 0.1,
+    () => 0,
     [totalWeightKg],
   );
 
   /** الخصم على الوزن */
   const weightDiscount = useMemo(
-    () => Math.round(subtotal * weightDiscountRate),
+    () => 0,
     [subtotal, weightDiscountRate],
   );
 
