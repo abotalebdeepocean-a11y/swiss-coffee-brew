@@ -1,5 +1,5 @@
 -- ROVENTO Supabase foundation: preserve the existing database catalog and price records.
--- This migration deliberately does not overwrite product prices, active flags, or shipping settings.
+-- Preview catalog: use explicitly provisional prices and fixed EGP 100 shipping.
 -- Product IDs stay stable because order_items references them.
 
 update public.products set name = 'BAR INTENSO' where id = 'bar-intenso';
@@ -7,6 +7,15 @@ update public.products set name = 'PREMIUM' where id = 'premium';
 update public.products set name = 'جواد 18' where id = 'gold-18';
 update public.products set name = 'GOLD 21' where id = 'gold-21';
 update public.products set name = 'جواد 24' where id = 'gold-24';
+
+-- Provisional preview prices (EGP, 1 kg only). Replace before commercial launch.
+update public.products set name = 'BAR INTENSO', price_250 = null, price_500 = null, price_1000 = 750, active = true where id = 'bar-intenso';
+update public.products set name = 'PREMIUM', price_250 = null, price_500 = null, price_1000 = 850, active = true where id = 'premium';
+update public.products set name = 'جواد 18', price_250 = null, price_500 = null, price_1000 = 550, active = true where id = 'gold-18';
+update public.products set name = 'GOLD 21', price_250 = null, price_500 = null, price_1000 = 650, active = true where id = 'gold-21';
+update public.products set name = 'جواد 24', price_250 = null, price_500 = null, price_1000 = 750, active = true where id = 'gold-24';
+insert into public.site_settings (key, value) values ('shipping_fee', '100'::jsonb)
+on conflict (key) do update set value = excluded.value;
 
 create or replace function public.create_order(
   p_name text,
