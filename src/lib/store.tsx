@@ -60,7 +60,7 @@ export function cartLine(item: CartItem): CartLineInfo | undefined {
     };
   }
   const product = getProduct(item.slug);
-  if (!product) return undefined;
+  if (!product || product.available === false) return undefined;
   const variant = variantOf(product, item.variantId);
   return {
     custom: false,
@@ -107,7 +107,7 @@ function loadCart(): CartItem[] {
     return parsed.filter(
       (i) =>
         (i.custom && i.custom.price > 0 && typeof i.custom.arabica === "number") ||
-        getProduct(i.slug),
+        !!getProduct(i.slug) && getProduct(i.slug)?.available !== false,
     );
   } catch {
     return [];
@@ -129,6 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       variantId?: string,
       custom?: CustomBlendSpec,
     ) => {
+      if (getProduct(slug)?.available === false) return;
       setItems((prev) => {
         const key = cartLineKey({ slug, variantId });
         const found = prev.find((i) => cartLineKey(i) === key);
