@@ -178,7 +178,7 @@ export default function Checkout() {
         if (!id) throw new Error("تعذر مطابقة المنتج مع كتالوج Supabase.");
         const label = line.variant?.label ?? line.label ?? line.product.weight ?? "";
         const size = /250/.test(label) ? 250 : /500/.test(label) ? 500 : 1000;
-        return { id, size, qty: item.qty };
+        return { id, size, qty: item.qty, expected_price: line.price };
       });
       const { data, error } = await getSupabase().rpc("create_order", {
         p_name: form.name.trim(),
@@ -332,7 +332,7 @@ export default function Checkout() {
       <div className="mx-auto w-full max-w-lg">
         <h1 className="text-2xl font-black">إتمام الطلب</h1>
         <p className="mt-1 text-sm text-stone-400">
-          الدفع عند الاستلام — رسوم الشحن الحالية 100 ج.م
+          الدفع عند الاستلام — رسوم الشحن الحالية {formatPrice(configuredShippingFee)}
         </p>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px] lg:items-start">
