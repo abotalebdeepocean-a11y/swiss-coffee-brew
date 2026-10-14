@@ -344,7 +344,7 @@ export default function Product() {
               {/* شريط الثقة */}
               <div className="mt-5 grid grid-cols-3 gap-2">
                 {[
-                  { icon: Truck, t: "بيوصلك بسرعة", s: "24-72 ساعة" },
+                  { icon: Truck, t: "مدة التوصيل", s: "2–7 أيام عمل" },
                   { icon: ShieldCheck, t: "ادفع لما يوصّلك", s: "مش محتاج تثق فينا الأول" },
                   { icon: RotateCcw, t: "اقدر ارجع المنتج ؟ ايوة تقدر", s: "لو فيه عيب أو مش مطابق — خلال 14 يوم" },
                 ].map((x) => (
