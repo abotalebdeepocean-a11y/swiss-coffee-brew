@@ -99,7 +99,7 @@ export default function Checkout() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-  const [orderSummary, setOrderSummary] = useState<{ subtotal: number; shipping: number; total: number } | null>(null);
+  const [orderSummary, setOrderSummary] = useState<{ subtotal: number; shipping: number; total: number; items?: { product_name: string; size: number; qty: number; unit_price: number }[] } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
 
@@ -171,7 +171,7 @@ export default function Checkout() {
       });
       if (error) throw error;
       if (!data || !data.order_no || typeof data.total !== "number") throw new Error("لم تُرجع قاعدة البيانات رقم الطلب والإجمالي المتوقعين.");
-      setOrderSummary({ subtotal: Number(data.subtotal), shipping: Number(data.shipping), total: Number(data.total) });
+      setOrderSummary({ subtotal: Number(data.subtotal), shipping: Number(data.shipping), total: Number(data.total), items: Array.isArray(data.items) ? data.items : [] });
       setOrderNumber(`RV-${String(data.order_no).padStart(6, "0")}`);
     } catch (error) {
       console.error("Supabase order creation failed:", error);
@@ -184,17 +184,13 @@ export default function Checkout() {
   /* ─── WhatsApp message — exact required structure ─── */
   const whatsappUrl = useMemo(() => {
     if (!orderNumber) return "#";
-    const itemLines = lines
-      .map(({ item, line }) => {
-        if (line.custom) {
-          return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
-        }
-        const name = line.variant
-          ? `${line.product.name} (${line.variant.label})`
-          : line.product.name;
-        return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
-      })
-      .join("\n");
+    const itemLines = orderSummary?.items?.length
+      ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)} ج.م`).join("\\n")
+      : lines.map(({ item, line }) => {
+          if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
+          const name = line.variant ? `${line.product.name} (${line.variant.label})` : line.product.name;
+          return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
+        }).join("\\n");
 
     const message = [
       "🛒 *طلب جديد — روفينتو*",
