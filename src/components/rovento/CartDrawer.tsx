@@ -281,7 +281,7 @@ export function CartDrawer() {
                     </p>
                   )}
                   <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-                    الدفع عند الاستلام · الشحن لكل مصر
+                    الدفع عند الاستلام · الشحن الثابت 100 ج.م
                   </p>
                   <Button
                     onClick={goCheckout}
