@@ -114,6 +114,9 @@ export function CartDrawer() {
     items,
     count,
     subtotal,
+    totalWeightKg,
+    weightDiscountRate,
+    weightDiscount,
     isOpen,
     closeCart,
     clear,
@@ -262,8 +265,23 @@ export function CartDrawer() {
                       {formatPrice(subtotal)}
                     </span>
                   </div>
-<p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-                    الدفع عند الاستلام · الشحن الثابت 100 ج.م
+                  {weightDiscount > 0 && (
+                    <div className="mt-1 flex items-center justify-between">
+                      <span className="text-[11px] text-emerald-400">
+                        🎉 خصم {Math.round(weightDiscountRate * 100)}% ({totalWeightKg} كجم)
+                      </span>
+                      <span className="text-sm font-bold text-emerald-400">
+                        -{formatPrice(weightDiscount)}
+                      </span>
+                    </div>
+                  )}
+                  {weightDiscount === 0 && totalWeightKg >= 1 && (
+                    <p className="mt-1 text-[10px] text-emerald-400">
+                      أضف {formatPrice(1500 - subtotal)} للحصول على شحن مجاني
+                    </p>
+                  )}
+                  <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                    الدفع عند الاستلام · الشحن لكل مصر
                   </p>
                   <Button
                     onClick={goCheckout}
