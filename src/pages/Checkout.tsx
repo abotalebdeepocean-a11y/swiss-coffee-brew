@@ -123,8 +123,8 @@ export default function Checkout() {
     const phone = cleanPhone(f.phone);
     if (!phone) {
       e.phone = "من فضلك اكتب رقم الهاتف";
-    } else if (!/^01\d{9}$/.test(phone)) {
-      e.phone = "رقم الهاتف لازم يبدأ بـ 01 ويتكون من 11 رقم بالظبط";
+    } else if (!/^01[0125]\d{8}$/.test(phone)) {
+      e.phone = "رقم الهاتف لازم يكون رقم موبايل مصري صحيح من 11 رقم";
     }
     if (!f.governorate) e.governorate = "من فضلك اختر المحافظة";
     if (!f.city.trim()) e.city = "من فضلك اكتب المدينة / المركز";
@@ -212,7 +212,8 @@ export default function Checkout() {
       "🛍️ *تفاصيل الطلب:*",
       itemLines,
       "",
-      `المنتجات قبل الشحن: ${formatPrice(orderSummary?.subtotal ?? subtotal)}`,\n      `🚚 *الشحن:* ${formatPrice(shippingFee)}`,
+      `المنتجات قبل الشحن: ${formatPrice(orderSummary?.subtotal ?? subtotal)}`,
+      `🚚 *الشحن:* ${formatPrice(shippingFee)}`,
       `💰 *الإجمالي النهائي شامل الشحن:* ${formatPrice(finalTotal)}`,
       "💳 *الدفع:* عند الاستلام",
       "━━━━━━━━━━━━━━━━━━",
@@ -542,12 +543,7 @@ export default function Checkout() {
               <WhatsAppIcon className="size-5" />
               {isSubmitting ? "جارٍ حفظ الطلب..." : "حفظ الطلب والمتابعة إلى واتساب"}
             </button>
-            {!isFreeShipping && (
-              <p className="mt-2 text-center text-[11px] text-emerald-400">
-                أضف {formatPrice(1500 - total)} كمان لتأهيل الطلب للشحن المجاني
-              </p>
-            )}
-            <p className="mt-2 text-center text-[11px] text-stone-500">
+<p className="mt-2 text-center text-[11px] text-stone-500">
               💳 الدفع عند الاستلام — مش محتاج تثق فينا الأول
             </p>
           </aside>
