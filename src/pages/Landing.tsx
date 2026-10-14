@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
 import { LandingHero } from "@/components/rovento/LandingHero";
 import { BlendProfiles } from "@/components/rovento/BlendProfiles";
+import { TurkishCollection } from "@/components/rovento/TurkishCollection";
 import { TrustPillars } from "@/components/rovento/TrustPillars";
 import { ShippingReturnsBanner } from "@/components/rovento/ShippingReturnsBanner";
 import { FAQ } from "@/components/rovento/FAQ";
@@ -30,6 +31,7 @@ export default function Landing() {
         {/* البلندات — اختار شخصيتك: قوي ولا فاخر؟ */}
         <div id="profiles">
           <BlendProfiles />
+        <TurkishCollection />
         </div>
 
         {/* ليه روفينتو — الثقة بعد المنتج */}
