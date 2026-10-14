@@ -2,9 +2,9 @@
 create table public.products (
   id text primary key, name text not null,
   line text not null check (line in ('GOLD','ESPRESSO')),
-  price_250 integer not null check (price_250 > 0),
-  price_500 integer not null check (price_500 > 0),
-  price_1000 integer not null check (price_1000 > 0),
+  price_250 integer check (price_250 is null or price_250 > 0),
+  price_500 integer check (price_500 is null or price_500 > 0),
+  price_1000 integer check (price_1000 is null or price_1000 > 0),
   active boolean not null default true, sort_order integer not null default 0
 );
 alter table public.products enable row level security;
@@ -88,18 +88,23 @@ begin
     select * into v_prod from public.products where id = it->>'id' and active;
     if not found or v_qty is null or v_qty < 1 or v_qty > 50 or v_size not in (250,500,1000) then raise exception 'invalid item'; end if;
     v_price := case v_size when 250 then v_prod.price_250 when 500 then v_prod.price_500 else v_prod.price_1000 end;
+    if v_price is null or v_price <= 0 then raise exception 'price not approved for selected size'; end if;
     insert into public.order_items (order_id, product_id, product_name, size, qty, unit_price)
     values (v_order.id, v_prod.id, v_prod.name, v_size, v_qty, v_price);
     v_sub := v_sub + v_price * v_qty;
   end loop;
   update public.orders set subtotal = v_sub, total = v_sub + v_fee where id = v_order.id returning * into v_order;
-  return jsonb_build_object('order_no', v_order.order_no, 'subtotal', v_order.subtotal, 'shipping', v_order.shipping, 'total', v_order.total);
+  return jsonb_build_object(
+    'order_id', v_order.id, 'order_no', v_order.order_no,
+    'subtotal', v_order.subtotal, 'shipping', v_order.shipping, 'total', v_order.total,
+    'items', coalesce((select jsonb_agg(jsonb_build_object('product_name', oi.product_name, 'size', oi.size, 'qty', oi.qty, 'unit_price', oi.unit_price) order by oi.id) from public.order_items oi where oi.order_id = v_order.id), '[]'::jsonb)
+  );
 end $$;
 revoke all on function public.create_order(text,text,text,text,text,jsonb) from public;
 grant execute on function public.create_order(text,text,text,text,text,jsonb) to anon, authenticated;
 
 insert into public.site_settings (key, value) values ('shipping_fee', '100'::jsonb);
-insert into public.products (id,name,line,price_250,price_500,price_1000,sort_order) values
- ('gold-18','GOLD 18','GOLD',155,290,550,1),('gold-21','GOLD 21','GOLD',180,340,650,2),
- ('gold-24','GOLD 24','GOLD',205,390,750,3),('premium','PREMIUM','ESPRESSO',240,450,890,4),
- ('bar-intenso','BAR INTENSO','ESPRESSO',190,360,690,5);
+insert into public.products (id,name,line,price_250,price_500,price_1000,active,sort_order) values
+ ('gold-18','جواد 18','GOLD',null,null,null,false,1),('gold-21','GOLD 21','GOLD',null,null,null,false,2),
+ ('gold-24','جواد 24','GOLD',null,null,null,false,3),('premium','PREMIUM','ESPRESSO',null,450,890,true,4),
+ ('bar-intenso','BAR INTENSO','ESPRESSO',null,null,690,true,5);
