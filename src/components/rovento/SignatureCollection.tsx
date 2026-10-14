@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { ShoppingCart, Star, Check } from "lucide-react";
+import { ShoppingCart, Check } from "lucide-react";
 import { getProduct, formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/store";
 import { IMAGES } from "@/lib/images";
@@ -20,8 +20,6 @@ const BAGS = [
     glow: "rgba(30,58,95,0.18)",
     borderColor: "border-blue-500/20",
     badgeColor: "bg-blue-500 text-white",
-    rating: 4.9,
-    reviews: 187,
     animDelay: "0s",
   },
   {
@@ -37,8 +35,6 @@ const BAGS = [
     glow: "rgba(201,169,97,0.18)",
     borderColor: "border-rv-gold/30",
     badgeColor: "bg-rv-gold text-black",
-    rating: 4.9,
-    reviews: 214,
     animDelay: "0.5s",
   },
 ];
@@ -158,23 +154,6 @@ export function SignatureCollection() {
                   </h3>
                   <p className="text-xs text-stone-400">{bag.nameAr}</p>
 
-                  {/* Rating */}
-                  <div className="flex items-center justify-center gap-1">
-                    {[...Array(5)].map((_, s) => (
-                      <Star
-                        key={s}
-                        className={`h-3 w-3 ${
-                          s < Math.round(bag.rating)
-                            ? "fill-rv-gold text-rv-gold"
-                            : "text-rv-brown/20"
-                        }`}
-                      />
-                    ))}
-                    <span className="mr-1 text-xs text-rv-brown/40">
-                      {bag.rating} ({bag.reviews})
-                    </span>
-                  </div>
-
                   {/* Tagline */}
                   <p className="text-xs leading-relaxed text-rv-brown/60">
                     {bag.tagline}
@@ -214,7 +193,7 @@ export function SignatureCollection() {
                   </button>
 
                   {/* Free shipping note */}
-                  <p className="text-[10px] text-rv-brown/40">🚚 شحن مجاني لكل مصر</p>
+                  <p className="text-[10px] text-rv-brown/40">🚚 الشحن مجاني للطلبات بقيمة 1500 ج.م فأكثر</p>
                 </div>
               </motion.div>
             );
