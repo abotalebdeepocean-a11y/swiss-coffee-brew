@@ -113,6 +113,8 @@ export default function Checkout() {
 
   const total = subtotal - weightDiscount;
   const isFreeShipping = total >= 1500;
+  const shippingFee = isFreeShipping ? 0 : 60;
+  const finalTotal = total + shippingFee;
 
   const lines = useMemo(
     () =>
@@ -185,15 +187,15 @@ export default function Checkout() {
       "🛍️ *تفاصيل الطلب:*",
       itemLines,
       "",
-      `💰 *إجمالي الطلب:* ${formatPrice(total)} ج.م`,
-      "🚚 *الشحن:* مجاني",
+      `🚚 *الشحن:* ${isFreeShipping ? "مجاني" : formatPrice(shippingFee)}`,
+      `💰 *الإجمالي النهائي شامل الشحن:* ${formatPrice(finalTotal)}`,
       "💳 *الدفع:* عند الاستلام",
       "━━━━━━━━━━━━━━━━━━",
       "✅ يرجى التأكيد على هذا الطلب",
     ].join("\n");
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  }, [orderNumber, form, lines, total]);
+  }, [orderNumber, form, lines, total, isFreeShipping, shippingFee, finalTotal]);
 
   /* ─── Empty cart (only before order placed) ─── */
   if (items.length === 0 && !orderNumber) {
@@ -234,7 +236,7 @@ export default function Checkout() {
               <CheckCircle className="size-9 text-green-400" />
             </motion.div>
 
-            <h1 className="text-2xl font-black">✅ تم استلام طلبك</h1>
+            <h1 className="text-2xl font-black">طلبك جاهز للإرسال</h1>
 
             <div className="mx-auto mt-5 w-fit rounded-xl border border-rv-gold/30 bg-rv-gold/10 px-5 py-3">
               <p className="text-[11px] font-bold uppercase tracking-widest text-stone-400">
@@ -246,7 +248,7 @@ export default function Checkout() {
             </div>
 
             <p className="mt-4 text-sm leading-relaxed text-stone-400">
-              احتفظ برقم طلبك — هيبقى مرجعك في أي استفسار
+              لم يتم إرسال الطلب بعد. افتح واتساب من الزر التالي وأرسل الرسالة لتأكيد الطلب.
             </p>
 
             <a
@@ -504,7 +506,7 @@ export default function Checkout() {
               <div className="flex items-center justify-between border-t border-white/10 pt-2">
                 <span className="font-bold">الإجمالي النهائي</span>
                 <span className="text-xl font-black text-rv-gold">
-                  {formatPrice(isFreeShipping ? total : total + 60)}
+                  {formatPrice(finalTotal)}
                 </span>
               </div>
             </div>
@@ -519,7 +521,7 @@ export default function Checkout() {
             </button>
             {!isFreeShipping && (
               <p className="mt-2 text-center text-[11px] text-emerald-400">
-                أضف {formatPrice(1500 - total)} كمان وخد الشحن مجاني
+                أضف {formatPrice(1500 - total)} كمان لتأهيل الطلب للشحن المجاني
               </p>
             )}
             <p className="mt-2 text-center text-[11px] text-stone-500">
