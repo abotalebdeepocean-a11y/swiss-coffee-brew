@@ -270,3 +270,14 @@ When using convex, make sure:
 - This includes importing generated files like `@/convex/_generated/server`, `@/convex/_generated/api`
 - Remember to import functions like useQuery, useMutation, useAction, etc. from `convex/react`
 - NEVER have return type validators.
+
+## Backend source of truth: Supabase
+
+Supabase is the primary backend for this application. Browser auth is handled by Supabase Auth; database reads/writes must use Supabase tables or server-side RPCs with RLS. Do not add new Convex dependencies or use Convex for new features. Existing Convex files are legacy and must only be removed after all remaining references and deployments are migrated and verified.
+
+Required public frontend environment variables:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY` (publishable/anon key only; never put a service-role key in the browser)
+
+Configure these in the hosting provider and local environment. The Supabase schema and policies live in the `supabase/` directory; SQL changes must be applied to the intended Supabase project before enabling the corresponding UI path. Never trust client-supplied prices or totals for order creation.
