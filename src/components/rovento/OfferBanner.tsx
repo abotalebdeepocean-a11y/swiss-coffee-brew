@@ -3,9 +3,6 @@ import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { Truck, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
-import {
-  TWO_KG_DISCOUNT_RATE,
-} from "@/lib/offer";
 
 /**
  * The ONE real offer — luxury glass rectangle with a rotating neon gold
@@ -69,50 +66,30 @@ export function OfferBanner() {
                   <div className="mb-5 inline-flex items-center gap-2.5 rounded-xl border border-[#c9a84c]/30 bg-[#050505]/80 px-4 py-2.5">
                     <Truck className="size-4 text-[#c9a84c]" />
                     <span className="text-sm font-black text-[#f5efe6]">
-                      شحن مجاني من 1500 ج.م
+                      الشحن الثابت 100 ج.م
                     </span>
                   </div>
 
                   <h2 className="mb-3 text-2xl font-black leading-snug md:text-4xl">
-                    <span className="text-[#f5efe6]">خد كيسين </span>
-                    <span className="gold-gradient-text">وفّر أكتر</span>
+                    <span className="text-[#f5efe6]">اختار قهوتك </span>
+                    <span className="gold-gradient-text">المفضلة</span>
                   </h2>
 
                   <p className="mb-2 text-sm leading-relaxed text-[#b0a898]">
-                    خصم {TWO_KG_DISCOUNT_RATE * 100}% فوري على أي بلندَين —
-                    بيتحسب تلقائيًا في السلة، بدون كود
+                    اختيارات ROVENTO للإسبريسو — جودة القهوة تبدأ من التفاصيل
                   </p>
 
-                  {/* الأسعار — الحالية والقديمة لكل بلند */}
-                  <div className="mb-5 flex flex-wrap items-center justify-center gap-2.5 md:justify-start">
-                    <div className="flex items-baseline gap-2 rounded-xl border border-[#c9a84c]/20 bg-[#050505]/60 px-3.5 py-2">
-                      <span className="text-lg font-black text-[#f5efe6]">750</span>
-                      <span className="text-[10px] font-bold text-[#b0a898]">ج.م</span>
-                      <span className="rv-old-price rv-price-flash text-xs font-bold text-[#888888]">790 ج.م</span>
-                    </div>
-                    <div className="flex items-baseline gap-2 rounded-xl border border-[#c9a84c]/20 bg-[#050505]/60 px-3.5 py-2">
-                      <span className="text-lg font-black text-[#f5efe6]">850</span>
-                      <span className="text-[10px] font-bold text-[#b0a898]">ج.م</span>
-                      <span className="rv-old-price rv-price-flash text-xs font-bold text-[#888888]">950 ج.م</span>
-                    </div>
-                  </div>
-
-                  {/* حساب العرض بالدقة — كيسان من أي بلند */}
                   <div className="mb-6 rounded-xl border border-[#c9a84c]/25 bg-[#050505]/70 px-4 py-3">
-                    <p className="text-xs text-[#b0a898]">
-                      مثال: كيس إنتنسو + كيس بريميوم —{" "}
-                      <span className="rv-old-price font-bold text-[#888888]">1,740 ج.م</span>{" "}
-                      ←{" "}
-                      <span className="font-black text-[#f5efe6]">1,440 ج.م</span>{" "}
-                      بعد الخصم
+                    <p className="text-sm leading-relaxed text-[#b0a898]">
+                      بار إنتنسو وبريميوم — اختار البلند المناسب لطريقتك في التحضير.
                     </p>
-                    <p className="mt-1 text-sm font-black text-[#e0c872]">
-                      توفير إجمالي 300 ج.م على الطلب
+                    <p className="mt-2 text-xs font-bold text-[#e0c872]">
+                      الأسعار المعروضة تجريبية للمعاينة.
                     </p>
                   </div>
 
                   <p className="mb-7 text-xs text-[#888888]">
-                    الشحن 60 ج.م للطلبات الأقل من 1500 ج.م، ومجاني من 1500 ج.م فأكثر.
+                    الشحن ثابت 100 ج.م لكل طلب.
                   </p>
 
                   <button
@@ -120,7 +97,7 @@ export function OfferBanner() {
                     className="rv-btn inline-flex items-center gap-2.5 rounded-xl bg-[#c9a84c] px-7 py-3.5 text-sm font-black text-[#0a0a0a] shadow-lg shadow-[#c9a84c]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e0c872] hover:shadow-[0_0_26px_rgba(201,168,76,0.4)]"
                   >
                     <ShoppingCart className="size-4" />
-                    خد الاتنين ووفّر
+                    أضف الاتنين للسلة
                   </button>
                 </div>
 
@@ -211,10 +188,10 @@ export function OfferBanner() {
                 >
                   <div className="relative z-10">
                     <p className="text-[10px] font-black leading-none text-[#1a0f08] md:text-[11px]">
-                      خصم
+                      شحن
                     </p>
-                    <p className="text-2xl font-black leading-tight text-[#1a0f08] md:text-3xl">
-                      10%
+                    <p className="text-xl font-black leading-tight text-[#1a0f08] md:text-2xl">
+                      100 ج.م
                     </p>
                   </div>
                   {/* Glossy sheen */}
