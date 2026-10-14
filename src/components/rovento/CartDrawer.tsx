@@ -265,28 +265,8 @@ export function CartDrawer() {
                       {formatPrice(subtotal)}
                     </span>
                   </div>
-                  {weightDiscount > 0 && (
-                    <div className="mt-1 flex items-center justify-between">
-                      <span className="text-[11px] text-emerald-400">
-                        🎉 خصم {Math.round(weightDiscountRate * 100)}% ({totalWeightKg} كجم)
-                      </span>
-                      <span className="text-sm font-bold text-emerald-400">
-                        -{formatPrice(weightDiscount)}
-                      </span>
-                    </div>
-                  )}
-                  {weightDiscount === 0 && totalWeightKg >= 1 && (
-                    <p className="mt-1 text-[10px] text-emerald-400">
-                      أضف {2 - (totalWeightKg % 2)} كجم إضافيين للحصول على خصم 10%
-                    </p>
-                  )}
-                  {subtotal < 1500 && (
-                    <p className="mt-1 text-[10px] text-emerald-400">
-                      أضف {formatPrice(1500 - subtotal)} للحصول على شحن مجاني
-                    </p>
-                  )}
-                  <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-                    الدفع عند الاستلام · الشحن لكل مصر
+<p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                    الدفع عند الاستلام · الشحن الثابت 100 ج.م
                   </p>
                   <Button
                     onClick={goCheckout}
