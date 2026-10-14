@@ -54,7 +54,6 @@ export interface Product {
   notes: string[];
   description: string;
   brewing?: string[];
-  bestseller?: boolean;
   isNew?: boolean;
   /** صور المعرض — حتى 5 صور للمنتج */
   gallery?: string[];
@@ -70,7 +69,7 @@ const CATEGORIES_RAW: Omit<Category, "count">[] = [
 ];
 
 export const PRODUCTS: Product[] = [
-  // ====== حبوب الإسبريسو — المنتجان فقط ======
+  // ====== المنتجات الأساسية + مجموعة القهوة التركية ======
   {
     slug: "rovento-bar-intenso-1kg",
     name: "ROVENTO بار انتينسو — 1 كجم",
@@ -90,7 +89,6 @@ export const PRODUCTS: Product[] = [
     description:
       "البار انتينسو: ٧٠٪ روبوسيتا ٣٠٪ ارابيكا ، خليط من حبوب قهوة كولومبي و هندي و جواتيمالي. اتعمل من فكرة واحدة: إسبريسو يفرض احترامه من أول رشفة — الكريمة دي مش بتتلاشى، بيدّي جسم كثيف وكافيين أعلى. البلند اللي بيخلي الكورتادو والماكياتو تجربة يومية مختلفة بجد.",
     brewing: ["إسبريسو", "كورتوادو", "ماكياتو"],
-    bestseller: true,
     gallery: [
       IMAGES.products.barIntenso,
     ],
@@ -103,7 +101,7 @@ export const PRODUCTS: Product[] = [
     price: 850,
     oldPrice: 950,
     weight: "1 كجم",
-    badge: "الأكثر مبيعًا",
+    badge: "متوازن",
     accent: "#c9a227",
     image: IMAGES.bags.premium,
     roast: "تحميص متوسط",
