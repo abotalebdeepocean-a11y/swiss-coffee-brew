@@ -2,6 +2,7 @@ import { IMAGES } from "./images";
 
 export type CategoryId =
   | "beans"
+  | "turkish"
   | "espresso"
   | "capsules"
   | "machines"
@@ -39,8 +40,8 @@ export interface Product {
    * أول خيار هو الافتراضي — وسعره يساوي price/oldPrice الأساسيين.
    */
   variants?: ProductVariant[];
-  rating: number;
-  reviews: number;
+  /** false until price/details are approved; unavailable products cannot be purchased */
+  available?: boolean;
   badge?: string;
   /** accent color for the blend seal / UI chip */
   accent: string;
@@ -57,12 +58,11 @@ export interface Product {
   isNew?: boolean;
   /** صور المعرض — حتى 5 صور للمنتج */
   gallery?: string[];
-  /** تعليقات العملاء */
-  testimonials?: { name: string; text: string; rating: number; date: string }[];
 }
 
 const CATEGORIES_RAW: Omit<Category, "count">[] = [
-  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب مختارة من أجود المزارع، محمصة طازجة أسبوعيًا.", accent: "#c9a227" },
+  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب قهوة للاستخدام اليومي.", accent: "#c9a227" },
+  { id: "turkish", name: "قهوة تركية مطحونة", nameEn: "Turkish Ground Coffee", blurb: "اختيارات ROVENTO للقهوة التركية المطحونة.", accent: "#6b4423" },
   { id: "espresso", name: "حبوب الإسبريسو", nameEn: "Espresso Beans", blurb: "بلندات مصممة خصيصًا لاستخلاص إسبريسو متكامل بالكريما.", accent: "#d03b1e" },
   { id: "capsules", name: "كبسولات", nameEn: "Capsules", blurb: "نفس الجودة في كبسولة جاهزة لكل لحظة.", accent: "#d03b1e" },
   { id: "machines", name: "ماكينات القهوة", nameEn: "Coffee Machines", blurb: "ماكينات إسبريسو واحترافية — من الموكا بوت إلى الأوتوماتيك بالكامل.", accent: "#c9a227" },
@@ -79,8 +79,6 @@ export const PRODUCTS: Product[] = [
     price: 750,
     oldPrice: 790,
     weight: "1 كجم",
-    rating: 4.9,
-    reviews: 187,
     badge: "قوي وجريء",
     accent: "#1a1a2e",
     image: IMAGES.bags.intenso,
@@ -96,11 +94,6 @@ export const PRODUCTS: Product[] = [
     gallery: [
       IMAGES.products.barIntenso,
     ],
-    testimonials: [
-      { name: "خالد ر.", text: "البار انتينسو قوي وجريء بجد. بستخدمه للكورتوادو والطعم لا يُقاوم. أقوى إسبريسو جربته في مصر!", rating: 5, date: "2026-08-12" },
-      { name: "منى أ.", text: "أحسن إسبريسو جربته بالموكا بوت. الكريما بتبان فورًا. مفيش مقارنة مع أي منتج تاني.", rating: 5, date: "2026-08-01" },
-      { name: "عمر ش.", text: "بحبه قوي بس قوي شوية عليّا. بخلطه مع الكلاسيك والنتيجة ممتازة.", rating: 4, date: "2026-07-25" },
-    ],
   },
   {
     slug: "rovento-premium-1kg",
@@ -110,8 +103,6 @@ export const PRODUCTS: Product[] = [
     price: 850,
     oldPrice: 950,
     weight: "1 كجم",
-    rating: 4.9,
-    reviews: 214,
     badge: "الأكثر مبيعًا",
     accent: "#c9a227",
     image: IMAGES.bags.premium,
@@ -127,10 +118,49 @@ export const PRODUCTS: Product[] = [
     gallery: [
       IMAGES.products.premium,
     ],
-    testimonials: [
-      { name: "سارة ك.", text: "الطعم متوازن وحلو من غير سكر. بستخدمها في اللاتيه كل صبح. أنصح بيها جدًا.", rating: 5, date: "2026-08-05" },
-      { name: "نور ه.", text: "هديتها لأبويا وقال أحلى قهوة جربها. التغليف فخم والتوصيل سريع. 10/10", rating: 5, date: "2026-07-20" },
-    ],
+  },
+  {
+    slug: "rovento-gold-21-turkish",
+    name: "ROVENTO GOLD 21",
+    nameEn: "GOLD 21",
+    category: "turkish",
+    price: 0,
+    weight: "قهوة تركية مطحونة",
+    available: false,
+    badge: "السعر قيد التحديد",
+    accent: "#b28a35",
+    image: "/images/gold-21-placeholder",
+    roast: "تحميص متوسط",
+    notes: [],
+    description: "قهوة تركية مطحونة من مجموعة ROVENTO. السعر والتفاصيل التجارية النهائية قيد الاعتماد، لذلك المنتج غير متاح للطلب حاليًا.",
+  },
+  {
+    slug: "rovento-jawad-18-turkish",
+    name: "ROVENTO جواد 18",
+    nameEn: "JAWAD 18",
+    category: "turkish",
+    price: 0,
+    weight: "قهوة تركية مطحونة",
+    available: false,
+    badge: "السعر قيد التحديد",
+    accent: "#8a6a42",
+    image: "/images/jawad-18-placeholder",
+    notes: [],
+    description: "قهوة تركية مطحونة من مجموعة ROVENTO. السعر والتفاصيل التجارية النهائية قيد الاعتماد، لذلك المنتج غير متاح للطلب حاليًا.",
+  },
+  {
+    slug: "rovento-jawad-24-turkish",
+    name: "ROVENTO جواد 24",
+    nameEn: "JAWAD 24",
+    category: "turkish",
+    price: 0,
+    weight: "قهوة تركية مطحونة",
+    available: false,
+    badge: "السعر قيد التحديد",
+    accent: "#5c3925",
+    image: "/images/jawad-24-placeholder",
+    notes: [],
+    description: "قهوة تركية مطحونة من مجموعة ROVENTO. السعر والتفاصيل التجارية النهائية قيد الاعتماد، لذلك المنتج غير متاح للطلب حاليًا.",
   },
 ];
 
