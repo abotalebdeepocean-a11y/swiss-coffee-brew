@@ -332,7 +332,7 @@ export default function Checkout() {
       <div className="mx-auto w-full max-w-lg">
         <h1 className="text-2xl font-black">إتمام الطلب</h1>
         <p className="mt-1 text-sm text-stone-400">
-          الدفع عند الاستلام — رسوم الشحن الحالية {formatPrice(configuredShippingFee)}
+          الدفع عند الاستلام — رسوم الشحن حسب إعدادات المتجر ({formatPrice(configuredShippingFee)})
         </p>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px] lg:items-start">
