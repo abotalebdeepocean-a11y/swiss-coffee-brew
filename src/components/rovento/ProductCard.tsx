@@ -7,7 +7,6 @@ import { CATEGORY_MAP, formatPrice, discountPercent, variantOf } from "@/lib/pro
 import { useCart } from "@/lib/store";
 import { BagVisual } from "./BagVisual";
 import { blendVariantFor } from "./CoffeeBag";
-import { Stars } from "./art";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({
@@ -84,13 +83,15 @@ export function ProductCard({
 
         {/* أزرار عند Hover */}
         <div className="absolute inset-x-0 bottom-0 flex translate-y-full flex-col gap-2 bg-coffee-900/95 p-3 transition-transform duration-300 group-hover:translate-y-0">
-          <button
-            onClick={() => add(product.slug, 1, activeVariant?.id)}
-            className="btn-gold flex h-10 w-full items-center justify-center gap-2 rounded-lg text-sm font-black"
-          >
-            <Plus className="size-4" />
-            أضف إلى السلة
-          </button>
+          {product.available !== false && (
+            <button
+              onClick={() => add(product.slug, 1, activeVariant?.id)}
+              className="btn-gold flex h-10 w-full items-center justify-center gap-2 rounded-lg text-sm font-black"
+            >
+              <Plus className="size-4" />
+              أضف إلى السلة
+            </button>
+          )}
           <Link
             to={`/product/${product.slug}`}
             className="flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-stone-700 text-xs font-semibold text-stone-400 transition-colors hover:border-rv-gold hover:text-rv-gold"
@@ -117,12 +118,6 @@ export function ProductCard({
         >
           {product.name}
         </Link>
-        <div className="mt-1.5 flex items-center gap-1.5">
-          <Stars value={product.rating} />
-          <span className="font-mono text-[10px] text-muted-foreground">
-            {product.rating} ({product.reviews})
-          </span>
-        </div>
 
         {/* خيارات المقاس/الطحن */}
         {product.variants && product.variants.length > 1 && (
@@ -145,12 +140,16 @@ export function ProductCard({
         )}
 
         {/* السعر */}
-        <div className="mt-2.5 flex items-baseline gap-2">
-          <span className="text-lg font-bold text-foreground">{formatPrice(price)}</span>
-          {oldPrice && (
-            <span className="text-xs text-muted-foreground line-through">{formatPrice(oldPrice)}</span>
-          )}
-        </div>
+        {product.available === false ? (
+          <p className="mt-2.5 text-sm font-bold text-rv-gold">السعر قيد التحديد</p>
+        ) : (
+          <div className="mt-2.5 flex items-baseline gap-2">
+            <span className="text-lg font-bold text-foreground">{formatPrice(price)}</span>
+            {oldPrice && (
+              <span className="text-xs text-muted-foreground line-through">{formatPrice(oldPrice)}</span>
+            )}
+          </div>
+        )}
       </div>
     </motion.article>
   );
