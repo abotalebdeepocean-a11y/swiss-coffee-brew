@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -23,7 +23,7 @@ import { formatPrice } from "@/lib/products";
 import { blendVariantFor } from "@/components/rovento/CoffeeBag";
 import { BagVisual } from "@/components/rovento/BagVisual";
 import { WhatsAppIcon } from "@/components/rovento/art";
-import { getSupabase } from "@/lib/supabase";
+import { getSupabase, isSupabaseConfigured } from "@/lib/supabase";
 
 /* ─── محافظات مصر — الـ 27 محافظة ─── */
 const GOVERNORATES = [
@@ -102,10 +102,29 @@ export default function Checkout() {
   const [orderSummary, setOrderSummary] = useState<{ subtotal: number; shipping: number; total: number; items?: { product_name: string; size: number; qty: number; unit_price: number }[] } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [configuredShippingFee, setConfiguredShippingFee] = useState(100);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    getSupabase()
+      .from("site_settings")
+      .select("value")
+      .eq("key", "shipping_fee")
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Could not read Supabase shipping setting:", error.message);
+          return;
+        }
+        if (data?.value !== undefined && Number.isFinite(Number(data.value))) {
+          setConfiguredShippingFee(Number(data.value));
+        }
+      });
+  }, []);
 
   const total = subtotal;
   const isFreeShipping = false;
-  const shippingFee = orderSummary?.shipping ?? 100;
+  const shippingFee = orderSummary?.shipping ?? configuredShippingFee;
   const finalTotal = orderSummary?.total ?? total + shippingFee;
 
   const lines = useMemo(
@@ -185,7 +204,7 @@ export default function Checkout() {
   const whatsappUrl = useMemo(() => {
     if (!orderNumber) return "#";
     const itemLines = orderSummary?.items?.length
-      ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)} ج.م`).join("\\n")
+      ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)} ج.م`).join("\n")
       : lines.map(({ item, line }) => {
           if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
           const name = line.variant ? `${line.product.name} (${line.variant.label})` : line.product.name;
