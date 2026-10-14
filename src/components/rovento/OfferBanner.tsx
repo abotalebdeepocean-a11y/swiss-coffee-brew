@@ -4,10 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { Truck, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
 import {
-  FREE_SHIPPING_START,
-  FREE_SHIPPING_END,
   TWO_KG_DISCOUNT_RATE,
-  formatArabicDate,
 } from "@/lib/offer";
 
 /**
@@ -72,7 +69,7 @@ export function OfferBanner() {
                   <div className="mb-5 inline-flex items-center gap-2.5 rounded-xl border border-[#c9a84c]/30 bg-[#050505]/80 px-4 py-2.5">
                     <Truck className="size-4 text-[#c9a84c]" />
                     <span className="text-sm font-black text-[#f5efe6]">
-                      شحن مجاني
+                      شحن مجاني من 1500 ج.م
                     </span>
                   </div>
 
@@ -115,8 +112,7 @@ export function OfferBanner() {
                   </div>
 
                   <p className="mb-7 text-xs text-[#888888]">
-                    شحن مجاني من {formatArabicDate(FREE_SHIPPING_START)} إلى{" "}
-                    {formatArabicDate(FREE_SHIPPING_END)}
+                    الشحن 60 ج.م للطلبات الأقل من 1500 ج.م، ومجاني من 1500 ج.م فأكثر.
                   </p>
 
                   <button
