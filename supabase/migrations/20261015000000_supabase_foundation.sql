@@ -92,6 +92,11 @@ begin
       raise exception 'لا يوجد سعر معتمد لهذا المنتج والوزن';
     end if;
 
+    -- Block checkout if the displayed price is stale or differs from the database.
+    if coalesce((v_item->>'expected_price')::integer, -1) <> v_price then
+      raise exception 'السعر المعروض تغيّر. حدّث الصفحة وتأكد من السعر قبل إعادة الطلب.';
+    end if;
+
     insert into public.order_items (
       order_id, product_id, product_name, size, qty, unit_price
     )
