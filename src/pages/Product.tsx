@@ -72,7 +72,7 @@ export default function Product() {
     [product],
   );
 
-  const gallery = product?.gallery ?? DEFAULT_GALLERY;
+  const gallery = product?.gallery ?? (product?.image ? [product.image] : DEFAULT_GALLERY);
 
   if (!product) {
     return (
