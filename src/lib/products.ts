@@ -141,7 +141,7 @@ export const PRODUCTS: Product[] = [
     accent: "#8a6a42",
     image: "/images/jawad-18-placeholder",
     notes: [],
-    description: "قهوة تركية مطحونة من مجموعة ROVENTO. السعر والتفاصيل التجارية النهائية قيد الاعتماد، لذلك المنتج غير متاح للطلب حاليًا.",
+    description: "قهوة تركية مطحونة من ROVENTO، ضمن مجموعة القهوة التركية المخصصة للتحضير اليومي.",
   },
   {
     slug: "rovento-jawad-24-turkish",
@@ -155,7 +155,7 @@ export const PRODUCTS: Product[] = [
     accent: "#5c3925",
     image: "/images/jawad-24-placeholder",
     notes: [],
-    description: "قهوة تركية مطحونة من مجموعة ROVENTO. السعر والتفاصيل التجارية النهائية قيد الاعتماد، لذلك المنتج غير متاح للطلب حاليًا.",
+    description: "قهوة تركية مطحونة من ROVENTO، ضمن مجموعة القهوة التركية المخصصة للتحضير اليومي.",
   },
 ];
 
