@@ -15,7 +15,7 @@
 ## Migrations
 
 - `schema.sql` documents the initial schema for a new Supabase project. Do not rerun it on a project where these tables already exist.
-- Apply `migrations/20261015000000_supabase_foundation.sql` to an existing project using the Supabase SQL Editor or Supabase CLI. It removes unapproved prices from active checkout paths and makes the `create_order` RPC reject any variant without an approved server-side price.
+- Apply `migrations/20261015000000_supabase_foundation.sql` to an existing project using the Supabase SQL Editor or Supabase CLI. It sets clearly provisional 1 kg preview prices (BAR INTENSO 750 EGP, PREMIUM 850 EGP, JAWAD 18 550 EGP, GOLD 21 650 EGP, JAWAD 24 750 EGP), fixes shipping at 100 EGP, and makes `create_order` reject any variant whose displayed price differs from the server-side price.
 - The current frontend reads `site_settings.shipping_fee` and calls `create_order`; order totals and item prices returned to WhatsApp come from the database.
 - Configure Supabase Auth email templates to send the six-digit token (`{{ .Token }}`) expected by the code-entry screen. Enable anonymous sign-in only if the guest-login button is intended to remain available.
-- Before production, confirm that the recorded EGP 100 shipping fee and approved 500 g / 1 kg prices are still commercially correct. The migration preserves only the prices documented as confirmed in the existing Supabase setup.
+- These prices are temporary preview values, not final commercial pricing. The migration configures 1 kg variants only and fixes shipping at EGP 100 per order. Apply the migration to the Supabase project before testing checkout; do not use these prices as final public pricing.
