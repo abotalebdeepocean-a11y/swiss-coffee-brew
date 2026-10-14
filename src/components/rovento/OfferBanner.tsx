@@ -3,9 +3,6 @@ import { Link } from "react-router";
 import { motion, useInView } from "framer-motion";
 import { Truck, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/store";
-import {
-  TWO_KG_DISCOUNT_RATE,
-} from "@/lib/offer";
 
 /**
  * The ONE real offer — luxury glass rectangle with a rotating neon gold
