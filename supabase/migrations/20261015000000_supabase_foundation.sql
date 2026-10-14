@@ -43,9 +43,11 @@ begin
     raise exception 'رقم الهاتف المصري غير صحيح';
   end if;
 
-  if jsonb_typeof(p_items) <> 'array'
-     or jsonb_array_length(p_items) = 0
-     or jsonb_array_length(p_items) > 30 then
+  if p_items is null or jsonb_typeof(p_items) <> 'array' then
+    raise exception 'قائمة المنتجات غير صحيحة';
+  end if;
+
+  if jsonb_array_length(p_items) = 0 or jsonb_array_length(p_items) > 30 then
     raise exception 'قائمة المنتجات غير صحيحة';
   end if;
 
@@ -76,7 +78,7 @@ begin
 
     if not found
        or v_qty is null or v_qty < 1 or v_qty > 50
-       or v_size not in (250, 500, 1000) then
+       or v_size is null or v_size not in (250, 500, 1000) then
       raise exception 'المنتج أو الكمية أو الوزن غير صالح';
     end if;
 
