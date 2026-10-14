@@ -42,7 +42,7 @@ function Unit({
 
 /**
  * قسم الاستعجالية — كاونتدوان حقيقي حتى آخر يوم في الشهر الحالي
- * (أيام : ساعات : دقائق : ثواني) بمناسبة عرض الشحن المجاني.
+ * (أيام : ساعات : دقائق : ثواني) .
  */
 export function FreeShippingCountdown() {
   const [now, setNow] = useState(() => Date.now());
@@ -89,7 +89,7 @@ export function FreeShippingCountdown() {
           </span>
 
           <h2 className="mt-5 text-3xl font-black text-white sm:text-4xl md:text-5xl">
-            الشحن المجاني ينتهي <span className="gold-gradient-text">خلال:</span>
+            رسوم الشحن <span className="gold-gradient-text">خلال:</span>
           </h2>
 
           {/* الكاونتدوان */}
