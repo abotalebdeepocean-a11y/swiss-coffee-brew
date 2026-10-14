@@ -209,7 +209,7 @@ export default function Checkout() {
           if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
           const name = line.variant ? `${line.product.name} (${line.variant.label})` : line.product.name;
           return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
-        }).join("\\n");
+        }).join("\n");
 
     const message = [
       "🛒 *طلب جديد — روفينتو*",
