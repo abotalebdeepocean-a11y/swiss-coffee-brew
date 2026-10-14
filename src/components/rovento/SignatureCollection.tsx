@@ -108,7 +108,7 @@ export function SignatureCollection() {
                 <span
                   className={`absolute -top-2 right-6 z-10 rounded-full px-3 py-1 text-[11px] font-bold tracking-wide shadow-lg ${bag.badgeColor}`}
                 >
-                  {i === 0 ? "قوي وجريء" : "الأكثر مبيعًا"}
+                  {i === 0 ? "قوي وجريء" : "متوازن"}
                 </span>
 
                 {/* Floating bag area */}
