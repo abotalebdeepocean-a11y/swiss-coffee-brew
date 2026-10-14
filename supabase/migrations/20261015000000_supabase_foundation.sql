@@ -91,7 +91,16 @@ begin
     'order_no', v_order.order_no,
     'subtotal', v_order.subtotal,
     'shipping', v_order.shipping,
-    'total', v_order.total
+    'total', v_order.total,
+    'items', coalesce((
+      select jsonb_agg(jsonb_build_object(
+        'product_name', oi.product_name,
+        'size', oi.size,
+        'qty', oi.qty,
+        'unit_price', oi.unit_price
+      ) order by oi.id)
+      from public.order_items oi where oi.order_id = v_order.id
+    ), '[]'::jsonb)
   );
 end $$;
 
