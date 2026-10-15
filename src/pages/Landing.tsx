@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Header } from "@/components/rovento/Header";
 import { LandingHero } from "@/components/rovento/LandingHero";
+import { RoventoVisualStory } from "@/components/rovento/RoventoVisualStory";
 import { BlendProfiles } from "@/components/rovento/BlendProfiles";
 import { TurkishCollection } from "@/components/rovento/TurkishCollection";
 import { TrustPillars } from "@/components/rovento/TrustPillars";
@@ -27,6 +28,7 @@ export default function Landing() {
       <main>
         {/* الهيرو — سلايدر البانرات + الكيسين + بروفايل النكهة */}
         <LandingHero />
+        <RoventoVisualStory />
 
         {/* البلندات — اختار شخصيتك: قوي ولا فاخر؟ */}
         <div id="profiles">
