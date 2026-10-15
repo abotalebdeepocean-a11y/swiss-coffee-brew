@@ -9,8 +9,6 @@ import {
   RotateCcw,
   ChevronLeft,
   ChevronRight,
-  Star,
-  Quote,
   Heart,
   Share2,
   Camera,
@@ -22,7 +20,7 @@ import { OfferBanner } from "@/components/rovento/OfferBanner";
 import { ProductCard } from "@/components/rovento/ProductCard";
 import { BagVisual } from "@/components/rovento/BagVisual";
 import { blendVariantFor } from "@/components/rovento/CoffeeBag";
-import { IntensityMeter, Stars, WhatsAppIcon, Bean } from "@/components/rovento/art";
+import { IntensityMeter, WhatsAppIcon, Bean } from "@/components/rovento/art";
 import {
   getProduct,
   PRODUCTS,
@@ -38,14 +36,6 @@ import { cn } from "@/lib/utils";
 const DEFAULT_GALLERY = [
   "/images/intenso-bag-front-new",
   "/images/premium-bag",
-];
-
-/* ─── تعليقات افتراضية ─── */
-const DEFAULT_TESTIMONIALS = [
-  { name: "سارة ك.", text: "الطعم متوازن وحلو من غير سكر. بستخدمها في اللاتيه كل صبح.", rating: 5, date: "2026-08-05" },
-  { name: "محمد ع.", text: "شفت الإعلان وجرّبتها. الكريما حلوة جدًا والتحميص طازج. هفضل أطلبها.", rating: 4, date: "2026-07-28" },
-  { name: "نور ه.", text: "هديتها لأبويا وقال أحلى قهوة جربها. التغليف فخم والتوصيل سريع.", rating: 5, date: "2026-07-20" },
-  { name: "ياسر ب.", text: "من أحسن الحبوب اللي جربتها. الكريما بتبان فورًا والكيس يكفي أكتر من أسبوع.", rating: 5, date: "2026-07-15" },
 ];
 
 export default function Product() {
@@ -82,8 +72,7 @@ export default function Product() {
     [product],
   );
 
-  const gallery = product?.gallery ?? DEFAULT_GALLERY;
-  const testimonials = product?.testimonials ?? DEFAULT_TESTIMONIALS;
+  const gallery = product?.gallery ?? (product?.image ? [product.image] : DEFAULT_GALLERY);
 
   if (!product) {
     return (
@@ -267,33 +256,22 @@ export default function Product() {
               <h1 className="mt-3 text-2xl font-bold leading-snug sm:text-3xl md:text-[2rem]">{product.name}</h1>
               <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{product.nameEn}</p>
 
-              {/* التقييم */}
-              <div className="mt-4 flex items-center gap-3">
-                <div className="flex text-rv-gold">
-                  <Stars value={product.rating} />
-                </div>
-                <span className="text-sm font-bold text-foreground">{product.rating}</span>
-                <span className="text-xs text-muted-foreground">· {product.reviews} تقييم</span>
-                {product.bestseller && (
-                  <span className="flex items-center gap-1 rounded-lg bg-rv-gold/15 px-2 py-0.5 text-[10px] font-bold text-rv-gold">
-                    <Star className="size-3 fill-rv-gold" />
-                    الأكثر مبيعًا
-                  </span>
-                )}
-              </div>
-
               {/* السعر */}
-              <div className="mt-5 flex items-baseline gap-3">
-                <span className="text-3xl font-black text-foreground md:text-4xl">{formatPrice(price)}</span>
-                {oldPrice && (
-                  <>
-                    <span className="text-lg text-muted-foreground line-through">{formatPrice(oldPrice)}</span>
-                    <span className="rounded-lg bg-rv-red/15 px-2 py-0.5 text-xs font-bold text-rv-red">
-                      وفّر {formatPrice(oldPrice - price)}
-                    </span>
-                  </>
-                )}
-              </div>
+              {product.available === false ? (
+                <p className="mt-5 text-lg font-bold text-rv-gold">السعر قيد التحديد</p>
+              ) : (
+                <div className="mt-5 flex items-baseline gap-3">
+                  <span className="text-3xl font-black text-foreground md:text-4xl">{formatPrice(price)}</span>
+                  {oldPrice && (
+                    <>
+                      <span className="text-lg text-muted-foreground line-through">{formatPrice(oldPrice)}</span>
+                      <span className="rounded-lg bg-rv-red/15 px-2 py-0.5 text-xs font-bold text-rv-red">
+                        وفّر {formatPrice(oldPrice - price)}
+                      </span>
+                    </>
+                  )}
+                </div>
+              )}
 
               {/* اختيار المقاس/الطحن */}
               {product.variants && product.variants.length > 1 && (
@@ -321,6 +299,13 @@ export default function Product() {
 
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-[15px]">{product.description}</p>
 
+              {product.available === false ? (
+                <div className="mt-5 rounded-xl border border-rv-gold/25 bg-rv-gold/5 p-4">
+                  <p className="font-bold text-rv-gold">المنتج قيد التجهيز</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">السعر والتفاصيل النهائية قيد الاعتماد، والطلب غير متاح حاليًا.</p>
+                </div>
+              ) : (
+                <>
               {/* أزرار الشراء */}
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <div className="flex items-center rounded-xl border border-white/15">
@@ -353,10 +338,13 @@ export default function Product() {
                 اطلب واتساب — من غير تعقيد
               </a>
 
+
+                </>
+              )}
               {/* شريط الثقة */}
               <div className="mt-5 grid grid-cols-3 gap-2">
                 {[
-                  { icon: Truck, t: "بيوصلك بسرعة", s: "24-72 ساعة" },
+                  { icon: Truck, t: "مدة التوصيل", s: "2–7 أيام عمل" },
                   { icon: ShieldCheck, t: "ادفع لما يوصّلك", s: "مش محتاج تثق فينا الأول" },
                   { icon: RotateCcw, t: "اقدر ارجع المنتج ؟ ايوة تقدر", s: "لو فيه عيب أو مش مطابق — خلال 14 يوم" },
                 ].map((x) => (
@@ -429,45 +417,6 @@ export default function Product() {
 
           {/* ═══════════════════ عرض الكيسين ووفّر أكتر — بدل عرض المكنة ═══════════════════ */}
           <OfferBanner />
-
-          {/* ═══════════════════ قسم التعليقات ═══════════════════ */}
-          {testimonials.length > 0 && (
-            <section className="mt-16 md:mt-20">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="flex text-rv-gold">
-                  <Stars value={product.rating} />
-                </div>
-                <h2 className="text-xl font-bold md:text-2xl">
-                  الناس اللي جربتها <span className="text-rv-gold">بتقول إيه</span>
-                </h2>
-                <span className="text-sm text-muted-foreground">({product.reviews} تقييم)</span>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {testimonials.map((t, i) => (
-                  <div
-                    key={i}
-                    className="relative rounded-2xl border border-white/8 bg-white/[0.02] p-5 transition hover:border-white/15 hover:bg-white/[0.04]"
-                  >
-                    <Quote className="absolute start-4 top-4 size-8 text-rv-gold/10" />
-                    <div className="mb-3 flex items-center gap-2">
-                      <div className="flex text-rv-gold">
-                        <Stars value={t.rating} />
-                      </div>
-                      <span className="text-xs text-muted-foreground">{t.date}</span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-stone-300">{t.text}</p>
-                    <div className="mt-3 flex items-center gap-2">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-rv-gold/15 text-[10px] font-bold text-rv-gold">
-                        {t.name.charAt(0)}
-                      </div>
-                      <span className="text-xs font-bold text-foreground">{t.name}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
 
           {/* ═══════════════════ منتجات مشابهة — Slider أفقي ═══════════════════ */}
           {related.length > 0 && (

@@ -2,6 +2,7 @@ import { IMAGES } from "./images";
 
 export type CategoryId =
   | "beans"
+  | "turkish"
   | "espresso"
   | "capsules"
   | "machines"
@@ -39,8 +40,8 @@ export interface Product {
    * أول خيار هو الافتراضي — وسعره يساوي price/oldPrice الأساسيين.
    */
   variants?: ProductVariant[];
-  rating: number;
-  reviews: number;
+  /** false until price/details are approved; unavailable products cannot be purchased */
+  available?: boolean;
   badge?: string;
   /** accent color for the blend seal / UI chip */
   accent: string;
@@ -53,16 +54,14 @@ export interface Product {
   notes: string[];
   description: string;
   brewing?: string[];
-  bestseller?: boolean;
   isNew?: boolean;
   /** صور المعرض — حتى 5 صور للمنتج */
   gallery?: string[];
-  /** تعليقات العملاء */
-  testimonials?: { name: string; text: string; rating: number; date: string }[];
 }
 
 const CATEGORIES_RAW: Omit<Category, "count">[] = [
-  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب مختارة من أجود المزارع، محمصة طازجة أسبوعيًا.", accent: "#c9a227" },
+  { id: "beans", name: "حبوب القهوة", nameEn: "Coffee Beans", blurb: "حبوب قهوة للاستخدام اليومي.", accent: "#c9a227" },
+  { id: "turkish", name: "قهوة تركية مطحونة", nameEn: "Turkish Ground Coffee", blurb: "اختيارات ROVENTO للقهوة التركية المطحونة.", accent: "#6b4423" },
   { id: "espresso", name: "حبوب الإسبريسو", nameEn: "Espresso Beans", blurb: "بلندات مصممة خصيصًا لاستخلاص إسبريسو متكامل بالكريما.", accent: "#d03b1e" },
   { id: "capsules", name: "كبسولات", nameEn: "Capsules", blurb: "نفس الجودة في كبسولة جاهزة لكل لحظة.", accent: "#d03b1e" },
   { id: "machines", name: "ماكينات القهوة", nameEn: "Coffee Machines", blurb: "ماكينات إسبريسو واحترافية — من الموكا بوت إلى الأوتوماتيك بالكامل.", accent: "#c9a227" },
@@ -70,17 +69,14 @@ const CATEGORIES_RAW: Omit<Category, "count">[] = [
 ];
 
 export const PRODUCTS: Product[] = [
-  // ====== حبوب الإسبريسو — المنتجان فقط ======
+  // ====== المنتجات الأساسية + مجموعة القهوة التركية ======
   {
     slug: "rovento-bar-intenso-1kg",
-    name: "ROVENTO بار انتينسو — 1 كجم",
+    name: "ROVENTO BAR INTENSO — 1 كجم",
     nameEn: "ROVENTO Bar Intenso 1kg",
     category: "beans",
     price: 750,
-    oldPrice: 790,
     weight: "1 كجم",
-    rating: 4.9,
-    reviews: 187,
     badge: "قوي وجريء",
     accent: "#1a1a2e",
     image: IMAGES.bags.intenso,
@@ -92,27 +88,18 @@ export const PRODUCTS: Product[] = [
     description:
       "البار انتينسو: ٧٠٪ روبوسيتا ٣٠٪ ارابيكا ، خليط من حبوب قهوة كولومبي و هندي و جواتيمالي. اتعمل من فكرة واحدة: إسبريسو يفرض احترامه من أول رشفة — الكريمة دي مش بتتلاشى، بيدّي جسم كثيف وكافيين أعلى. البلند اللي بيخلي الكورتادو والماكياتو تجربة يومية مختلفة بجد.",
     brewing: ["إسبريسو", "كورتوادو", "ماكياتو"],
-    bestseller: true,
     gallery: [
       IMAGES.products.barIntenso,
-    ],
-    testimonials: [
-      { name: "خالد ر.", text: "البار انتينسو قوي وجريء بجد. بستخدمه للكورتوادو والطعم لا يُقاوم. أقوى إسبريسو جربته في مصر!", rating: 5, date: "2026-08-12" },
-      { name: "منى أ.", text: "أحسن إسبريسو جربته بالموكا بوت. الكريما بتبان فورًا. مفيش مقارنة مع أي منتج تاني.", rating: 5, date: "2026-08-01" },
-      { name: "عمر ش.", text: "بحبه قوي بس قوي شوية عليّا. بخلطه مع الكلاسيك والنتيجة ممتازة.", rating: 4, date: "2026-07-25" },
     ],
   },
   {
     slug: "rovento-premium-1kg",
-    name: "ROVENTO بريميوم — 1 كجم",
+    name: "ROVENTO PREMIUM — 1 كجم",
     nameEn: "ROVENTO Premium 1kg",
     category: "beans",
     price: 850,
-    oldPrice: 950,
     weight: "1 كجم",
-    rating: 4.9,
-    reviews: 214,
-    badge: "الأكثر مبيعًا",
+    badge: "متوازن",
     accent: "#c9a227",
     image: IMAGES.bags.premium,
     roast: "تحميص متوسط",
@@ -123,14 +110,52 @@ export const PRODUCTS: Product[] = [
     description:
       "البريميوم: ٥٠٪ أرابيكا ٥٠٪ روبوسيتا ، خليط متوازن من حبوب قهوة كولومبي و جواتيمالي و هندي. بتحميص متوسط بيدّيك نعومة وحلاوة معتدلة ولمسة نهائية طويلة — مش محتاج تفهم في القهوة، أول رشفة هتعرفها لوحدها. إسبريسو يفتح يومك، أو لاتيه وكابتشينو بجودة الكافيهات — من غير ما تحس إنك محتاج سكر.",
     brewing: ["إسبريسو", "لاتيه", "كابتشينو", "فلتر"],
-    bestseller: true,
     gallery: [
       IMAGES.products.premium,
     ],
-    testimonials: [
-      { name: "سارة ك.", text: "الطعم متوازن وحلو من غير سكر. بستخدمها في اللاتيه كل صبح. أنصح بيها جدًا.", rating: 5, date: "2026-08-05" },
-      { name: "نور ه.", text: "هديتها لأبويا وقال أحلى قهوة جربها. التغليف فخم والتوصيل سريع. 10/10", rating: 5, date: "2026-07-20" },
-    ],
+  },
+  {
+    slug: "rovento-gold-21-turkish",
+    name: "ROVENTO GOLD 21",
+    nameEn: "GOLD 21",
+    category: "turkish",
+    price: 650,
+    weight: "1 كجم — قهوة تركية مطحونة",
+    available: true,
+    badge: "سعر تجريبي",
+    accent: "#b28a35",
+    image: "/images/gold-21-placeholder",
+    roast: "تحميص متوسط",
+    notes: [],
+    description: "قهوة تركية مطحونة من مجموعة ROVENTO — سعر تجريبي مخصص لمعاينة المتجر.",
+  },
+  {
+    slug: "rovento-jawad-18-turkish",
+    name: "ROVENTO جواد 18",
+    nameEn: "JAWAD 18",
+    category: "turkish",
+    price: 550,
+    weight: "1 كجم — قهوة تركية مطحونة",
+    available: true,
+    badge: "سعر تجريبي",
+    accent: "#8a6a42",
+    image: "/images/jawad-18-placeholder",
+    notes: [],
+    description: "قهوة تركية مطحونة من ROVENTO — سعر تجريبي مخصص لمعاينة المتجر.",
+  },
+  {
+    slug: "rovento-jawad-24-turkish",
+    name: "ROVENTO جواد 24",
+    nameEn: "JAWAD 24",
+    category: "turkish",
+    price: 750,
+    weight: "1 كجم — قهوة تركية مطحونة",
+    available: true,
+    badge: "سعر تجريبي",
+    accent: "#5c3925",
+    image: "/images/jawad-24-placeholder",
+    notes: [],
+    description: "قهوة تركية مطحونة من ROVENTO، ضمن مجموعة القهوة التركية المخصصة للتحضير اليومي.",
   },
 ];
 

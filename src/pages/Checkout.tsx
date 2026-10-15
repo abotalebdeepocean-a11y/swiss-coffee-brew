@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -23,6 +23,7 @@ import { formatPrice } from "@/lib/products";
 import { blendVariantFor } from "@/components/rovento/CoffeeBag";
 import { BagVisual } from "@/components/rovento/BagVisual";
 import { WhatsAppIcon } from "@/components/rovento/art";
+import { getSupabase, isSupabaseConfigured } from "@/lib/supabase";
 
 /* ─── محافظات مصر — الـ 27 محافظة ─── */
 const GOVERNORATES = [
@@ -81,15 +82,6 @@ const EMPTY_FORM: ShippingForm = {
   notes: "",
 };
 
-function generateOrderNumber(): string {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, "0");
-  const d = String(now.getDate()).padStart(2, "0");
-  const rand = Math.floor(1000 + Math.random() * 9000); // 4-digit
-  return `RV-${y}${m}${d}-${rand}`;
-}
-
 /** تنقية رقم الهاتف من الأقواس/الشرطات/المسافات قبل التحقق */
 const cleanPhone = (phone: string) => phone.replace(/[\s\-()]/g, "");
 
@@ -98,9 +90,6 @@ export default function Checkout() {
   const {
     items,
     subtotal,
-    weightDiscount,
-    weightDiscountRate,
-    totalWeightKg,
     setQty,
     remove,
     clear,
@@ -110,9 +99,33 @@ export default function Checkout() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [orderSummary, setOrderSummary] = useState<{ subtotal: number; shipping: number; total: number; items?: { product_name: string; size: number; qty: number; unit_price: number }[] } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [configuredShippingFee, setConfiguredShippingFee] = useState(100);
 
-  const total = subtotal - weightDiscount;
-  const isFreeShipping = total >= 1500;
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    getSupabase()
+      .from("site_settings")
+      .select("value")
+      .eq("key", "shipping_fee")
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Could not read Supabase shipping setting:", error.message);
+          return;
+        }
+        if (data?.value !== undefined && Number.isFinite(Number(data.value))) {
+          setConfiguredShippingFee(Number(data.value));
+        }
+      });
+  }, []);
+
+  const total = subtotal;
+  const isFreeShipping = false;
+  const shippingFee = orderSummary?.shipping ?? configuredShippingFee;
+  const finalTotal = orderSummary?.total ?? total + shippingFee;
 
   const lines = useMemo(
     () =>
@@ -129,8 +142,8 @@ export default function Checkout() {
     const phone = cleanPhone(f.phone);
     if (!phone) {
       e.phone = "من فضلك اكتب رقم الهاتف";
-    } else if (!/^01\d{9}$/.test(phone)) {
-      e.phone = "رقم الهاتف لازم يبدأ بـ 01 ويتكون من 11 رقم بالظبط";
+    } else if (!/^01[0125]\d{8}$/.test(phone)) {
+      e.phone = "رقم الهاتف لازم يكون رقم موبايل مصري صحيح من 11 رقم";
     }
     if (!f.governorate) e.governorate = "من فضلك اختر المحافظة";
     if (!f.city.trim()) e.city = "من فضلك اكتب المدينة / المركز";
@@ -146,28 +159,57 @@ export default function Checkout() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitAttempted(true);
+    setSubmissionError(null);
     const e = validate(form);
     setErrors(e);
     if (Object.keys(e).length > 0) return;
-    setOrderNumber(generateOrderNumber());
+    if (lines.some(({ line }) => line.custom)) {
+      setSubmissionError("الخلطات المخصصة غير متاحة للطلب الإلكتروني حاليًا؛ اختار منتجًا معتمدًا من الكتالوج.");
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const rpcItems = lines.map(({ item, line }) => {
+        if (line.custom) throw new Error("الخلطات المخصصة غير مدعومة في الطلب الإلكتروني حاليًا.");
+        const slug = line.product.slug;
+        const id = slug.includes("bar-intenso") ? "bar-intenso" : slug.includes("premium") ? "premium" : slug.includes("jawad-18") ? "gold-18" : slug.includes("jawad-24") ? "gold-24" : slug.includes("gold-21") ? "gold-21" : "";
+        if (!id) throw new Error("تعذر مطابقة المنتج مع كتالوج Supabase.");
+        const label = line.variant?.label ?? line.label ?? line.product.weight ?? "";
+        const size = /250/.test(label) ? 250 : /500/.test(label) ? 500 : 1000;
+        return { id, size, qty: item.qty, expected_price: line.price };
+      });
+      const { data, error } = await getSupabase().rpc("create_order", {
+        p_name: form.name.trim(),
+        p_phone: cleanPhone(form.phone),
+        p_governorate: form.governorate,
+        p_address: `${form.city.trim()} — ${form.address.trim()}`,
+        p_notes: form.notes.trim(),
+        p_items: rpcItems,
+      });
+      if (error) throw error;
+      if (!data || !data.order_no || typeof data.total !== "number") throw new Error("لم تُرجع قاعدة البيانات رقم الطلب والإجمالي المتوقعين.");
+      setOrderSummary({ subtotal: Number(data.subtotal), shipping: Number(data.shipping), total: Number(data.total), items: Array.isArray(data.items) ? data.items : [] });
+      setOrderNumber(`RV-${String(data.order_no).padStart(6, "0")}`);
+    } catch (error) {
+      console.error("Supabase order creation failed:", error);
+      setSubmissionError(error instanceof Error ? `لم يتم حفظ الطلب في قاعدة البيانات: ${error.message}` : "لم يتم حفظ الطلب. حاول مرة أخرى بعد قليل.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   /* ─── WhatsApp message — exact required structure ─── */
   const whatsappUrl = useMemo(() => {
     if (!orderNumber) return "#";
-    const itemLines = lines
-      .map(({ item, line }) => {
-        if (line.custom) {
-          return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
-        }
-        const name = line.variant
-          ? `${line.product.name} (${line.variant.label})`
-          : line.product.name;
-        return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
-      })
-      .join("\n");
+    const itemLines = orderSummary?.items?.length
+      ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)} ج.م`).join("\n")
+      : lines.map(({ item, line }) => {
+          if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
+          const name = line.variant ? `${line.product.name} (${line.variant.label})` : line.product.name;
+          return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
+        }).join("\n");
 
     const message = [
       "🛒 *طلب جديد — روفينتو*",
@@ -185,15 +227,16 @@ export default function Checkout() {
       "🛍️ *تفاصيل الطلب:*",
       itemLines,
       "",
-      `💰 *إجمالي الطلب:* ${formatPrice(total)} ج.م`,
-      "🚚 *الشحن:* مجاني",
+      `المنتجات قبل الشحن: ${formatPrice(orderSummary?.subtotal ?? subtotal)}`,
+      `🚚 *الشحن:* ${formatPrice(shippingFee)}`,
+      `💰 *الإجمالي النهائي شامل الشحن:* ${formatPrice(finalTotal)}`,
       "💳 *الدفع:* عند الاستلام",
       "━━━━━━━━━━━━━━━━━━",
       "✅ يرجى التأكيد على هذا الطلب",
     ].join("\n");
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  }, [orderNumber, form, lines, total]);
+  }, [orderNumber, form, lines, subtotal, orderSummary, shippingFee, finalTotal]);
 
   /* ─── Empty cart (only before order placed) ─── */
   if (items.length === 0 && !orderNumber) {
@@ -234,7 +277,7 @@ export default function Checkout() {
               <CheckCircle className="size-9 text-green-400" />
             </motion.div>
 
-            <h1 className="text-2xl font-black">✅ تم استلام طلبك</h1>
+            <h1 className="text-2xl font-black">طلبك جاهز للإرسال</h1>
 
             <div className="mx-auto mt-5 w-fit rounded-xl border border-rv-gold/30 bg-rv-gold/10 px-5 py-3">
               <p className="text-[11px] font-bold uppercase tracking-widest text-stone-400">
@@ -246,7 +289,7 @@ export default function Checkout() {
             </div>
 
             <p className="mt-4 text-sm leading-relaxed text-stone-400">
-              احتفظ برقم طلبك — هيبقى مرجعك في أي استفسار
+              لم يتم إرسال الطلب بعد. افتح واتساب من الزر التالي وأرسل الرسالة لتأكيد الطلب.
             </p>
 
             <a
@@ -289,7 +332,7 @@ export default function Checkout() {
       <div className="mx-auto w-full max-w-lg">
         <h1 className="text-2xl font-black">إتمام الطلب</h1>
         <p className="mt-1 text-sm text-stone-400">
-          الدفع عند الاستلام — والشحن مجاني للطلبات فوق 1500 ج.م
+          الدفع عند الاستلام — رسوم الشحن حسب إعدادات المتجر ({formatPrice(configuredShippingFee)})
         </p>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px] lg:items-start">
@@ -489,40 +532,33 @@ export default function Checkout() {
                 <span className="text-stone-400">المنتجات</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
-              {weightDiscount > 0 && (
-                <div className="flex items-center justify-between text-emerald-400">
-                  <span>🎉 خصم الكمية ({Math.round(weightDiscountRate * 100)}% · {totalWeightKg} كجم)</span>
-                  <span className="font-bold">-{formatPrice(weightDiscount)}</span>
-                </div>
-              )}
               <div className="flex items-center justify-between">
                 <span className="text-stone-400">الشحن</span>
                 <span className={isFreeShipping ? "font-bold text-emerald-400" : ""}>
-                  {isFreeShipping ? "مجاني ✅" : formatPrice(60)}
+                  {formatPrice(shippingFee)}
                 </span>
               </div>
               <div className="flex items-center justify-between border-t border-white/10 pt-2">
                 <span className="font-bold">الإجمالي النهائي</span>
                 <span className="text-xl font-black text-rv-gold">
-                  {formatPrice(isFreeShipping ? total : total + 60)}
+                  {formatPrice(finalTotal)}
                 </span>
               </div>
             </div>
 
+            {submissionError && (
+              <p role="alert" className="mt-3 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">{submissionError}</p>
+            )}
             <button
               onClick={handleSubmit}
-              className="mt-5 flex h-14 w-full items-center justify-center gap-2 rounded-lg text-base font-bold text-black transition-transform hover:scale-[1.02] active:scale-[0.99]"
+              disabled={isSubmitting}
+              className="mt-5 flex h-14 w-full items-center justify-center gap-2 rounded-lg text-base font-bold text-black transition-transform hover:scale-[1.02] active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
               style={{ backgroundColor: GOLD }}
             >
               <WhatsAppIcon className="size-5" />
-              تأكيد الطلب
+              {isSubmitting ? "جارٍ حفظ الطلب..." : "حفظ الطلب والمتابعة إلى واتساب"}
             </button>
-            {!isFreeShipping && (
-              <p className="mt-2 text-center text-[11px] text-emerald-400">
-                أضف {formatPrice(1500 - total)} كمان وخد الشحن مجاني
-              </p>
-            )}
-            <p className="mt-2 text-center text-[11px] text-stone-500">
+<p className="mt-2 text-center text-[11px] text-stone-500">
               💳 الدفع عند الاستلام — مش محتاج تثق فينا الأول
             </p>
           </aside>

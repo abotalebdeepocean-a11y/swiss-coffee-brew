@@ -9,10 +9,11 @@ type Filter = CategoryId | "all";
 export function OtherVarieties() {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const bestsellerSlugs = new Set(
-    PRODUCTS.filter((p) => p.bestseller).map((p) => p.slug),
-  );
-  const base = PRODUCTS.filter((p) => !bestsellerSlugs.has(p.slug));
+  const signatureSlugs = new Set([
+    "rovento-bar-intenso-1kg",
+    "rovento-premium-1kg",
+  ]);
+  const base = PRODUCTS.filter((p) => !signatureSlugs.has(p.slug));
   const others =
     filter === "all" ? base.slice(0, 8) : base.filter((p) => p.category === filter);
 
@@ -24,8 +25,7 @@ export function OtherVarieties() {
             اكتشف <span className="text-rv-red">المزيد</span>
           </h2>
           <p className="mt-2 text-sm text-stone-400">
-            القهوة المطحونة، أدوات التحضير، الماكينات والإكسسوارات — كل ما
-            يكمّل تجربتك مع روفينتو
+            القهوة التركية المطحونة — اختيارات إضافية من ROVENTO
           </p>
         </div>
 

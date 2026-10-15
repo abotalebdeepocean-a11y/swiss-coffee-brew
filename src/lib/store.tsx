@@ -10,7 +10,7 @@ import {
 import { PRODUCTS, getProduct, variantOf, formatPrice } from "./products";
 
 /** ⚠️ ضع رقم واتساب المتجر هنا بصيغة دولية بدون + أو أصفار بادئة */
-export const WHATSAPP_NUMBER = "201033012381";
+export const WHATSAPP_NUMBER = "201109600543";
 
 export interface CartItem {
   slug: string;
@@ -60,7 +60,7 @@ export function cartLine(item: CartItem): CartLineInfo | undefined {
     };
   }
   const product = getProduct(item.slug);
-  if (!product) return undefined;
+  if (!product || product.available === false) return undefined;
   const variant = variantOf(product, item.variantId);
   return {
     custom: false,
@@ -107,7 +107,7 @@ function loadCart(): CartItem[] {
     return parsed.filter(
       (i) =>
         (i.custom && i.custom.price > 0 && typeof i.custom.arabica === "number") ||
-        getProduct(i.slug),
+        !!getProduct(i.slug) && getProduct(i.slug)?.available !== false,
     );
   } catch {
     return [];
@@ -129,6 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       variantId?: string,
       custom?: CustomBlendSpec,
     ) => {
+      if (getProduct(slug)?.available === false) return;
       setItems((prev) => {
         const key = cartLineKey({ slug, variantId });
         const found = prev.find((i) => cartLineKey(i) === key);
@@ -191,13 +192,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   /** خصم 10% على كل 2 كيلوجرام من الحبوب — نفس عرض الحملة الرسمي */
   const weightDiscountRate = useMemo(
-    () => Math.floor(totalWeightKg / 2) * 0.1,
+    () => 0,
     [totalWeightKg],
   );
 
   /** الخصم على الوزن */
   const weightDiscount = useMemo(
-    () => Math.round(subtotal * weightDiscountRate),
+    () => 0,
     [subtotal, weightDiscountRate],
   );
 
@@ -257,7 +258,7 @@ export function buildOrderMessage(items: CartItem[]): string {
     "الاسم:",
     "العنوان:",
     "رقم الهاتف:",
-    "طريقة الدفع: (فودافون كاش / إنستاباي / الدفع عند الاستلام)",
+    "طريقة الدفع: الدفع عند الاستلام",
   ].join("\n");
 }
 
