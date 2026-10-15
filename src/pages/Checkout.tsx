@@ -210,9 +210,9 @@ export default function Checkout() {
     const itemLines = orderSummary?.items?.length
       ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)}`).join("\n")
       : lines.map(({ item, line }) => {
-          if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
+          if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)}`;
           const name = line.variant ? `${line.product.name} (${line.variant.label})` : line.product.name;
-          return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
+          return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)}`;
         }).join("\n");
 
     const message = [
