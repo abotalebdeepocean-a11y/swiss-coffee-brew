@@ -21,7 +21,7 @@
 ### 1️⃣ **API Keys الآن في `.env`** ✅
 ```typescript
 // قبل (خطير):
-"x-api-key": "fb_email_2crN1hqIArZP2bEfvjp5Qik4"  // مكشوف!
+"x-api-key": "[REDACTED — REVOKE AND ROTATE]"  // مكشوف!
 
 // بعد (آمن):
 const apiKey = import.meta.env.VITE_FREEBUFF_API_KEY;
@@ -298,7 +298,7 @@ const t = useCallback(
 ### Before Going Live:
 
 - [ ] **API Keys Setup:**
-  - [ ] Revoke old FreeBuff key `fb_email_2crN1hqIArZP2bEfvjp5Qik4`
+  - [ ] Revoke old FreeBuff key `[REDACTED — REVOKE AND ROTATE]`
   - [ ] Create new FreeBuff API key
   - [ ] Add to `.env` (not committed)
 
