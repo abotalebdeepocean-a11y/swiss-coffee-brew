@@ -9,11 +9,11 @@ update public.products set name = 'GOLD 21' where id = 'gold-21';
 update public.products set name = 'جواد 24' where id = 'gold-24';
 
 -- Provisional preview prices (EGP, 1 kg only). Replace before commercial launch.
-update public.products set name = 'BAR INTENSO', price_250 = null, price_500 = null, price_1000 = 750, active = true where id = 'bar-intenso';
-update public.products set name = 'PREMIUM', price_250 = null, price_500 = null, price_1000 = 850, active = true where id = 'premium';
-update public.products set name = 'جواد 18', price_250 = null, price_500 = null, price_1000 = 550, active = true where id = 'gold-18';
-update public.products set name = 'GOLD 21', price_250 = null, price_500 = null, price_1000 = 650, active = true where id = 'gold-21';
-update public.products set name = 'جواد 24', price_250 = null, price_500 = null, price_1000 = 750, active = true where id = 'gold-24';
+update public.products set name = 'BAR INTENSO', price_250 = 210, price_500 = 390, price_1000 = 750, active = true where id = 'bar-intenso';
+update public.products set name = 'PREMIUM', price_250 = 240, price_500 = 440, price_1000 = 850, active = true where id = 'premium';
+update public.products set name = 'جواد 18', price_250 = 155, price_500 = 290, price_1000 = 550, active = true where id = 'gold-18';
+update public.products set name = 'GOLD 21', price_250 = 180, price_500 = 340, price_1000 = 650, active = true where id = 'gold-21';
+update public.products set name = 'جواد 24', price_250 = 205, price_500 = 390, price_1000 = 750, active = true where id = 'gold-24';
 insert into public.site_settings (key, value) values ('shipping_fee', '100'::jsonb)
 on conflict (key) do update set value = excluded.value;
 
