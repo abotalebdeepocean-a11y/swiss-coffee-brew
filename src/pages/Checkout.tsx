@@ -151,7 +151,7 @@ export default function Checkout() {
     }
     if (!f.governorate) e.governorate = "من فضلك اختر المحافظة";
     if (!f.city.trim()) e.city = "من فضلك اكتب المدينة / المركز";
-    if (!f.address.trim()) e.address = "من فضلك اكتب العنوان بالتفصيل";
+    if (f.address.trim().length < 5) e.address = "من فضلك اكتب العنوان بالتفصيل (5 أحرف على الأقل)";
     return e;
   };
 
