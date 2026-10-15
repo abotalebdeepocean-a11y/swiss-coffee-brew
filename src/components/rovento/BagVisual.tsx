@@ -10,6 +10,9 @@ import { CoffeeBag, type BlendVariant } from "./CoffeeBag";
 const EXTENSIONS = [".webp", ".png", ".jpg", ".svg"] as const;
 
 function candidatesFor(base: string): string[] {
+  // External Supabase URLs already include their exact filename and extension.
+  // Do not append .webp/.png to a fully qualified URL.
+  if (/^https?:\\/\\//i.test(base)) return [base];
   return EXTENSIONS.map((ext) => `${base}${ext}`);
 }
 
@@ -19,7 +22,7 @@ function candidatesFor(base: string): string[] {
  * قائمة preload محدثة دائمًا عند تغيير امتدادات الملفات.)
  */
 export function bestKnownCandidate(base: string): string {
-  return `${base}${EXTENSIONS[0]}`;
+  return /^https?:\\/\\//i.test(base) ? base : `${base}${EXTENSIONS[0]}`;
 }
 
 /**
