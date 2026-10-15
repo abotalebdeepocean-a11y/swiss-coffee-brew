@@ -83,7 +83,11 @@ const EMPTY_FORM: ShippingForm = {
 };
 
 /** تنقية رقم الهاتف من الأقواس/الشرطات/المسافات قبل التحقق */
-const cleanPhone = (phone: string) => phone.replace(/[\s\-()]/g, "");
+const cleanPhone = (phone: string) =>
+  phone
+    .replace(/[\s\-()]/g, "")
+    .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0));
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -138,7 +142,7 @@ export default function Checkout() {
   /* ─── Validation ─── */
   const validate = (f: ShippingForm): FieldErrors => {
     const e: FieldErrors = {};
-    if (!f.name.trim()) e.name = "من فضلك اكتب اسمك الكامل";
+    if (f.name.trim().length < 2) e.name = "من فضلك اكتب الاسم (حرفين على الأقل)";
     const phone = cleanPhone(f.phone);
     if (!phone) {
       e.phone = "من فضلك اكتب رقم الهاتف";
@@ -147,7 +151,7 @@ export default function Checkout() {
     }
     if (!f.governorate) e.governorate = "من فضلك اختر المحافظة";
     if (!f.city.trim()) e.city = "من فضلك اكتب المدينة / المركز";
-    if (!f.address.trim()) e.address = "من فضلك اكتب العنوان بالتفصيل";
+    if (f.address.trim().length < 5) e.address = "من فضلك اكتب العنوان بالتفصيل (5 أحرف على الأقل)";
     return e;
   };
 
@@ -204,11 +208,11 @@ export default function Checkout() {
   const whatsappUrl = useMemo(() => {
     if (!orderNumber) return "#";
     const itemLines = orderSummary?.items?.length
-      ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)} ج.م`).join("\n")
+      ? orderSummary.items.map((item) => `- ${item.qty}x ${item.product_name} (${item.size} جم) — ${formatPrice(item.unit_price * item.qty)}`).join("\n")
       : lines.map(({ item, line }) => {
-          if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)} ج.م`;
+          if (line.custom) return `- ${item.qty}x ${line.spec.label} — ${formatPrice(line.price * item.qty)}`;
           const name = line.variant ? `${line.product.name} (${line.variant.label})` : line.product.name;
-          return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)} ج.م`;
+          return `- ${item.qty}x ${name} — ${formatPrice(line.price * item.qty)}`;
         }).join("\n");
 
     const message = [
