@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDownLeft, ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowDownLeft, Sparkles } from "lucide-react";
 import { ROVENTO_ASSETS, ROVENTO_ASSET_URLS } from "@/lib/rovento-assets";
 
 const LOGO_FILE = "ROVENTO_logo_from_coffee_powder_2K_20260919064334_1.jpeg";
