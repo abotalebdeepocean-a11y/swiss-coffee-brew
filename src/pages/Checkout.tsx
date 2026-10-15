@@ -85,7 +85,7 @@ const EMPTY_FORM: ShippingForm = {
 /** تنقية رقم الهاتف من الأقواس/الشرطات/المسافات قبل التحقق */
 const cleanPhone = (phone: string) =>
   phone
-    .replace(/[\\s\\-()]/g, "")
+    .replace(/[\s\-()]/g, "")
     .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
     .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0));
 
