@@ -412,6 +412,51 @@
     });
   }
 
+  /* بانر ٠: مراحل القهوة التفاعلية */
+  (function () {
+    var tabs = $("#b0Tabs"), lead = $("#b0Lead"), vis = $("#b0Vis"), ctl = $("#b0Ctl");
+    if (!tabs) return;
+    var ST = [
+      { k: "roast", t: "التحميص", lead: "بنحمّص فريش، مش من مخزون قديم. حرّك الشريط وشوف درجة التحميص بتتغير إزاي." },
+      { k: "grind", t: "الطحن", lead: "الطحن يومي، عشان الرائحة تفضل حية لحد ما توصلك. حرّك الشريط وقارن النعومة." },
+      { k: "pack", t: "التعبئة", lead: "بنقفلها في كيسها الكرافت بملصقات واضحة: النوع والتحميص على كل عبوة." },
+      { k: "ship", t: "التوصيل", lead: "من تأكيد الطلب لحد باب بيتك خلال ٤٨ إلى ٧٢ ساعة، وتدفع عند الاستلام." }
+    ], cur = "roast";
+    function mix(a, b, t) { return Math.round(a + (b - a) * t); }
+    function roastColor(v) { var t = v / 100; return "rgb(" + mix(196, 44, t) + "," + mix(138, 24, t) + "," + mix(72, 14, t) + ")"; }
+    function bean(c) { return '<svg viewBox="0 0 60 80" class="bean"><ellipse cx="30" cy="40" rx="24" ry="34" fill="' + c + '"/><path d="M30 8c-10 20 10 44 0 64" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="3" stroke-linecap="round"/></svg>'; }
+    function draw(k, v) {
+      if (k === "roast") {
+        var c = roastColor(v), lbl = v < 34 ? "LIGHT" : v < 67 ? "MEDIUM" : "DARK";
+        vis.innerHTML = '<div class="beans">' + [0, 1, 2, 3, 4].map(function () { return bean(c); }).join("") + "</div><strong class=\"big\">" + lbl + "</strong>";
+      } else if (k === "grind") {
+        var size = 4 + Math.round(v / 100 * 12), n = Math.min(900, Math.round(17000 / (size * size))), lab = v < 34 ? "ناعم زي البودرة" : v < 67 ? "متوسط" : "خشن";
+        var d = ""; for (var i = 0; i < n; i++) d += '<i style="width:' + size + "px;height:" + size + "px;opacity:" + (0.55 + ((i * 37) % 45) / 100) + '"></i>';
+        vis.innerHTML = '<div class="grains">' + d + "</div><strong class=\"big\">" + lab + "</strong>";
+      }
+    }
+    function set(k) {
+      cur = k;
+      $$(".pick", tabs).forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-k") === k)); });
+      var st = ST.filter(function (x) { return x.k === k; })[0]; lead.textContent = st.lead;
+      if (k === "roast" || k === "grind") {
+        var init = k === "roast" ? 50 : 15;
+        ctl.innerHTML = '<label>' + (k === "roast" ? "درجة التحميص" : "درجة الطحن") + '<input type="range" min="0" max="100" value="' + init + '" id="b0Range"></label>';
+        draw(k, init);
+        $("#b0Range").addEventListener("input", function (e) { draw(k, +e.target.value); });
+      } else if (k === "pack") {
+        ctl.innerHTML = ""; vis.innerHTML = '<img class="photo pack-img" src="assets/img/gold-24-sticker-label.webp" alt="" width="400" height="400" loading="lazy"><strong class="big">النوع • التحميص • التليفون</strong>';
+      } else {
+        ctl.innerHTML = ""; vis.innerHTML = '<div class="ship-big"><span>٤٨–٧٢</span><small>ساعة</small></div><strong class="big">لحد باب البيت</strong>';
+      }
+      vis.parentNode.classList.remove("flip"); void vis.offsetWidth; vis.parentNode.classList.add("flip");
+    }
+    tabs.innerHTML = ST.map(function (x) { return '<button type="button" class="pick" data-k="' + x.k + '">' + x.t + "</button>"; }).join("");
+    tabs.addEventListener("click", function (e) { var b = e.target.closest(".pick"); if (b) set(b.getAttribute("data-k")); });
+    set("roast");
+    $("#b0").addEventListener("pointerdown", function () { window.__b0hold = true; });
+  })();
+
   /* ---------- slider ---------- */
   var slides = $$(".slide"), dotsBox = $("#dots"), cur = 0, timer = null;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -426,14 +471,14 @@
   var bar = $("#progressBar"), hero0 = $(".hero");
   function resetBar() { if (!bar) return; bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; hero0.classList.remove("is-paused"); }
   function go(i) {
-    cur = (i + slides.length) % slides.length; resetBar();
+    cur = (i + slides.length) % slides.length; resetBar(); if (cur !== 0) window.__b0hold = false;
     slides.forEach(function (s, k) {
       var on = k === cur; s.classList.toggle("is-active", on); s.setAttribute("aria-hidden", String(!on));
       if ("inert" in s) s.inert = !on;
     });
     dots.forEach(function (d, k) { d.setAttribute("aria-selected", String(k === cur)); });
   }
-  function start() { if (reduce || timer) return; resetBar(); timer = setInterval(function () { go(cur + 1); }, 5500); }
+  function start() { if (reduce || timer || (window.__b0hold && cur === 0)) return; resetBar(); timer = setInterval(function () { go(cur + 1); }, 5500); }
   function stop() { clearInterval(timer); timer = null; hero0.classList.add("is-paused"); }
   function restart() { stop(); start(); }
   $("#nextSlide").addEventListener("click", function () { go(cur + 1); restart(); });
