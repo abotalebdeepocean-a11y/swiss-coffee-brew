@@ -1,6 +1,6 @@
 # ROVENTO — موقع الهوية الجديدة (v2)
 
-صفحة واحدة بالعربي (RTL) من غير أي مكتبات أو خطوات بناء. افتح `index.html` مباشرة أو ارفع المجلد كله على أي استضافة ثابتة (GitHub Pages / Netlify / Cloudflare Pages).
+صفحة واحدة بالعربي (RTL) من غير أي مكتبات أو خطوات بناء. افتح `index.html` مباشرة أو ارفع المجلد كله على استضافة ثابتة مثل Vercel أو Netlify أو Cloudflare Pages. إعداد Vercel موجود في `vercel.json` ولا يحتاج Vite أو أمر build.
 
 ## الهيكل
 ```
@@ -42,4 +42,5 @@ assets/img/
 - كل طلب بيتسجل في Supabase (جدول `orders`) ويظهر رقم الطلب في رسالة الواتساب. لو Supabase مش متاح، الطلب بيكمل على الواتساب عادي.
 - تفاصيل التفعيل (Google OAuth) في `supabase/README.md`.
 
-- معاينة الفرع: https://rovento-v2--rovento.netlify.app
+- إعداد Vercel: الفرع `rovento-v2`، Framework = Other/No Framework، Build Command فارغ، Output Directory = `.`. ملف `vercel.json` يحدد هذه الإعدادات للموقع الثابت.
+- بيانات النطاق المقصود في بيانات المشاركة وإعدادات الموقع: `https://rovento.site`؛ لا تربط النطاق إلا بعد نجاح المعاينة والتحقق من الصور والطلبات.
