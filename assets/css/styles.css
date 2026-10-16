@@ -449,3 +449,112 @@ details p { color: var(--muted); padding-bottom: 14px; margin: 0; }
 @media (prefers-reduced-motion: reduce) { .detail-card.flip .detail-vis { animation: none; } }
 .slider-ui .dots, #dots { background: rgba(246,239,225,.85); padding: 4px 8px; border-radius: 999px; }
 .grains { gap: 2px; }
+
+
+/* ---------- Espresso blend profiles: BAR INTENSO + PREMIUM ---------- */
+.espresso-profiles {
+  background: #24180f;
+  color: #f6efe1;
+  border-block: 1px solid rgba(201,162,79,.22);
+}
+.espresso-profiles h2 { color: #f6efe1; }
+.espresso-profiles .sub { color: #c6b69d; }
+.blend-profile-grid { display: grid; gap: 24px; align-items: stretch; }
+.blend-profile {
+  overflow: hidden;
+  border: 1px solid rgba(201,162,79,.22);
+  border-radius: 24px;
+  background: linear-gradient(155deg, rgba(255,255,255,.045), rgba(0,0,0,.18));
+  box-shadow: 0 18px 50px rgba(0,0,0,.16);
+}
+.blend-profile-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  padding: 22px;
+  background: radial-gradient(ellipse at center, rgba(201,162,79,.15), transparent 68%), #1b130d;
+}
+.blend-profile-image img {
+  width: min(100%, 340px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 28px rgba(0,0,0,.45));
+}
+.blend-profile-intenso .blend-profile-image { background-color: #101b2a; }
+.blend-profile-premium .blend-profile-image { background-color: #10271f; }
+.blend-profile-index {
+  position: absolute;
+  top: 16px;
+  inset-inline-start: 18px;
+  font-family: var(--font-latin);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: rgba(224,189,114,.35);
+}
+.blend-profile-content { padding: 22px; }
+.blend-profile-kicker {
+  margin: 0 0 5px;
+  color: #d8b55f;
+  font-family: var(--font-latin);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  overflow-wrap: anywhere;
+}
+.blend-profile-content h3 {
+  margin: 0 0 6px;
+  color: #f6efe1;
+  font-size: 1.8rem;
+  letter-spacing: .03em;
+}
+.blend-profile-tag { margin: 0 0 14px; color: #e0bd72; font-weight: 800; }
+.blend-profile-story { color: #d1c4ad; line-height: 1.95; font-size: .95rem; }
+.blend-profile-content h4 {
+  margin: 22px 0 10px;
+  color: #f6efe1;
+  font-size: .98rem;
+  font-weight: 800;
+}
+.blend-profile-content h4 small { color: #b9a88c; font-size: .72rem; font-weight: 600; }
+.blend-spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.blend-spec-grid > div {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  background: rgba(0,0,0,.13);
+}
+.blend-spec-grid span { display: block; color: #b9a88c; font-size: .75rem; margin-bottom: 4px; }
+.blend-spec-grid strong { display: block; color: #f6efe1; font-size: .82rem; line-height: 1.6; }
+.flavor-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.flavor-chips span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 11px;
+  border: 1px solid rgba(201,162,79,.3);
+  border-radius: 999px;
+  background: rgba(201,162,79,.08);
+  color: #e8d7b4;
+  font-size: .78rem;
+  font-weight: 700;
+}
+.flavor-metrics { display: grid; gap: 10px; }
+.flavor-metrics > div { display: grid; grid-template-columns: 96px minmax(40px,1fr) 42px; gap: 9px; align-items: center; }
+.flavor-metrics > div > span { color: #d1c4ad; font-size: .8rem; }
+.flavor-metrics i { display: block; height: 7px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.09); }
+.flavor-metrics i b { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#98732b,#c9a84c,#e0c872); }
+.flavor-metrics strong { color: #e0bd72; font-size: .75rem; text-align: left; direction: ltr; white-space: nowrap; }
+.blend-brewing { color: #d1c4ad; line-height: 1.9; margin-bottom: 0; }
+.profile-note { margin: 18px 0 0; color: #a99a82; font-size: .78rem; line-height: 1.8; }
+@media (min-width: 760px) {
+  .blend-profile-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 28px; }
+  .blend-profile-image { min-height: 340px; }
+  .blend-profile-content { padding: 26px; }
+}
+@media (max-width: 380px) {
+  .blend-profile-content { padding: 16px; }
+  .blend-spec-grid { grid-template-columns: 1fr; }
+  .flavor-metrics > div { grid-template-columns: 82px minmax(35px,1fr) 40px; gap: 6px; }
+}
