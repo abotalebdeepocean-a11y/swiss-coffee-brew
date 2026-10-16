@@ -173,6 +173,10 @@ export default function Checkout() {
       setSubmissionError("الخلطات المخصصة غير متاحة للطلب الإلكتروني حاليًا؛ اختار منتجًا معتمدًا من الكتالوج.");
       return;
     }
+    if (!isSupabaseConfigured) {
+      setSubmissionError("الطلب الإلكتروني متوقف في النسخة التجريبية لحماية قاعدة بيانات الموقع الحي. لن يتم حفظ أي طلب قبل ربط قاعدة بيانات تجريبية مستقلة.");
+      return;
+    }
     setIsSubmitting(true);
     try {
       const rpcItems = lines.map(({ item, line }) => {
