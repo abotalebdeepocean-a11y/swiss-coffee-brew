@@ -22,7 +22,7 @@ function candidatesFor(base: string): string[] {
  * قائمة preload محدثة دائمًا عند تغيير امتدادات الملفات.)
  */
 export function bestKnownCandidate(base: string): string {
-  return /^https?:\\/\\//i.test(base) ? base : `${base}${EXTENSIONS[0]}`;
+  return /^https?:\/\//i.test(base) ? base : `${base}${EXTENSIONS[0]}`;
 }
 
 /**
