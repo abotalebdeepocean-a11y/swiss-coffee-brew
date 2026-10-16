@@ -10,6 +10,9 @@ const photoItems = ROVENTO_ASSETS
 
 const slideIndexes = [0, 6, 13];
 const slides = slideIndexes.map((index) => photoItems[index]).filter(Boolean);
+const sideItems = slideIndexes
+  .map((index) => photoItems[index])
+  .filter(Boolean);
 
 export function RoventoVisualStory() {
   const [active, setActive] = useState(0);
@@ -87,7 +90,7 @@ export function RoventoVisualStory() {
           </div>
 
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
-            {photoItems.slice(1, 5).map((item, index) => (
+            {sideItems.map((item, index) => (
               <motion.button
                 key={item.filename}
                 type="button"
