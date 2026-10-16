@@ -409,3 +409,25 @@ details p { color: var(--muted); padding-bottom: 14px; margin: 0; }
 .acct-menu p { margin: 0; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
 .acct-menu button { min-height: 44px; border-radius: 10px; border: 1.5px solid var(--line); background: transparent; color: var(--text); font: inherit; font-weight: 700; }
 @media (max-width: 520px) { .acct-btn { padding: 0 12px; font-size: .8rem; } .brand-word { font-size: 1rem; } }
+
+/* ---------- تحديث: بانرات ورسائل ---------- */
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 12px 0 4px; }
+.chips li { font-size: .8rem; font-weight: 800; padding: 4px 12px; border-radius: 999px; border: 1.5px solid var(--gold); color: #6b4a14; background: rgba(201,162,79,.16); }
+.progress { position: absolute; inset-inline: 0; bottom: 0; height: 4px; background: rgba(59,36,20,.12); z-index: 6; }
+.progress i { display: block; height: 100%; width: 0; background: var(--gold); animation: prog 5.5s linear forwards; }
+.hero.is-paused .progress i { animation-play-state: paused; }
+@keyframes prog { to { width: 100%; } }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 10px; }
+.tab-card { min-height: 112px; max-width: 460px; background: rgba(255,255,255,.5); border: 1.5px solid rgba(59,36,20,.22); border-radius: 18px; padding: 16px 18px; margin-bottom: 14px; display: grid; gap: 4px; color: #2a1a0e; }
+.tab-card strong { font-size: 1.25rem; }
+.tab-card span { color: #5a4630; }
+.tab-card.flip { animation: rise .45s ease both; }
+.card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.card-actions .btn { padding-inline: 10px; min-height: 48px; font-size: .92rem; }
+.card .btn-outline { color: var(--text); border-color: var(--line); }
+.more-row { grid-column: 1 / -1; display: flex; justify-content: center; margin-top: 6px; }
+.more-row .btn { color: var(--text); }
+.nudge { margin: 0; padding: 8px 12px; border-radius: 10px; background: rgba(201,162,79,.18); color: var(--text); font-weight: 700; font-size: .85rem; text-align: center; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chips li { color: #e0bd72; } }
+:root[data-theme="dark"] .chips li { color: #e0bd72; }
+@media (prefers-reduced-motion: reduce) { .progress { display: none; } .tab-card.flip { animation: none; } }

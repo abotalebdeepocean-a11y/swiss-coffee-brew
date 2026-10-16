@@ -47,17 +47,18 @@
 
 <main>
 
-<!-- ============ Hero Slider (3 بانرات تفاعلية) ============ -->
+<!-- ============ Hero Slider (4 بانرات تفاعلية) ============ -->
 <section class="hero" aria-roledescription="carousel" aria-label="عروض روفينتو">
   <div class="slides" id="slides">
 
-    <!-- بانر ١: الحجم -->
-    <article class="slide theme-kraft is-active" id="b1" aria-roledescription="slide" aria-label="1 من 3">
+    <!-- بانر ١: فريش + الحجم -->
+    <article class="slide theme-kraft is-active" id="b1" aria-roledescription="slide" aria-label="1 من 4">
       <div class="wrap slide-grid">
         <div class="slide-text">
           <p class="eyebrow">GOLD 21 — تحميص متوسط</p>
-          <h1>اختار حجمك<br>وشوف العبوة بتكبر</h1>
-          <p class="lead">قهوة تركي مطحونة متوازنة. من ٢٥٠ جم للتجربة لحد ١ كجم للبيت كله.</p>
+          <h1>قهوتك فريش<br>مش مخزّنة</h1>
+          <p class="lead">تحميص فريش وطحن يومي، عشان أول رشفة تفرق. اختار حجمك واطلب.</p>
+          <ul class="chips" aria-label="مميزات"><li>تحميص فريش</li><li>طحن يومي</li><li>دفع عند الاستلام</li></ul>
           <div class="sizes hero-sizes" role="group" aria-label="اختيار الحجم" id="b1Sizes"></div>
           <div class="hero-price"><span id="b1Price"></span></div>
           <div class="hero-actions">
@@ -74,12 +75,12 @@
       </div>
     </article>
 
-    <!-- بانر ٢: خط GOLD -->
-    <article class="slide theme-ivory" id="b2" aria-roledescription="slide" aria-label="2 من 3">
+    <!-- بانر ٢: درجات GOLD -->
+    <article class="slide theme-ivory" id="b2" aria-roledescription="slide" aria-label="2 من 4">
       <div class="wrap slide-grid">
         <div class="slide-text">
           <p class="eyebrow">خط GOLD — قهوة تركي</p>
-          <h2>اختار درجتك<br>والتحميص يتكلم</h2>
+          <h2>ثلاث درجات<br>اختار اللي يشبه ذوقك</h2>
           <div class="picks" role="group" aria-label="اختيار درجة GOLD" id="b2Picks"></div>
           <div class="meter" id="b2Meter" aria-hidden="true"><i>LIGHT</i><i>MEDIUM</i><i>DARK</i></div>
           <p class="pick-note" id="b2Note" aria-live="polite"></p>
@@ -98,11 +99,11 @@
     </article>
 
     <!-- بانر ٣: الإسبريسو -->
-    <article class="slide theme-dark" id="b3" aria-roledescription="slide" aria-label="3 من 3">
+    <article class="slide theme-dark" id="b3" aria-roledescription="slide" aria-label="3 من 4">
       <div class="wrap slide-grid">
         <div class="slide-text">
           <p class="eyebrow">إسبريسو — حبوب كاملة</p>
-          <h2>خلطتين<br>لعشاق الإسبريسو</h2>
+          <h2>خلطتين بشخصية<br>لعشاق الإسبريسو</h2>
           <div class="picks" role="group" aria-label="اختيار خلطة الإسبريسو" id="b3Picks"></div>
           <p class="pick-note" id="b3Note" aria-live="polite"></p>
           <div class="hero-price"><span id="b3Price"></span></div>
@@ -119,6 +120,31 @@
       </div>
     </article>
 
+    <!-- بانر ٤: اطلب وإنت مطمّن -->
+    <article class="slide theme-kraft" id="b4" aria-roledescription="slide" aria-label="4 من 4">
+      <div class="wrap slide-grid">
+        <div class="slide-text">
+          <p class="eyebrow">اطلب وإنت مطمّن</p>
+          <h2>تستلم وتدفع<br>وإنت مرتاح</h2>
+          <div class="tabs" role="tablist" aria-label="تفاصيل الطلب" id="b4Tabs">
+            <button class="pick" type="button" role="tab" data-tab="pay" aria-pressed="true">الدفع</button>
+            <button class="pick" type="button" role="tab" data-tab="ship" aria-pressed="false">التوصيل</button>
+            <button class="pick" type="button" role="tab" data-tab="ret" aria-pressed="false">الاسترجاع</button>
+          </div>
+          <div class="tab-card" id="b4Card" aria-live="polite"></div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">اختار قهوتك</a>
+            <button class="btn btn-outline" type="button" data-open-cart>السلة</button>
+          </div>
+        </div>
+        <div class="slide-media trio">
+          <img class="photo" src="assets/img/gold-18-bag.webp" alt="GOLD 18" width="1000" height="1000" loading="lazy">
+          <img class="photo" src="assets/img/gold-21-bag.webp" alt="GOLD 21" width="1000" height="1000" loading="lazy">
+          <img class="photo" src="assets/img/gold-24-bag.webp" alt="GOLD 24" width="1000" height="1000" loading="lazy">
+        </div>
+      </div>
+    </article>
+
   </div>
 
   <div class="slider-ui">
@@ -126,6 +152,7 @@
     <div class="dots" id="dots" role="tablist" aria-label="اختيار البانر"></div>
     <button class="arrow" id="nextSlide" aria-label="البانر التالي"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m15 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
+  <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
 </section>
 
 <!-- ============ Trust bar ============ -->
@@ -206,11 +233,13 @@
       <p class="eyebrow">أسئلة شائعة</p>
       <h2>اللي بيسألوا عنه</h2>
     </header>
-    <details><summary>إزاي أطلب؟</summary><p>أضف المنتجات للسلة، املا بيانات الشحن (الاسم والموبايل والمحافظة والعنوان)، واضغط «أكمل الطلب على الواتساب». هتوصلنا رسالة جاهزة بتفاصيل طلبك ونأكد معاك.</p></details>
+    <details><summary>إزاي أطلب؟</summary><p>اضغط «اطلب بالواتساب» على أي منتج لرسالة جاهزة، أو أضف أكتر من منتج للسلة واملا بيانات الشحن (الاسم والموبايل والمحافظة والعنوان) واضغط «أكمل الطلب على الواتساب». الدفع عند الاستلام. هتوصلنا رسالة جاهزة بتفاصيل طلبك ونأكد معاك.</p></details>
     <details><summary>إيه الفرق بين GOLD 18 وGOLD 21 وGOLD 24؟</summary><p>الفرق في درجة التحميص والشخصية: 18 خفيفة، 21 متوسطة ومتوازنة، 24 أغمق وأغنى. كلهم قهوة تركي مطحونة.</p></details>
     <details><summary>المنتجات مطحونة ولا حبوب؟</summary><p>خط GOLD قهوة تركي مطحونة. PREMIUM وBAR INTENSO خلطات إسبريسو حبوب كاملة.</p></details>
     <details><summary>الأحجام المتاحة؟</summary><p>٢٥٠ جم، ٥٠٠ جم، و١ كجم لكل المنتجات.</p></details>
-    <details><summary>الشحن والدفع؟</summary><p>الشحن <span data-shipping-text></span> لكل الطلبات. بنأكد معاك الدفع وموعد التسليم على الواتساب.</p></details>
+    <details><summary>الدفع والتوصيل؟</summary><p>الدفع عند الاستلام متاح. التوصيل خلال ٤٨ إلى ٧٢ ساعة من تأكيد الطلب. الشحن <span data-shipping-text></span>.</p></details>
+    <details><summary>القهوة فريش ولا مخزّنة؟</summary><p>التحميص فريش والطحن يومي، فمفيش قهوة قديمة مخزّنة.</p></details>
+    <details><summary>إمتى أقدر أسترجع؟</summary><p>بنسترجع في حالة عيب في التغليف، أو انتهاء مدة الصلاحية، أو عدم مطابقة المواصفات.</p></details>
   </div>
 </section>
 
@@ -264,6 +293,7 @@
   </div>
   <div class="drawer-body" id="cartBody"></div>
   <form class="drawer-foot" id="cartFoot" novalidate>
+    <p class="nudge" id="shipNudge" hidden></p>
     <div class="sum">
       <div><span>المنتجات</span><b id="cartSub">٠ جنيه</b></div>
       <div><span>الشحن</span><b id="cartShip">٠ جنيه</b></div>
@@ -277,7 +307,7 @@
     <label class="field"><span>ملاحظات (اختياري)</span><input id="custNotes" name="notes" type="text" placeholder="أي ملاحظة على الطلب"></label>
     <button class="btn btn-primary block" id="sendOrder" type="submit">أكمل الطلب على الواتساب</button>
     <div class="sent" id="sentBox" hidden><p>اتفتح الواتساب برسالة طلبك. لو ماتفتحش تلقائيًا:</p><a class="btn btn-outline block" id="waFallback" href="#" target="_blank" rel="noopener">افتح الواتساب</a><button class="rm" type="button" id="clearCart">فضّي السلة بعد الإرسال</button></div>
-    <p class="note">الشحن <span data-shipping-text></span> لكل الطلبات. الدفع والتأكيد النهائي على الواتساب.</p>
+    <p class="note">الشحن <span data-shipping-text></span>. الدفع عند الاستلام، والتأكيد النهائي على الواتساب.</p>
   </form>
 </aside>
 

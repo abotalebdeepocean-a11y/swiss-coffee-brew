@@ -3,6 +3,9 @@
   "use strict";
   var CFG = window.ROVENTO_CONFIG;
 
+  var ORDER = ["gold-21", "gold-24", "gold-18", "premium", "bar-intenso"];
+  CFG.products.sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
+
   /* الأسعار الفعلية من Supabase (جدول products) هي المرجع. لو مش متاحة نكمل بأسعار config.js */
   function applyDbPrices(rows) {
     (rows || []).forEach(function (r) {
@@ -50,6 +53,7 @@
     chat: '<path d="M4 5h16v11H9l-5 4z"/>',
     bean: '<path d="M12 3c4 0 7 3.5 7 8s-3 10-7 10-7-5.5-7-10 3-8 7-8Z"/><path d="M12 5c-2 4 2 6 0 14"/>',
     label: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h4"/>',
+    return: '<path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/>',
     cash: '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>'
   };
   $("#trustGrid").innerHTML = CFG.trustItems.map(function (t) {
@@ -59,11 +63,16 @@
 
   /* ---------- shipping ---------- */
   var FEE = Number(CFG.shippingFee) || 0;
-  function shippingFor(sub) { return CFG.freeShippingThreshold && sub >= CFG.freeShippingThreshold ? 0 : FEE; }
-  $$("[data-shipping-text]").forEach(function (el) { el.textContent = FEE ? "ثابت " + money(FEE) : "مجاني"; });
+  var RFEE = CFG.reducedShippingFee != null ? Number(CFG.reducedShippingFee) : null, RTH = Number(CFG.reducedShippingThreshold) || 0;
+  function shippingFor(sub) {
+    if (CFG.freeShippingThreshold && sub >= CFG.freeShippingThreshold) return 0;
+    if (RFEE !== null && RTH && sub > RTH) return RFEE;
+    return FEE;
+  }
+  $$("[data-shipping-text]").forEach(function (el) { el.textContent = FEE ? money(FEE) + (RFEE !== null && RTH ? "، و" + money(RFEE) + " للطلبات أكتر من " + money(RTH) : "") : "مجاني"; });
 
   /* ---------- products ---------- */
-  var state = { filter: "all", sel: {} };
+  var state = { filter: "all", sel: {}, more: false };
   CFG.products.forEach(function (p) { state.sel[p.id] = 250; });
 
   function roastHtml(p) {
@@ -78,6 +87,8 @@
   }
   function renderProducts() {
     var list = CFG.products.filter(function (p) { return state.filter === "all" || p.line === state.filter; });
+    var hidden = 0;
+    if (state.filter === "all" && !state.more && list.length > 2) { hidden = list.length - 2; list = list.slice(0, 2); }
     $("#productGrid").innerHTML = list.map(function (p) {
       return '<article class="card reveal" data-id="' + p.id + '">' +
         '<div class="card-media"><img src="' + p.img + '" alt="عبوة ' + p.name + '" width="1000" height="1000" loading="lazy">' +
@@ -92,9 +103,10 @@
           return '<button class="size" type="button" data-size="' + s + '" aria-pressed="' + (state.sel[p.id] === s) + '">' + sizeLabel(s) + "</button>";
         }).join("") + "</div>" +
         '<div class="price-row" data-price>' + priceHtml(p) + "</div>" +
-        '<button class="btn btn-primary add" type="button" data-add>أضف للسلة</button>' +
+        '<div class="card-actions"><button class="btn btn-primary add" type="button" data-add>أضف للسلة</button>' +
+        '<button class="btn btn-outline" type="button" data-quick>اطلب بالواتساب</button></div>' +
         "</div></article>";
-    }).join("");
+    }).join("") + (hidden ? '<div class="more-row"><button class="btn btn-outline" type="button" id="showMore">شوف باقي المجموعة (' + num(hidden) + ")</button></div>" : "");
     observeReveal();
   }
   $("#productGrid").addEventListener("click", function (e) {
@@ -107,10 +119,21 @@
       $("[data-price]", card).innerHTML = priceHtml(p);
       return;
     }
+    if (e.target.closest("[data-quick]")) {
+      var qs = state.sel[p.id], qmsg = "مرحبًا روفينتو، عايز أطلب " + p.name + " (" + sizeLabel(qs) + ") بـ " + money(p.prices[qs]) + "\nالدفع عند الاستلام";
+      var ql = waLink(qmsg);
+      if (!ql) { toast("رقم الواتساب لسه متضافش"); return; }
+      var qw = null; try { qw = window.open(ql, "_blank"); if (qw) qw.opener = null; } catch (x) { qw = null; }
+      if (!qw) window.location.href = ql;
+      return;
+    }
     if (e.target.closest("[data-add]")) {
       addToCart(p.id, state.sel[p.id]);
       toast("اتضاف للسلة: " + p.name + " — " + sizeLabel(state.sel[p.id]));
     }
+  });
+  $("#productGrid").addEventListener("click", function (e) {
+    if (e.target.closest("#showMore")) { state.more = true; renderProducts(); }
   });
   function setFilter(f) {
     state.filter = f;
@@ -160,6 +183,11 @@
     $("#cartSub").textContent = money(sub);
     $("#cartShip").textContent = ship ? money(ship) : "مجاني";
     $("#cartTotal").textContent = money(sub + ship);
+    var nudge = $("#shipNudge");
+    if (RFEE !== null && RTH) {
+      nudge.hidden = false;
+      nudge.textContent = sub > RTH ? "تم تفعيل الشحن المخفض: " + money(RFEE) : "أضف " + money(RTH - sub + 1) + " كمان ويبقى الشحن " + money(RFEE);
+    } else nudge.hidden = true;
   }
   $("#cartBody").addEventListener("click", function (e) {
     var q = e.target.closest("[data-q]"), r = e.target.closest("[data-rm]");
@@ -277,7 +305,7 @@
       return "• " + p.name + " — " + sizeLabel(i.size) + " × " + num(i.qty) + " = " + money(p.prices[i.size] * i.qty);
     });
     var msg = "طلب جديد من موقع روفينتو" + (orderNo ? " (رقم " + num(orderNo) + ")" : "") + "\n\nالمنتجات:\n" + lines.join("\n") +
-      "\n\nثمن المنتجات: " + money(sub) + "\nالشحن: " + (ship ? money(ship) : "مجاني") + "\nالإجمالي: " + money(sub + ship) +
+      "\n\nثمن المنتجات: " + money(sub) + "\nالشحن: " + (ship ? money(ship) : "مجاني") + "\nالإجمالي: " + money(sub + ship) + "\nالدفع: عند الاستلام" +
       "\n\nبيانات الشحن:\nالاسم: " + F.name.value.trim() + "\nالموبايل: " + phone + "\nالمحافظة: " + gov.value + "\nالعنوان: " + F.addr.value.trim() +
       (F.notes.value.trim() ? "\nملاحظات: " + F.notes.value.trim() : "");
     return msg;
@@ -295,7 +323,7 @@
       var link = waLink(buildMessage(v.phone, res && res.order_no));
       $("#waFallback").href = link; $("#sentBox").hidden = false;
       var w = null;
-      try { w = window.open(link, "_blank", "noopener"); } catch (x) { w = null; }
+      try { w = window.open(link, "_blank"); if (w) w.opener = null; } catch (x) { w = null; }
       if (!w) window.location.href = link;
     });
   });
@@ -356,6 +384,22 @@
   picker("b2", ["gold-18", "gold-21", "gold-24"], true);
   picker("b3", ["premium", "bar-intenso"], false);
 
+  /* بانر ٤: الدفع / التوصيل / الاسترجاع */
+  (function () {
+    var T = {
+      pay: ["الدفع عند الاستلام", "استلم قهوتك وادفع براحتك، من غير دفع مقدم."],
+      ship: ["توصيل خلال ٤٨ إلى ٧٢ ساعة", "من تأكيد الطلب لحد باب بيتك."],
+      ret: ["استرجاع واضح", "في حالة عيب في التغليف، أو انتهاء مدة الصلاحية، أو عدم مطابقة المواصفات."]
+    }, box = $("#b4Tabs"), card = $("#b4Card");
+    function set(k) {
+      $$(".pick", box).forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-tab") === k)); });
+      card.innerHTML = "<strong>" + T[k][0] + "</strong><span>" + T[k][1] + "</span>";
+      card.classList.remove("flip"); void card.offsetWidth; card.classList.add("flip");
+    }
+    box.addEventListener("click", function (e) { var b = e.target.closest(".pick"); if (b) set(b.getAttribute("data-tab")); });
+    set("pay");
+  })();
+
   /* ميل ثلاثي الأبعاد للعبوة مع حركة الماوس/اللمس */
   if (!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
     $$("[data-tilt]").forEach(function (st) {
@@ -379,16 +423,18 @@
     dotsBox.appendChild(d);
   });
   var dots = $$(".dot");
+  var bar = $("#progressBar"), hero0 = $(".hero");
+  function resetBar() { if (!bar) return; bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; hero0.classList.remove("is-paused"); }
   function go(i) {
-    cur = (i + slides.length) % slides.length;
+    cur = (i + slides.length) % slides.length; resetBar();
     slides.forEach(function (s, k) {
       var on = k === cur; s.classList.toggle("is-active", on); s.setAttribute("aria-hidden", String(!on));
       if ("inert" in s) s.inert = !on;
     });
     dots.forEach(function (d, k) { d.setAttribute("aria-selected", String(k === cur)); });
   }
-  function start() { if (reduce || timer) return; timer = setInterval(function () { go(cur + 1); }, 5500); }
-  function stop() { clearInterval(timer); timer = null; }
+  function start() { if (reduce || timer) return; resetBar(); timer = setInterval(function () { go(cur + 1); }, 5500); }
+  function stop() { clearInterval(timer); timer = null; hero0.classList.add("is-paused"); }
   function restart() { stop(); start(); }
   $("#nextSlide").addEventListener("click", function () { go(cur + 1); restart(); });
   $("#prevSlide").addEventListener("click", function () { go(cur - 1); restart(); });
