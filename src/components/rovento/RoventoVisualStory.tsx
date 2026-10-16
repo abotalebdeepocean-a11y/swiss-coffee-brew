@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowDownLeft, Sparkles } from "lucide-react";
 import { ROVENTO_ASSETS, ROVENTO_ASSET_URLS } from "@/lib/rovento-assets";
 
@@ -16,13 +16,15 @@ const sideItems = slideIndexes
 
 export function RoventoVisualStory() {
   const [active, setActive] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion || slides.length < 2) return;
     const timer = window.setInterval(() => {
       setActive((current) => (current + 1) % slides.length);
     }, 5200);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <section className="relative overflow-hidden bg-[#080b0b] px-4 py-16 text-[#f5efe6] md:px-6 md:py-24">
@@ -48,10 +50,10 @@ export function RoventoVisualStory() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={slides[active]?.src}
-                initial={{ opacity: 0, scale: 1.035 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.035 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.9, ease: "easeOut" }}
                 className="absolute inset-0"
               >
                 <img
@@ -139,7 +141,7 @@ export function RoventoVisualStory() {
             {photoItems.map((item, index) => (
               <motion.div
                 key={item.filename}
-                initial={{ opacity: 0, y: 14 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: Math.min(index % 5, 4) * 0.04 }}
