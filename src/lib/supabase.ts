@@ -9,8 +9,15 @@ const isProductionDatabase =
 // Experimental deploy previews must never read from or write to the live database.
 // Configure VITE_APP_ENV=experimental for deploy-preview builds; add a dedicated
 // Supabase project URL/key before enabling backend features in that environment.
+const previewHostname =
+  typeof window !== "undefined" &&
+  (window.location.hostname.endsWith(".vercel.app") ||
+    window.location.hostname.endsWith(".netlify.app") ||
+    window.location.hostname.endsWith(".freebuff.page"));
+
 const isBlockedExperimentalConnection =
-  appEnvironment === "experimental" && isProductionDatabase;
+  isProductionDatabase &&
+  (appEnvironment === "experimental" || previewHostname);
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl && supabaseAnonKey && !isBlockedExperimentalConnection,
