@@ -27,7 +27,7 @@ window.ROVENTO_CONFIG = {
   facebookUrl: "",
   instagramUrl: "",
 
-  siteUrl: "https://www.rovento.site",
+  siteUrl: "https://rovento.site",
 
   /* true = بيظهر بادج "سعر تقديري" جنب الأسعار اللي لسه متأكدتش.
      خليها false قبل النشر الفعلي بعد ما تراجع كل الأسعار. */
