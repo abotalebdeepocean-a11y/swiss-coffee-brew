@@ -2,6 +2,33 @@
 (function () {
   "use strict";
   var CFG = window.ROVENTO_CONFIG;
+
+  /* الأسعار الفعلية من Supabase (جدول products) هي المرجع. لو مش متاحة نكمل بأسعار config.js */
+  function applyDbPrices(rows) {
+    (rows || []).forEach(function (r) {
+      var p = CFG.products.filter(function (x) { return x.id === r.id; })[0];
+      if (!p) return;
+      p.prices = { 250: r.price_250, 500: r.price_500, 1000: r.price_1000 };
+      p.confirmed = { 250: false, 500: false, 1000: false };
+    });
+  }
+  function prefetchPrices(done) {
+    var fired = false;
+    function fin() { if (!fired) { fired = true; done(); } }
+    try {
+      if (CFG.supabaseUrl && CFG.supabaseKey && window.supabase) {
+        var c = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+        setTimeout(fin, 1800);
+        c.from("products").select("id,price_250,price_500,price_1000").eq("active", true).then(function (r) {
+          if (r && r.data && r.data.length) applyDbPrices(r.data);
+          fin();
+        }, fin);
+        return;
+      }
+    } catch (e) { /* ignore */ }
+    fin();
+  }
+  prefetchPrices(function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -212,9 +239,9 @@
   document.addEventListener("click", function (e) { if (!e.target.closest(".acct")) acctMenu.hidden = true; });
   function saveOrder(phone) {
     if (!sb) return Promise.resolve(null);
-    var items = cart.map(function (i) { return { id: i.id, size: i.size, qty: i.qty }; });
+    var items = cart.map(function (i) { return { id: i.id, size: i.size, qty: i.qty, expected_price: byId(i.id).prices[i.size] }; });
     var call = sb.rpc("create_order", { p_name: F.name.value.trim(), p_phone: phone, p_governorate: gov.value, p_address: F.addr.value.trim(), p_notes: F.notes.value.trim(), p_items: items })
-      .then(function (r) { return r && !r.error ? r.data : null; }, function () { return null; });
+      .then(function (r) { if (r && r.error && window.console) console.warn("create_order:", r.error.message); return r && !r.error ? r.data : null; }, function () { return null; });
     if (user) sb.from("profiles").update({ phone: phone, governorate: gov.value, address: F.addr.value.trim(), updated_at: new Date().toISOString() }).eq("id", user.id).then(function () {}, function () {});
     /* لو الاتصال بطيء ما نعطلش العميل أكتر من ٣ ثواني */
     return Promise.race([call, new Promise(function (res) { setTimeout(function () { res(null); }, 3000); })]);
@@ -403,4 +430,5 @@
     sb.auth.onAuthStateChange(function (ev, session) { user = session ? session.user : null; renderAuth(); if (user) prefillFromUser(); });
   }
   renderAuth();
+  });
 })();

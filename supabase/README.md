@@ -10,3 +10,7 @@
    Authorized redirect URI: `https://osganvzmjisqsomjayyt.supabase.co/auth/v1/callback`
 2. Supabase Dashboard → Authentication → Providers → Google → فعّل وضع Client ID و Client Secret.
 3. Authentication → URL Configuration: Site URL = `https://www.rovento.site`، وأضف في Redirect URLs رابط الموقع (ورابط الاختبار لو بتجرب).
+
+## ملاحظة: الأسعار من قاعدة البيانات
+- الموقع يقرأ الأسعار من جدول `products` عند التحميل (لو مش متاح بيرجع لأسعار `config.js`)، ويرسل `expected_price` مع كل منتج لأن `create_order` بيرفض أي سعر مختلف عن السعر في القاعدة.
+- غيّر الأسعار من جدول `products` فقط.
